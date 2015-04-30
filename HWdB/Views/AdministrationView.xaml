@@ -18,11 +18,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="23"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="167"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
@@ -36,6 +32,11 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center"  Content="{Binding ButtonName}" FontSize="13" FontWeight="Bold"/>
+                <Image Name="Export"  Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,0,0,0" VerticalAlignment="Stretch"  Grid.Row="1">
+                    <Image.Source>
+                        <BitmapImage UriSource = "pack://application:,,,/HWdB;component/Images/Frm_Administration.jpg" />
+                    </Image.Source>
+                </Image>
             </Grid>
         </Viewbox>
     </Grid>

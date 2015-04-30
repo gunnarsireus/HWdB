@@ -129,9 +129,6 @@
     <Compile Include="Views\SupplyView.xaml.cs">
       <DependentUpon>SupplyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserListView.xaml.cs">
-      <DependentUpon>UserListView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVMFramework\RelayCommand.cs" />
@@ -224,12 +221,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Frm_Administration.jpg" />
+    <Resource Include="Images\Frm_Exports.jpg" />
+    <Resource Include="Images\Frm_Import.jpg" />
+    <Resource Include="Images\Frm_LTB.jpg" />
+    <Resource Include="Images\Frm_ProductGroups.jpg" />
+    <Resource Include="Images\Frm_Products.jpg" />
+    <Resource Include="Images\Frm_Regions.jpg" />
+    <Resource Include="Images\Frm_Repair.jpg" />
+    <Resource Include="Images\Frm_Strategies.jpg" />
+    <Resource Include="Images\Frm_Supply.jpg" />
     <Content Include="Libs\EntityFramework.dll" />
     <Resource Include="Libs\EntityFramework.xml" />
     <Content Include="Libs\PresentationFramework.dll" />
@@ -251,6 +254,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
