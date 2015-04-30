@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-
+﻿
 namespace HWdB.Utils
 {
     public static class AppConfig

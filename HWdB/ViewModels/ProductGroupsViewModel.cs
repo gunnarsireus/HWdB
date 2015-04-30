@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HWdB.Utils;
-namespace HWdB.ViewModels
+﻿namespace HWdB.ViewModels
 {
     class ProductGroupsViewModel:ViewModelBase
     {

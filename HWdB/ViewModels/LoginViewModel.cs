@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HWdB.DataAccess;
 using System.Windows.Input;
 using HWdB.Model;
-using System.Windows.Media;
 using HWdB.Utils;
 
 namespace HWdB.ViewModels
@@ -134,7 +131,7 @@ namespace HWdB.ViewModels
                 }
             }
             StatusMessage status = new StatusMessage();
-            string hash = PasswordEncoder.GetMd5Hash(usernamePassword.Password);
+            string hash = PasswordEncoder.GetMd5Encoding(usernamePassword.Password);
             using (var context = new DataContext())
             {
                 User stored = context.Users.Where(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash)).FirstOrDefault();

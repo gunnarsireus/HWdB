@@ -8,13 +8,13 @@ namespace HWdB.Utils
     public class PasswordEncoder
     {
         const string SALT = @"Salt-for-HWdB!";
-        public static string GetMd5Hash(string password)
+        public static string GetMd5Encoding(string password)
         {
             MD5 md5Hash = MD5.Create();
-            return CreateMd5Hash(md5Hash, password + SALT);
+            return CreateMd5Encoding(md5Hash, password + SALT);
         }
 
-        private static string CreateMd5Hash(MD5 md5Hash, string input)
+        private static string CreateMd5Encoding(MD5 md5Hash, string input)
         {
             // Convert the input string to a byte array and compute the hash. 
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
@@ -35,16 +35,16 @@ namespace HWdB.Utils
         }
 
         // Verify a hash against a string.
-        public static bool VerifyMd5Hash(string accountPassword, string dbPassword)
+        public static bool VerifyMd5Encoding(string accountPassword, string dbPassword)
         {
             MD5 md5Hash = MD5.Create();
-            return CheckMd5Hash(md5Hash, accountPassword, dbPassword);
+            return CheckMd5Encoding(md5Hash, accountPassword, dbPassword);
         }
 
-        private static bool CheckMd5Hash(MD5 md5Hash, string accountPassword, string hashPassword)
+        private static bool CheckMd5Encoding(MD5 md5Hash, string accountPassword, string hashPassword)
         {
             // Hash the accountPassword. 
-            string hashOfInput = GetMd5Hash(accountPassword);
+            string hashOfInput = GetMd5Encoding(accountPassword);
 
             // Create a StringComparer an compare the hashes.
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;

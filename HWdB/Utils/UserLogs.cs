@@ -35,7 +35,7 @@ namespace HWdB.Utils
 
         private void WriteLog(string message)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "\\log.txt";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\HWdB_UserLog.txt";
             using (var file = new System.IO.StreamWriter(path, true))
             {
                 file.WriteLine(DateTime.Now.ToLocalTime().ToString() + message);

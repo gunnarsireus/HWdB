@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using HWdB.Utils;
 using HWdB.Model;
 
 namespace HWdB.ViewModels
