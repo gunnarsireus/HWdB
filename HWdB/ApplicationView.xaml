@@ -1,0 +1,72 @@
+﻿<Window x:Class="HWdB.ApplicationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:HWdB.ViewModels"
+        xmlns:vw="clr-namespace:HWdB.Views"
+        xmlns:local="clr-namespace:HWdB"
+        Title="ApplicationView" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:LogoutViewModel}" >
+            <vw:LogoutView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}" >
+            <vw:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductsViewModel}">
+            <vw:ProductsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdministrationViewModel}">
+            <vw:AdministrationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ExportViewModel}">
+            <vw:ExportView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ImportViewModel}">
+            <vw:ImportView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductGroupsViewModel}">
+            <vw:ProductGroupsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RepairViewModel}">
+            <vw:RepairView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SupplyViewModel}">
+            <vw:SupplyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StrategyViewModel}">
+            <vw:StrategyView/>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/Resources/Resources.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+                <!-- Local styles here -->
+            </ResourceDictionary>
+        </StackPanel.Resources>
+        <ContentControl Content="{Binding CurrentPageViewModel}"  Background="{Binding BackgroundBrush}" />
+        <Border  BorderBrush="Black" BorderThickness="0,0,1,0" CornerRadius="2" >
+            <Border.Resources>
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            </Border.Resources>
+            <ItemsControl ItemsSource="{Binding PageViewModels}" Background="Blue"   Visibility="{Binding Path=UserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="9" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button  Height="20"  Content="{Binding ButtonName}" Style="{DynamicResource ButtonStyler}" 
+                                Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                CommandParameter="{Binding }"
+                                Margin="2,5"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+    </StackPanel>
+</Window>
+
