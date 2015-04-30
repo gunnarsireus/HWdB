@@ -8,7 +8,6 @@ namespace HWdB.Utils
     public class PasswordEncoder
     {
         const string SALT = @"Salt-for-HWdB!";
-
         public static string GetMd5Hash(string password)
         {
             MD5 md5Hash = MD5.Create();
