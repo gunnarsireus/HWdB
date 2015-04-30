@@ -64,7 +64,7 @@
                 <Button Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=This}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="5,10,10,10" Background="WhiteSmoke" HorizontalAlignment="Left"   FontSize="8" FontWeight="Bold" Style="{DynamicResource ButtonStyler}" >Login</Button>
                 <Button  Command="{Binding LogoutCommand}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="10,10,5,10" Background="WhiteSmoke" HorizontalAlignment="Right"  FontSize="8" FontWeight="Bold" Style="{DynamicResource ButtonStyler}">Exit HWdB</Button>
                 <Label Grid.Row="5" Grid.Column="1" Padding="0,3,0,0" Margin="0,1,10,0"  HorizontalAlignment="Right" Content="Database" FontSize="8" FontWeight="Bold"/>
-                <TextBlock Grid.Row="5" Grid.Column="2" FontSize="8" FontWeight="Bold"
+                <TextBlock Grid.Row="5" Grid.Column="2" FontSize="8" FontWeight="Bold" Width="180"
 				   Margin="4"
 				   Text="{Binding DbLocation}" />
             </Grid>
