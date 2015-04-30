@@ -11,6 +11,6 @@ EntityFramework.dll
 
 Then click on HWdB.exe.
 
-My intention is to some day complete this design but there is not timeplan for the completion.
+My intention is to some day complete this design but there is no timeplan for the completion.
 
 Best regards, Gunnar Siréus
