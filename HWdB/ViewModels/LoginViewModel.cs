@@ -47,8 +47,11 @@ namespace HWdB.ViewModels
             }
             set
             {
-                _DbLocation = value;
-                OnPropertyChanged("DbLocation");
+                if (_DbLocation != value)
+                {
+                    _DbLocation = value;
+                    OnPropertyChanged("DbLocation");
+                }
             }
         }
 
