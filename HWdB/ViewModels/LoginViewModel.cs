@@ -17,7 +17,7 @@ namespace HWdB.ViewModels
             LogoutCommand = new RelayCommand(Logout);
             LoginCommand = new RelayCommand(Login);
             _applikationViewModel = applikationViewModel;
-            ButtonName = "Login";
+            ButtonName = "Logout";
         }
 
         private string _DbLocation;

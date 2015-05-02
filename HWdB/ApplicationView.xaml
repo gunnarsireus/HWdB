@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:HWdB"
         Title="ApplicationView" SizeToContent="WidthAndHeight">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:LogoutViewModel}" >
-            <vw:LogoutView/>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}" >
             <vw:LoginView/>
         </DataTemplate>

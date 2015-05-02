@@ -111,9 +111,6 @@
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LogoutView.xaml.cs">
-      <DependentUpon>LogoutView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ProductGroupsView.xaml.cs">
       <DependentUpon>ProductGroupsView.xaml</DependentUpon>
     </Compile>
@@ -134,7 +131,6 @@
     <Compile Include="MVVMFramework\RelayCommand.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
-    <Compile Include="ViewModels\LogoutViewModel.cs" />
     <Compile Include="ViewModels\ProductGroupsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="ViewModels\RepairViewModel.cs" />
@@ -194,10 +190,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LoginView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\LogoutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

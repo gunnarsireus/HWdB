@@ -63,7 +63,7 @@ namespace HWdB.ViewModels
         public ApplicationViewModel()
         {
             UserLoggedIn = false;
-            PageViewModels.Add(new LogoutViewModel(this));
+            PageViewModels.Add(new LoginViewModel(this));
             PageViewModels.Add(new ProductsViewModel());
             PageViewModels.Add(new ProductGroupsViewModel());
             PageViewModels.Add(new ExportViewModel());
@@ -122,7 +122,7 @@ namespace HWdB.ViewModels
 
         private void ChangeViewModel(ViewModelBase viewModel)
         {
-            if (viewModel.GetType().Equals(typeof(LogoutViewModel)))
+            if (viewModel.GetType().Equals(typeof(LoginViewModel)))
             {
                 UserLoggedIn = false;
             }
