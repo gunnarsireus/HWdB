@@ -16,6 +16,8 @@ namespace HWdB.ViewModels
             DbLocation=AppDomain.CurrentDomain.GetData("DataDirectory").ToString()+@"\HWdB.mdf";
             LogoutCommand = new RelayCommand(Logout);
             LoginCommand = new RelayCommand(Login);
+            ReturnCommand = new RelayCommand(Login);
+            EnterCommand = new RelayCommand(Login);
             _applikationViewModel = applikationViewModel;
             ButtonName = "Logout";
         }
@@ -29,6 +31,16 @@ namespace HWdB.ViewModels
         }
 
         public ICommand LogoutCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand ReturnCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand EnterCommand
         {
             get;
             private set;

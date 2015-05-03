@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="No" xml:space="preserve">
-    <value>Nej</value>
+    <value>No</value>
   </data>
   <data name="Username_or_password_wrong" xml:space="preserve">
-    <value>Användarnamn eller lösenord fel</value>
+    <value>Username or password wrong</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Ja</value>
+    <value>Yes</value>
   </data>
 </root>

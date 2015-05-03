@@ -71,6 +71,7 @@ namespace HWdB.ViewModels
             PageViewModels.Add(new RepairViewModel());
             PageViewModels.Add(new SupplyViewModel());
             PageViewModels.Add(new StrategyViewModel());
+            PageViewModels.Add(new LTBViewModel());
             PageViewModels.Add(new AdministrationViewModel());
 
             // Set starting page

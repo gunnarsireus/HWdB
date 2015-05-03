@@ -33,6 +33,9 @@
         <DataTemplate DataType="{x:Type vm:StrategyViewModel}">
             <vw:StrategyView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LTBViewModel}">
+            <vw:LTBView/>
+        </DataTemplate>
     </Window.Resources>
     <StackPanel>
         <StackPanel.Resources>
@@ -51,7 +54,7 @@
             <ItemsControl ItemsSource="{Binding PageViewModels}" Background="Blue"   Visibility="{Binding Path=UserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="9" />
+                        <UniformGrid Columns="10" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

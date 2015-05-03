@@ -61,7 +61,7 @@ namespace HWdB.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nej.
+        ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
             get {
@@ -70,7 +70,7 @@ namespace HWdB.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Användarnamn eller lösenord fel.
+        ///   Looks up a localized string similar to Username or password wrong.
         /// </summary>
         internal static string Username_or_password_wrong {
             get {
@@ -79,7 +79,7 @@ namespace HWdB.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ja.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
         internal static string Yes {
             get {

@@ -88,6 +88,7 @@
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\LTBViewModel.cs" />
     <Compile Include="Views\AdministrationView.xaml.cs">
       <DependentUpon>AdministrationView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +114,9 @@
     </Compile>
     <Compile Include="Views\ProductGroupsView.xaml.cs">
       <DependentUpon>ProductGroupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LTBView.xaml.cs">
+      <DependentUpon>LTBView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
@@ -194,6 +198,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ProductGroupsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LTBView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

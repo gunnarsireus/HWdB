@@ -59,7 +59,12 @@
                 <Label Grid.Row="2" Grid.Column="1" Padding="0,0,0,3" Margin="0,3,10,0" HorizontalAlignment="Right" Content="Username" FontSize="8" FontWeight="Bold" />
                 <TextBox  x:Name="UserName" Text="{Binding UserName}" Grid.Row="2" Grid.Column="2"  Padding="0,1,0,0" Margin="3,2,0,1"  FontSize="8"/>
                 <Label Grid.Row="3" Grid.Column="1" Padding="0,3,0,0" Margin="0,1,10,0"  HorizontalAlignment="Right" Content="Password" FontSize="8" FontWeight="Bold"/>
-                <PasswordBox x:Name="UserPassword" Grid.Row="3"  Grid.Column="2"  Padding="0,1,0,0" Margin="3,2,0,1" PasswordChar="*"/>
+                <PasswordBox x:Name="UserPassword" Grid.Row="3"  Grid.Column="2"  Padding="0,1,0,0" Margin="3,2,0,1" PasswordChar="*">
+                    <PasswordBox.InputBindings>
+                        <KeyBinding Command="{Binding ReturnCommand}" CommandParameter="{Binding ElementName=This}"  Key="Return" />
+                        <KeyBinding Command="{Binding EnterCommand}" CommandParameter="{Binding ElementName=This}" Key="Enter" />
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
                 <Button Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=This}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="5,10,10,10" Background="WhiteSmoke" HorizontalAlignment="Left"   FontSize="8" FontWeight="Bold" Style="{DynamicResource ButtonStyler}" >Login</Button>
                 <Button  Command="{Binding LogoutCommand}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="10,10,5,10" Background="WhiteSmoke" HorizontalAlignment="Right"  FontSize="8" FontWeight="Bold" Style="{DynamicResource ButtonStyler}">Exit HWdB</Button>
             </Grid>
