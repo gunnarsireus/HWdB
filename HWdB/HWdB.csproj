@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
+    <Compile Include="Utils\WaterMark.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\LTBViewModel.cs" />
     <Compile Include="Views\AdministrationView.xaml.cs">

@@ -3,17 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:utils="clr-namespace:HWdB.Utils"
         Height="500"
         Background="WhiteSmoke"
         HorizontalAlignment="Stretch" 
         VerticalAlignment="Stretch">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <utils:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Viewbox Stretch="Uniform">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="23"/>
                     <RowDefinition Height="167"/>
-                </Grid.RowDefinitions>
+                     </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
                     <ColumnDefinition Width="65"/>
@@ -26,11 +32,53 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="{Binding ButtonName}" FontSize="13" FontWeight="Bold"/>
-                <Image Name="Export"  Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,0,0,0" VerticalAlignment="Stretch"  Grid.Row="1">
-                    <Image.Source>
-                        <BitmapImage UriSource = "pack://application:,,,/HWdB;component/Images/Frm_LTB.jpg" />
-                    </Image.Source>
-                </Image>
+           </Grid>
+        </Viewbox>
+        <Viewbox Stretch="Uniform">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="8"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="15"/>
+                </Grid.ColumnDefinitions>
+                <Grid Row ="3" Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Label Grid.Row="3" Grid.Column="0" Padding="0,0,0,0" Margin="0,2,5,0" HorizontalAlignment="Right" Content="Installed Base [0-99999]: " FontSize="3" FontWeight="Bold" />
+                <Grid Grid.Row="3" Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB0" FontSize="3" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <TextBox  x:Name="IB0" Text="{Binding IB0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3" Background="Transparent"   />
+                </Grid>
+                <TextBox  x:Name="IB1" Text="{Binding IB1}" Grid.Row="3" Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB2" Text="{Binding IB2}" Grid.Row="3" Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB3" Text="{Binding IB3}" Grid.Row="3" Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB4" Text="{Binding IB4}" Grid.Row="3" Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB5" Text="{Binding IB5}" Grid.Row="3" Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB6" Text="{Binding IB6}" Grid.Row="3" Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB7" Text="{Binding IB7}" Grid.Row="3" Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB8" Text="{Binding IB8}" Grid.Row="3" Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <TextBox  x:Name="IB9" Text="{Binding IB9}" Grid.Row="3" Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
             </Grid>
         </Viewbox>
     </Grid>
