@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class LTBViewModel:ViewModelBase
+    class LTBViewModel : ViewModelBase
     {
 
         string _buttonName;
@@ -16,18 +16,18 @@
             }
         }
 
-        //string _IB0;
-        //public string IB0
-        //{
-        //    get
-        //    {
-        //        return _IB0;
-        //    }
-        //    set
-        //    {
-        //        _IB0 = value;
-        //    }
-        //}
+        string _IB0;
+        public string IB0
+        {
+            get
+            {
+                return _IB0;
+            }
+            set
+            {
+                _IB0 = value;
+            }
+        }
 
         string _IB1;
         public string IB1
@@ -156,7 +156,7 @@
 
         public LTBViewModel()
         {
-             this.ButtonName = "LTB";
+            this.ButtonName = "LTB";
 
         }
 

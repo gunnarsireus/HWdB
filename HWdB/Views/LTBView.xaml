@@ -4,22 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:utils="clr-namespace:HWdB.Utils"
-        Height="500"
+             Height="500"
         Background="WhiteSmoke"
         HorizontalAlignment="Stretch" 
         VerticalAlignment="Stretch">
     <UserControl.Resources>
         <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
+        <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <utils:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Viewbox Stretch="Uniform">
-            <Grid>
+            <Grid Height="190">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="167"/>
-                     </Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="170"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
                     <ColumnDefinition Width="65"/>
@@ -31,54 +32,280 @@
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="{Binding ButtonName}" FontSize="13" FontWeight="Bold"/>
-           </Grid>
+                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="{Binding ButtonName}" FontSize="10" FontWeight="Bold"/>
+            </Grid>
         </Viewbox>
         <Viewbox Stretch="Uniform">
-            <Grid>
+            <Grid Height="190">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="23"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="10"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <Grid Row ="3" Column="0">
+                <Grid Row="10"  Column="0">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="3" Grid.Column="0" Padding="0,0,0,0" Margin="0,2,5,0" HorizontalAlignment="Right" Content="Installed Base [0-99999]: " FontSize="3" FontWeight="Bold" />
-                <Grid Grid.Row="3" Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
+                <Label Grid.Row="10"  Grid.Column="0" Padding="0,0,0,0" Margin="0,2,1,0" HorizontalAlignment="Right" Content="Installed Base [0-99999]: " FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="10"  Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
                     <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
-                    <TextBlock Margin="5,2" Text="IB0" FontSize="3" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <TextBox  x:Name="IB0" Text="{Binding IB0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3" Background="Transparent"   />
+                    <TextBlock Margin="5,2" Text="IB0" FontSize="4" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB0" Text="{Binding IB0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
                 </Grid>
-                <TextBox  x:Name="IB1" Text="{Binding IB1}" Grid.Row="3" Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB2" Text="{Binding IB2}" Grid.Row="3" Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB3" Text="{Binding IB3}" Grid.Row="3" Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB4" Text="{Binding IB4}" Grid.Row="3" Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB5" Text="{Binding IB5}" Grid.Row="3" Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB6" Text="{Binding IB6}" Grid.Row="3" Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB7" Text="{Binding IB7}" Grid.Row="3" Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB8" Text="{Binding IB8}" Grid.Row="3" Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
-                <TextBox  x:Name="IB9" Text="{Binding IB9}" Grid.Row="3" Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="3"/>
+                <Grid Grid.Row="10"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB1" FontSize="4" Visibility="{Binding ElementName=IB1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB1" Text="{Binding IB1}" Grid.Row="10"  Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB2" FontSize="4" Visibility="{Binding ElementName=IB2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB2" Text="{Binding IB2}" Grid.Row="10"  Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB3" FontSize="4" Visibility="{Binding ElementName=IB3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB3" Text="{Binding IB3}" Grid.Row="10"  Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB4" FontSize="4" Visibility="{Binding ElementName=IB4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB4" Text="{Binding IB4}" Grid.Row="10"  Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB5" FontSize="4" Visibility="{Binding ElementName=IB5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB5" Text="{Binding IB5}" Grid.Row="10"  Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB6" FontSize="4" Visibility="{Binding ElementName=IB6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB6" Text="{Binding IB6}" Grid.Row="10"  Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB7" FontSize="4" Visibility="{Binding ElementName=IB7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB7" Text="{Binding IB7}" Grid.Row="10"  Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB8" FontSize="4" Visibility="{Binding ElementName=IB8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB8" Text="{Binding IB8}" Grid.Row="10"  Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="IB9" FontSize="4" Visibility="{Binding ElementName=IB9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB9" Text="{Binding IB9}" Grid.Row="10"  Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="10"  Grid.Column="11" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="EoS" FontSize="4" Visibility="{Binding ElementName=IB10, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="IB10" Text="{Binding IB10}" Grid.Row="10"  Grid.Column="11"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" IsEnabled="False" Background="Transparent"  />
+                </Grid>
+                <Grid Row="10"  Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Grid Row="11"  Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Label Grid.Row="11"  Grid.Column="0" Padding="0,0,0,0" Margin="0,2,1,0" HorizontalAlignment="Right" Content="Nbr of Reg. Stocks [0 - 9999]: " FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="11"  Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS0" FontSize="4" Visibility="{Binding ElementName=RS0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS0" Text="{Binding RS0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS1" FontSize="4" Visibility="{Binding ElementName=RS1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS1" Text="{Binding RS1}" Grid.Row="10"  Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS2" FontSize="4" Visibility="{Binding ElementName=RS2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS2" Text="{Binding RS2}" Grid.Row="10"  Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS3" FontSize="4" Visibility="{Binding ElementName=RS3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS3" Text="{Binding RS3}" Grid.Row="10"  Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS4" FontSize="4" Visibility="{Binding ElementName=RS4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS4" Text="{Binding RS4}" Grid.Row="10"  Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS5" FontSize="4" Visibility="{Binding ElementName=RS5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS5" Text="{Binding RS5}" Grid.Row="10"  Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS6" FontSize="4" Visibility="{Binding ElementName=RS6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS6" Text="{Binding RS6}" Grid.Row="10"  Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS7" FontSize="4" Visibility="{Binding ElementName=RS7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS7" Text="{Binding RS7}" Grid.Row="10"  Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS8" FontSize="4" Visibility="{Binding ElementName=RS8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS8" Text="{Binding RS8}" Grid.Row="10"  Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="11"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS9" FontSize="4" Visibility="{Binding ElementName=RS9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RS9" Text="{Binding RS9}" Grid.Row="10"  Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Row="12"  Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Label Grid.Row="12"  Grid.Column="0" Padding="0,0,0,0" Margin="0,2,1,0" HorizontalAlignment="Right" Content="Failure Rate [0.00001 - 100]: " FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="12"  Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS0" FontSize="4" Visibility="{Binding ElementName=RS0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR0" Text="{Binding FR0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR1" FontSize="4" Visibility="{Binding ElementName=FR1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR1" Text="{Binding FR1}" Grid.Row="10"  Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR2" FontSize="4" Visibility="{Binding ElementName=FR2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR2" Text="{Binding FR2}" Grid.Row="10"  Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR3" FontSize="4" Visibility="{Binding ElementName=FR3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR3" Text="{Binding FR3}" Grid.Row="10"  Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR4" FontSize="4" Visibility="{Binding ElementName=FR4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR4" Text="{Binding FR4}" Grid.Row="10"  Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR5" FontSize="4" Visibility="{Binding ElementName=FR5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR5" Text="{Binding FR5}" Grid.Row="10"  Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR6" FontSize="4" Visibility="{Binding ElementName=FR6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR6" Text="{Binding FR6}" Grid.Row="10"  Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR7" FontSize="4" Visibility="{Binding ElementName=FR7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR7" Text="{Binding FR7}" Grid.Row="10"  Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR8" FontSize="4" Visibility="{Binding ElementName=FR8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR8" Text="{Binding FR8}" Grid.Row="10"  Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="12"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="FR9" FontSize="4" Visibility="{Binding ElementName=FR9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="FR9" Text="{Binding FR9}" Grid.Row="10"  Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Row="13"  Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Label Grid.Row="13"  Grid.Column="0" Padding="0,0,0,0" Margin="0,2,1,0" HorizontalAlignment="Right" Content="Failure Rate [0.00001 - 100]: " FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="13"  Grid.Column="1" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RS0" FontSize="4" Visibility="{Binding ElementName=RS0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL0" Text="{Binding RL0}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL1" FontSize="4" Visibility="{Binding ElementName=RL1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL1" Text="{Binding RL1}" Grid.Row="10"  Grid.Column="2"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL2" FontSize="4" Visibility="{Binding ElementName=RL2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL2" Text="{Binding RL2}" Grid.Row="10"  Grid.Column="3"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL3" FontSize="4" Visibility="{Binding ElementName=RL3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL3" Text="{Binding RL3}" Grid.Row="10"  Grid.Column="4"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL4" FontSize="4" Visibility="{Binding ElementName=RL4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL4" Text="{Binding RL4}" Grid.Row="10"  Grid.Column="5"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL5" FontSize="4" Visibility="{Binding ElementName=RL5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL5" Text="{Binding RL5}" Grid.Row="10"  Grid.Column="6"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL6" FontSize="4" Visibility="{Binding ElementName=RL6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL6" Text="{Binding RL6}" Grid.Row="10"  Grid.Column="7"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL7" FontSize="4" Visibility="{Binding ElementName=RL7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL7" Text="{Binding RL7}" Grid.Row="10"  Grid.Column="8"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL8" FontSize="4" Visibility="{Binding ElementName=RL8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL8" Text="{Binding RL8}" Grid.Row="10"  Grid.Column="9"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
+                <Grid Grid.Row="13"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
+                    <Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
+                    <TextBlock Margin="5,2" Text="RL9" FontSize="4" Visibility="{Binding ElementName=RL9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
+                    <TextBox  x:Name="RL9" Text="{Binding RL9}" Grid.Row="10"  Grid.Column="10"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                </Grid>
             </Grid>
         </Viewbox>
     </Grid>

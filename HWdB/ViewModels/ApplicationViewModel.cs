@@ -76,7 +76,7 @@ namespace HWdB.ViewModels
 
             // Set starting page
 
-            CurrentPageViewModel = new LoginViewModel(this);
+            CurrentPageViewModel = PageViewModels[0];
         }
 
         public ICommand ChangePageCommand

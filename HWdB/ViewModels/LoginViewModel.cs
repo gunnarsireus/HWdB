@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Collections.ObjectModel;
-using HWdB.DataAccess;
-using System.Windows.Input;
+﻿using HWdB.DataAccess;
 using HWdB.Model;
 using HWdB.Utils;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace HWdB.ViewModels
 {
@@ -13,7 +13,7 @@ namespace HWdB.ViewModels
         ApplicationViewModel _applikationViewModel;
         public LoginViewModel(ApplicationViewModel applikationViewModel)
         {
-            DbLocation=AppDomain.CurrentDomain.GetData("DataDirectory").ToString()+@"\HWdB.mdf";
+            DbLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + @"\HWdB.mdf";
             LogoutCommand = new RelayCommand(Logout);
             LoginCommand = new RelayCommand(Login);
             ReturnCommand = new RelayCommand(Login);
@@ -69,7 +69,7 @@ namespace HWdB.ViewModels
 
         private void Login(object parameter)
         {
-            var passwordContainer = parameter as IHavePassword; 
+            var passwordContainer = parameter as IHavePassword;
             if (passwordContainer != null)
             {
                 string password = "";
@@ -141,7 +141,7 @@ namespace HWdB.ViewModels
                     context.Users.Add(User.CreateUser("Adam", "2c50afa5e6b08724001e9495f86de171", "adam@gmail.com", "Administrator", "Administrator"));
                     context.Users.Add(User.CreateUser("Gunnar", "2c50afa5e6b08724001e9495f86de171", "gunnar@gmail.com", "Administrator", "Administrator"));
                     context.Users.Add(User.CreateUser("admin", "2c50afa5e6b08724001e9495f86de171", "admin@gmail.com", "Administrator", "Administrator"));
-          
+
                     context.SaveChanges();
                 }
             }
@@ -160,7 +160,7 @@ namespace HWdB.ViewModels
                 }
                 else
                 {
-                    UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " +DateTime.Now.ToString());
+                    UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString());
                     User User = new User();
                     User.Clone(stored);
                     User.LogedIn = true;

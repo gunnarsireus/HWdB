@@ -1,15 +1,12 @@
-﻿using System;
+﻿using HWdB.Model;
 using System.Data.Entity;
-using System.Collections.Generic;
-using System.Linq;
-
-using HWdB.Model;
 
 namespace HWdB.DataAccess
 {
     public class DataContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<LtbDataSet> LtbDataSets { get; set; }
 
     }
 }

@@ -54,6 +54,10 @@
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="LTBCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\LTBCommon.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -86,6 +90,7 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\DataContext.cs" />
+    <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
     <Compile Include="Utils\WaterMark.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -235,6 +240,8 @@
     <Resource Include="Images\Frm_Supply.jpg" />
     <Content Include="Libs\EntityFramework.dll" />
     <Resource Include="Libs\EntityFramework.xml" />
+    <Content Include="Libs\LTBCommon.dll" />
+    <Content Include="Libs\LTBCommon.pdb" />
     <Content Include="Libs\PresentationFramework.dll" />
   </ItemGroup>
   <ItemGroup>
