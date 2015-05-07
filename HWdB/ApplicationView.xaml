@@ -54,7 +54,7 @@
             <ItemsControl ItemsSource="{Binding PageViewModels}" Background="Blue"   Visibility="{Binding Path=UserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="10" />
+                        <UniformGrid Columns="{Binding PageViewModels.Count}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

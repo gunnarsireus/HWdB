@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using HWdB.Model;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using HWdB.Model;
 
 namespace HWdB.ViewModels
 {
@@ -12,9 +12,10 @@ namespace HWdB.ViewModels
         string _buttonName;
         bool _userLoggedIn;
 
-        public void Logout(){
+        public void Logout()
+        {
             Application.Current.Shutdown();
-           }
+        }
 
         public void Message(string message)
         {
@@ -34,9 +35,15 @@ namespace HWdB.ViewModels
             }
             set
             {
-                _userLoggedIn = value;
-                CurrentPageViewModel = new ProductsViewModel();
-                OnPropertyChanged("UserLoggedIn");
+                if (_userLoggedIn != value)
+                {
+                    _userLoggedIn = value;
+                    if (_userLoggedIn == true)
+                    {
+                        CurrentPageViewModel = PageViewModels[1];
+                    }
+                    OnPropertyChanged("UserLoggedIn");
+                }
             }
         }
         public override string ButtonName
@@ -64,13 +71,13 @@ namespace HWdB.ViewModels
         {
             UserLoggedIn = false;
             PageViewModels.Add(new LoginViewModel(this));
-            PageViewModels.Add(new ProductsViewModel());
-            PageViewModels.Add(new ProductGroupsViewModel());
-            PageViewModels.Add(new ExportViewModel());
-            PageViewModels.Add(new ImportViewModel());
-            PageViewModels.Add(new RepairViewModel());
-            PageViewModels.Add(new SupplyViewModel());
-            PageViewModels.Add(new StrategyViewModel());
+            //PageViewModels.Add(new ProductsViewModel());
+            //PageViewModels.Add(new ProductGroupsViewModel());
+            //PageViewModels.Add(new ExportViewModel());
+            //PageViewModels.Add(new ImportViewModel());
+            //PageViewModels.Add(new RepairViewModel());
+            //PageViewModels.Add(new SupplyViewModel());
+            //PageViewModels.Add(new StrategyViewModel());
             PageViewModels.Add(new LTBViewModel());
             PageViewModels.Add(new AdministrationViewModel());
 

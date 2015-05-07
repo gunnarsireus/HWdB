@@ -9,6 +9,8 @@ namespace HWdB.Model
     {
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
+        public int UserId { get; set; }
+        public string Name { get; set; }
         public String LTBDate { get; set; }
         public String EOSDate { get; set; }
         [RegularExpression(@"^([2-9]|[1-9][0-9]|[1-2][0-9][0-9]|3[0-6][0-5])$", ErrorMessage = "Must be within 2 and 365")]
