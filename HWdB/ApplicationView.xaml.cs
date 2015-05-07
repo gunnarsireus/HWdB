@@ -9,7 +9,7 @@ namespace HWdB
     {
         public ApplicationView()
         {
-            InitializeComponent();      
+            InitializeComponent();
         }
     }
 }
