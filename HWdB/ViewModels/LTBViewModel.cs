@@ -1,4 +1,5 @@
-﻿namespace HWdB.ViewModels
+﻿using System;
+namespace HWdB.ViewModels
 {
     class LTBViewModel : ViewModelBase
     {
@@ -27,15 +28,41 @@
         public string IB7 { get; set; }
         public string IB8 { get; set; }
         public string IB9 { get; set; }
-        public string RepairPossibleYes { get; set; }
-        public string RepairPossibleNo { get; set; }
 
+        string ltbDate = DateTime.Now.ToString();
+        public string LTBDate
+        {
+            get { return this.ltbDate; }
+            set
+            {
+                if (this.ltbDate == value)
+                    return;
+
+                this.ltbDate = value;
+                OnPropertyChanged("LTBDate");
+            }
+        }
+
+        string eosDate = DateTime.Now.AddYears(10).ToString();
+        public string EOSDate
+        {
+            get { return this.eosDate; }
+            set
+            {
+                if (this.eosDate == value)
+                    return;
+
+                this.eosDate = value;
+                OnPropertyChanged("EOSDate");
+            }
+        }
         public LTBViewModel()
         {
             this.ButtonName = "LTB";
             this.ConfidenceLevel = "60%";
             this.RepairLeadTime = "40";
-            //this.RepairPossibleNo.Checked = false;
+            this.LTBDate = DateTime.Now.ToString();
+            this.EOSDate = DateTime.Now.AddYears(10).ToString();
         }
 
         bool isYes = true;
