@@ -4,6 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:utils="clr-namespace:HWdB.Utils"
+             xmlns:local="clr-namespace:HWdB"
 			 Height="500"
 		Background="WhiteSmoke"
 		HorizontalAlignment="Stretch" 
@@ -13,12 +14,6 @@
         <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <utils:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
-        <ResourceDictionary x:Key="Resources">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Resources.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <!-- Local styles here -->
-        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <StackPanel>
@@ -126,13 +121,28 @@
                         <RadioButton IsChecked="{Binding IsNo}" GroupName="RepairPossible"  FontSize="8" FontWeight="Bold">No</RadioButton>
                     </Viewbox>
                 </Grid>
+                <Grid Row="5"  Column="0">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
                 <Label Grid.Row="5"  Grid.Column="0" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Life Time Buy:" FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="5" Grid.Column="1">
+                    <Viewbox Height="10" Language="de-GE" >
+                        <DatePicker Name="LTBDate"  HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                    </Viewbox>
+                </Grid>
                 <Grid Row="5"  Column="2">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
                 <Label Grid.Row="5"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="End of Service:" FontSize="4" FontWeight="Bold" />
+                <Grid Grid.Row="5" Grid.Column="3">
+                    <Viewbox Height="10" Language="de-GE">
+                        <DatePicker Text="Select a date"  Name="EoSDate"  HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                    </Viewbox>
+                </Grid>
             </Grid>
         </Viewbox>
         <Viewbox Stretch="Uniform">
@@ -401,6 +411,7 @@
                     <TextBlock Margin="5,2" Text="RS9" FontSize="4" Visibility="{Binding ElementName=RS9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
                     <TextBox  x:Name="RS9" Text="{Binding RS9}" Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
                 </Grid>
+
             </Grid>
         </Viewbox>
     </Grid>
