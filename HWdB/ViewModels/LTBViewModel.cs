@@ -1,24 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace HWdB.ViewModels
 {
     class LTBViewModel : ViewModelBase
     {
-
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override string ButtonName { get; set; }
         public string ConfidenceLevel { get; set; }
         public string RepairLeadTime { get; set; }
-        public string IB0 { get; set; }
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        public string IB0
+        {
+            get { return GetValue(() => IB0); }
+            set { SetValue(() => IB0, value); }
+        }
         public string IB1 { get; set; }
         public string IB2 { get; set; }
         public string IB3 { get; set; }
@@ -63,6 +58,7 @@ namespace HWdB.ViewModels
             this.RepairLeadTime = "40";
             this.LTBDate = DateTime.Now.ToString();
             this.EOSDate = DateTime.Now.AddYears(10).ToString();
+            IB0 = "9876";
         }
 
         bool isYes = true;

@@ -1,11 +1,12 @@
-﻿using LTBCore;
+﻿using HWdB.Notification;
+using LTBCore;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace HWdB.Model
 {
 
-    public class LtbDataSet
+    public class LtbDataSet : PropertyChangedNotification
     {
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
@@ -19,7 +20,11 @@ namespace HWdB.Model
         [DisplayName(" ")]
         public Boolean RepairPossible { get; set; }
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
-        public string IB0 { get; set; }
+        public string IB0
+        {
+            get { return GetValue(() => IB0); }
+            set { SetValue(() => IB0, value); }
+        }
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
         public String IB1 { get; set; }
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HWdB.Notification;
+using System;
 using System.ComponentModel;
 
 namespace HWdB.ViewModels
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public abstract class ViewModelBase : PropertyChangedNotification, INotifyPropertyChanged, IDisposable
     {
         protected ViewModelBase()
         {

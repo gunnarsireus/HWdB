@@ -98,6 +98,7 @@
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
+    <Compile Include="Notification\PropertyChangeNotification.cs" />
     <Compile Include="Utils\WaterMark.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\LTBViewModel.cs" />
