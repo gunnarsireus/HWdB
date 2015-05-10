@@ -58,6 +58,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\LTBCommon.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NMath, Version=5.2.0.0, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\NMath.dll</HintPath>
+    </Reference>
+    <Reference Include="NMathKernelx86, Version=5.2.0.0, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\NMathKernelx86.dll</HintPath>
+    </Reference>
+    <Reference Include="NMathStats, Version=3.5.0.0, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\NMathStats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -65,6 +78,9 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>..\packages\WPFToolkit.DataVisualization.3.5.50211.1\lib\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Controls.Input.Toolkit">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
     </Reference>
@@ -99,6 +115,8 @@
     <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
     <Compile Include="Notification\PropertyChangeNotification.cs" />
+    <Compile Include="Utils\LtbCalculation.cs" />
+    <Compile Include="Utils\DateTimeUtil.cs" />
     <Compile Include="Utils\WaterMark.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\LTBViewModel.cs" />
@@ -249,6 +267,13 @@
     <Resource Include="Libs\EntityFramework.xml" />
     <Content Include="Libs\LTBCommon.dll" />
     <Content Include="Libs\LTBCommon.pdb" />
+    <Content Include="Libs\NMath.dll" />
+    <Resource Include="Libs\NMath.xml" />
+    <Content Include="Libs\NMathChartMicrosoft.dll" />
+    <Content Include="Libs\NMathKernelx86.dll" />
+    <Content Include="Libs\NMathStats.dll" />
+    <Resource Include="Libs\NMathStats.xml" />
+    <Content Include="Libs\nmath_native_x86.dll" />
     <Content Include="Libs\PresentationFramework.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -268,7 +293,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Log\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

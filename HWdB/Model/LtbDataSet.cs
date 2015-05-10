@@ -11,11 +11,14 @@ namespace HWdB.Model
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
         public int UserId { get; set; }
-        public string Name { get; set; }
+        public string Customer { get; set; }
+        public string Version { get; set; }
+        public String Saved { get; set; }
+
         public String LTBDate { get; set; }
         public String EOSDate { get; set; }
         [RegularExpression(@"^([2-9]|[1-9][0-9]|[1-2][0-9][0-9]|3[0-6][0-5])$", ErrorMessage = "Must be within 2 and 365")]
-        public int RepairLeadDays { get; set; }
+        public int RepairLeadTime { get; set; }
         public string ConfidenceLevel { get; set; }
         [DisplayName(" ")]
         public Boolean RepairPossible { get; set; }
@@ -104,14 +107,44 @@ namespace HWdB.Model
         public String RL8 { get; set; }
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
         public String RL9 { get; set; }
-        public string Stock { get; set; }
-        public string Safety { get; set; }
-        public string Failed { get; set; }
-        public string Repaired { get; set; }
-        public string Lost { get; set; }
-        public string InfoText { get; set; }
+        public string TotalStock
+        {
+            get { return GetValue(() => TotalStock); }
+            set { SetValue(() => TotalStock, value); }
+        }
+        public string Stock
+        {
+            get { return GetValue(() => Stock); }
+            set { SetValue(() => Stock, value); }
+        }
+        public string Safety
+        {
+            get { return GetValue(() => Safety); }
+            set { SetValue(() => Safety, value); }
+        }
+        public string Failed
+        {
+            get { return GetValue(() => Failed); }
+            set { SetValue(() => Failed, value); }
+        }
+        public string Repaired
+        {
+            get { return GetValue(() => Repaired); }
+            set { SetValue(() => Repaired, value); }
+        }
+        public string Lost
+        {
+            get { return GetValue(() => Lost); }
+            set { SetValue(() => Lost, value); }
+        }
+        public string InfoText
+        {
+            get { return GetValue(() => InfoText); }
+            set { SetValue(() => InfoText, value); }
+        }
         public long[] StockYearArray = new long[LTBCommon.MaxYear + 1];
         public long[] RSYearArray = new long[LTBCommon.MaxYear + 1];
         public long[] SafetyYearArray = new long[LTBCommon.MaxYear + 1];
+
     }
 }
