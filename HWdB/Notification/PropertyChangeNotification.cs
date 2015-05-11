@@ -5,13 +5,34 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HWdB.Notification
 {
     public abstract class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
     {
+        //This dictionary contains a list of our validation errors for each field
+
+        private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+        protected void AddError(string columnName, string msg)
+        {
+            if (!validationErrors.ContainsKey(columnName))
+            {
+                validationErrors.Add(columnName, msg);
+            }
+        }
+
+        protected void RemoveError(string columnName)
+        {
+            if (validationErrors.ContainsKey(columnName))
+            {
+                validationErrors.Remove(columnName);
+            }
+        }
+
+        public virtual bool HasErrors
+        {
+            get { return (validationErrors.Count > 0); }
+        }
         #region Fields
 
         private readonly Dictionary<string, object> _values = new Dictionary<string, object>();
@@ -99,6 +120,7 @@ namespace HWdB.Notification
             }
 
             string error = string.Empty;
+            RemoveError(propertyName);
             var value = GetValue(propertyName);
             var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>(1);
             var result = Validator.TryValidateProperty(
@@ -113,6 +135,7 @@ namespace HWdB.Notification
             {
                 var validationResult = results.First();
                 error = validationResult.ErrorMessage;
+                AddError(propertyName, error);
             }
 
             return error;

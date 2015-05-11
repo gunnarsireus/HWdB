@@ -1,7 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using HWdB.DataAccess;
 using HWdB.ViewModels;
-using HWdB.DataAccess;
+using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Markup;
 
 namespace HWdB
 {
@@ -12,10 +14,16 @@ namespace HWdB
     {
         protected override void OnStartup(StartupEventArgs e)
         {
- 
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("de-DE");
+            XmlLanguage lang = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(lang));
+            FrameworkContentElement.LanguageProperty.OverrideMetadata(typeof(System.Windows.Documents.TextElement), new FrameworkPropertyMetadata(lang));
+
             AppDomain.CurrentDomain.SetData("DataDirectory", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            using (var db = new DataContext()) {
-                 db.Database.CreateIfNotExists();
+            using (var db = new DataContext())
+            {
+                db.Database.CreateIfNotExists();
             }
             base.OnStartup(e);
             ApplicationView app = new ApplicationView();

@@ -517,12 +517,16 @@ namespace HWdB.Utils
                 YearCnt = YearCnt + 1;
             }
         }
+
         protected static bool BoundariesOK(int LastYear, LtbDataSet Ltb)
         {
+            if (Ltb.HasErrors)
+            {
+                Ltb.InfoText = "Check validation errors";
+                return false;
+            }
             bool functionReturnValue = false;
-            int Cnt = 0; string tmp = ""; Ltb.InfoText = "";
-
-            //CultureInfo ci = new CultureInfo(A.ThisCulture);
+            int Cnt = 0; Ltb.InfoText = "";
             DateTime TmpDate = Convert.ToDateTime(Ltb.LTBDate);
             Cnt = 0;
             functionReturnValue = true;
@@ -531,10 +535,6 @@ namespace HWdB.Utils
                 switch (Cnt)
                 {
                     case 0:
-                        tmp = Ltb.FR0;
-
-                        //if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR0 = tmp;
                         if (Ltb.RS0 == string.Empty)
                             Ltb.RS0 = "0";
                         if (Information.IsNothing(Ltb.IB0) | Information.IsNothing(Ltb.RS0) | Information.IsNothing(Ltb.FR0) | Information.IsNothing(Ltb.RL0) | !Information.IsNumeric(Ltb.IB0) | !Information.IsNumeric(Ltb.RS0) | !Information.IsNumeric(Ltb.FR0) | !Information.IsNumeric(Ltb.RL0))
@@ -553,8 +553,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 1:
-                        //tmp = Ltb.FR1; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR1 = tmp;
                         if (Ltb.RS1 == string.Empty)
                             Ltb.RS1 = "0";
                         if (Information.IsNothing(Ltb.IB1) | Information.IsNothing(Ltb.RS1) | Information.IsNothing(Ltb.FR1) | Information.IsNothing(Ltb.RL1) | !Information.IsNumeric(Ltb.IB1) | !Information.IsNumeric(Ltb.RS1) | !Information.IsNumeric(Ltb.FR1) | !Information.IsNumeric(Ltb.RL1))
@@ -573,8 +571,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 2:
-                        //tmp = Ltb.FR2; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR2 = tmp;
                         if (Ltb.RS2 == string.Empty)
                             Ltb.RS2 = "0";
                         if (Information.IsNothing(Ltb.IB2) | Information.IsNothing(Ltb.RS2) | Information.IsNothing(Ltb.FR2) | Information.IsNothing(Ltb.RL2) | !Information.IsNumeric(Ltb.IB2) | !Information.IsNumeric(Ltb.RS2) | !Information.IsNumeric(Ltb.FR2) | !Information.IsNumeric(Ltb.RL2))
@@ -593,8 +589,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 3:
-                        //tmp = Ltb.FR3; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR3 = tmp;
                         if (Ltb.RS3 == string.Empty)
                             Ltb.RS3 = "0";
                         if (Information.IsNothing(Ltb.IB3) | Information.IsNothing(Ltb.RS3) | Information.IsNothing(Ltb.FR3) | Information.IsNothing(Ltb.RL3) | !Information.IsNumeric(Ltb.IB3) | !Information.IsNumeric(Ltb.RS3) | !Information.IsNumeric(Ltb.FR3) | !Information.IsNumeric(Ltb.RL3))
@@ -613,8 +607,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 4:
-                        //tmp = Ltb.FR4; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR4 = tmp;
                         if (Ltb.RS4 == string.Empty)
                             Ltb.RS4 = "0";
                         if (Information.IsNothing(Ltb.IB4) | Information.IsNothing(Ltb.RS4) | Information.IsNothing(Ltb.FR4) | Information.IsNothing(Ltb.RL4) | !Information.IsNumeric(Ltb.IB4) | !Information.IsNumeric(Ltb.RS4) | !Information.IsNumeric(Ltb.FR4) | !Information.IsNumeric(Ltb.RL4))
@@ -633,8 +625,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 5:
-                        //tmp = Ltb.FR5; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR5 = tmp;
                         if (Ltb.RS5 == string.Empty)
                             Ltb.RS5 = "0";
                         if (Information.IsNothing(Ltb.IB5) | Information.IsNothing(Ltb.RS5) | Information.IsNothing(Ltb.FR5) | Information.IsNothing(Ltb.RL5) | !Information.IsNumeric(Ltb.IB5) | !Information.IsNumeric(Ltb.RS5) | !Information.IsNumeric(Ltb.FR5) | !Information.IsNumeric(Ltb.RL5))
@@ -653,8 +643,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 6:
-                        //tmp = Ltb.FR6; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR6 = tmp;
                         if (Ltb.RS6.ToString() == string.Empty)
                             Ltb.RS6 = "0";
                         if (Information.IsNothing(Ltb.IB6) | Information.IsNothing(Ltb.RS6) | Information.IsNothing(Ltb.FR6) | Information.IsNothing(Ltb.RL6) | !Information.IsNumeric(Ltb.IB6) | !Information.IsNumeric(Ltb.RS6.ToString()) | !Information.IsNumeric(Ltb.FR6) | !Information.IsNumeric(Ltb.RL6))
@@ -673,8 +661,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 7:
-                        //tmp = Ltb.FR7; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR7 = tmp;
                         if (Ltb.RS7 == string.Empty)
                             Ltb.RS7 = "0";
                         if (Information.IsNothing(Ltb.IB7) | Information.IsNothing(Ltb.RS7) | Information.IsNothing(Ltb.FR7) | Information.IsNothing(Ltb.RL7) | !Information.IsNumeric(Ltb.IB7) | !Information.IsNumeric(Ltb.RS7) | !Information.IsNumeric(Ltb.FR7) | !Information.IsNumeric(Ltb.RL7))
@@ -693,8 +679,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 8:
-                        //tmp = Ltb.FR8; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR8 = tmp;
                         if (Ltb.RS8 == string.Empty)
                             Ltb.RS8 = "0";
                         if (Information.IsNothing(Ltb.IB8) | Information.IsNothing(Ltb.RS8) | Information.IsNothing(Ltb.FR8) | Information.IsNothing(Ltb.RL8) | !Information.IsNumeric(Ltb.IB8) | !Information.IsNumeric(Ltb.RS8) | !Information.IsNumeric(Ltb.FR8) | !Information.IsNumeric(Ltb.RL8))
@@ -713,8 +697,6 @@ namespace HWdB.Utils
                         }
                         break;
                     case 9:
-                        //tmp = Ltb.FR9; if ((tmp != "") && (A.ThisUICulture != "en")) tmp = Strings.Replace(tmp, ".", ",");
-                        Ltb.FR9 = tmp;
                         if (Ltb.RS9 == string.Empty)
                             Ltb.RS9 = "0";
                         if (Information.IsNothing(Ltb.IB9) | Information.IsNothing(Ltb.RS9) | Information.IsNothing(Ltb.FR9) | Information.IsNothing(Ltb.RL9) | !Information.IsNumeric(Ltb.IB9) | !Information.IsNumeric(Ltb.RS9) | !Information.IsNumeric(Ltb.FR9) | !Information.IsNumeric(Ltb.RL9))
