@@ -29,10 +29,8 @@ namespace HWdB.Notification
             }
         }
 
-        public virtual bool HasErrors
-        {
-            get { return (validationErrors.Count > 0); }
-        }
+        public virtual Dictionary<string, string> HasErrors { get { return validationErrors; } }
+
         #region Fields
 
         private readonly Dictionary<string, object> _values = new Dictionary<string, object>();

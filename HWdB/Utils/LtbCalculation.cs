@@ -4,6 +4,7 @@ using HWdB.Model;
 using LTBCore;
 using Microsoft.VisualBasic;
 using System;
+using System.Linq;
 
 namespace HWdB.Utils
 {
@@ -520,9 +521,10 @@ namespace HWdB.Utils
 
         protected static bool BoundariesOK(int LastYear, LtbDataSet Ltb)
         {
-            if (Ltb.HasErrors)
+            if (Ltb.HasErrors.Count > 0)
             {
-                Ltb.InfoText = "Check validation errors";
+                var first = Ltb.HasErrors.First();
+                Ltb.InfoText = first.Value;
                 return false;
             }
             bool functionReturnValue = false;
@@ -1042,8 +1044,14 @@ namespace HWdB.Utils
 
             N = RoundUpInt(ServiceDays / LeadDays, 0);
 
-            if (!BoundariesOK(MyServiceYears, Ltb))
+            //if (!BoundariesOK(MyServiceYears, Ltb))
+            //{
+            //    return;
+            //}
+            if (Ltb.HasErrors.Count > 0)
             {
+                var first = Ltb.HasErrors.First();
+                Ltb.InfoText = first.Value;
                 return;
             }
 

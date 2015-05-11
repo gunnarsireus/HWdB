@@ -95,7 +95,7 @@
                 <Label Grid.Row="4"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Life Time Buy:" FontSize="4" FontWeight="Bold" />
                 <Grid Grid.Row="4" Grid.Column="3">
                     <Viewbox HorizontalAlignment="Left" Margin="1,0,0,0">
-                        <DatePicker Language="de-de" Name="LTBDate"  SelectedDate="{Binding LTBDate}" FontSize="10" FontWeight="Bold" Padding="0,2,0,0"/>
+                        <DatePicker Language="de-de" Name="LTBDate"  SelectedDate="{Binding LTBDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" FontSize="10" FontWeight="Bold" Padding="0,2,0,0"/>
                     </Viewbox>
                 </Grid>
                 <Grid Row="4"  Column="4">
@@ -104,10 +104,10 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="4"  Grid.Column="4" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="End of Service:" FontSize="4" FontWeight="Bold" />
-                <Grid Grid.Row="4" Grid.Column="5">
+                <Grid Grid.Row="4" Grid.Column="5" >
                     <Viewbox HorizontalAlignment="Left" Margin="1,0,0,0" >
-                        <DatePicker Language="de-de" Name="EOSDate" SelectedDate="{Binding EOSDate}" FontSize="10" FontWeight="Bold" Padding="0,2,0,0"/>
-                    </Viewbox>
+                        <DatePicker Language="de-de" Name="EOSDate" SelectedDate="{Binding EOSDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" FontSize="10" FontWeight="Bold" Padding="0,2,0,0"/>
+                       </Viewbox>
                 </Grid>
             </Grid>
         </Viewbox>

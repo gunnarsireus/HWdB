@@ -1,4 +1,5 @@
 ﻿using HWdB.Notification;
+using HWdB.Utils;
 using LTBCore;
 using System;
 using System.ComponentModel;
@@ -17,11 +18,13 @@ namespace HWdB.Model
         public string Version { get; set; }
         public string Saved { get; set; }
 
+        [LTBDateWithinRangeAttribute("EOSDate", "RepairLeadTime", ErrorMessage = "Not valid LTB date")]
         public string LTBDate
         {
             get { return GetValue(() => LTBDate); }
             set { SetValue(() => LTBDate, value); }
         }
+        [EOSDateWithinRangeAttribute("LTBDate", "RepairLeadTime", ErrorMessage = "Not valid EOS date")]
         public string EOSDate
         {
             get { return GetValue(() => EOSDate); }
