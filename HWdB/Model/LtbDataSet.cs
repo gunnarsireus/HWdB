@@ -3,11 +3,14 @@ using LTBCore;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Media.Imaging;
 namespace HWdB.Model
 {
 
     public class LtbDataSet : PropertyChangedNotification
     {
+
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
         public int UserId { get; set; }
@@ -137,14 +140,24 @@ namespace HWdB.Model
             get { return GetValue(() => Lost); }
             set { SetValue(() => Lost, value); }
         }
+        [NotMappedAttribute]
         public string InfoText
         {
             get { return GetValue(() => InfoText); }
             set { SetValue(() => InfoText, value); }
         }
+        [NotMappedAttribute]
         public long[] StockYearArray = new long[LTBCommon.MaxYear + 1];
+        [NotMappedAttribute]
         public long[] RSYearArray = new long[LTBCommon.MaxYear + 1];
+        [NotMappedAttribute]
         public long[] SafetyYearArray = new long[LTBCommon.MaxYear + 1];
 
+        [NotMappedAttribute]
+        public BitmapImage LtbChart
+        {
+            get { return GetValue(() => LtbChart); }
+            set { SetValue(() => LtbChart, value); }
+        }
     }
 }

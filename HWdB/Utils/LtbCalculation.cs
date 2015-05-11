@@ -4,7 +4,7 @@ using HWdB.Model;
 using LTBCore;
 using Microsoft.VisualBasic;
 using System;
-using System.Windows.Controls.DataVisualization.Charting;
+
 namespace HWdB.Utils
 {
     class LtbCalculation
@@ -495,14 +495,27 @@ namespace HWdB.Utils
         {
             return _ServiceYears;
         }
-        protected static void ClearResult(LtbDataSet Ltb)
+        public static void ClearResult(LtbDataSet Ltb)
         {
+            Ltb.TotalStock = string.Empty;
             Ltb.Stock = string.Empty;
             Ltb.Safety = string.Empty;
             Ltb.InfoText = string.Empty;
             Ltb.Failed = string.Empty;
             Ltb.Repaired = string.Empty;
             Ltb.Lost = string.Empty;
+        }
+
+        public static void ClearChartData(LtbDataSet ltb)
+        {
+            int YearCnt = 0;
+            while (YearCnt <= 10)
+            {
+                ltb.RSYearArray[YearCnt] = 0;
+                ltb.StockYearArray[YearCnt] = 0;
+                ltb.SafetyYearArray[YearCnt] = 0;
+                YearCnt = YearCnt + 1;
+            }
         }
         protected static bool BoundariesOK(int LastYear, LtbDataSet Ltb)
         {
@@ -528,14 +541,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = string.Format("Error: Wrong parameters in" + "{0}", TmpDate.Year);
+                            Ltb.InfoText = string.Format("Error: Wrong parameters in " + "{0}", TmpDate.Year);
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB0) > 999999 | Convert.ToInt32(Ltb.IB0) < 0 | Convert.ToInt32(Ltb.RS0) < 0 | Convert.ToInt32(Ltb.RS0) > 9999 | Convert.ToDouble(Ltb.FR0) < 1E-07 | Convert.ToDouble(Ltb.FR0) > 100 | Convert.ToInt32(Ltb.RL0) < 0 | Convert.ToInt32(Ltb.RL0) > 100)
+                        if (Convert.ToInt32(Ltb.IB0) > 99999 | Convert.ToInt32(Ltb.IB0) < 0 | Convert.ToInt32(Ltb.RS0) < 0 | Convert.ToInt32(Ltb.RS0) > 9999 | Convert.ToDouble(Ltb.FR0) < 1E-07 | Convert.ToDouble(Ltb.FR0) > 100 | Convert.ToInt32(Ltb.RL0) < 0 | Convert.ToInt32(Ltb.RL0) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + TmpDate.Year;
+                            Ltb.InfoText = "Error: Wrong parameters in " + TmpDate.Year;
                             return functionReturnValue;
                         }
                         break;
@@ -548,14 +561,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB1) > 999999 | Convert.ToInt32(Ltb.IB1) < 0 | Convert.ToInt32(Ltb.RS1) < 0 | Convert.ToInt32(Ltb.RS1) > 9999 | Convert.ToDouble(Ltb.FR1) < 1E-06 | Convert.ToDouble(Ltb.FR1) > 100 | Convert.ToInt32(Ltb.RL1) < 0 | Convert.ToInt32(Ltb.RL1) > 100)
+                        if (Convert.ToInt32(Ltb.IB1) > 99999 | Convert.ToInt32(Ltb.IB1) < 0 | Convert.ToInt32(Ltb.RS1) < 0 | Convert.ToInt32(Ltb.RS1) > 9999 | Convert.ToDouble(Ltb.FR1) < 1E-06 | Convert.ToDouble(Ltb.FR1) > 100 | Convert.ToInt32(Ltb.RL1) < 0 | Convert.ToInt32(Ltb.RL1) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -568,14 +581,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB2) > 999999 | Convert.ToInt32(Ltb.IB2) < 0 | Convert.ToInt32(Ltb.RS2) < 0 | Convert.ToInt32(Ltb.RS2) > 9999 | Convert.ToDouble(Ltb.FR2) < 1E-06 | Convert.ToDouble(Ltb.FR2) > 100 | Convert.ToInt32(Ltb.RL2) < 0 | Convert.ToInt32(Ltb.RL2) > 100)
+                        if (Convert.ToInt32(Ltb.IB2) > 99999 | Convert.ToInt32(Ltb.IB2) < 0 | Convert.ToInt32(Ltb.RS2) < 0 | Convert.ToInt32(Ltb.RS2) > 9999 | Convert.ToDouble(Ltb.FR2) < 1E-06 | Convert.ToDouble(Ltb.FR2) > 100 | Convert.ToInt32(Ltb.RL2) < 0 | Convert.ToInt32(Ltb.RL2) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -588,14 +601,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB3) > 999999 | Convert.ToInt32(Ltb.IB3) < 0 | Convert.ToInt32(Ltb.RS3) < 0 | Convert.ToInt32(Ltb.RS3) > 9999 | Convert.ToDouble(Ltb.FR3) < 1E-06 | Convert.ToDouble(Ltb.FR3) > 100 | Convert.ToInt32(Ltb.RL3) < 0 | Convert.ToInt32(Ltb.RL3) > 100)
+                        if (Convert.ToInt32(Ltb.IB3) > 99999 | Convert.ToInt32(Ltb.IB3) < 0 | Convert.ToInt32(Ltb.RS3) < 0 | Convert.ToInt32(Ltb.RS3) > 9999 | Convert.ToDouble(Ltb.FR3) < 1E-06 | Convert.ToDouble(Ltb.FR3) > 100 | Convert.ToInt32(Ltb.RL3) < 0 | Convert.ToInt32(Ltb.RL3) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -608,14 +621,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB4.ToString()) > 999999 | Convert.ToInt32(Ltb.IB4.ToString()) < 0 | Convert.ToInt32(Ltb.RS4) < 0 | Convert.ToInt32(Ltb.RS4) > 9999 | Convert.ToDouble(Ltb.FR4) < 1E-06 | Convert.ToDouble(Ltb.FR4) > 100 | Convert.ToInt32(Ltb.RL4) < 0 | Convert.ToInt32(Ltb.RL4) > 100)
+                        if (Convert.ToInt32(Ltb.IB4.ToString()) > 99999 | Convert.ToInt32(Ltb.IB4.ToString()) < 0 | Convert.ToInt32(Ltb.RS4) < 0 | Convert.ToInt32(Ltb.RS4) > 9999 | Convert.ToDouble(Ltb.FR4) < 1E-06 | Convert.ToDouble(Ltb.FR4) > 100 | Convert.ToInt32(Ltb.RL4) < 0 | Convert.ToInt32(Ltb.RL4) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -628,14 +641,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB5) > 999999 | Convert.ToInt32(Ltb.IB5) < 0 | Convert.ToInt32(Ltb.RS5) < 0 | Convert.ToInt32(Ltb.RS5) > 9999 | Convert.ToDouble(Ltb.FR5) < 1E-06 | Convert.ToDouble(Ltb.FR5) > 100 | Convert.ToInt32(Ltb.RL5) < 0 | Convert.ToInt32(Ltb.RL5) > 100)
+                        if (Convert.ToInt32(Ltb.IB5) > 99999 | Convert.ToInt32(Ltb.IB5) < 0 | Convert.ToInt32(Ltb.RS5) < 0 | Convert.ToInt32(Ltb.RS5) > 9999 | Convert.ToDouble(Ltb.FR5) < 1E-06 | Convert.ToDouble(Ltb.FR5) > 100 | Convert.ToInt32(Ltb.RL5) < 0 | Convert.ToInt32(Ltb.RL5) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -648,14 +661,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB6.ToString()) > 999999 | Convert.ToInt32(Ltb.IB6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) > 9999 | Convert.ToDouble(Ltb.FR6) < 1E-06 | Convert.ToDouble(Ltb.FR6) > 100 | Convert.ToInt32(Ltb.RL6) < 0 | Convert.ToInt32(Ltb.RL6) > 100)
+                        if (Convert.ToInt32(Ltb.IB6.ToString()) > 99999 | Convert.ToInt32(Ltb.IB6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) > 9999 | Convert.ToDouble(Ltb.FR6) < 1E-06 | Convert.ToDouble(Ltb.FR6) > 100 | Convert.ToInt32(Ltb.RL6) < 0 | Convert.ToInt32(Ltb.RL6) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -668,14 +681,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB7) > 999999 | Convert.ToInt32(Ltb.IB7) < 0 | Convert.ToInt32(Ltb.RS7) < 0 | Convert.ToInt32(Ltb.RS7) > 9999 | Convert.ToDouble(Ltb.FR7) < 1E-06 | Convert.ToDouble(Ltb.FR7) > 100 | Convert.ToInt32(Ltb.RL7) < 0 | Convert.ToInt32(Ltb.RL7) > 100)
+                        if (Convert.ToInt32(Ltb.IB7) > 99999 | Convert.ToInt32(Ltb.IB7) < 0 | Convert.ToInt32(Ltb.RS7) < 0 | Convert.ToInt32(Ltb.RS7) > 9999 | Convert.ToDouble(Ltb.FR7) < 1E-06 | Convert.ToDouble(Ltb.FR7) > 100 | Convert.ToInt32(Ltb.RL7) < 0 | Convert.ToInt32(Ltb.RL7) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -688,14 +701,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB8) > 999999 | Convert.ToInt32(Ltb.IB8) < 0 | Convert.ToInt32(Ltb.RS8) < 0 | Convert.ToInt32(Ltb.RS8) > 9999 | Convert.ToDouble(Ltb.FR8) < 1E-06 | Convert.ToDouble(Ltb.FR8) > 100 | Convert.ToInt32(Ltb.RL8) < 0 | Convert.ToInt32(Ltb.RL8) > 100)
+                        if (Convert.ToInt32(Ltb.IB8) > 99999 | Convert.ToInt32(Ltb.IB8) < 0 | Convert.ToInt32(Ltb.RS8) < 0 | Convert.ToInt32(Ltb.RS8) > 9999 | Convert.ToDouble(Ltb.FR8) < 1E-06 | Convert.ToDouble(Ltb.FR8) > 100 | Convert.ToInt32(Ltb.RL8) < 0 | Convert.ToInt32(Ltb.RL8) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -708,14 +721,14 @@ namespace HWdB.Utils
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB9) > 999999 | Convert.ToInt32(Ltb.IB9) < 0 | Convert.ToInt32(Ltb.RS9) < 0 | Convert.ToInt32(Ltb.RS9) > 9999 | Convert.ToDouble(Ltb.FR9) < 1E-06 | Convert.ToDouble(Ltb.FR9) > 100 | Convert.ToInt32(Ltb.RL9) < 0 | Convert.ToInt32(Ltb.RL9) > 100)
+                        if (Convert.ToInt32(Ltb.IB9) > 99999 | Convert.ToInt32(Ltb.IB9) < 0 | Convert.ToInt32(Ltb.RS9) < 0 | Convert.ToInt32(Ltb.RS9) > 9999 | Convert.ToDouble(Ltb.FR9) < 1E-06 | Convert.ToDouble(Ltb.FR9) > 100 | Convert.ToInt32(Ltb.RL9) < 0 | Convert.ToInt32(Ltb.RL9) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in" + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
+                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -1100,32 +1113,6 @@ namespace HWdB.Utils
             if (Ltb.RepairPossible) { Ltb.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { Ltb.Lost = "Nothing"; }
             //sb.Append(" Lost " + Ltb.Lost);
             //L.LogActivity(sb.ToString(), true);
-
-            //Visa som 3D
-
-            Chart chart = new Chart()
-            {
-                Height = 300,
-                Width = 300,
-                //ImageType = ChartImageType.Png
-            };
-            //ChartArea chartArea = chart.ChartAreas.Add("Stock");
-            //chartArea.Area3DStyle.Enable3D = true;
-
-            //Series RS = chart.Series.Add("0");
-            //Series Stock = chart.Series.Add("1");
-            //Series Safety = chart.Series.Add("2");
-            //RS.ChartType = SeriesChartType.StackedColumn;
-            //Stock.ChartType = SeriesChartType.StackedColumn;
-            //Safety.ChartType = SeriesChartType.StackedColumn;
-
-            //chart.Series["0"].Points.DataBindXY(xValues, Ltb.RSYearArray);
-            //chart.Series["0"].Color = Color.Green;
-            //chart.Series["1"].Points.DataBindXY(xValues, Ltb.StockYearArray);
-            //chart.Series["1"].Color = Color.Blue;
-            //chart.Series["2"].Points.DataBindXY(xValues, Ltb.SafetyYearArray);
-            //chart.Series["2"].Color = Color.Red;
-
         }
     }
 }
