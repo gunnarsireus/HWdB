@@ -1,8 +1,10 @@
-﻿using HWdB.Model;
+﻿using HWdB.DataAccess;
+using HWdB.Model;
 using HWdB.Utils;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Web.UI.DataVisualization.Charting;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -48,10 +50,44 @@ namespace HWdB.ViewModels
 
         private void Calculate(object parameter)
         {
+            UiServices.SetBusyState();
             LtbCalculation.Calculate(CurrentLtbDataSet);
 
             //Visa som 3D
             CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
+            if (CurrentLtbDataSet.HasErrors.Count > 0)
+            {
+                var first = CurrentLtbDataSet.HasErrors.First();
+                CurrentLtbDataSet.InfoText = first.Value;
+            }
+            else
+            {
+                SaveLtbDataSet(CurrentLtbDataSet);
+            }
+        }
+
+        private void SaveLtbDataSet(LtbDataSet ltbDataSet)
+        {
+            using (var context = new DataContext())
+            {
+                LtbDataSet stored = context.LtbDataSets.Where(a => (a.Customer == ltbDataSet.Customer) && (a.Version == ltbDataSet.Version)).FirstOrDefault();
+                if (stored == null)
+                {
+                    UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
+                    ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    context.LtbDataSets.Add(ltbDataSet);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
+                    ltbDataSet.ID = stored.ID;
+                    ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    context.Entry(stored).CurrentValues.SetValues(ltbDataSet);
+                    context.Entry(stored).State = System.Data.EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
         }
         private void Clear(object parameter)
         {
@@ -133,6 +169,7 @@ namespace HWdB.ViewModels
                 RL8ReadOnly = false,
                 RL9ReadOnly = false,
                 TotalStock = "TotalStock",
+                ServiceDays = "3652",
                 Lost = "Lost",
                 Stock = "Stock",
                 Failed = "Failed",
@@ -145,51 +182,11 @@ namespace HWdB.ViewModels
         }
 
         public override string ButtonName { get; set; }
-        //public string ConfidenceLevel { get; set; }
-        //public string RepairLeadTime { get; set; }
-        //[RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
-        //public string IB0 { get; set; }
-        //public string IB1 { get; set; }
-        //public string IB2 { get; set; }
-        //public string IB3 { get; set; }
-        //public string IB4 { get; set; }
-        //public string IB5 { get; set; }
-        //public string IB6 { get; set; }
-        //public string IB7 { get; set; }
-        //public string IB8 { get; set; }
-        //public string IB9 { get; set; }
-
-        //string ltbDate = DateTime.Now.ToString();
-        //public string LTBDate
-        //{
-        //    get { return this.ltbDate; }
-        //    set
-        //    {
-        //        if (this.ltbDate == value)
-        //            return;
-
-        //        this.ltbDate = value;
-        //        OnPropertyChanged("LTBDate");
-        //    }
-        //}
-
-        //string eosDate = DateTime.Now.AddYears(10).ToString();
-        //public string EOSDate
-        //{
-        //    get { return this.eosDate; }
-        //    set
-        //    {
-        //        if (this.eosDate == value)
-        //            return;
-
-        //        this.eosDate = value;
-        //        OnPropertyChanged("EOSDate");
-        //    }
-        //}
         public LTBViewModel()
         {
             Init(new object());
             this.ButtonName = "LTB";
+            LtbCalculation.InitLabels(CurrentLtbDataSet);
             repairIsPossible = CurrentLtbDataSet.RepairPossible;
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(Clear);

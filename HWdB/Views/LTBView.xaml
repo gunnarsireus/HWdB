@@ -108,7 +108,7 @@
 						<DatePicker Language="de-de" Name="EOSDate" SelectedDate="{Binding EOSDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" FontSize="10" FontWeight="Bold" Padding="0,2,0,0"/>
 					   </Viewbox>
 				</Grid>
-			</Grid>
+            </Grid>
 		</Viewbox>
 		<Viewbox Stretch="Uniform">
 			<Grid Height="250" DataContext="{Binding CurrentLtbDataSet, ValidatesOnDataErrors=True}">
@@ -206,21 +206,31 @@
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="20"/>
 				</Grid.ColumnDefinitions>
-				<Grid Row="8"  Column="1">
+                <Grid Row="4"  Column="9" Grid.ColumnSpan="2">
+                    <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+                        <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
+                    </Border>
+                </Grid>
+                <Label Grid.Row="4"  Grid.Column="9" Grid.ColumnSpan="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Service Days:" FontSize="4" FontWeight="Bold" />
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="4" Grid.Column="11">
+                    <TextBox  x:Name="ServiceDays" Text="{Binding ServiceDays}"  FontSize="4" FontWeight="Bold" IsReadOnly="True"/>
+                </Border>
+                <Grid Row="8"  Column="1">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>
 				</Grid>
-                <Label Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,5,7,0" HorizontalAlignment="Right" Content="LTB" FontSize="4" FontWeight="Bold" Foreground="Red" />
-                <Label Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+1Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+2Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+3Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+4Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+5Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+6Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+7Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+8Year" FontSize="4" FontWeight="Bold" />
-                <Label Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,5,5,0" HorizontalAlignment="Right" Content="+9Year" FontSize="4" FontWeight="Bold" />				<Grid Grid.Row="8"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
+                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
+                <TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l1" Text="{Binding l1}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l2" Text="{Binding l2}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l3" Text="{Binding l3}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l4" Text="{Binding l4}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l5" Text="{Binding l5}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l6" Text="{Binding l6}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l7" Text="{Binding l7}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l8" Text="{Binding l8}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l9" Text="{Binding l9}"  FontSize="4" FontWeight="Bold" />				
+                <Grid Grid.Row="8"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB0" FontSize="4" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
 					<TextBox  x:Name="IB0" Text="{Binding IB0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
@@ -505,9 +515,9 @@
 				</Grid>
 				<Label Grid.Row="2"  Grid.Column="8" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Saved:" FontSize="4" FontWeight="Bold" />
 				<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2">
-					<TextBox  x:Name="Saved" Text="{Binding Saved}"   FontSize="5" FontWeight="Bold" IsReadOnly="True"/>
+                    <TextBox  x:Name="Saved" Text="{Binding Saved}"   FontSize="5" FontWeight="Bold" IsReadOnly="True"/>
 				</Border>
-				<TextBlock  x:Name="InfoText" Text="{Binding InfoText}"  FontSize="5" FontWeight="Bold" Foreground="Red"  Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="10"/>
+				<TextBlock  x:Name="InfoText" Text="{Binding InfoText, Mode=TwoWay}"  FontSize="5" FontWeight="Bold" Foreground="Red"  Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="10"/>
 				<Grid Row="13"  Column="2">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>

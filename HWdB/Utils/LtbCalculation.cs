@@ -496,40 +496,40 @@ namespace HWdB.Utils
         {
             return _ServiceYears;
         }
-        public static void ClearResult(LtbDataSet Ltb)
+        public static void ClearResult(LtbDataSet ltbDataSet)
         {
-            Ltb.TotalStock = string.Empty;
-            Ltb.Stock = string.Empty;
-            Ltb.Safety = string.Empty;
-            Ltb.InfoText = string.Empty;
-            Ltb.Failed = string.Empty;
-            Ltb.Repaired = string.Empty;
-            Ltb.Lost = string.Empty;
+            ltbDataSet.TotalStock = string.Empty;
+            ltbDataSet.Stock = string.Empty;
+            ltbDataSet.Safety = string.Empty;
+            ltbDataSet.InfoText = string.Empty;
+            ltbDataSet.Failed = string.Empty;
+            ltbDataSet.Repaired = string.Empty;
+            ltbDataSet.Lost = string.Empty;
         }
 
-        public static void ClearChartData(LtbDataSet ltb)
+        public static void ClearChartData(LtbDataSet ltbDataSet)
         {
             int YearCnt = 0;
             while (YearCnt <= 10)
             {
-                ltb.RSYearArray[YearCnt] = 0;
-                ltb.StockYearArray[YearCnt] = 0;
-                ltb.SafetyYearArray[YearCnt] = 0;
+                ltbDataSet.RSYearArray[YearCnt] = 0;
+                ltbDataSet.StockYearArray[YearCnt] = 0;
+                ltbDataSet.SafetyYearArray[YearCnt] = 0;
                 YearCnt = YearCnt + 1;
             }
         }
 
-        protected static bool BoundariesOK(int LastYear, LtbDataSet Ltb)
+        protected static bool BoundariesOK(int LastYear, LtbDataSet ltbDataSet)
         {
-            if (Ltb.HasErrors.Count > 0)
+            if (ltbDataSet.HasErrors.Count > 0)
             {
-                var first = Ltb.HasErrors.First();
-                Ltb.InfoText = first.Value;
+                var first = ltbDataSet.HasErrors.First();
+                ltbDataSet.InfoText = first.Value;
                 return false;
             }
             bool functionReturnValue = false;
-            int Cnt = 0; Ltb.InfoText = "";
-            DateTime TmpDate = Convert.ToDateTime(Ltb.LTBDate);
+            int Cnt = 0; ltbDataSet.InfoText = "";
+            DateTime TmpDate = Convert.ToDateTime(ltbDataSet.LTBDate);
             Cnt = 0;
             functionReturnValue = true;
             while (Cnt <= LastYear)
@@ -537,182 +537,182 @@ namespace HWdB.Utils
                 switch (Cnt)
                 {
                     case 0:
-                        if (Ltb.RS0 == string.Empty)
-                            Ltb.RS0 = "0";
-                        if (Information.IsNothing(Ltb.IB0) | Information.IsNothing(Ltb.RS0) | Information.IsNothing(Ltb.FR0) | Information.IsNothing(Ltb.RL0) | !Information.IsNumeric(Ltb.IB0) | !Information.IsNumeric(Ltb.RS0) | !Information.IsNumeric(Ltb.FR0) | !Information.IsNumeric(Ltb.RL0))
+                        if (ltbDataSet.RS0 == string.Empty)
+                            ltbDataSet.RS0 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB0) | Information.IsNothing(ltbDataSet.RS0) | Information.IsNothing(ltbDataSet.FR0) | Information.IsNothing(ltbDataSet.RL0) | !Information.IsNumeric(ltbDataSet.IB0) | !Information.IsNumeric(ltbDataSet.RS0) | !Information.IsNumeric(ltbDataSet.FR0) | !Information.IsNumeric(ltbDataSet.RL0))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = string.Format("Error: Wrong parameters in " + "{0}", TmpDate.Year);
+                            ltbDataSet.InfoText = string.Format("Error: Wrong parameters in " + "{0}", TmpDate.Year);
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB0) > 99999 | Convert.ToInt32(Ltb.IB0) < 0 | Convert.ToInt32(Ltb.RS0) < 0 | Convert.ToInt32(Ltb.RS0) > 9999 | Convert.ToDouble(Ltb.FR0) < 1E-07 | Convert.ToDouble(Ltb.FR0) > 100 | Convert.ToInt32(Ltb.RL0) < 0 | Convert.ToInt32(Ltb.RL0) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB0) > 99999 | Convert.ToInt32(ltbDataSet.IB0) < 0 | Convert.ToInt32(ltbDataSet.RS0) < 0 | Convert.ToInt32(ltbDataSet.RS0) > 9999 | Convert.ToDouble(ltbDataSet.FR0) < 1E-07 | Convert.ToDouble(ltbDataSet.FR0) > 100 | Convert.ToInt32(ltbDataSet.RL0) < 0 | Convert.ToInt32(ltbDataSet.RL0) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + TmpDate.Year;
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + TmpDate.Year;
                             return functionReturnValue;
                         }
                         break;
                     case 1:
-                        if (Ltb.RS1 == string.Empty)
-                            Ltb.RS1 = "0";
-                        if (Information.IsNothing(Ltb.IB1) | Information.IsNothing(Ltb.RS1) | Information.IsNothing(Ltb.FR1) | Information.IsNothing(Ltb.RL1) | !Information.IsNumeric(Ltb.IB1) | !Information.IsNumeric(Ltb.RS1) | !Information.IsNumeric(Ltb.FR1) | !Information.IsNumeric(Ltb.RL1))
+                        if (ltbDataSet.RS1 == string.Empty)
+                            ltbDataSet.RS1 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB1) | Information.IsNothing(ltbDataSet.RS1) | Information.IsNothing(ltbDataSet.FR1) | Information.IsNothing(ltbDataSet.RL1) | !Information.IsNumeric(ltbDataSet.IB1) | !Information.IsNumeric(ltbDataSet.RS1) | !Information.IsNumeric(ltbDataSet.FR1) | !Information.IsNumeric(ltbDataSet.RL1))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB1) > 99999 | Convert.ToInt32(Ltb.IB1) < 0 | Convert.ToInt32(Ltb.RS1) < 0 | Convert.ToInt32(Ltb.RS1) > 9999 | Convert.ToDouble(Ltb.FR1) < 1E-06 | Convert.ToDouble(Ltb.FR1) > 100 | Convert.ToInt32(Ltb.RL1) < 0 | Convert.ToInt32(Ltb.RL1) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB1) > 99999 | Convert.ToInt32(ltbDataSet.IB1) < 0 | Convert.ToInt32(ltbDataSet.RS1) < 0 | Convert.ToInt32(ltbDataSet.RS1) > 9999 | Convert.ToDouble(ltbDataSet.FR1) < 1E-06 | Convert.ToDouble(ltbDataSet.FR1) > 100 | Convert.ToInt32(ltbDataSet.RL1) < 0 | Convert.ToInt32(ltbDataSet.RL1) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 1).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 2:
-                        if (Ltb.RS2 == string.Empty)
-                            Ltb.RS2 = "0";
-                        if (Information.IsNothing(Ltb.IB2) | Information.IsNothing(Ltb.RS2) | Information.IsNothing(Ltb.FR2) | Information.IsNothing(Ltb.RL2) | !Information.IsNumeric(Ltb.IB2) | !Information.IsNumeric(Ltb.RS2) | !Information.IsNumeric(Ltb.FR2) | !Information.IsNumeric(Ltb.RL2))
+                        if (ltbDataSet.RS2 == string.Empty)
+                            ltbDataSet.RS2 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB2) | Information.IsNothing(ltbDataSet.RS2) | Information.IsNothing(ltbDataSet.FR2) | Information.IsNothing(ltbDataSet.RL2) | !Information.IsNumeric(ltbDataSet.IB2) | !Information.IsNumeric(ltbDataSet.RS2) | !Information.IsNumeric(ltbDataSet.FR2) | !Information.IsNumeric(ltbDataSet.RL2))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB2) > 99999 | Convert.ToInt32(Ltb.IB2) < 0 | Convert.ToInt32(Ltb.RS2) < 0 | Convert.ToInt32(Ltb.RS2) > 9999 | Convert.ToDouble(Ltb.FR2) < 1E-06 | Convert.ToDouble(Ltb.FR2) > 100 | Convert.ToInt32(Ltb.RL2) < 0 | Convert.ToInt32(Ltb.RL2) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB2) > 99999 | Convert.ToInt32(ltbDataSet.IB2) < 0 | Convert.ToInt32(ltbDataSet.RS2) < 0 | Convert.ToInt32(ltbDataSet.RS2) > 9999 | Convert.ToDouble(ltbDataSet.FR2) < 1E-06 | Convert.ToDouble(ltbDataSet.FR2) > 100 | Convert.ToInt32(ltbDataSet.RL2) < 0 | Convert.ToInt32(ltbDataSet.RL2) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 2).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 3:
-                        if (Ltb.RS3 == string.Empty)
-                            Ltb.RS3 = "0";
-                        if (Information.IsNothing(Ltb.IB3) | Information.IsNothing(Ltb.RS3) | Information.IsNothing(Ltb.FR3) | Information.IsNothing(Ltb.RL3) | !Information.IsNumeric(Ltb.IB3) | !Information.IsNumeric(Ltb.RS3) | !Information.IsNumeric(Ltb.FR3) | !Information.IsNumeric(Ltb.RL3))
+                        if (ltbDataSet.RS3 == string.Empty)
+                            ltbDataSet.RS3 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB3) | Information.IsNothing(ltbDataSet.RS3) | Information.IsNothing(ltbDataSet.FR3) | Information.IsNothing(ltbDataSet.RL3) | !Information.IsNumeric(ltbDataSet.IB3) | !Information.IsNumeric(ltbDataSet.RS3) | !Information.IsNumeric(ltbDataSet.FR3) | !Information.IsNumeric(ltbDataSet.RL3))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB3) > 99999 | Convert.ToInt32(Ltb.IB3) < 0 | Convert.ToInt32(Ltb.RS3) < 0 | Convert.ToInt32(Ltb.RS3) > 9999 | Convert.ToDouble(Ltb.FR3) < 1E-06 | Convert.ToDouble(Ltb.FR3) > 100 | Convert.ToInt32(Ltb.RL3) < 0 | Convert.ToInt32(Ltb.RL3) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB3) > 99999 | Convert.ToInt32(ltbDataSet.IB3) < 0 | Convert.ToInt32(ltbDataSet.RS3) < 0 | Convert.ToInt32(ltbDataSet.RS3) > 9999 | Convert.ToDouble(ltbDataSet.FR3) < 1E-06 | Convert.ToDouble(ltbDataSet.FR3) > 100 | Convert.ToInt32(ltbDataSet.RL3) < 0 | Convert.ToInt32(ltbDataSet.RL3) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 3).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 4:
-                        if (Ltb.RS4 == string.Empty)
-                            Ltb.RS4 = "0";
-                        if (Information.IsNothing(Ltb.IB4) | Information.IsNothing(Ltb.RS4) | Information.IsNothing(Ltb.FR4) | Information.IsNothing(Ltb.RL4) | !Information.IsNumeric(Ltb.IB4) | !Information.IsNumeric(Ltb.RS4) | !Information.IsNumeric(Ltb.FR4) | !Information.IsNumeric(Ltb.RL4))
+                        if (ltbDataSet.RS4 == string.Empty)
+                            ltbDataSet.RS4 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB4) | Information.IsNothing(ltbDataSet.RS4) | Information.IsNothing(ltbDataSet.FR4) | Information.IsNothing(ltbDataSet.RL4) | !Information.IsNumeric(ltbDataSet.IB4) | !Information.IsNumeric(ltbDataSet.RS4) | !Information.IsNumeric(ltbDataSet.FR4) | !Information.IsNumeric(ltbDataSet.RL4))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB4.ToString()) > 99999 | Convert.ToInt32(Ltb.IB4.ToString()) < 0 | Convert.ToInt32(Ltb.RS4) < 0 | Convert.ToInt32(Ltb.RS4) > 9999 | Convert.ToDouble(Ltb.FR4) < 1E-06 | Convert.ToDouble(Ltb.FR4) > 100 | Convert.ToInt32(Ltb.RL4) < 0 | Convert.ToInt32(Ltb.RL4) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB4.ToString()) > 99999 | Convert.ToInt32(ltbDataSet.IB4.ToString()) < 0 | Convert.ToInt32(ltbDataSet.RS4) < 0 | Convert.ToInt32(ltbDataSet.RS4) > 9999 | Convert.ToDouble(ltbDataSet.FR4) < 1E-06 | Convert.ToDouble(ltbDataSet.FR4) > 100 | Convert.ToInt32(ltbDataSet.RL4) < 0 | Convert.ToInt32(ltbDataSet.RL4) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 4).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 5:
-                        if (Ltb.RS5 == string.Empty)
-                            Ltb.RS5 = "0";
-                        if (Information.IsNothing(Ltb.IB5) | Information.IsNothing(Ltb.RS5) | Information.IsNothing(Ltb.FR5) | Information.IsNothing(Ltb.RL5) | !Information.IsNumeric(Ltb.IB5) | !Information.IsNumeric(Ltb.RS5) | !Information.IsNumeric(Ltb.FR5) | !Information.IsNumeric(Ltb.RL5))
+                        if (ltbDataSet.RS5 == string.Empty)
+                            ltbDataSet.RS5 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB5) | Information.IsNothing(ltbDataSet.RS5) | Information.IsNothing(ltbDataSet.FR5) | Information.IsNothing(ltbDataSet.RL5) | !Information.IsNumeric(ltbDataSet.IB5) | !Information.IsNumeric(ltbDataSet.RS5) | !Information.IsNumeric(ltbDataSet.FR5) | !Information.IsNumeric(ltbDataSet.RL5))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB5) > 99999 | Convert.ToInt32(Ltb.IB5) < 0 | Convert.ToInt32(Ltb.RS5) < 0 | Convert.ToInt32(Ltb.RS5) > 9999 | Convert.ToDouble(Ltb.FR5) < 1E-06 | Convert.ToDouble(Ltb.FR5) > 100 | Convert.ToInt32(Ltb.RL5) < 0 | Convert.ToInt32(Ltb.RL5) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB5) > 99999 | Convert.ToInt32(ltbDataSet.IB5) < 0 | Convert.ToInt32(ltbDataSet.RS5) < 0 | Convert.ToInt32(ltbDataSet.RS5) > 9999 | Convert.ToDouble(ltbDataSet.FR5) < 1E-06 | Convert.ToDouble(ltbDataSet.FR5) > 100 | Convert.ToInt32(ltbDataSet.RL5) < 0 | Convert.ToInt32(ltbDataSet.RL5) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 5).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 6:
-                        if (Ltb.RS6.ToString() == string.Empty)
-                            Ltb.RS6 = "0";
-                        if (Information.IsNothing(Ltb.IB6) | Information.IsNothing(Ltb.RS6) | Information.IsNothing(Ltb.FR6) | Information.IsNothing(Ltb.RL6) | !Information.IsNumeric(Ltb.IB6) | !Information.IsNumeric(Ltb.RS6.ToString()) | !Information.IsNumeric(Ltb.FR6) | !Information.IsNumeric(Ltb.RL6))
+                        if (ltbDataSet.RS6.ToString() == string.Empty)
+                            ltbDataSet.RS6 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB6) | Information.IsNothing(ltbDataSet.RS6) | Information.IsNothing(ltbDataSet.FR6) | Information.IsNothing(ltbDataSet.RL6) | !Information.IsNumeric(ltbDataSet.IB6) | !Information.IsNumeric(ltbDataSet.RS6.ToString()) | !Information.IsNumeric(ltbDataSet.FR6) | !Information.IsNumeric(ltbDataSet.RL6))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB6.ToString()) > 99999 | Convert.ToInt32(Ltb.IB6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) < 0 | Convert.ToInt32(Ltb.RS6.ToString()) > 9999 | Convert.ToDouble(Ltb.FR6) < 1E-06 | Convert.ToDouble(Ltb.FR6) > 100 | Convert.ToInt32(Ltb.RL6) < 0 | Convert.ToInt32(Ltb.RL6) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB6.ToString()) > 99999 | Convert.ToInt32(ltbDataSet.IB6.ToString()) < 0 | Convert.ToInt32(ltbDataSet.RS6.ToString()) < 0 | Convert.ToInt32(ltbDataSet.RS6.ToString()) > 9999 | Convert.ToDouble(ltbDataSet.FR6) < 1E-06 | Convert.ToDouble(ltbDataSet.FR6) > 100 | Convert.ToInt32(ltbDataSet.RL6) < 0 | Convert.ToInt32(ltbDataSet.RL6) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 6).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 7:
-                        if (Ltb.RS7 == string.Empty)
-                            Ltb.RS7 = "0";
-                        if (Information.IsNothing(Ltb.IB7) | Information.IsNothing(Ltb.RS7) | Information.IsNothing(Ltb.FR7) | Information.IsNothing(Ltb.RL7) | !Information.IsNumeric(Ltb.IB7) | !Information.IsNumeric(Ltb.RS7) | !Information.IsNumeric(Ltb.FR7) | !Information.IsNumeric(Ltb.RL7))
+                        if (ltbDataSet.RS7 == string.Empty)
+                            ltbDataSet.RS7 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB7) | Information.IsNothing(ltbDataSet.RS7) | Information.IsNothing(ltbDataSet.FR7) | Information.IsNothing(ltbDataSet.RL7) | !Information.IsNumeric(ltbDataSet.IB7) | !Information.IsNumeric(ltbDataSet.RS7) | !Information.IsNumeric(ltbDataSet.FR7) | !Information.IsNumeric(ltbDataSet.RL7))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB7) > 99999 | Convert.ToInt32(Ltb.IB7) < 0 | Convert.ToInt32(Ltb.RS7) < 0 | Convert.ToInt32(Ltb.RS7) > 9999 | Convert.ToDouble(Ltb.FR7) < 1E-06 | Convert.ToDouble(Ltb.FR7) > 100 | Convert.ToInt32(Ltb.RL7) < 0 | Convert.ToInt32(Ltb.RL7) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB7) > 99999 | Convert.ToInt32(ltbDataSet.IB7) < 0 | Convert.ToInt32(ltbDataSet.RS7) < 0 | Convert.ToInt32(ltbDataSet.RS7) > 9999 | Convert.ToDouble(ltbDataSet.FR7) < 1E-06 | Convert.ToDouble(ltbDataSet.FR7) > 100 | Convert.ToInt32(ltbDataSet.RL7) < 0 | Convert.ToInt32(ltbDataSet.RL7) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 7).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 8:
-                        if (Ltb.RS8 == string.Empty)
-                            Ltb.RS8 = "0";
-                        if (Information.IsNothing(Ltb.IB8) | Information.IsNothing(Ltb.RS8) | Information.IsNothing(Ltb.FR8) | Information.IsNothing(Ltb.RL8) | !Information.IsNumeric(Ltb.IB8) | !Information.IsNumeric(Ltb.RS8) | !Information.IsNumeric(Ltb.FR8) | !Information.IsNumeric(Ltb.RL8))
+                        if (ltbDataSet.RS8 == string.Empty)
+                            ltbDataSet.RS8 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB8) | Information.IsNothing(ltbDataSet.RS8) | Information.IsNothing(ltbDataSet.FR8) | Information.IsNothing(ltbDataSet.RL8) | !Information.IsNumeric(ltbDataSet.IB8) | !Information.IsNumeric(ltbDataSet.RS8) | !Information.IsNumeric(ltbDataSet.FR8) | !Information.IsNumeric(ltbDataSet.RL8))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB8) > 99999 | Convert.ToInt32(Ltb.IB8) < 0 | Convert.ToInt32(Ltb.RS8) < 0 | Convert.ToInt32(Ltb.RS8) > 9999 | Convert.ToDouble(Ltb.FR8) < 1E-06 | Convert.ToDouble(Ltb.FR8) > 100 | Convert.ToInt32(Ltb.RL8) < 0 | Convert.ToInt32(Ltb.RL8) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB8) > 99999 | Convert.ToInt32(ltbDataSet.IB8) < 0 | Convert.ToInt32(ltbDataSet.RS8) < 0 | Convert.ToInt32(ltbDataSet.RS8) > 9999 | Convert.ToDouble(ltbDataSet.FR8) < 1E-06 | Convert.ToDouble(ltbDataSet.FR8) > 100 | Convert.ToInt32(ltbDataSet.RL8) < 0 | Convert.ToInt32(ltbDataSet.RL8) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 8).ToString();
                             return functionReturnValue;
                         }
                         break;
                     case 9:
-                        if (Ltb.RS9 == string.Empty)
-                            Ltb.RS9 = "0";
-                        if (Information.IsNothing(Ltb.IB9) | Information.IsNothing(Ltb.RS9) | Information.IsNothing(Ltb.FR9) | Information.IsNothing(Ltb.RL9) | !Information.IsNumeric(Ltb.IB9) | !Information.IsNumeric(Ltb.RS9) | !Information.IsNumeric(Ltb.FR9) | !Information.IsNumeric(Ltb.RL9))
+                        if (ltbDataSet.RS9 == string.Empty)
+                            ltbDataSet.RS9 = "0";
+                        if (Information.IsNothing(ltbDataSet.IB9) | Information.IsNothing(ltbDataSet.RS9) | Information.IsNothing(ltbDataSet.FR9) | Information.IsNothing(ltbDataSet.RL9) | !Information.IsNumeric(ltbDataSet.IB9) | !Information.IsNumeric(ltbDataSet.RS9) | !Information.IsNumeric(ltbDataSet.FR9) | !Information.IsNumeric(ltbDataSet.RL9))
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
                             return functionReturnValue;
                         }
-                        if (Convert.ToInt32(Ltb.IB9) > 99999 | Convert.ToInt32(Ltb.IB9) < 0 | Convert.ToInt32(Ltb.RS9) < 0 | Convert.ToInt32(Ltb.RS9) > 9999 | Convert.ToDouble(Ltb.FR9) < 1E-06 | Convert.ToDouble(Ltb.FR9) > 100 | Convert.ToInt32(Ltb.RL9) < 0 | Convert.ToInt32(Ltb.RL9) > 100)
+                        if (Convert.ToInt32(ltbDataSet.IB9) > 99999 | Convert.ToInt32(ltbDataSet.IB9) < 0 | Convert.ToInt32(ltbDataSet.RS9) < 0 | Convert.ToInt32(ltbDataSet.RS9) > 9999 | Convert.ToDouble(ltbDataSet.FR9) < 1E-06 | Convert.ToDouble(ltbDataSet.FR9) > 100 | Convert.ToInt32(ltbDataSet.RL9) < 0 | Convert.ToInt32(ltbDataSet.RL9) > 100)
                         {
                             functionReturnValue = false;
                             Cnt = LastYear;
-                            Ltb.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
+                            ltbDataSet.InfoText = "Error: Wrong parameters in " + (Convert.ToInt32(TmpDate.Year) + 9).ToString();
                             return functionReturnValue;
                         }
                         break;
@@ -724,11 +724,11 @@ namespace HWdB.Utils
             return functionReturnValue;
         }
 
-        static void ReadIB(double SD, int LastYear, double LD, ref double CL, int N, LtbDataSet Ltb)
+        static void ReadIB(double SD, int LastYear, double LD, ref double CL, int N, LtbDataSet ltbDataSet)
         {
             int Cnt = 0;
             //int Conf = Convert.ToInt32(Ltb.ConfidenceLevel);
-            switch (Ltb.ConfidenceLevel)
+            switch (ltbDataSet.ConfidenceLevel)
             {
                 //Confidence Level
 
@@ -773,92 +773,92 @@ namespace HWdB.Utils
                 {
                     case 0:
                         //////ViewData["RS0ForeColor"] = System.Drawing.Color.Black;
-                        IBin[0] = Convert.ToInt64(Ltb.IB0);
-                        RSin[0] = Convert.ToInt64(Ltb.RS0);
-                        FRin[0] = Convert.ToDouble(Ltb.FR0);
-                        RLin[0] = Convert.ToDouble(Convert.ToDouble(Ltb.RL0) / 100);
+                        IBin[0] = Convert.ToInt64(ltbDataSet.IB0);
+                        RSin[0] = Convert.ToInt64(ltbDataSet.RS0);
+                        FRin[0] = Convert.ToDouble(ltbDataSet.FR0);
+                        RLin[0] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL0) / 100);
 
                         break;
                     case 1:
                         ////ViewData["RS1ForeColor"] = System.Drawing.Color.Black;
-                        IBin[1] = Convert.ToInt64(Ltb.IB1);
-                        RSin[1] = Convert.ToInt64(Ltb.RS1);
-                        FRin[1] = Convert.ToDouble(Ltb.FR1);
-                        RLin[1] = Convert.ToDouble(Convert.ToDouble(Ltb.RL1) / 100);
+                        IBin[1] = Convert.ToInt64(ltbDataSet.IB1);
+                        RSin[1] = Convert.ToInt64(ltbDataSet.RS1);
+                        FRin[1] = Convert.ToDouble(ltbDataSet.FR1);
+                        RLin[1] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL1) / 100);
 
                         break;
                     case 2:
                         ////ViewData["RS2ForeColor"] = System.Drawing.Color.Black;
-                        IBin[2] = Convert.ToInt64(Ltb.IB2);
-                        RSin[2] = Convert.ToInt64(Ltb.RS2);
-                        FRin[2] = Convert.ToDouble(Ltb.FR2);
-                        RLin[2] = Convert.ToDouble(Convert.ToDouble(Ltb.RL2) / 100);
+                        IBin[2] = Convert.ToInt64(ltbDataSet.IB2);
+                        RSin[2] = Convert.ToInt64(ltbDataSet.RS2);
+                        FRin[2] = Convert.ToDouble(ltbDataSet.FR2);
+                        RLin[2] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL2) / 100);
 
                         break;
                     case 3:
                         ////ViewData["RS3ForeColor"] = System.Drawing.Color.Black;
-                        IBin[3] = Convert.ToInt64(Ltb.IB3);
-                        RSin[3] = Convert.ToInt64(Ltb.RS3);
-                        FRin[3] = Convert.ToDouble(Ltb.FR3);
-                        RLin[3] = Convert.ToDouble(Convert.ToDouble(Ltb.RL3) / 100);
+                        IBin[3] = Convert.ToInt64(ltbDataSet.IB3);
+                        RSin[3] = Convert.ToInt64(ltbDataSet.RS3);
+                        FRin[3] = Convert.ToDouble(ltbDataSet.FR3);
+                        RLin[3] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL3) / 100);
 
                         break;
                     case 4:
                         ////ViewData["RS4ForeColor"] = System.Drawing.Color.Black;
-                        IBin[4] = Convert.ToInt64(Ltb.IB4.ToString());
-                        RSin[4] = Convert.ToInt64(Ltb.RS4);
-                        FRin[4] = Convert.ToDouble(Ltb.FR4);
-                        RLin[4] = Convert.ToDouble(Convert.ToDouble(Ltb.RL4) / 100);
+                        IBin[4] = Convert.ToInt64(ltbDataSet.IB4.ToString());
+                        RSin[4] = Convert.ToInt64(ltbDataSet.RS4);
+                        FRin[4] = Convert.ToDouble(ltbDataSet.FR4);
+                        RLin[4] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL4) / 100);
 
                         break;
                     case 5:
                         ////ViewData["RS5ForeColor"] = System.Drawing.Color.Black;
-                        IBin[5] = Convert.ToInt64(Ltb.IB5);
-                        RSin[5] = Convert.ToInt64(Ltb.RS5);
-                        FRin[5] = Convert.ToDouble(Ltb.FR5);
-                        RLin[5] = Convert.ToDouble(Convert.ToDouble(Ltb.RL5) / 100);
+                        IBin[5] = Convert.ToInt64(ltbDataSet.IB5);
+                        RSin[5] = Convert.ToInt64(ltbDataSet.RS5);
+                        FRin[5] = Convert.ToDouble(ltbDataSet.FR5);
+                        RLin[5] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL5) / 100);
 
                         break;
                     case 6:
                         ////ViewData["RS6ForeColor"] = System.Drawing.Color.Black;
-                        IBin[6] = Convert.ToInt64(Ltb.IB6.ToString());
-                        RSin[6] = Convert.ToInt64(Ltb.RS6.ToString());
-                        FRin[6] = Convert.ToDouble(Ltb.FR6);
-                        RLin[6] = Convert.ToDouble(Convert.ToDouble(Ltb.RL6) / 100);
+                        IBin[6] = Convert.ToInt64(ltbDataSet.IB6.ToString());
+                        RSin[6] = Convert.ToInt64(ltbDataSet.RS6.ToString());
+                        FRin[6] = Convert.ToDouble(ltbDataSet.FR6);
+                        RLin[6] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL6) / 100);
 
                         break;
                     case 7:
                         ////ViewData["RS7ForeColor"] = System.Drawing.Color.Black;
-                        IBin[7] = Convert.ToInt64(Ltb.IB7);
-                        RSin[7] = Convert.ToInt64(Ltb.RS7);
-                        FRin[7] = Convert.ToDouble(Ltb.FR7);
-                        RLin[7] = Convert.ToDouble(Convert.ToDouble(Ltb.RL7) / 100);
+                        IBin[7] = Convert.ToInt64(ltbDataSet.IB7);
+                        RSin[7] = Convert.ToInt64(ltbDataSet.RS7);
+                        FRin[7] = Convert.ToDouble(ltbDataSet.FR7);
+                        RLin[7] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL7) / 100);
 
                         break;
                     case 8:
                         ////ViewData["RS8ForeColor"] = System.Drawing.Color.Black;
-                        IBin[8] = Convert.ToInt64(Ltb.IB8);
-                        RSin[8] = Convert.ToInt64(Ltb.RS8);
-                        FRin[8] = Convert.ToDouble(Ltb.FR8);
-                        RLin[8] = Convert.ToDouble(Convert.ToDouble(Ltb.RL8) / 100);
+                        IBin[8] = Convert.ToInt64(ltbDataSet.IB8);
+                        RSin[8] = Convert.ToInt64(ltbDataSet.RS8);
+                        FRin[8] = Convert.ToDouble(ltbDataSet.FR8);
+                        RLin[8] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL8) / 100);
 
                         break;
                     case 9:
                         ////ViewData["RS9ForeColor"] = System.Drawing.Color.Black;
-                        IBin[9] = Convert.ToInt64(Ltb.IB9);
-                        RSin[9] = Convert.ToInt64(Ltb.RS9);
-                        FRin[9] = Convert.ToDouble(Ltb.FR9);
-                        RLin[9] = Convert.ToDouble(Convert.ToDouble(Ltb.RL9) / 100);
+                        IBin[9] = Convert.ToInt64(ltbDataSet.IB9);
+                        RSin[9] = Convert.ToInt64(ltbDataSet.RS9);
+                        FRin[9] = Convert.ToDouble(ltbDataSet.FR9);
+                        RLin[9] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL9) / 100);
 
                         break;
                 }
                 Cnt += 1;
             }
-            AdjustForecolorAndClearRemains(Cnt, Ltb);
+            AdjustForecolorAndClearRemains(Cnt, ltbDataSet);
 
         }
 
-        static void AdjustForecolorAndClearRemains(int First, LtbDataSet Ltb)
+        static void AdjustForecolorAndClearRemains(int First, LtbDataSet ltbDataSet)
         {
 
             int Cnt = First;
@@ -868,120 +868,67 @@ namespace HWdB.Utils
                 {
 
                     case 0:
-                        //ViewData["RS0ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB0 = string.Empty;
-                        Ltb.RS0 = string.Empty;
-                        Ltb.FR0 = string.Empty;
-                        Ltb.RL0 = string.Empty;
-                        //ViewBag.Year0 = string.Empty;
-                        //ViewData["RS1ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB1 = string.Empty;
-                        Ltb.RS1 = string.Empty;
-                        Ltb.FR1 = string.Empty;
-                        Ltb.RL1 = string.Empty;
-                        //ViewBag.Year1 = string.Empty;
-
+                        ltbDataSet.IB0 = string.Empty;
+                        ltbDataSet.RS0 = string.Empty;
+                        ltbDataSet.FR0 = string.Empty;
+                        ltbDataSet.RL0 = string.Empty;
+                        ltbDataSet.IB1 = string.Empty;
+                        ltbDataSet.RS1 = string.Empty;
+                        ltbDataSet.FR1 = string.Empty;
+                        ltbDataSet.RL1 = string.Empty;
                         break;
                     case 1:
-                        //ViewData["RS2ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB2 = string.Empty;
-                        Ltb.RS2 = string.Empty;
-                        Ltb.FR2 = string.Empty;
-                        Ltb.RL2 = string.Empty;
-                        //ViewData["IB2TabIndex"] = 0;
-                        //ViewData["RS2TabIndex"] = 0;
-                        //ViewData["FR2TabIndex"] = 0;
-                        //ViewData["RL2TabIndex"] = 0;
-                        //ViewBag.Year2 = string.Empty;
+                        ltbDataSet.IB2 = string.Empty;
+                        ltbDataSet.RS2 = string.Empty;
+                        ltbDataSet.FR2 = string.Empty;
+                        ltbDataSet.RL2 = string.Empty;
                         break;
                     case 2:
-                        //ViewData["RS3ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB3 = string.Empty;
-                        Ltb.RS3 = string.Empty;
-                        Ltb.FR3 = string.Empty;
-                        Ltb.RL3 = string.Empty;
-                        //ViewData["IB3TabIndex"] = 0;
-                        //ViewData["RS3TabIndex"] = 0;
-                        //ViewData["FR3TabIndex"] = 0;
-                        //ViewData["RL3TabIndex"] = 0;
-                        //ViewBag.Year3 = string.Empty;
+                        ltbDataSet.IB3 = string.Empty;
+                        ltbDataSet.RS3 = string.Empty;
+                        ltbDataSet.FR3 = string.Empty;
+                        ltbDataSet.RL3 = string.Empty;
                         break;
                     case 3:
-                        //ViewData["RS4ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB4 = string.Empty;
-                        Ltb.RS4 = string.Empty;
-                        Ltb.FR4 = string.Empty;
-                        Ltb.RL4 = string.Empty;
-                        //ViewData["IB4TabIndex"] = 0;
-                        //ViewData["RS4TabIndex"] = 0;
-                        //ViewData["FR4TabIndex"] = 0;
-                        //ViewData["RL4TabIndex"] = 0;
-                        //ViewBag.Year4 = string.Empty;
+                        ltbDataSet.IB4 = string.Empty;
+                        ltbDataSet.RS4 = string.Empty;
+                        ltbDataSet.FR4 = string.Empty;
+                        ltbDataSet.RL4 = string.Empty;
                         break;
                     case 4:
-                        //ViewData["RS5ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB5 = string.Empty;
-                        Ltb.RS5 = string.Empty;
-                        Ltb.FR5 = string.Empty;
-                        Ltb.RL5 = string.Empty;
-                        //ViewData["IB5TabIndex"] = 0;
-                        //ViewData["RS5TabIndex"] = 0;
-                        //ViewData["FR5TabIndex"] = 0;
-                        //ViewData["RL5TabIndex"] = 0;
-                        //ViewBag.Year5 = string.Empty;
+
+                        ltbDataSet.IB5 = string.Empty;
+                        ltbDataSet.RS5 = string.Empty;
+                        ltbDataSet.FR5 = string.Empty;
+                        ltbDataSet.RL5 = string.Empty;
                         break;
                     case 5:
-                        //ViewData["RS6ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB6 = string.Empty;
-                        Ltb.RS6 = string.Empty;
-                        Ltb.FR6 = string.Empty;
-                        Ltb.RL6 = string.Empty;
-                        //ViewData["IB6TabIndex"] = 0;
-                        //ViewData["FS62TabIndex"] = 0;
-                        //ViewData["FR6TabIndex"] = 0;
-                        //ViewData["RL6TabIndex"] = 0;
-                        //ViewBag.Year6 = string.Empty;
+                        ltbDataSet.IB6 = string.Empty;
+                        ltbDataSet.RS6 = string.Empty;
+                        ltbDataSet.FR6 = string.Empty;
+                        ltbDataSet.RL6 = string.Empty;
                         break;
                     case 6:
-                        //ViewData["RS7ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB7 = string.Empty;
-                        Ltb.RS7 = string.Empty;
-                        Ltb.FR7 = string.Empty;
-                        Ltb.RL7 = string.Empty;
-                        //ViewData["IB7TabIndex"] = 0;
-                        //ViewData["RS7TabIndex"] = 0;
-                        //ViewData["FR7TabIndex"] = 0;
-                        //ViewData["RL7TabIndex"] = 0;
-                        //ViewBag.Year7 = string.Empty;
+                        ltbDataSet.IB7 = string.Empty;
+                        ltbDataSet.RS7 = string.Empty;
+                        ltbDataSet.FR7 = string.Empty;
+                        ltbDataSet.RL7 = string.Empty;
                         break;
                     case 7:
-                        //ViewData["RS8ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB8 = string.Empty;
-                        Ltb.RS8 = string.Empty;
-                        Ltb.FR8 = string.Empty;
-                        Ltb.RL8 = string.Empty;
-                        //ViewData["IB8TabIndex"] = 0;
-                        //ViewData["RS8TabIndex"] = 0;
-                        //ViewData["FR8TabIndex"] = 0;
-                        //ViewData["RL8TabIndex"] = 0;
-                        //ViewBag.Year8 = string.Empty;
+                        ltbDataSet.IB8 = string.Empty;
+                        ltbDataSet.RS8 = string.Empty;
+                        ltbDataSet.FR8 = string.Empty;
+                        ltbDataSet.RL8 = string.Empty;
                         break;
                     case 8:
-                        //ViewData["RS9ForeColor"] = System.Drawing.Color.Black;
-                        Ltb.IB9 = string.Empty;
-                        Ltb.RS9 = string.Empty;
-                        Ltb.FR9 = string.Empty;
-                        Ltb.RL9 = string.Empty;
-                        //ViewData["IB9TabIndex"] = 0;
-                        //ViewData["RS9TabIndex"] = 0;
-                        //ViewData["FR9TabIndex"] = 0;
-                        //ViewData["RL9TabIndex"] = 0;
-                        //ViewBag.Year9 = string.Empty;
+                        ltbDataSet.IB9 = string.Empty;
+                        ltbDataSet.RS9 = string.Empty;
+                        ltbDataSet.FR9 = string.Empty;
+                        ltbDataSet.RL9 = string.Empty;
                         break;
 
                     case 9:
-                        //ViewData["IB10TabIndex"] = 0;
-                        Ltb.IB10 = string.Empty;
+                        ltbDataSet.IB10 = string.Empty;
                         break;
                     case 10:
                         break;
@@ -989,78 +936,64 @@ namespace HWdB.Utils
                 Cnt += 1;
             }
         }
-        public static void Calculate(LtbDataSet Ltb)
+        public static void Calculate(LtbDataSet ltbDataSet)
         {
+            ClearResult(ltbDataSet);
+            ClearChartData(ltbDataSet);
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
             long StockPresent = 0;
             long SafetyPresent = 0;
             //CultureInfo ci = new CultureInfo(A.ThisCulture);
-            DateTime StartDate = Convert.ToDateTime(Ltb.LTBDate);
+            DateTime StartDate = Convert.ToDateTime(ltbDataSet.LTBDate);
             //Start Date = Today
-            DateTime EndOfService = Convert.ToDateTime(Ltb.EOSDate);
+            DateTime EndOfService = Convert.ToDateTime(ltbDataSet.EOSDate);
             setServiceYears(StartDate, EndOfService);
             MyServiceYears = getServiceYears();
 
-            if (!Information.IsNumeric(Ltb.RepairLeadTime))
+            if (!Information.IsNumeric(ltbDataSet.RepairLeadTime))
             {
-                //TextInfo = SireusMvc45.App_LocalResources.LTB_aspx.err1;
-                //this.RepairLeadTime.Focus();
-                Ltb.InfoText = "Repair Lead Time cannot be empty!";
-                //sb.Insert(0, "InfoText=" + TextInfo + " ");
-                ////L.LogActivity(sb.ToString(), true);
+                ltbDataSet.InfoText = "Repair Lead Time cannot be empty!";
                 return;
             }
-            LeadDays = Convert.ToInt32(Ltb.RepairLeadTime);
+            LeadDays = Convert.ToInt32(ltbDataSet.RepairLeadTime);
             if (LeadDays < 1 | LeadDays > 365)
             {
-                //TextInfo = SireusMvc45.App_LocalResources.LTB_aspx.err2;
-                Ltb.InfoText = "Error: 2 <= Repair Lead Time <=365TextInfo;";
-                //sb.Insert(0, "InfoText=" + TextInfo + " ");
-                ////L.LogActivity(sb.ToString(), true);
+                ltbDataSet.InfoText = "Error: 2 <= Repair Lead Time <=365TextInfo;";
                 return;
             }
 
             ServiceDays = Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, StartDate, EndOfService));
             if (LeadDays > ServiceDays)
             {
-                ClearResult(Ltb);
-                //TextInfo = SireusMvc45.App_LocalResources.LTB_aspx.err3;
-                Ltb.InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
-                //sb.Insert(0, "InfoText=" + TextInfo + " ");
-                ////L.LogActivity(sb.ToString(), true);
+                ClearResult(ltbDataSet);
+                ltbDataSet.InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
                 return;
             }
 
             if (ServiceDays > MaxServiceDays)
             {
-                ClearResult(Ltb);
-                //TextInfo = SireusMvc45.App_LocalResources.LTB_aspx.err4;
-                Ltb.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
-                //sb.Insert(0, "InfoText=" + TextInfo + " ");
-                ////L.LogActivity(sb.ToString(), true);
+                ClearResult(ltbDataSet);
+                ltbDataSet.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
                 return;
             }
 
             N = RoundUpInt(ServiceDays / LeadDays, 0);
 
-            if (Ltb.HasErrors.Count > 0)
+            if (ltbDataSet.HasErrors.Count > 0)
             {
-                var first = Ltb.HasErrors.First();
-                Ltb.InfoText = first.Value;
+                var first = ltbDataSet.HasErrors.First();
+                ltbDataSet.InfoText = first.Value;
                 return;
             }
 
-            if (!BoundariesOK(MyServiceYears, Ltb))
+            if (!BoundariesOK(MyServiceYears, ltbDataSet))
             {
                 return;
             }
 
-            ReadIB(ServiceDays, MyServiceYears, LeadDays, ref Conf_Level, N, Ltb);
-            ////sb.Append(" ServiceDays " + ServiceDays.ToString() + " MyServiceYears " + MyServiceYears.ToString() + " LeadDays " + LeadDays.ToString() + " Conf_Level " + Conf_Level + " N " + N.ToString());
-            ////L.LogActivity(sb.ToString(), true);
+            ReadIB(ServiceDays, MyServiceYears, LeadDays, ref Conf_Level, N, ltbDataSet);
 
-            //sb.Length = 0;
             LTBCommon LTB = new LTBCommon();
             LTB.LTBWorker(N, ServiceDays, LeadDays, MyServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
             ref Stock_Array, ref Returned_Array, ref Demand_Array, ref SumDemand_Array, ref RepairLoss_Array, ref  SumRepairLoss_Array, ref Repair_Array, ref SumRepair_Array, ref SafetyMargin_Array, ref SafetyMarginDayArray, ref FSLeadDaysDemand_Array,
@@ -1070,48 +1003,61 @@ namespace HWdB.Utils
             int YearCnt = 0;
             while (YearCnt <= MyServiceYears)
             {
-                Ltb.RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
-                Ltb.StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
+                ltbDataSet.RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
+                ltbDataSet.StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
                 FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1]), 0);
                 FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1] + ReturnedDayArray[YearCnt * 365 + 1] + FromAverage, ReturnedDayArray[YearCnt * 365 + (int)LeadDays + 1]), 0);
-                Ltb.SafetyYearArray[YearCnt] = FromGamma + FromAverage;
+                ltbDataSet.SafetyYearArray[YearCnt] = FromGamma + FromAverage;
                 YearCnt = YearCnt + 1;
             }
 
             StockPresent = RoundLong(Stock_Array[1], 0);
-            SafetyPresent = Ltb.SafetyYearArray[0];
+            SafetyPresent = ltbDataSet.SafetyYearArray[0];
 
-            Ltb.Stock = StockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
-            //sb.Append(" Stock " + Ltb.Stock);
+            ltbDataSet.Stock = StockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
+
             if (SafetyPresent > 0)
             {
                 FromAverage = GetSafetyFromAverage(Conf_in, SafetyMargin_Array[1]);
-                Ltb.Safety = SafetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
+                ltbDataSet.Safety = SafetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
             }
             else
             {
-                Ltb.Safety = string.Empty;
+                ltbDataSet.Safety = string.Empty;
             }
-            //sb.Append(" Safety " + Ltb.Safety);
 
-            Ltb.InfoText = "Total Stock:" + Convert.ToString(StockPresent + SafetyPresent);
-            Ltb.TotalStock = Convert.ToString(StockPresent + SafetyPresent);
-            //sb.Append(" Total " + Ltb.InfoText);
-            Ltb.Failed = RoundLong(SumDemand_Array[1], 0).ToString();
-            //sb.Append(" Failed " + Ltb.Failed);
-            Ltb.Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
-            //sb.Append(" Repaired " + Ltb.Repaired);
-            if (Ltb.RepairPossible) { Ltb.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { Ltb.Lost = "Nothing"; }
-            //sb.Append(" Lost " + Ltb.Lost);
-            //L.LogActivity(sb.ToString(), true);
+            ltbDataSet.TotalStock = Convert.ToString(StockPresent + SafetyPresent);
+
+            ltbDataSet.Failed = RoundLong(SumDemand_Array[1], 0).ToString();
+
+            ltbDataSet.Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
+
+            if (ltbDataSet.RepairPossible) { ltbDataSet.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { ltbDataSet.Lost = "Nothing"; }
+
         }
 
-        public static void InitYearTabIndex(LtbDataSet ltb)
+
+        public static void InitLabels(LtbDataSet ltbDataSet)
         {
-            if (ltb.EOSDate == null || ltb.LTBDate == null) return;
+            ltbDataSet.l0 = "LTB";
+            ltbDataSet.l1 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(1).Year.ToString();
+            ltbDataSet.l2 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(2).Year.ToString();
+            ltbDataSet.l3 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(3).Year.ToString();
+            ltbDataSet.l4 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(4).Year.ToString();
+            ltbDataSet.l5 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(5).Year.ToString();
+            ltbDataSet.l6 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(6).Year.ToString();
+            ltbDataSet.l7 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(7).Year.ToString();
+            ltbDataSet.l8 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(8).Year.ToString();
+            ltbDataSet.l9 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(9).Year.ToString();
+        }
+        public static void InitYearTabIndex(LtbDataSet ltbDataSet)
+        {
+            if (ltbDataSet.EOSDate == null || ltbDataSet.LTBDate == null) return;
+            InitLabels(ltbDataSet);
+            ltbDataSet.ServiceDays = Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate))).ToString();
             int Cnt = 0;
             int NbrOfServiceYears = 0;
-            setServiceYears(Convert.ToDateTime(ltb.LTBDate), Convert.ToDateTime(ltb.EOSDate));
+            setServiceYears(Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate));
             NbrOfServiceYears = getServiceYears();
             Cnt = 0;
             while (Cnt <= NbrOfServiceYears)
@@ -1120,40 +1066,40 @@ namespace HWdB.Utils
                 switch (Cnt)
                 {
                     case 0:
-                        if (ltb.IB1 == "EoS") ltb.IB1 = string.Empty;
-                        ltb.IB1ReadOnly = false;
+                        if (ltbDataSet.IB1 == "EoS") ltbDataSet.IB1 = string.Empty;
+                        ltbDataSet.IB1ReadOnly = false;
                         break;
                     case 1:
-                        if (ltb.IB2 == "EoS") ltb.IB2 = string.Empty;
-                        ltb.IB2ReadOnly = false;
+                        if (ltbDataSet.IB2 == "EoS") ltbDataSet.IB2 = string.Empty;
+                        ltbDataSet.IB2ReadOnly = false;
                         break;
                     case 2:
-                        if (ltb.IB3 == "EoS") ltb.IB3 = string.Empty;
-                        ltb.IB3ReadOnly = false;
+                        if (ltbDataSet.IB3 == "EoS") ltbDataSet.IB3 = string.Empty;
+                        ltbDataSet.IB3ReadOnly = false;
                         break; ;
                     case 3:
-                        if (ltb.IB4 == "EoS") ltb.IB4 = string.Empty;
-                        ltb.IB4ReadOnly = false;
+                        if (ltbDataSet.IB4 == "EoS") ltbDataSet.IB4 = string.Empty;
+                        ltbDataSet.IB4ReadOnly = false;
                         break; ;
                     case 4:
-                        if (ltb.IB5 == "EoS") ltb.IB5 = string.Empty;
-                        ltb.IB5ReadOnly = false;
+                        if (ltbDataSet.IB5 == "EoS") ltbDataSet.IB5 = string.Empty;
+                        ltbDataSet.IB5ReadOnly = false;
                         break;
                     case 5:
-                        if (ltb.IB6 == "EoS") ltb.IB6 = string.Empty;
-                        ltb.IB6ReadOnly = false;
+                        if (ltbDataSet.IB6 == "EoS") ltbDataSet.IB6 = string.Empty;
+                        ltbDataSet.IB6ReadOnly = false;
                         break;
                     case 6:
-                        if (ltb.IB7 == "EoS") ltb.IB7 = string.Empty;
-                        ltb.IB7ReadOnly = false;
+                        if (ltbDataSet.IB7 == "EoS") ltbDataSet.IB7 = string.Empty;
+                        ltbDataSet.IB7ReadOnly = false;
                         break;
                     case 7:
-                        if (ltb.IB8 == "EoS") ltb.IB8 = string.Empty;
-                        ltb.IB8ReadOnly = false;
+                        if (ltbDataSet.IB8 == "EoS") ltbDataSet.IB8 = string.Empty;
+                        ltbDataSet.IB8ReadOnly = false;
                         break;
                     case 8:
-                        if (ltb.IB9 == "EoS") ltb.IB9 = string.Empty;
-                        ltb.IB9ReadOnly = false;
+                        if (ltbDataSet.IB9 == "EoS") ltbDataSet.IB9 = string.Empty;
+                        ltbDataSet.IB9ReadOnly = false;
                         break;
                     case 9:
                         break;
@@ -1164,79 +1110,79 @@ namespace HWdB.Utils
             switch (NbrOfServiceYears)
             {
                 case 0:
-                    ltb.IB1 = "EoS";
-                    ltb.RS1 = string.Empty;
-                    ltb.RL1 = string.Empty;
-                    ltb.FR1 = string.Empty;
-                    ltb.IB1ReadOnly = true;
-                    ltb.RL1ReadOnly = true;
+                    ltbDataSet.IB1 = "EoS";
+                    ltbDataSet.RS1 = string.Empty;
+                    ltbDataSet.RL1 = string.Empty;
+                    ltbDataSet.FR1 = string.Empty;
+                    ltbDataSet.IB1ReadOnly = true;
+                    ltbDataSet.RL1ReadOnly = true;
                     break;
                 case 1:
-                    ltb.IB2 = "EoS";
-                    ltb.RS2 = string.Empty;
-                    ltb.RL2 = string.Empty;
-                    ltb.FR2 = string.Empty;
-                    ltb.IB2ReadOnly = true;
-                    ltb.RL2ReadOnly = true;
+                    ltbDataSet.IB2 = "EoS";
+                    ltbDataSet.RS2 = string.Empty;
+                    ltbDataSet.RL2 = string.Empty;
+                    ltbDataSet.FR2 = string.Empty;
+                    ltbDataSet.IB2ReadOnly = true;
+                    ltbDataSet.RL2ReadOnly = true;
                     break;
                 case 2:
-                    ltb.IB3 = "EoS";
-                    ltb.RS3 = string.Empty;
-                    ltb.RL3 = string.Empty;
-                    ltb.FR3 = string.Empty;
-                    ltb.IB3ReadOnly = true;
-                    ltb.RL3ReadOnly = true;
+                    ltbDataSet.IB3 = "EoS";
+                    ltbDataSet.RS3 = string.Empty;
+                    ltbDataSet.RL3 = string.Empty;
+                    ltbDataSet.FR3 = string.Empty;
+                    ltbDataSet.IB3ReadOnly = true;
+                    ltbDataSet.RL3ReadOnly = true;
                     break;
                 case 3:
-                    ltb.IB4 = "EoS";
-                    ltb.RS4 = string.Empty;
-                    ltb.RL4 = string.Empty;
-                    ltb.FR4 = string.Empty;
-                    ltb.RL4ReadOnly = true;
-                    ltb.IB4ReadOnly = true;
+                    ltbDataSet.IB4 = "EoS";
+                    ltbDataSet.RS4 = string.Empty;
+                    ltbDataSet.RL4 = string.Empty;
+                    ltbDataSet.FR4 = string.Empty;
+                    ltbDataSet.RL4ReadOnly = true;
+                    ltbDataSet.IB4ReadOnly = true;
                     break;
                 case 4:
-                    ltb.IB5 = "EoS";
-                    ltb.RS5 = string.Empty;
-                    ltb.RL5 = string.Empty;
-                    ltb.FR5 = string.Empty;
-                    ltb.IB5ReadOnly = true;
-                    ltb.RL5ReadOnly = true;
+                    ltbDataSet.IB5 = "EoS";
+                    ltbDataSet.RS5 = string.Empty;
+                    ltbDataSet.RL5 = string.Empty;
+                    ltbDataSet.FR5 = string.Empty;
+                    ltbDataSet.IB5ReadOnly = true;
+                    ltbDataSet.RL5ReadOnly = true;
                     break;
                 case 5:
-                    ltb.IB6 = "EoS";
-                    ltb.RS6 = string.Empty;
-                    ltb.RL6 = string.Empty;
-                    ltb.FR6 = string.Empty;
-                    ltb.IB6ReadOnly = true;
-                    ltb.RL6ReadOnly = true;
+                    ltbDataSet.IB6 = "EoS";
+                    ltbDataSet.RS6 = string.Empty;
+                    ltbDataSet.RL6 = string.Empty;
+                    ltbDataSet.FR6 = string.Empty;
+                    ltbDataSet.IB6ReadOnly = true;
+                    ltbDataSet.RL6ReadOnly = true;
                     break;
                 case 6:
-                    ltb.IB7 = "EoS";
-                    ltb.RS7 = string.Empty;
-                    ltb.RL7 = string.Empty;
-                    ltb.FR7 = string.Empty;
-                    ltb.IB7ReadOnly = true;
-                    ltb.RL7ReadOnly = true;
+                    ltbDataSet.IB7 = "EoS";
+                    ltbDataSet.RS7 = string.Empty;
+                    ltbDataSet.RL7 = string.Empty;
+                    ltbDataSet.FR7 = string.Empty;
+                    ltbDataSet.IB7ReadOnly = true;
+                    ltbDataSet.RL7ReadOnly = true;
                     break;
                 case 7:
-                    ltb.IB8 = "EoS";
-                    ltb.RS8 = string.Empty;
-                    ltb.RL8 = string.Empty;
-                    ltb.FR8 = string.Empty;
-                    ltb.IB8ReadOnly = true;
-                    ltb.RL8ReadOnly = true;
+                    ltbDataSet.IB8 = "EoS";
+                    ltbDataSet.RS8 = string.Empty;
+                    ltbDataSet.RL8 = string.Empty;
+                    ltbDataSet.FR8 = string.Empty;
+                    ltbDataSet.IB8ReadOnly = true;
+                    ltbDataSet.RL8ReadOnly = true;
                     break;
                 case 8:
-                    ltb.IB9 = "EoS";
-                    ltb.RS9 = string.Empty;
-                    ltb.RL9 = string.Empty;
-                    ltb.FR9 = string.Empty;
-                    ltb.IB9ReadOnly = true;
-                    ltb.RL9ReadOnly = true;
+                    ltbDataSet.IB9 = "EoS";
+                    ltbDataSet.RS9 = string.Empty;
+                    ltbDataSet.RL9 = string.Empty;
+                    ltbDataSet.FR9 = string.Empty;
+                    ltbDataSet.IB9ReadOnly = true;
+                    ltbDataSet.RL9ReadOnly = true;
                     break;
                 case 9:
-                    ltb.IB10 = "EoS";
+                    ltbDataSet.IB10 = "EoS";
                     break;
                 case 10:
                     break;
@@ -1248,106 +1194,106 @@ namespace HWdB.Utils
                     case 1:
                         if (NbrOfServiceYears != 0)
                         {
-                            ltb.IB1 = string.Empty;
-                            ltb.FR1 = string.Empty;
-                            ltb.RS1 = string.Empty;
-                            ltb.RL1 = string.Empty;
-                            ltb.IB1ReadOnly = true;
-                            ltb.RL1ReadOnly = true;
+                            ltbDataSet.IB1 = string.Empty;
+                            ltbDataSet.FR1 = string.Empty;
+                            ltbDataSet.RS1 = string.Empty;
+                            ltbDataSet.RL1 = string.Empty;
+                            ltbDataSet.IB1ReadOnly = true;
+                            ltbDataSet.RL1ReadOnly = true;
                         }
                         break;
                     case 2:
                         if (NbrOfServiceYears != 1)
                         {
-                            ltb.IB2 = string.Empty;
-                            ltb.FR2 = string.Empty;
-                            ltb.RS2 = string.Empty;
-                            ltb.RL2 = string.Empty;
-                            ltb.IB2ReadOnly = true;
-                            ltb.RL2ReadOnly = true;
+                            ltbDataSet.IB2 = string.Empty;
+                            ltbDataSet.FR2 = string.Empty;
+                            ltbDataSet.RS2 = string.Empty;
+                            ltbDataSet.RL2 = string.Empty;
+                            ltbDataSet.IB2ReadOnly = true;
+                            ltbDataSet.RL2ReadOnly = true;
                         }
                         break;
                     case 3:
                         if (NbrOfServiceYears != 2)
                         {
-                            ltb.IB3 = string.Empty;
-                            ltb.FR3 = string.Empty;
-                            ltb.RS3 = string.Empty;
-                            ltb.RL3 = string.Empty;
-                            ltb.IB3ReadOnly = true;
-                            ltb.RL3ReadOnly = true;
+                            ltbDataSet.IB3 = string.Empty;
+                            ltbDataSet.FR3 = string.Empty;
+                            ltbDataSet.RS3 = string.Empty;
+                            ltbDataSet.RL3 = string.Empty;
+                            ltbDataSet.IB3ReadOnly = true;
+                            ltbDataSet.RL3ReadOnly = true;
                         }
                         break;
                     case 4:
                         if (NbrOfServiceYears != 3)
                         {
-                            ltb.IB4 = string.Empty;
-                            ltb.FR4 = string.Empty;
-                            ltb.RS4 = string.Empty;
-                            ltb.RL4 = string.Empty;
-                            ltb.IB4ReadOnly = true;
-                            ltb.RL4ReadOnly = true;
+                            ltbDataSet.IB4 = string.Empty;
+                            ltbDataSet.FR4 = string.Empty;
+                            ltbDataSet.RS4 = string.Empty;
+                            ltbDataSet.RL4 = string.Empty;
+                            ltbDataSet.IB4ReadOnly = true;
+                            ltbDataSet.RL4ReadOnly = true;
                         }
                         break;
                     case 5:
                         if (NbrOfServiceYears != 4)
                         {
-                            ltb.IB5 = string.Empty;
-                            ltb.FR5 = string.Empty;
-                            ltb.RS5 = string.Empty;
-                            ltb.RL5 = string.Empty;
-                            ltb.IB5ReadOnly = true;
-                            ltb.RL5ReadOnly = true;
+                            ltbDataSet.IB5 = string.Empty;
+                            ltbDataSet.FR5 = string.Empty;
+                            ltbDataSet.RS5 = string.Empty;
+                            ltbDataSet.RL5 = string.Empty;
+                            ltbDataSet.IB5ReadOnly = true;
+                            ltbDataSet.RL5ReadOnly = true;
                         }
                         break;
                     case 6:
                         if (NbrOfServiceYears != 5)
                         {
-                            ltb.IB6 = string.Empty;
-                            ltb.FR6 = string.Empty;
-                            ltb.RS6 = string.Empty;
-                            ltb.RL6 = string.Empty;
-                            ltb.IB6ReadOnly = true;
-                            ltb.RL6ReadOnly = true;
+                            ltbDataSet.IB6 = string.Empty;
+                            ltbDataSet.FR6 = string.Empty;
+                            ltbDataSet.RS6 = string.Empty;
+                            ltbDataSet.RL6 = string.Empty;
+                            ltbDataSet.IB6ReadOnly = true;
+                            ltbDataSet.RL6ReadOnly = true;
                         }
                         break;
                     case 7:
                         if (NbrOfServiceYears != 6)
                         {
-                            ltb.FR7 = string.Empty;
-                            ltb.RS7 = string.Empty;
-                            ltb.RL7 = string.Empty;
-                            ltb.IB7 = string.Empty;
-                            ltb.IB7ReadOnly = true;
-                            ltb.RL7ReadOnly = true;
+                            ltbDataSet.FR7 = string.Empty;
+                            ltbDataSet.RS7 = string.Empty;
+                            ltbDataSet.RL7 = string.Empty;
+                            ltbDataSet.IB7 = string.Empty;
+                            ltbDataSet.IB7ReadOnly = true;
+                            ltbDataSet.RL7ReadOnly = true;
                         }
                         break;
                     case 8:
                         if (NbrOfServiceYears != 7)
                         {
-                            ltb.IB8 = string.Empty;
-                            ltb.FR8 = string.Empty;
-                            ltb.RS8 = string.Empty;
-                            ltb.RL8 = string.Empty;
-                            ltb.IB8ReadOnly = true;
-                            ltb.RL8ReadOnly = true;
+                            ltbDataSet.IB8 = string.Empty;
+                            ltbDataSet.FR8 = string.Empty;
+                            ltbDataSet.RS8 = string.Empty;
+                            ltbDataSet.RL8 = string.Empty;
+                            ltbDataSet.IB8ReadOnly = true;
+                            ltbDataSet.RL8ReadOnly = true;
                         }
                         break;
                     case 9:
                         if (NbrOfServiceYears != 8)
                         {
-                            ltb.IB9 = string.Empty;
-                            ltb.FR9 = string.Empty;
-                            ltb.RS9 = string.Empty;
-                            ltb.RL9 = string.Empty;
-                            ltb.IB9ReadOnly = true;
-                            ltb.RL9ReadOnly = true;
+                            ltbDataSet.IB9 = string.Empty;
+                            ltbDataSet.FR9 = string.Empty;
+                            ltbDataSet.RS9 = string.Empty;
+                            ltbDataSet.RL9 = string.Empty;
+                            ltbDataSet.IB9ReadOnly = true;
+                            ltbDataSet.RL9ReadOnly = true;
                         }
                         break;
                     case 10:
                         if (NbrOfServiceYears != 9)
                         {
-                            ltb.IB10 = string.Empty;
+                            ltbDataSet.IB10 = string.Empty;
 
                         }
 
@@ -1355,9 +1301,9 @@ namespace HWdB.Utils
                 }
                 Cnt += 1;
             }
-            AdjustRepair(ltb);
+            AdjustRepair(ltbDataSet);
         }
-        static void AdjustRepair(LtbDataSet ltb)
+        static void AdjustRepair(LtbDataSet ltbDataSet)
         {
             int Cnt = 0;
             int NbrOfServiceYears = 0;
@@ -1367,113 +1313,113 @@ namespace HWdB.Utils
                 switch (Cnt)
                 {
                     case 0:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL0ReadOnly = true;
-                            ltb.RL0 = "100";
+                            ltbDataSet.RL0ReadOnly = true;
+                            ltbDataSet.RL0 = "100";
                         }
                         else
                         {
-                            ltb.RL0ReadOnly = false;
+                            ltbDataSet.RL0ReadOnly = false;
                         }
                         break;
                     case 1:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL1ReadOnly = true;
-                            ltb.RL1 = "100";
+                            ltbDataSet.RL1ReadOnly = true;
+                            ltbDataSet.RL1 = "100";
                         }
                         else
                         {
-                            ltb.RL1ReadOnly = false;
+                            ltbDataSet.RL1ReadOnly = false;
                         }
                         break;
                     case 2:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL2ReadOnly = true;
-                            ltb.RL2 = "100";
+                            ltbDataSet.RL2ReadOnly = true;
+                            ltbDataSet.RL2 = "100";
                         }
                         else
                         {
-                            ltb.RL2ReadOnly = false;
+                            ltbDataSet.RL2ReadOnly = false;
                         }
                         break;
                     case 3:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL3ReadOnly = true;
-                            ltb.RL3 = "100";
+                            ltbDataSet.RL3ReadOnly = true;
+                            ltbDataSet.RL3 = "100";
                         }
                         else
                         {
-                            ltb.RL3ReadOnly = false;
+                            ltbDataSet.RL3ReadOnly = false;
                         }
                         break;
                     case 4:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL4ReadOnly = true;
-                            ltb.RL4 = "100";
+                            ltbDataSet.RL4ReadOnly = true;
+                            ltbDataSet.RL4 = "100";
                         }
                         else
                         {
-                            ltb.RL4ReadOnly = false;
+                            ltbDataSet.RL4ReadOnly = false;
                         }
                         break;
                     case 5:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL5ReadOnly = true;
-                            ltb.RL5 = "100";
+                            ltbDataSet.RL5ReadOnly = true;
+                            ltbDataSet.RL5 = "100";
                         }
                         else
                         {
-                            ltb.RL5ReadOnly = false;
+                            ltbDataSet.RL5ReadOnly = false;
                         }
                         break;
                     case 6:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL6ReadOnly = true;
-                            ltb.RL6 = "100";
+                            ltbDataSet.RL6ReadOnly = true;
+                            ltbDataSet.RL6 = "100";
                         }
                         else
                         {
-                            ltb.RL6ReadOnly = false;
+                            ltbDataSet.RL6ReadOnly = false;
                         }
                         break;
                     case 7:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL7ReadOnly = true;
-                            ltb.RL7 = "100";
+                            ltbDataSet.RL7ReadOnly = true;
+                            ltbDataSet.RL7 = "100";
                         }
                         else
                         {
-                            ltb.RL7ReadOnly = false;
+                            ltbDataSet.RL7ReadOnly = false;
                         }
                         break;
                     case 8:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL8ReadOnly = true;
-                            ltb.RL8 = "100";
+                            ltbDataSet.RL8ReadOnly = true;
+                            ltbDataSet.RL8 = "100";
                         }
                         else
                         {
-                            ltb.RL8ReadOnly = false;
+                            ltbDataSet.RL8ReadOnly = false;
                         }
                         break;
                     case 9:
-                        if (!ltb.RepairPossible)
+                        if (!ltbDataSet.RepairPossible)
                         {
-                            ltb.RL9ReadOnly = true;
-                            ltb.RL9 = "100";
+                            ltbDataSet.RL9ReadOnly = true;
+                            ltbDataSet.RL9 = "100";
                         }
                         else
                         {
-                            ltb.RL9ReadOnly = false;
+                            ltbDataSet.RL9ReadOnly = false;
                         }
 
                         break;

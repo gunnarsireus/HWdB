@@ -120,6 +120,7 @@
     <Compile Include="CustomValidationAttributes\LTBDateWithinRangeAttribute.cs" />
     <Compile Include="Utils\LtbCalculation.cs" />
     <Compile Include="Utils\DateTimeUtil.cs" />
+    <Compile Include="Utils\UIServices.cs" />
     <Compile Include="Utils\WaterMark.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\LTBViewModel.cs" />

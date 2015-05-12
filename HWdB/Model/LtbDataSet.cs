@@ -21,7 +21,12 @@ namespace HWdB.Model
         [ExcludeChar("/.,!@#$%", ErrorMessage = "Name contains invalid letters")]
         public string Customer { get; set; }
         public string Version { get; set; }
-        public string Saved { get; set; }
+        public string Saved
+        {
+            get { return GetValue(() => Saved); }
+            set { SetValue(() => Saved, value); }
+        }
+
 
         [LTBDateWithinRangeAttribute(ErrorMessage = "Not valid LTB date")]
         public string LTBDate
@@ -57,8 +62,7 @@ namespace HWdB.Model
             }
         }
 
-        //[RegularExpression(@"^([2-9]|[1-9][0-9]|[1-2][0-9][0-9]|3[0-6][0-5])$", ErrorMessage = "Must be within 2 and 365")]
-        [Range(2, 365, ErrorMessage = "Must be within 2 and 365")]
+        [Range(2, 365, ErrorMessage = "Reapir Lead Time must be within 2 and 365")]
         public int RepairLeadTime
         {
             get { return GetValue(() => RepairLeadTime); }
@@ -81,13 +85,13 @@ namespace HWdB.Model
                 }
             }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB0
         {
             get { return GetValue(() => IB0); }
             set { SetValue(() => IB0, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB1
         {
             get { return GetValue(() => IB1); }
@@ -100,7 +104,7 @@ namespace HWdB.Model
             set { SetValue(() => IB1ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB2
         {
             get { return GetValue(() => IB2); }
@@ -113,7 +117,7 @@ namespace HWdB.Model
             set { SetValue(() => IB2ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB3
         {
             get { return GetValue(() => IB3); }
@@ -126,7 +130,7 @@ namespace HWdB.Model
             set { SetValue(() => IB3ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB4
         {
             get { return GetValue(() => IB4); }
@@ -139,7 +143,7 @@ namespace HWdB.Model
             set { SetValue(() => IB4ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB5
         {
             get { return GetValue(() => IB5); }
@@ -152,7 +156,7 @@ namespace HWdB.Model
             set { SetValue(() => IB5ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB6
         {
             get { return GetValue(() => IB6); }
@@ -165,7 +169,7 @@ namespace HWdB.Model
             set { SetValue(() => IB6ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB7
         {
             get { return GetValue(() => IB7); }
@@ -178,7 +182,7 @@ namespace HWdB.Model
             set { SetValue(() => IB7ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB8
         {
             get { return GetValue(() => IB8); }
@@ -191,7 +195,7 @@ namespace HWdB.Model
             set { SetValue(() => IB8ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Must be within 0 and 99999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB9
         {
             get { return GetValue(() => IB9); }
@@ -204,127 +208,127 @@ namespace HWdB.Model
             set { SetValue(() => IB9ReadOnly, value); }
         }
         public string IB10 { get; set; }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR0
         {
             get { return GetValue(() => FR0); }
             set { SetValue(() => FR0, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR1
         {
             get { return GetValue(() => FR1); }
             set { SetValue(() => FR1, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR2
         {
             get { return GetValue(() => FR2); }
             set { SetValue(() => FR2, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR3
         {
             get { return GetValue(() => FR3); }
             set { SetValue(() => FR3, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR4
         {
             get { return GetValue(() => FR4); }
             set { SetValue(() => FR4, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR5
         {
             get { return GetValue(() => FR5); }
             set { SetValue(() => FR5, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR6
         {
             get { return GetValue(() => FR6); }
             set { SetValue(() => FR6, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR7
         {
             get { return GetValue(() => FR7); }
             set { SetValue(() => FR7, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR8
         {
             get { return GetValue(() => FR8); }
             set { SetValue(() => FR8, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR9
         {
             get { return GetValue(() => FR9); }
             set { SetValue(() => FR9, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS0
         {
             get { return GetValue(() => RS0); }
             set { SetValue(() => RS0, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS1
         {
             get { return GetValue(() => RS1); }
             set { SetValue(() => RS1, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS2
         {
             get { return GetValue(() => RS2); }
             set { SetValue(() => RS2, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS3
         {
             get { return GetValue(() => RS3); }
             set { SetValue(() => RS3, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS4
         {
             get { return GetValue(() => RS4); }
             set { SetValue(() => RS4, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS5
         {
             get { return GetValue(() => RS5); }
             set { SetValue(() => RS5, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS6
         {
             get { return GetValue(() => RS6); }
             set { SetValue(() => RS6, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS7
         {
             get { return GetValue(() => RS7); }
             set { SetValue(() => RS7, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS8
         {
             get { return GetValue(() => RS8); }
             set { SetValue(() => RS8, value); }
         }
-        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Must be within 0 and 9999")]
+        [RegularExpression(@"^([0]|[1-9][0-9]{0,3}|EoS)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 9999")]
         public string RS9
         {
             get { return GetValue(() => RS9); }
             set { SetValue(() => RS9, value); }
         }
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Nbr of Regional Stocks must be within 0 and 100")]
         public string RL0
         {
             get { return GetValue(() => RL0); }
@@ -337,7 +341,7 @@ namespace HWdB.Model
             set { SetValue(() => RL0ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL1
         {
             get { return GetValue(() => RL1); }
@@ -350,7 +354,7 @@ namespace HWdB.Model
             set { SetValue(() => RL1ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL2
         {
             get { return GetValue(() => RL2); }
@@ -363,7 +367,7 @@ namespace HWdB.Model
             set { SetValue(() => RL2ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL3
         {
             get { return GetValue(() => RL3); }
@@ -376,7 +380,7 @@ namespace HWdB.Model
             set { SetValue(() => RL3ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL4
         {
             get { return GetValue(() => RL4); }
@@ -389,7 +393,7 @@ namespace HWdB.Model
             set { SetValue(() => RL4ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL5
         {
             get { return GetValue(() => RL5); }
@@ -402,7 +406,7 @@ namespace HWdB.Model
             set { SetValue(() => RL5ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL6
         {
             get { return GetValue(() => RL6); }
@@ -415,7 +419,7 @@ namespace HWdB.Model
             set { SetValue(() => RL6ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL7
         {
             get { return GetValue(() => RL7); }
@@ -428,7 +432,7 @@ namespace HWdB.Model
             set { SetValue(() => RL7ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL8
         {
             get { return GetValue(() => RL8); }
@@ -441,7 +445,7 @@ namespace HWdB.Model
             set { SetValue(() => RL8ReadOnly, value); }
         }
 
-        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Must be within 0 and 100")]
+        [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
         public string RL9
         {
             get { return GetValue(() => RL9); }
@@ -454,6 +458,11 @@ namespace HWdB.Model
             set { SetValue(() => RL9ReadOnly, value); }
         }
 
+        public string ServiceDays
+        {
+            get { return GetValue(() => ServiceDays); }
+            set { SetValue(() => ServiceDays, value); }
+        }
         public string TotalStock
         {
             get { return GetValue(() => TotalStock); }
@@ -502,6 +511,66 @@ namespace HWdB.Model
         {
             get { return GetValue(() => LtbChart); }
             set { SetValue(() => LtbChart, value); }
+        }
+        [NotMappedAttribute]
+        public string l0
+        {
+            get { return GetValue(() => l0); }
+            set { SetValue(() => l0, value); }
+        }
+        [NotMappedAttribute]
+        public string l1
+        {
+            get { return GetValue(() => l1); }
+            set { SetValue(() => l1, value); }
+        }
+        [NotMappedAttribute]
+        public string l2
+        {
+            get { return GetValue(() => l2); }
+            set { SetValue(() => l2, value); }
+        }
+        [NotMappedAttribute]
+        public string l3
+        {
+            get { return GetValue(() => l3); }
+            set { SetValue(() => l3, value); }
+        }
+        [NotMappedAttribute]
+        public string l4
+        {
+            get { return GetValue(() => l4); }
+            set { SetValue(() => l4, value); }
+        }
+        [NotMappedAttribute]
+        public string l5
+        {
+            get { return GetValue(() => l5); }
+            set { SetValue(() => l5, value); }
+        }
+        [NotMappedAttribute]
+        public string l6
+        {
+            get { return GetValue(() => l6); }
+            set { SetValue(() => l6, value); }
+        }
+        [NotMappedAttribute]
+        public string l7
+        {
+            get { return GetValue(() => l7); }
+            set { SetValue(() => l7, value); }
+        }
+        [NotMappedAttribute]
+        public string l8
+        {
+            get { return GetValue(() => l8); }
+            set { SetValue(() => l8, value); }
+        }
+        [NotMappedAttribute]
+        public string l9
+        {
+            get { return GetValue(() => l9); }
+            set { SetValue(() => l9, value); }
         }
     }
 }
