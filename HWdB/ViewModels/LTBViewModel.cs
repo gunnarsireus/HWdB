@@ -82,6 +82,15 @@ namespace HWdB.ViewModels
                 IB7 = "50",
                 IB8 = "50",
                 IB9 = "50",
+                IB1ReadOnly = false,
+                IB2ReadOnly = false,
+                IB3ReadOnly = false,
+                IB4ReadOnly = false,
+                IB5ReadOnly = false,
+                IB6ReadOnly = false,
+                IB7ReadOnly = false,
+                IB8ReadOnly = false,
+                IB9ReadOnly = false,
                 IB10 = "EoS",
                 FR0 = "0,1",
                 FR1 = "0,1",
@@ -113,6 +122,16 @@ namespace HWdB.ViewModels
                 RL7 = "10",
                 RL8 = "10",
                 RL9 = "10",
+                RL0ReadOnly = false,
+                RL1ReadOnly = false,
+                RL2ReadOnly = false,
+                RL3ReadOnly = false,
+                RL4ReadOnly = false,
+                RL5ReadOnly = false,
+                RL6ReadOnly = false,
+                RL7ReadOnly = false,
+                RL8ReadOnly = false,
+                RL9ReadOnly = false,
                 TotalStock = "TotalStock",
                 Lost = "Lost",
                 Stock = "Stock",
@@ -171,7 +190,7 @@ namespace HWdB.ViewModels
         {
             Init(new object());
             this.ButtonName = "LTB";
-            isYes = CurrentLtbDataSet.RepairPossible;
+            repairIsPossible = CurrentLtbDataSet.RepairPossible;
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(Clear);
             InitCommand = new RelayCommand(Init);
@@ -213,33 +232,33 @@ namespace HWdB.ViewModels
 
         }
 
-        bool isYes;
+        bool repairIsPossible;
 
-        public bool IsYes
+        public bool RepairIsPossible
         {
-            get { return this.isYes; }
+            get { return this.repairIsPossible; }
             set
             {
-                if (this.isYes == value)
+                if (this.repairIsPossible == value)
                     return;
-
-                this.isYes = value;
                 CurrentLtbDataSet.RepairPossible = value;
-                OnPropertyChanged("IsYes");
-                OnPropertyChanged("IsNo");
+                this.repairIsPossible = value;
+                CurrentLtbDataSet.RepairPossible = value;
+                OnPropertyChanged("RepairIsPossible");
+                OnPropertyChanged("RepairNotPossible");
                 OnPropertyChanged("RepairPossible");
             }
         }
 
-        public bool IsNo
+        public bool RepairNotPossible
         {
-            get { return !IsYes; }
-            set { IsYes = !value; }
+            get { return !RepairIsPossible; }
+            set { RepairIsPossible = !value; }
         }
 
         public string RepairPossible
         {
-            get { return this.IsYes ? "Repair Possible Yes!!" : "Repair Possible No!!"; }
+            get { return this.RepairIsPossible ? "Repair possible, please set Repair Loss" : "Repair not possible, Repair Loss = 100"; }
         }
         static string[] xValues = {
 		"LTB",

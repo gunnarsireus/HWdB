@@ -111,12 +111,13 @@
     <Compile Include="ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
     <Compile Include="Notification\PropertyChangeNotification.cs" />
-    <Compile Include="Utils\EOSDateWithinRangeAttribute.cs" />
-    <Compile Include="Utils\LTBDateWithinRangeAttribute.cs" />
+    <Compile Include="CustomValidationAttributes\EOSDateWithinRangeAttribute.cs" />
+    <Compile Include="CustomValidationAttributes\LTBDateWithinRangeAttribute.cs" />
     <Compile Include="Utils\LtbCalculation.cs" />
     <Compile Include="Utils\DateTimeUtil.cs" />
     <Compile Include="Utils\WaterMark.cs" />

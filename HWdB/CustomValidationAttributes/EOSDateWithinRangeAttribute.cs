@@ -1,24 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HWdB.Utils
+namespace HWdB.CustomValidationAttributes
 {
     public class EOSDateWithinRangeAttribute : ValidationAttribute
     {
-        public EOSDateWithinRangeAttribute(string ltbDate, string minNbrOfDays)
-        {
-            LTBDate = ltbDate;
-            MinNbrOfDays = int.Parse(minNbrOfDays);
-        }
-
-        private string LTBDate { get; set; }
-        private int MinNbrOfDays { get; set; }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            DateTime laterDate = (DateTime)value;
+            DateTime laterDate = DateTime.Parse((string)value);
 
-            DateTime earlierDate = (DateTime)validationContext.ObjectType.GetProperty(LTBDate).GetValue(validationContext.ObjectInstance, null);
+            DateTime earlierDate = DateTime.Parse((string)validationContext.ObjectType.GetProperty("LTBDate").GetValue(validationContext.ObjectInstance, null));
+
+            int MinNbrOfDays = (int)validationContext.ObjectType.GetProperty("RepairLeadTime").GetValue(validationContext.ObjectInstance, null);
 
             int diff = (int)(laterDate - earlierDate).TotalDays;
             if (diff < 3653)
@@ -35,9 +29,9 @@ namespace HWdB.Utils
             }
             else
             {
-                return new ValidationResult("Service Period cannot be longer than 10 years. Please change EoS or LTB.");
+                return new ValidationResult("Service Period cannot be longer than 10 years.");
             }
-
         }
     }
 }
+

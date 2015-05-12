@@ -164,7 +164,7 @@ namespace HWdB.ViewModels
                     User.LogedIn = true;
                     User.LastLogin = DateTime.Now.ToString();
                     User.Password = hash;
-                    context.Entry(stored).State = System.Data.EntityState.Modified;
+
                     context.SaveChanges();
 
                     return true;

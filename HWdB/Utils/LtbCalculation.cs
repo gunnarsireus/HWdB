@@ -1044,14 +1044,15 @@ namespace HWdB.Utils
 
             N = RoundUpInt(ServiceDays / LeadDays, 0);
 
-            //if (!BoundariesOK(MyServiceYears, Ltb))
-            //{
-            //    return;
-            //}
             if (Ltb.HasErrors.Count > 0)
             {
                 var first = Ltb.HasErrors.First();
                 Ltb.InfoText = first.Value;
+                return;
+            }
+
+            if (!BoundariesOK(MyServiceYears, Ltb))
+            {
                 return;
             }
 
@@ -1103,6 +1104,382 @@ namespace HWdB.Utils
             if (Ltb.RepairPossible) { Ltb.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { Ltb.Lost = "Nothing"; }
             //sb.Append(" Lost " + Ltb.Lost);
             //L.LogActivity(sb.ToString(), true);
+        }
+
+        public static void InitYearTabIndex(LtbDataSet ltb)
+        {
+            if (ltb.EOSDate == null || ltb.LTBDate == null) return;
+            int Cnt = 0;
+            int NbrOfServiceYears = 0;
+            setServiceYears(Convert.ToDateTime(ltb.LTBDate), Convert.ToDateTime(ltb.EOSDate));
+            NbrOfServiceYears = getServiceYears();
+            Cnt = 0;
+            while (Cnt <= NbrOfServiceYears)
+            {
+
+                switch (Cnt)
+                {
+                    case 0:
+                        if (ltb.IB1 == "EoS") ltb.IB1 = string.Empty;
+                        ltb.IB1ReadOnly = false;
+                        break;
+                    case 1:
+                        if (ltb.IB2 == "EoS") ltb.IB2 = string.Empty;
+                        ltb.IB2ReadOnly = false;
+                        break;
+                    case 2:
+                        if (ltb.IB3 == "EoS") ltb.IB3 = string.Empty;
+                        ltb.IB3ReadOnly = false;
+                        break; ;
+                    case 3:
+                        if (ltb.IB4 == "EoS") ltb.IB4 = string.Empty;
+                        ltb.IB4ReadOnly = false;
+                        break; ;
+                    case 4:
+                        if (ltb.IB5 == "EoS") ltb.IB5 = string.Empty;
+                        ltb.IB5ReadOnly = false;
+                        break;
+                    case 5:
+                        if (ltb.IB6 == "EoS") ltb.IB6 = string.Empty;
+                        ltb.IB6ReadOnly = false;
+                        break;
+                    case 6:
+                        if (ltb.IB7 == "EoS") ltb.IB7 = string.Empty;
+                        ltb.IB7ReadOnly = false;
+                        break;
+                    case 7:
+                        if (ltb.IB8 == "EoS") ltb.IB8 = string.Empty;
+                        ltb.IB8ReadOnly = false;
+                        break;
+                    case 8:
+                        if (ltb.IB9 == "EoS") ltb.IB9 = string.Empty;
+                        ltb.IB9ReadOnly = false;
+                        break;
+                    case 9:
+                        break;
+                }
+                Cnt += 1;
+            }
+
+            switch (NbrOfServiceYears)
+            {
+                case 0:
+                    ltb.IB1 = "EoS";
+                    ltb.RS1 = string.Empty;
+                    ltb.RL1 = string.Empty;
+                    ltb.FR1 = string.Empty;
+                    ltb.IB1ReadOnly = true;
+                    ltb.RL1ReadOnly = true;
+                    break;
+                case 1:
+                    ltb.IB2 = "EoS";
+                    ltb.RS2 = string.Empty;
+                    ltb.RL2 = string.Empty;
+                    ltb.FR2 = string.Empty;
+                    ltb.IB2ReadOnly = true;
+                    ltb.RL2ReadOnly = true;
+                    break;
+                case 2:
+                    ltb.IB3 = "EoS";
+                    ltb.RS3 = string.Empty;
+                    ltb.RL3 = string.Empty;
+                    ltb.FR3 = string.Empty;
+                    ltb.IB3ReadOnly = true;
+                    ltb.RL3ReadOnly = true;
+                    break;
+                case 3:
+                    ltb.IB4 = "EoS";
+                    ltb.RS4 = string.Empty;
+                    ltb.RL4 = string.Empty;
+                    ltb.FR4 = string.Empty;
+                    ltb.RL4ReadOnly = true;
+                    ltb.IB4ReadOnly = true;
+                    break;
+                case 4:
+                    ltb.IB5 = "EoS";
+                    ltb.RS5 = string.Empty;
+                    ltb.RL5 = string.Empty;
+                    ltb.FR5 = string.Empty;
+                    ltb.IB5ReadOnly = true;
+                    ltb.RL5ReadOnly = true;
+                    break;
+                case 5:
+                    ltb.IB6 = "EoS";
+                    ltb.RS6 = string.Empty;
+                    ltb.RL6 = string.Empty;
+                    ltb.FR6 = string.Empty;
+                    ltb.IB6ReadOnly = true;
+                    ltb.RL6ReadOnly = true;
+                    break;
+                case 6:
+                    ltb.IB7 = "EoS";
+                    ltb.RS7 = string.Empty;
+                    ltb.RL7 = string.Empty;
+                    ltb.FR7 = string.Empty;
+                    ltb.IB7ReadOnly = true;
+                    ltb.RL7ReadOnly = true;
+                    break;
+                case 7:
+                    ltb.IB8 = "EoS";
+                    ltb.RS8 = string.Empty;
+                    ltb.RL8 = string.Empty;
+                    ltb.FR8 = string.Empty;
+                    ltb.IB8ReadOnly = true;
+                    ltb.RL8ReadOnly = true;
+                    break;
+                case 8:
+                    ltb.IB9 = "EoS";
+                    ltb.RS9 = string.Empty;
+                    ltb.RL9 = string.Empty;
+                    ltb.FR9 = string.Empty;
+                    ltb.IB9ReadOnly = true;
+                    ltb.RL9ReadOnly = true;
+                    break;
+                case 9:
+                    ltb.IB10 = "EoS";
+                    break;
+                case 10:
+                    break;
+            }
+            while (Cnt <= LTBCommon.MaxYear)
+            {
+                switch (Cnt)
+                {
+                    case 1:
+                        if (NbrOfServiceYears != 0)
+                        {
+                            ltb.IB1 = string.Empty;
+                            ltb.FR1 = string.Empty;
+                            ltb.RS1 = string.Empty;
+                            ltb.RL1 = string.Empty;
+                            ltb.IB1ReadOnly = true;
+                            ltb.RL1ReadOnly = true;
+                        }
+                        break;
+                    case 2:
+                        if (NbrOfServiceYears != 1)
+                        {
+                            ltb.IB2 = string.Empty;
+                            ltb.FR2 = string.Empty;
+                            ltb.RS2 = string.Empty;
+                            ltb.RL2 = string.Empty;
+                            ltb.IB2ReadOnly = true;
+                            ltb.RL2ReadOnly = true;
+                        }
+                        break;
+                    case 3:
+                        if (NbrOfServiceYears != 2)
+                        {
+                            ltb.IB3 = string.Empty;
+                            ltb.FR3 = string.Empty;
+                            ltb.RS3 = string.Empty;
+                            ltb.RL3 = string.Empty;
+                            ltb.IB3ReadOnly = true;
+                            ltb.RL3ReadOnly = true;
+                        }
+                        break;
+                    case 4:
+                        if (NbrOfServiceYears != 3)
+                        {
+                            ltb.IB4 = string.Empty;
+                            ltb.FR4 = string.Empty;
+                            ltb.RS4 = string.Empty;
+                            ltb.RL4 = string.Empty;
+                            ltb.IB4ReadOnly = true;
+                            ltb.RL4ReadOnly = true;
+                        }
+                        break;
+                    case 5:
+                        if (NbrOfServiceYears != 4)
+                        {
+                            ltb.IB5 = string.Empty;
+                            ltb.FR5 = string.Empty;
+                            ltb.RS5 = string.Empty;
+                            ltb.RL5 = string.Empty;
+                            ltb.IB5ReadOnly = true;
+                            ltb.RL5ReadOnly = true;
+                        }
+                        break;
+                    case 6:
+                        if (NbrOfServiceYears != 5)
+                        {
+                            ltb.IB6 = string.Empty;
+                            ltb.FR6 = string.Empty;
+                            ltb.RS6 = string.Empty;
+                            ltb.RL6 = string.Empty;
+                            ltb.IB6ReadOnly = true;
+                            ltb.RL6ReadOnly = true;
+                        }
+                        break;
+                    case 7:
+                        if (NbrOfServiceYears != 6)
+                        {
+                            ltb.FR7 = string.Empty;
+                            ltb.RS7 = string.Empty;
+                            ltb.RL7 = string.Empty;
+                            ltb.IB7 = string.Empty;
+                            ltb.IB7ReadOnly = true;
+                            ltb.RL7ReadOnly = true;
+                        }
+                        break;
+                    case 8:
+                        if (NbrOfServiceYears != 7)
+                        {
+                            ltb.IB8 = string.Empty;
+                            ltb.FR8 = string.Empty;
+                            ltb.RS8 = string.Empty;
+                            ltb.RL8 = string.Empty;
+                            ltb.IB8ReadOnly = true;
+                            ltb.RL8ReadOnly = true;
+                        }
+                        break;
+                    case 9:
+                        if (NbrOfServiceYears != 8)
+                        {
+                            ltb.IB9 = string.Empty;
+                            ltb.FR9 = string.Empty;
+                            ltb.RS9 = string.Empty;
+                            ltb.RL9 = string.Empty;
+                            ltb.IB9ReadOnly = true;
+                            ltb.RL9ReadOnly = true;
+                        }
+                        break;
+                    case 10:
+                        if (NbrOfServiceYears != 9)
+                        {
+                            ltb.IB10 = string.Empty;
+
+                        }
+
+                        break;
+                }
+                Cnt += 1;
+            }
+            AdjustRepair(ltb);
+        }
+        static void AdjustRepair(LtbDataSet ltb)
+        {
+            int Cnt = 0;
+            int NbrOfServiceYears = 0;
+            NbrOfServiceYears = getServiceYears();
+            while (Cnt <= NbrOfServiceYears)
+            {
+                switch (Cnt)
+                {
+                    case 0:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL0ReadOnly = true;
+                            ltb.RL0 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL0ReadOnly = false;
+                        }
+                        break;
+                    case 1:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL1ReadOnly = true;
+                            ltb.RL1 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL1ReadOnly = false;
+                        }
+                        break;
+                    case 2:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL2ReadOnly = true;
+                            ltb.RL2 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL2ReadOnly = false;
+                        }
+                        break;
+                    case 3:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL3ReadOnly = true;
+                            ltb.RL3 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL3ReadOnly = false;
+                        }
+                        break;
+                    case 4:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL4ReadOnly = true;
+                            ltb.RL4 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL4ReadOnly = false;
+                        }
+                        break;
+                    case 5:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL5ReadOnly = true;
+                            ltb.RL5 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL5ReadOnly = false;
+                        }
+                        break;
+                    case 6:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL6ReadOnly = true;
+                            ltb.RL6 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL6ReadOnly = false;
+                        }
+                        break;
+                    case 7:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL7ReadOnly = true;
+                            ltb.RL7 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL7ReadOnly = false;
+                        }
+                        break;
+                    case 8:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL8ReadOnly = true;
+                            ltb.RL8 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL8ReadOnly = false;
+                        }
+                        break;
+                    case 9:
+                        if (!ltb.RepairPossible)
+                        {
+                            ltb.RL9ReadOnly = true;
+                            ltb.RL9 = "100";
+                        }
+                        else
+                        {
+                            ltb.RL9ReadOnly = false;
+                        }
+
+                        break;
+                }
+                Cnt += 1;
+            }
         }
     }
 }
