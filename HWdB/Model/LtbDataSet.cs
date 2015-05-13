@@ -46,7 +46,6 @@ namespace HWdB.Model
             set
             {
                 SetValue(() => EOSDate, value);
-                LTBDate = LTBDate;
                 LtbCalculation.InitYearTabIndex(this);
             }
         }
@@ -58,13 +57,8 @@ namespace HWdB.Model
             get { return GetValue(() => RepairLeadTime); }
             set
             {
-                if (RepairLeadTime != value)
-                {
-                    SetValue(() => RepairLeadTime, value);
-                    EOSDate = EOSDate;
-                    LTBDate = LTBDate;
-                    LtbCalculation.InitYearTabIndex(this);
-                }
+                SetValue(() => RepairLeadTime, value);
+                LtbCalculation.InitYearTabIndex(this);
             }
         }
         public string ConfidenceLevel { get; set; }

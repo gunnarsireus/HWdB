@@ -2,6 +2,7 @@
 using HWdB.Model;
 using HWdB.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,47 @@ namespace HWdB.ViewModels
 {
     class LTBViewModel : ViewModelBase
     {
+        public ObservableCollection<LtbDataSet> LtbDataSets
+        {
+            get { return GetValue(() => LtbDataSets); }
+            set { SetValue(() => LtbDataSets, value); InitListBox(); }
+        }
+
+        public LTBViewModel()
+        {
+            CreateNewCurrentLtbDataSet(new object());
+            this.ButtonName = "LTB";
+            LtbCalculation.InitLabels(CurrentLtbDataSet);
+            repairIsPossible = CurrentLtbDataSet.RepairPossible;
+            CalculateCommand = new RelayCommand(Calculate);
+            ClearCommand = new RelayCommand(Clear);
+            InitCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
+            DeleteCommand = new RelayCommand(Delete);
+            InitListBox();
+        }
+
+        private void InitListBox()
+        {
+            using (var context = new DataContext())
+            {
+                if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
+                LtbDataSets.Clear();
+                {
+                    context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
+                }
+            }
+        }
+
+        public LtbDataSet SelectedListBoxItem
+        {
+            get { return GetValue(() => SelectedListBoxItem); }
+            set
+            {
+                SetValue(() => SelectedListBoxItem, value);
+                CurrentLtbDataSet = SelectedListBoxItem;
+            }
+        }
+
         LtbDataSet _currentLtbDataSet;
         public LtbDataSet CurrentLtbDataSet
         {
@@ -47,14 +89,47 @@ namespace HWdB.ViewModels
             get;
             private set;
         }
+        public ICommand DeleteCommand
+        {
+            get;
+            private set;
+        }
 
+        private void Delete(object parameter)
+        {
+            if (CurrentLtbDataSet.ID == 0)
+            {
+                CurrentLtbDataSet.InfoText = "Cannot delete not saved data!";
+            }
+            using (var context = new DataContext())
+            {
+                LtbDataSet stored = context.LtbDataSets.Where(a => (a.ID == CurrentLtbDataSet.ID)).FirstOrDefault();
+                if (stored == null)
+                {
+                    UserLogs.Instance.UserErrorLog("Error: Could not find LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
+                    return;
+                }
+                else
+                {
+                    UserLogs.Instance.UserErrorLog("Deleted LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
+                    context.LtbDataSets.Remove(stored);
+                    context.SaveChanges();
+                    LtbDataSet firstItem = context.LtbDataSets.FirstOrDefault();
+                    if (firstItem == null)
+                    {
+                        CreateNewCurrentLtbDataSet(new object());
+                    }
+                    else
+                    {
+                        CurrentLtbDataSet = firstItem;
+                    }
+                }
+                InitListBox();
+            }
+        }
         private void Calculate(object parameter)
         {
-            UiServices.SetBusyState();
-            LtbCalculation.Calculate(CurrentLtbDataSet);
-
-            //Visa som 3D
-            CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
+            CleanupDateErrors();
             if (CurrentLtbDataSet.HasErrors.Count > 0)
             {
                 var first = CurrentLtbDataSet.HasErrors.First();
@@ -62,8 +137,20 @@ namespace HWdB.ViewModels
             }
             else
             {
+                UiServices.SetBusyState();
+                LtbCalculation.Calculate(CurrentLtbDataSet);
+
+                //Visa som 3D
+                CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
                 SaveLtbDataSet(CurrentLtbDataSet);
             }
+        }
+
+        private void CleanupDateErrors()
+        {
+            CurrentLtbDataSet.EOSDate = CurrentLtbDataSet.EOSDate;
+            CurrentLtbDataSet.LTBDate = CurrentLtbDataSet.LTBDate;
+            CurrentLtbDataSet.RepairLeadTime = CurrentLtbDataSet.RepairLeadTime;
         }
 
         private void SaveLtbDataSet(LtbDataSet ltbDataSet)
@@ -76,7 +163,6 @@ namespace HWdB.ViewModels
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
-                    context.SaveChanges();
                 }
                 else
                 {
@@ -85,18 +171,20 @@ namespace HWdB.ViewModels
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.Entry(stored).CurrentValues.SetValues(ltbDataSet);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
-                    context.SaveChanges();
                 }
+                context.SaveChanges();
+                InitListBox();
             }
         }
         private void Clear(object parameter)
         {
+            CleanupDateErrors();
             LtbCalculation.ClearResult(CurrentLtbDataSet);
             LtbCalculation.ClearChartData(CurrentLtbDataSet);
             CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
         }
 
-        private void Init(object parameter)
+        private void CreateNewCurrentLtbDataSet(object parameter)
         {
             CurrentLtbDataSet = new LtbDataSet()
             {
@@ -183,16 +271,6 @@ namespace HWdB.ViewModels
         }
 
         public override string ButtonName { get; set; }
-        public LTBViewModel()
-        {
-            Init(new object());
-            this.ButtonName = "LTB";
-            LtbCalculation.InitLabels(CurrentLtbDataSet);
-            repairIsPossible = CurrentLtbDataSet.RepairPossible;
-            CalculateCommand = new RelayCommand(Calculate);
-            ClearCommand = new RelayCommand(Clear);
-            InitCommand = new RelayCommand(Init);
-        }
 
         public BitmapImage GetChart(LtbDataSet ltb)
         {
