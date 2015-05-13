@@ -4,7 +4,6 @@ using HWdB.Model;
 using LTBCore;
 using Microsoft.VisualBasic;
 using System;
-using System.Linq;
 
 namespace HWdB.Utils
 {
@@ -521,12 +520,6 @@ namespace HWdB.Utils
 
         protected static bool BoundariesOK(int LastYear, LtbDataSet ltbDataSet)
         {
-            if (ltbDataSet.HasErrors.Count > 0)
-            {
-                var first = ltbDataSet.HasErrors.First();
-                ltbDataSet.InfoText = first.Value;
-                return false;
-            }
             bool functionReturnValue = false;
             int Cnt = 0; ltbDataSet.InfoText = "";
             DateTime TmpDate = Convert.ToDateTime(ltbDataSet.LTBDate);
@@ -938,6 +931,7 @@ namespace HWdB.Utils
         }
         public static void Calculate(LtbDataSet ltbDataSet)
         {
+            ltbDataSet.InfoText = "";
             ClearResult(ltbDataSet);
             ClearChartData(ltbDataSet);
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
@@ -979,13 +973,6 @@ namespace HWdB.Utils
             }
 
             N = RoundUpInt(ServiceDays / LeadDays, 0);
-
-            if (ltbDataSet.HasErrors.Count > 0)
-            {
-                var first = ltbDataSet.HasErrors.First();
-                ltbDataSet.InfoText = first.Value;
-                return;
-            }
 
             if (!BoundariesOK(MyServiceYears, ltbDataSet))
             {
@@ -1033,7 +1020,6 @@ namespace HWdB.Utils
             ltbDataSet.Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
 
             if (ltbDataSet.RepairPossible) { ltbDataSet.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { ltbDataSet.Lost = "Nothing"; }
-
         }
 
 
@@ -1060,48 +1046,116 @@ namespace HWdB.Utils
             setServiceYears(Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate));
             NbrOfServiceYears = getServiceYears();
             Cnt = 0;
+            bool EOSFound = false;
             while (Cnt <= NbrOfServiceYears)
             {
 
                 switch (Cnt)
                 {
                     case 0:
-                        if (ltbDataSet.IB1 == "EoS") ltbDataSet.IB1 = string.Empty;
+                        if (ltbDataSet.IB1 == "EoS")
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB1 = " ";
+                            ltbDataSet.FR1 = " ";
+                            ltbDataSet.RL1 = " ";
+                            ltbDataSet.RS1 = " ";
+                        }
                         ltbDataSet.IB1IsEnabled = true;
                         break;
                     case 1:
-                        if (ltbDataSet.IB2 == "EoS") ltbDataSet.IB2 = string.Empty;
+                        if (ltbDataSet.IB2 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB2 = " ";
+                            ltbDataSet.FR2 = " ";
+                            ltbDataSet.RL2 = " ";
+                            ltbDataSet.RS2 = " ";
+                        }
                         ltbDataSet.IB2IsEnabled = true;
                         break;
                     case 2:
-                        if (ltbDataSet.IB3 == "EoS") ltbDataSet.IB3 = string.Empty;
+                        if (ltbDataSet.IB3 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB3 = " ";
+                            ltbDataSet.FR3 = " ";
+                            ltbDataSet.RL3 = " ";
+                            ltbDataSet.RS3 = " ";
+                        }
                         ltbDataSet.IB3IsEnabled = true;
                         break; ;
                     case 3:
-                        if (ltbDataSet.IB4 == "EoS") ltbDataSet.IB4 = string.Empty;
+                        if (ltbDataSet.IB4 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB4 = " ";
+                            ltbDataSet.FR4 = " ";
+                            ltbDataSet.RL4 = " ";
+                            ltbDataSet.RS4 = " ";
+                        }
                         ltbDataSet.IB4IsEnabled = true;
                         break; ;
                     case 4:
-                        if (ltbDataSet.IB5 == "EoS") ltbDataSet.IB5 = string.Empty;
+                        if (ltbDataSet.IB5 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB5 = " ";
+                            ltbDataSet.FR5 = " ";
+                            ltbDataSet.RL5 = " ";
+                            ltbDataSet.RS5 = " ";
+                        }
                         ltbDataSet.IB5IsEnabled = true;
                         break;
                     case 5:
-                        if (ltbDataSet.IB6 == "EoS") ltbDataSet.IB6 = string.Empty;
+                        if (ltbDataSet.IB6 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB6 = " ";
+                            ltbDataSet.FR6 = " ";
+                            ltbDataSet.RL6 = " ";
+                            ltbDataSet.RS6 = " ";
+                        }
                         ltbDataSet.IB6IsEnabled = true;
                         break;
                     case 6:
-                        if (ltbDataSet.IB7 == "EoS") ltbDataSet.IB7 = string.Empty;
+                        if (ltbDataSet.IB7 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB7 = " ";
+                            ltbDataSet.FR7 = " ";
+                            ltbDataSet.RL7 = " ";
+                            ltbDataSet.RS7 = " ";
+                        }
                         ltbDataSet.IB7IsEnabled = true;
                         break;
                     case 7:
-                        if (ltbDataSet.IB8 == "EoS") ltbDataSet.IB8 = string.Empty;
+                        if (ltbDataSet.IB8 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB8 = " ";
+                            ltbDataSet.FR8 = " ";
+                            ltbDataSet.RL8 = " ";
+                            ltbDataSet.RS8 = " ";
+                        }
                         ltbDataSet.IB8IsEnabled = true;
                         break;
                     case 8:
-                        if (ltbDataSet.IB9 == "EoS") ltbDataSet.IB9 = string.Empty;
+                        if (ltbDataSet.IB9 == "EoS" || EOSFound)
+                        {
+                            EOSFound = true;
+                            ltbDataSet.IB9 = " ";
+                            ltbDataSet.FR9 = " ";
+                            ltbDataSet.RL9 = " ";
+                            ltbDataSet.RS9 = " ";
+                        }
                         ltbDataSet.IB9IsEnabled = true;
                         break;
                     case 9:
+                        if (ltbDataSet.IB10 == "EoS" || EOSFound)
+                        {
+                            ltbDataSet.IB10 = " ";
+                        }
                         break;
                 }
                 Cnt += 1;
@@ -1294,7 +1348,6 @@ namespace HWdB.Utils
                         if (NbrOfServiceYears != 9)
                         {
                             ltbDataSet.IB10 = string.Empty;
-
                         }
 
                         break;

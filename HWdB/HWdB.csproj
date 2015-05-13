@@ -111,6 +111,7 @@
     <Compile Include="ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomValidationAttributes\RepairLeadTimeEOSLTBRangeAttribute.cs" />
     <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="Model\LtbDataSet.cs" />

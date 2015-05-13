@@ -34,14 +34,8 @@ namespace HWdB.Model
             get { return GetValue(() => LTBDate); }
             set
             {
-                if (LTBDate != value)
-                {
-                    SetValue(() => LTBDate, value);
-                    if (this.HasErrors.Count == 0)
-                    {
-                        LtbCalculation.InitYearTabIndex(this);
-                    }
-                }
+                SetValue(() => LTBDate, value);
+                LtbCalculation.InitYearTabIndex(this);
             }
         }
 
@@ -51,22 +45,27 @@ namespace HWdB.Model
             get { return GetValue(() => EOSDate); }
             set
             {
-                if (EOSDate != value)
-                {
-                    SetValue(() => EOSDate, value);
-                    if (this.HasErrors.Count == 0)
-                    {
-                        LtbCalculation.InitYearTabIndex(this);
-                    }
-                }
+                SetValue(() => EOSDate, value);
+                LTBDate = LTBDate;
+                LtbCalculation.InitYearTabIndex(this);
             }
         }
 
+        [RepairLeadTimeEOSLTBRangeAttribute(ErrorMessage = "Service period cannot be shorter than Repair Lead Time")]
         [Range(2, 365, ErrorMessage = "Reapir Lead Time must be within 2 and 365")]
         public int RepairLeadTime
         {
             get { return GetValue(() => RepairLeadTime); }
-            set { SetValue(() => RepairLeadTime, value); }
+            set
+            {
+                if (RepairLeadTime != value)
+                {
+                    SetValue(() => RepairLeadTime, value);
+                    EOSDate = EOSDate;
+                    LTBDate = LTBDate;
+                    LtbCalculation.InitYearTabIndex(this);
+                }
+            }
         }
         public string ConfidenceLevel { get; set; }
         [DisplayName(" ")]
@@ -78,10 +77,7 @@ namespace HWdB.Model
                 if (RepairPossible != value)
                 {
                     SetValue(() => RepairPossible, value);
-                    if (this.HasErrors.Count == 0)
-                    {
-                        LtbCalculation.InitYearTabIndex(this);
-                    }
+                    LtbCalculation.InitYearTabIndex(this);
                 }
             }
         }
@@ -207,7 +203,11 @@ namespace HWdB.Model
             get { return GetValue(() => IB9IsEnabled); }
             set { SetValue(() => IB9IsEnabled, value); }
         }
-        public string IB10 { get; set; }
+        public string IB10
+        {
+            get { return GetValue(() => IB10); }
+            set { SetValue(() => IB10, value); }
+        }
         [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR0
         {

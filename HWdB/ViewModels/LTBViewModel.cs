@@ -168,15 +168,16 @@ namespace HWdB.ViewModels
                 RL7IsEnabled = true,
                 RL8IsEnabled = true,
                 RL9IsEnabled = true,
-                TotalStock = "TotalStock",
+                TotalStock = string.Empty,
                 ServiceDays = "3652",
-                Lost = "Lost",
-                Stock = "Stock",
-                Failed = "Failed",
-                Repaired = "Repaired",
-                Safety = "Safety",
-                InfoText = "InfoText"
+                Lost = string.Empty,
+                Stock = string.Empty,
+                Failed = string.Empty,
+                Repaired = string.Empty,
+                Safety = string.Empty,
+                InfoText = "Enter values and press 'Calculate'"
             };
+            RepairIsPossible = true;
             LtbCalculation.ClearChartData(CurrentLtbDataSet);
             CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
         }

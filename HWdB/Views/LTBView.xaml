@@ -155,13 +155,13 @@
 						<ComboBoxItem>99,5%</ComboBoxItem>
 					</ComboBox>
 				</Border>
-				<Grid Row="6"  Column="4">
-					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
+				<Grid Row="6"  Column="4" >
+					<Border BorderBrush='White'  BorderThickness='1,1,0,0' >
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>
 				</Grid>
-				<Label Grid.Row="6"  Grid.Column="4" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair Lead Time [2 - 365]:" FontSize="4" FontWeight="Bold" />
-				<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="6" Grid.Column="5">
+                <Label Grid.Row="6"  Grid.Column="4" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair Lead Time [2 - 365]:" FontSize="4" FontWeight="Bold"  />
+                <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="6" Grid.Column="5" Width="20" Height="10">
 					<TextBox  x:Name="RepairLeadTime" Text="{Binding RepairLeadTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"   FontSize="5" FontWeight="Bold" Width="20" Height="10" HorizontalAlignment="Left"/>
 				</Border>
 			</Grid>
@@ -283,7 +283,7 @@
 				<Grid Grid.Row="8"  Grid.Column="12" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="" FontSize="4" Visibility="{Binding ElementName=IB10, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB10" Text="{Binding IB10}"  Padding="0,0,0,0" Margin="2,1,0,1"  FontSize="4" IsEnabled="False" Background="Transparent"  />
+                    <TextBox  x:Name="IB10" Text="{Binding IB10, Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" IsEnabled="False" Background="Transparent"  />
 				</Grid>
 				<Grid Row="9"  Column="1">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -614,18 +614,18 @@
 					<ColumnDefinition Width="30"/>
 					<ColumnDefinition Width="30"/>
 				</Grid.ColumnDefinitions>
-				<Grid Row="6"  Column="7">
+				<Grid Row="6"  Column="7" Grid.ColumnSpan="2">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>
 				</Grid>
-				<Label Grid.Row="6"  Grid.Column="7" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair possible:" FontSize="4" FontWeight="Bold" />
-				<Grid Grid.Row="6" Grid.Column="8">
+                <Label Grid.Row="6"  Grid.Column="7" Grid.ColumnSpan="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair possible:" FontSize="4" FontWeight="Bold" Width="30"/>
+				<Grid Grid.Row="6" Grid.Column="9">
 					<Viewbox Height="8">
 						<RadioButton IsChecked="{Binding RepairIsPossible}" GroupName="RepairPossible" FontSize="7" FontWeight="Bold" Padding="0,2,0,0" >Yes</RadioButton>
 					</Viewbox>
 				</Grid>
-				<Grid Grid.Row="6" Grid.Column="9">
+				<Grid Grid.Row="6" Grid.Column="10">
 					<Viewbox Height="8">
 						<RadioButton IsChecked="{Binding RepairNotPossible}" GroupName="RepairPossible"  FontSize="7" FontWeight="Bold" Padding="0,2,0,0">No</RadioButton>
 					</Viewbox>
