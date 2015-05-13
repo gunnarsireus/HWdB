@@ -220,16 +220,16 @@
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>
 				</Grid>
-                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
-                <TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l1" Text="{Binding l1}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l2" Text="{Binding l2}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l3" Text="{Binding l3}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l4" Text="{Binding l4}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l5" Text="{Binding l5}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l6" Text="{Binding l6}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l7" Text="{Binding l7}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l8" Text="{Binding l8}"  FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l9" Text="{Binding l9}"  FontSize="4" FontWeight="Bold" />				
+                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
+                <TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l1" Text="{Binding l1, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l2" Text="{Binding l2, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l3" Text="{Binding l3, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l4" Text="{Binding l4, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l5" Text="{Binding l5, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l6" Text="{Binding l6, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l7" Text="{Binding l7, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l8" Text="{Binding l8, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l9" Text="{Binding l9, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />				
                 <Grid Grid.Row="8"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB0" FontSize="4" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
@@ -238,47 +238,47 @@
 				<Grid Grid.Row="8"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB1" FontSize="4" Visibility="{Binding ElementName=IB1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB1" Text="{Binding IB1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB1ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB1" Text="{Binding IB1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB1IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB2" FontSize="4" Visibility="{Binding ElementName=IB2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB2" Text="{Binding IB2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB2ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB2" Text="{Binding IB2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB2IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB3" FontSize="4" Visibility="{Binding ElementName=IB3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB3" Text="{Binding IB3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB3ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB3" Text="{Binding IB3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB3IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB4" FontSize="4" Visibility="{Binding ElementName=IB4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB4" Text="{Binding IB4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB4ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB4" Text="{Binding IB4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB4IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB5" FontSize="4" Visibility="{Binding ElementName=IB5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB5" Text="{Binding IB5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB5ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB5" Text="{Binding IB5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB5IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB6" FontSize="4" Visibility="{Binding ElementName=IB6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB6" Text="{Binding IB6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB6ReadOnly}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB6" Text="{Binding IB6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB6IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB7" FontSize="4" Visibility="{Binding ElementName=IB7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB7" Text="{Binding IB7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB7ReadOnly}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB7" Text="{Binding IB7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB7IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB8" FontSize="4" Visibility="{Binding ElementName=IB8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB8" Text="{Binding IB8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB8ReadOnly}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB8" Text="{Binding IB8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB8IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="11" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB9" FontSize="4" Visibility="{Binding ElementName=IB9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-					<TextBox  x:Name="IB9" Text="{Binding IB9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB9ReadOnly}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+					<TextBox  x:Name="IB9" Text="{Binding IB9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB9IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="8"  Grid.Column="12" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
@@ -299,47 +299,47 @@
 				<Grid Grid.Row="9"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR1" FontSize="4" Visibility="{Binding ElementName=FR1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR1" Text="{Binding FR1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB1ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR1" Text="{Binding FR1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB1IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR2" FontSize="4" Visibility="{Binding ElementName=FR2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR2" Text="{Binding FR2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB2ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR2" Text="{Binding FR2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB2IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR3" FontSize="4" Visibility="{Binding ElementName=FR3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR3" Text="{Binding FR3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB3ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR3" Text="{Binding FR3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB3IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR4" FontSize="4" Visibility="{Binding ElementName=FR4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR4" Text="{Binding FR4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB4ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR4" Text="{Binding FR4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB4IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR5" FontSize="4" Visibility="{Binding ElementName=FR5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR5" Text="{Binding FR5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB5ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR5" Text="{Binding FR5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB5IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR6" FontSize="4" Visibility="{Binding ElementName=FR6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR6" Text="{Binding FR6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB6ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR6" Text="{Binding FR6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB6IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR7" FontSize="4" Visibility="{Binding ElementName=FR7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR7" Text="{Binding FR7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB7ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR7" Text="{Binding FR7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB7IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR8" FontSize="4" Visibility="{Binding ElementName=FR8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR8" Text="{Binding FR8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB8ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR8" Text="{Binding FR8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB8IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="9"  Grid.Column="11" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="FR9" FontSize="4" Visibility="{Binding ElementName=FR9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="FR9" Text="{Binding FR9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB9ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="FR9" Text="{Binding FR9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB9IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Row="10"  Column="1">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -350,52 +350,52 @@
 				<Grid Grid.Row="10"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS0" FontSize="4" Visibility="{Binding ElementName=RS0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL0" Text="{Binding RL0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL0ReadOnly,Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
+                    <TextBox  x:Name="RL0" Text="{Binding RL0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL0IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"   />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL1" FontSize="4" Visibility="{Binding ElementName=RL1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL1" Text="{Binding RL1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL1ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL1" Text="{Binding RL1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL1IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL2" FontSize="4" Visibility="{Binding ElementName=RL2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL2" Text="{Binding RL2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL2ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL2" Text="{Binding RL2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL2IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL3" FontSize="4" Visibility="{Binding ElementName=RL3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL3" Text="{Binding RL3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding RL3ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL3" Text="{Binding RL3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding RL3IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL4" FontSize="4" Visibility="{Binding ElementName=RL4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL4" Text="{Binding RL4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL4ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL4" Text="{Binding RL4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL4IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL5" FontSize="4" Visibility="{Binding ElementName=RL5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL5" Text="{Binding RL5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL5ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL5" Text="{Binding RL5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL5IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL6" FontSize="4" Visibility="{Binding ElementName=RL6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL6" Text="{Binding RL6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL6ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL6" Text="{Binding RL6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL6IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL7" FontSize="4" Visibility="{Binding ElementName=RL7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL7" Text="{Binding RL7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL7ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL7" Text="{Binding RL7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL7IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL8" FontSize="4" Visibility="{Binding ElementName=RL8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL8" Text="{Binding RL8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding RL8ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL8" Text="{Binding RL8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding RL8IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="10"  Grid.Column="11" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RL9" FontSize="4" Visibility="{Binding ElementName=RL9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RL9" Text="{Binding RL9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding RL9ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RL9" Text="{Binding RL9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding RL9IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Row="11"  Column="1">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -411,47 +411,47 @@
 				<Grid Grid.Row="11"  Grid.Column="3" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS1" FontSize="4" Visibility="{Binding ElementName=RS1, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS1" Text="{Binding RS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB1ReadOnly,Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS1" Text="{Binding RS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB1IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="4" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS2" FontSize="4" Visibility="{Binding ElementName=RS2, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS2" Text="{Binding RS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB2ReadOnly,Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS2" Text="{Binding RS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB2IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="5" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS3" FontSize="4" Visibility="{Binding ElementName=RS3, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS3" Text="{Binding RS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB3ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS3" Text="{Binding RS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB3IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="6" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS4" FontSize="4" Visibility="{Binding ElementName=RS4, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS4" Text="{Binding RS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB4ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS4" Text="{Binding RS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB4IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="7" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS5" FontSize="4" Visibility="{Binding ElementName=RS5, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS5" Text="{Binding RS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB5ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS5" Text="{Binding RS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB5IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="8" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS6" FontSize="4" Visibility="{Binding ElementName=RS6, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS6" Text="{Binding RS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB6ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS6" Text="{Binding RS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB6IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="9" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS7" FontSize="4" Visibility="{Binding ElementName=RS7, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS7" Text="{Binding RS7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB7ReadOnly,Mode=TwoWay}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS7" Text="{Binding RS7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB7IsEnabled}" Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="10" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS8" FontSize="4" Visibility="{Binding ElementName=RS8, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS8" Text="{Binding RS8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsReadOnly="{Binding IB8ReadOnly,Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS8" Text="{Binding RS8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  IsEnabled="{Binding IB8IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 				<Grid Grid.Row="11"  Grid.Column="11" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="RS9" FontSize="4" Visibility="{Binding ElementName=RS9, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>
-                    <TextBox  x:Name="RS9" Text="{Binding RS9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsReadOnly="{Binding IB9ReadOnly,Mode=TwoWay}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
+                    <TextBox  x:Name="RS9" Text="{Binding RS9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" IsEnabled="{Binding IB9IsEnabled}"  Margin="2,1,0,1"  FontSize="4" Background="Transparent"  />
 				</Grid>
 			</Grid>
 		</Viewbox>

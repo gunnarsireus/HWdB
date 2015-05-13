@@ -1067,39 +1067,39 @@ namespace HWdB.Utils
                 {
                     case 0:
                         if (ltbDataSet.IB1 == "EoS") ltbDataSet.IB1 = string.Empty;
-                        ltbDataSet.IB1ReadOnly = false;
+                        ltbDataSet.IB1IsEnabled = true;
                         break;
                     case 1:
                         if (ltbDataSet.IB2 == "EoS") ltbDataSet.IB2 = string.Empty;
-                        ltbDataSet.IB2ReadOnly = false;
+                        ltbDataSet.IB2IsEnabled = true;
                         break;
                     case 2:
                         if (ltbDataSet.IB3 == "EoS") ltbDataSet.IB3 = string.Empty;
-                        ltbDataSet.IB3ReadOnly = false;
+                        ltbDataSet.IB3IsEnabled = true;
                         break; ;
                     case 3:
                         if (ltbDataSet.IB4 == "EoS") ltbDataSet.IB4 = string.Empty;
-                        ltbDataSet.IB4ReadOnly = false;
+                        ltbDataSet.IB4IsEnabled = true;
                         break; ;
                     case 4:
                         if (ltbDataSet.IB5 == "EoS") ltbDataSet.IB5 = string.Empty;
-                        ltbDataSet.IB5ReadOnly = false;
+                        ltbDataSet.IB5IsEnabled = true;
                         break;
                     case 5:
                         if (ltbDataSet.IB6 == "EoS") ltbDataSet.IB6 = string.Empty;
-                        ltbDataSet.IB6ReadOnly = false;
+                        ltbDataSet.IB6IsEnabled = true;
                         break;
                     case 6:
                         if (ltbDataSet.IB7 == "EoS") ltbDataSet.IB7 = string.Empty;
-                        ltbDataSet.IB7ReadOnly = false;
+                        ltbDataSet.IB7IsEnabled = true;
                         break;
                     case 7:
                         if (ltbDataSet.IB8 == "EoS") ltbDataSet.IB8 = string.Empty;
-                        ltbDataSet.IB8ReadOnly = false;
+                        ltbDataSet.IB8IsEnabled = true;
                         break;
                     case 8:
                         if (ltbDataSet.IB9 == "EoS") ltbDataSet.IB9 = string.Empty;
-                        ltbDataSet.IB9ReadOnly = false;
+                        ltbDataSet.IB9IsEnabled = true;
                         break;
                     case 9:
                         break;
@@ -1114,72 +1114,72 @@ namespace HWdB.Utils
                     ltbDataSet.RS1 = string.Empty;
                     ltbDataSet.RL1 = string.Empty;
                     ltbDataSet.FR1 = string.Empty;
-                    ltbDataSet.IB1ReadOnly = true;
-                    ltbDataSet.RL1ReadOnly = true;
+                    ltbDataSet.IB1IsEnabled = false;
+                    ltbDataSet.RL1IsEnabled = false;
                     break;
                 case 1:
                     ltbDataSet.IB2 = "EoS";
                     ltbDataSet.RS2 = string.Empty;
                     ltbDataSet.RL2 = string.Empty;
                     ltbDataSet.FR2 = string.Empty;
-                    ltbDataSet.IB2ReadOnly = true;
-                    ltbDataSet.RL2ReadOnly = true;
+                    ltbDataSet.IB2IsEnabled = false;
+                    ltbDataSet.RL2IsEnabled = false;
                     break;
                 case 2:
                     ltbDataSet.IB3 = "EoS";
                     ltbDataSet.RS3 = string.Empty;
                     ltbDataSet.RL3 = string.Empty;
                     ltbDataSet.FR3 = string.Empty;
-                    ltbDataSet.IB3ReadOnly = true;
-                    ltbDataSet.RL3ReadOnly = true;
+                    ltbDataSet.IB3IsEnabled = false;
+                    ltbDataSet.RL3IsEnabled = false;
                     break;
                 case 3:
                     ltbDataSet.IB4 = "EoS";
                     ltbDataSet.RS4 = string.Empty;
                     ltbDataSet.RL4 = string.Empty;
                     ltbDataSet.FR4 = string.Empty;
-                    ltbDataSet.RL4ReadOnly = true;
-                    ltbDataSet.IB4ReadOnly = true;
+                    ltbDataSet.RL4IsEnabled = false;
+                    ltbDataSet.IB4IsEnabled = false;
                     break;
                 case 4:
                     ltbDataSet.IB5 = "EoS";
                     ltbDataSet.RS5 = string.Empty;
                     ltbDataSet.RL5 = string.Empty;
                     ltbDataSet.FR5 = string.Empty;
-                    ltbDataSet.IB5ReadOnly = true;
-                    ltbDataSet.RL5ReadOnly = true;
+                    ltbDataSet.IB5IsEnabled = false;
+                    ltbDataSet.RL5IsEnabled = false;
                     break;
                 case 5:
                     ltbDataSet.IB6 = "EoS";
                     ltbDataSet.RS6 = string.Empty;
                     ltbDataSet.RL6 = string.Empty;
                     ltbDataSet.FR6 = string.Empty;
-                    ltbDataSet.IB6ReadOnly = true;
-                    ltbDataSet.RL6ReadOnly = true;
+                    ltbDataSet.IB6IsEnabled = false;
+                    ltbDataSet.RL6IsEnabled = false;
                     break;
                 case 6:
                     ltbDataSet.IB7 = "EoS";
                     ltbDataSet.RS7 = string.Empty;
                     ltbDataSet.RL7 = string.Empty;
                     ltbDataSet.FR7 = string.Empty;
-                    ltbDataSet.IB7ReadOnly = true;
-                    ltbDataSet.RL7ReadOnly = true;
+                    ltbDataSet.IB7IsEnabled = false;
+                    ltbDataSet.RL7IsEnabled = false;
                     break;
                 case 7:
                     ltbDataSet.IB8 = "EoS";
                     ltbDataSet.RS8 = string.Empty;
                     ltbDataSet.RL8 = string.Empty;
                     ltbDataSet.FR8 = string.Empty;
-                    ltbDataSet.IB8ReadOnly = true;
-                    ltbDataSet.RL8ReadOnly = true;
+                    ltbDataSet.IB8IsEnabled = false;
+                    ltbDataSet.RL8IsEnabled = false;
                     break;
                 case 8:
                     ltbDataSet.IB9 = "EoS";
                     ltbDataSet.RS9 = string.Empty;
                     ltbDataSet.RL9 = string.Empty;
                     ltbDataSet.FR9 = string.Empty;
-                    ltbDataSet.IB9ReadOnly = true;
-                    ltbDataSet.RL9ReadOnly = true;
+                    ltbDataSet.IB9IsEnabled = false;
+                    ltbDataSet.RL9IsEnabled = false;
                     break;
                 case 9:
                     ltbDataSet.IB10 = "EoS";
@@ -1198,8 +1198,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR1 = string.Empty;
                             ltbDataSet.RS1 = string.Empty;
                             ltbDataSet.RL1 = string.Empty;
-                            ltbDataSet.IB1ReadOnly = true;
-                            ltbDataSet.RL1ReadOnly = true;
+                            ltbDataSet.IB1IsEnabled = false;
+                            ltbDataSet.RL1IsEnabled = false;
                         }
                         break;
                     case 2:
@@ -1209,8 +1209,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR2 = string.Empty;
                             ltbDataSet.RS2 = string.Empty;
                             ltbDataSet.RL2 = string.Empty;
-                            ltbDataSet.IB2ReadOnly = true;
-                            ltbDataSet.RL2ReadOnly = true;
+                            ltbDataSet.IB2IsEnabled = false;
+                            ltbDataSet.RL2IsEnabled = false;
                         }
                         break;
                     case 3:
@@ -1220,8 +1220,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR3 = string.Empty;
                             ltbDataSet.RS3 = string.Empty;
                             ltbDataSet.RL3 = string.Empty;
-                            ltbDataSet.IB3ReadOnly = true;
-                            ltbDataSet.RL3ReadOnly = true;
+                            ltbDataSet.IB3IsEnabled = false;
+                            ltbDataSet.RL3IsEnabled = false;
                         }
                         break;
                     case 4:
@@ -1231,8 +1231,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR4 = string.Empty;
                             ltbDataSet.RS4 = string.Empty;
                             ltbDataSet.RL4 = string.Empty;
-                            ltbDataSet.IB4ReadOnly = true;
-                            ltbDataSet.RL4ReadOnly = true;
+                            ltbDataSet.IB4IsEnabled = false;
+                            ltbDataSet.RL4IsEnabled = false;
                         }
                         break;
                     case 5:
@@ -1242,8 +1242,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR5 = string.Empty;
                             ltbDataSet.RS5 = string.Empty;
                             ltbDataSet.RL5 = string.Empty;
-                            ltbDataSet.IB5ReadOnly = true;
-                            ltbDataSet.RL5ReadOnly = true;
+                            ltbDataSet.IB5IsEnabled = false;
+                            ltbDataSet.RL5IsEnabled = false;
                         }
                         break;
                     case 6:
@@ -1253,8 +1253,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR6 = string.Empty;
                             ltbDataSet.RS6 = string.Empty;
                             ltbDataSet.RL6 = string.Empty;
-                            ltbDataSet.IB6ReadOnly = true;
-                            ltbDataSet.RL6ReadOnly = true;
+                            ltbDataSet.IB6IsEnabled = false;
+                            ltbDataSet.RL6IsEnabled = false;
                         }
                         break;
                     case 7:
@@ -1264,8 +1264,8 @@ namespace HWdB.Utils
                             ltbDataSet.RS7 = string.Empty;
                             ltbDataSet.RL7 = string.Empty;
                             ltbDataSet.IB7 = string.Empty;
-                            ltbDataSet.IB7ReadOnly = true;
-                            ltbDataSet.RL7ReadOnly = true;
+                            ltbDataSet.IB7IsEnabled = false;
+                            ltbDataSet.RL7IsEnabled = false;
                         }
                         break;
                     case 8:
@@ -1275,8 +1275,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR8 = string.Empty;
                             ltbDataSet.RS8 = string.Empty;
                             ltbDataSet.RL8 = string.Empty;
-                            ltbDataSet.IB8ReadOnly = true;
-                            ltbDataSet.RL8ReadOnly = true;
+                            ltbDataSet.IB8IsEnabled = false;
+                            ltbDataSet.RL8IsEnabled = false;
                         }
                         break;
                     case 9:
@@ -1286,8 +1286,8 @@ namespace HWdB.Utils
                             ltbDataSet.FR9 = string.Empty;
                             ltbDataSet.RS9 = string.Empty;
                             ltbDataSet.RL9 = string.Empty;
-                            ltbDataSet.IB9ReadOnly = true;
-                            ltbDataSet.RL9ReadOnly = true;
+                            ltbDataSet.IB9IsEnabled = false;
+                            ltbDataSet.RL9IsEnabled = false;
                         }
                         break;
                     case 10:
@@ -1315,111 +1315,111 @@ namespace HWdB.Utils
                     case 0:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL0ReadOnly = true;
+                            ltbDataSet.RL0IsEnabled = false;
                             ltbDataSet.RL0 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL0ReadOnly = false;
+                            ltbDataSet.RL0IsEnabled = true;
                         }
                         break;
                     case 1:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL1ReadOnly = true;
+                            ltbDataSet.RL1IsEnabled = false;
                             ltbDataSet.RL1 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL1ReadOnly = false;
+                            ltbDataSet.RL1IsEnabled = true;
                         }
                         break;
                     case 2:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL2ReadOnly = true;
+                            ltbDataSet.RL2IsEnabled = false;
                             ltbDataSet.RL2 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL2ReadOnly = false;
+                            ltbDataSet.RL2IsEnabled = true;
                         }
                         break;
                     case 3:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL3ReadOnly = true;
+                            ltbDataSet.RL3IsEnabled = false;
                             ltbDataSet.RL3 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL3ReadOnly = false;
+                            ltbDataSet.RL3IsEnabled = true;
                         }
                         break;
                     case 4:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL4ReadOnly = true;
+                            ltbDataSet.RL4IsEnabled = false;
                             ltbDataSet.RL4 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL4ReadOnly = false;
+                            ltbDataSet.RL4IsEnabled = true;
                         }
                         break;
                     case 5:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL5ReadOnly = true;
+                            ltbDataSet.RL5IsEnabled = false;
                             ltbDataSet.RL5 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL5ReadOnly = false;
+                            ltbDataSet.RL5IsEnabled = true;
                         }
                         break;
                     case 6:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL6ReadOnly = true;
+                            ltbDataSet.RL6IsEnabled = false;
                             ltbDataSet.RL6 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL6ReadOnly = false;
+                            ltbDataSet.RL6IsEnabled = true;
                         }
                         break;
                     case 7:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL7ReadOnly = true;
+                            ltbDataSet.RL7IsEnabled = false;
                             ltbDataSet.RL7 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL7ReadOnly = false;
+                            ltbDataSet.RL7IsEnabled = true;
                         }
                         break;
                     case 8:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL8ReadOnly = true;
+                            ltbDataSet.RL8IsEnabled = false;
                             ltbDataSet.RL8 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL8ReadOnly = false;
+                            ltbDataSet.RL8IsEnabled = true;
                         }
                         break;
                     case 9:
                         if (!ltbDataSet.RepairPossible)
                         {
-                            ltbDataSet.RL9ReadOnly = true;
+                            ltbDataSet.RL9IsEnabled = false;
                             ltbDataSet.RL9 = "100";
                         }
                         else
                         {
-                            ltbDataSet.RL9ReadOnly = false;
+                            ltbDataSet.RL9IsEnabled = true;
                         }
 
                         break;

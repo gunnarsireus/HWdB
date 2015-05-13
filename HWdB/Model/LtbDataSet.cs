@@ -98,10 +98,10 @@ namespace HWdB.Model
             set { SetValue(() => IB1, value); }
         }
         [NotMappedAttribute]
-        public bool IB1ReadOnly
+        public bool IB1IsEnabled
         {
-            get { return GetValue(() => IB1ReadOnly); }
-            set { SetValue(() => IB1ReadOnly, value); }
+            get { return GetValue(() => IB1IsEnabled); }
+            set { SetValue(() => IB1IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -111,10 +111,10 @@ namespace HWdB.Model
             set { SetValue(() => IB2, value); }
         }
         [NotMappedAttribute]
-        public bool IB2ReadOnly
+        public bool IB2IsEnabled
         {
-            get { return GetValue(() => IB2ReadOnly); }
-            set { SetValue(() => IB2ReadOnly, value); }
+            get { return GetValue(() => IB2IsEnabled); }
+            set { SetValue(() => IB2IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -124,10 +124,10 @@ namespace HWdB.Model
             set { SetValue(() => IB3, value); }
         }
         [NotMappedAttribute]
-        public bool IB3ReadOnly
+        public bool IB3IsEnabled
         {
-            get { return GetValue(() => IB3ReadOnly); }
-            set { SetValue(() => IB3ReadOnly, value); }
+            get { return GetValue(() => IB3IsEnabled); }
+            set { SetValue(() => IB3IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -137,10 +137,10 @@ namespace HWdB.Model
             set { SetValue(() => IB4, value); }
         }
         [NotMappedAttribute]
-        public bool IB4ReadOnly
+        public bool IB4IsEnabled
         {
-            get { return GetValue(() => IB4ReadOnly); }
-            set { SetValue(() => IB4ReadOnly, value); }
+            get { return GetValue(() => IB4IsEnabled); }
+            set { SetValue(() => IB4IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -150,10 +150,10 @@ namespace HWdB.Model
             set { SetValue(() => IB5, value); }
         }
         [NotMappedAttribute]
-        public bool IB5ReadOnly
+        public bool IB5IsEnabled
         {
-            get { return GetValue(() => IB5ReadOnly); }
-            set { SetValue(() => IB5ReadOnly, value); }
+            get { return GetValue(() => IB5IsEnabled); }
+            set { SetValue(() => IB5IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -163,10 +163,10 @@ namespace HWdB.Model
             set { SetValue(() => IB6, value); }
         }
         [NotMappedAttribute]
-        public bool IB6ReadOnly
+        public bool IB6IsEnabled
         {
-            get { return GetValue(() => IB6ReadOnly); }
-            set { SetValue(() => IB6ReadOnly, value); }
+            get { return GetValue(() => IB6IsEnabled); }
+            set { SetValue(() => IB6IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -176,10 +176,10 @@ namespace HWdB.Model
             set { SetValue(() => IB7, value); }
         }
         [NotMappedAttribute]
-        public bool IB7ReadOnly
+        public bool IB7IsEnabled
         {
-            get { return GetValue(() => IB7ReadOnly); }
-            set { SetValue(() => IB7ReadOnly, value); }
+            get { return GetValue(() => IB7IsEnabled); }
+            set { SetValue(() => IB7IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -189,10 +189,10 @@ namespace HWdB.Model
             set { SetValue(() => IB8, value); }
         }
         [NotMappedAttribute]
-        public bool IB8ReadOnly
+        public bool IB8IsEnabled
         {
-            get { return GetValue(() => IB8ReadOnly); }
-            set { SetValue(() => IB8ReadOnly, value); }
+            get { return GetValue(() => IB8IsEnabled); }
+            set { SetValue(() => IB8IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
@@ -202,10 +202,10 @@ namespace HWdB.Model
             set { SetValue(() => IB9, value); }
         }
         [NotMappedAttribute]
-        public bool IB9ReadOnly
+        public bool IB9IsEnabled
         {
-            get { return GetValue(() => IB9ReadOnly); }
-            set { SetValue(() => IB9ReadOnly, value); }
+            get { return GetValue(() => IB9IsEnabled); }
+            set { SetValue(() => IB9IsEnabled, value); }
         }
         public string IB10 { get; set; }
         [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
@@ -335,10 +335,10 @@ namespace HWdB.Model
             set { SetValue(() => RL0, value); }
         }
         [NotMappedAttribute]
-        public bool RL0ReadOnly
+        public bool RL0IsEnabled
         {
-            get { return GetValue(() => RL0ReadOnly); }
-            set { SetValue(() => RL0ReadOnly, value); }
+            get { return GetValue(() => RL0IsEnabled); }
+            set { SetValue(() => RL0IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -348,10 +348,10 @@ namespace HWdB.Model
             set { SetValue(() => RL1, value); }
         }
         [NotMappedAttribute]
-        public bool RL1ReadOnly
+        public bool RL1IsEnabled
         {
-            get { return GetValue(() => RL1ReadOnly); }
-            set { SetValue(() => RL1ReadOnly, value); }
+            get { return GetValue(() => RL1IsEnabled); }
+            set { SetValue(() => RL1IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -361,10 +361,10 @@ namespace HWdB.Model
             set { SetValue(() => RL2, value); }
         }
         [NotMappedAttribute]
-        public bool RL2ReadOnly
+        public bool RL2IsEnabled
         {
-            get { return GetValue(() => RL2ReadOnly); }
-            set { SetValue(() => RL2ReadOnly, value); }
+            get { return GetValue(() => RL2IsEnabled); }
+            set { SetValue(() => RL2IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -374,10 +374,10 @@ namespace HWdB.Model
             set { SetValue(() => RL3, value); }
         }
         [NotMappedAttribute]
-        public bool RL3ReadOnly
+        public bool RL3IsEnabled
         {
-            get { return GetValue(() => RL3ReadOnly); }
-            set { SetValue(() => RL3ReadOnly, value); }
+            get { return GetValue(() => RL3IsEnabled); }
+            set { SetValue(() => RL3IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -387,10 +387,10 @@ namespace HWdB.Model
             set { SetValue(() => RL4, value); }
         }
         [NotMappedAttribute]
-        public bool RL4ReadOnly
+        public bool RL4IsEnabled
         {
-            get { return GetValue(() => RL4ReadOnly); }
-            set { SetValue(() => RL4ReadOnly, value); }
+            get { return GetValue(() => RL4IsEnabled); }
+            set { SetValue(() => RL4IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -400,10 +400,10 @@ namespace HWdB.Model
             set { SetValue(() => RL5, value); }
         }
         [NotMappedAttribute]
-        public bool RL5ReadOnly
+        public bool RL5IsEnabled
         {
-            get { return GetValue(() => RL5ReadOnly); }
-            set { SetValue(() => RL5ReadOnly, value); }
+            get { return GetValue(() => RL5IsEnabled); }
+            set { SetValue(() => RL5IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -413,10 +413,10 @@ namespace HWdB.Model
             set { SetValue(() => RL6, value); }
         }
         [NotMappedAttribute]
-        public bool RL6ReadOnly
+        public bool RL6IsEnabled
         {
-            get { return GetValue(() => RL6ReadOnly); }
-            set { SetValue(() => RL6ReadOnly, value); }
+            get { return GetValue(() => RL6IsEnabled); }
+            set { SetValue(() => RL6IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -426,10 +426,10 @@ namespace HWdB.Model
             set { SetValue(() => RL7, value); }
         }
         [NotMappedAttribute]
-        public bool RL7ReadOnly
+        public bool RL7IsEnabled
         {
-            get { return GetValue(() => RL7ReadOnly); }
-            set { SetValue(() => RL7ReadOnly, value); }
+            get { return GetValue(() => RL7IsEnabled); }
+            set { SetValue(() => RL7IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -439,10 +439,10 @@ namespace HWdB.Model
             set { SetValue(() => RL8, value); }
         }
         [NotMappedAttribute]
-        public bool RL8ReadOnly
+        public bool RL8IsEnabled
         {
-            get { return GetValue(() => RL8ReadOnly); }
-            set { SetValue(() => RL8ReadOnly, value); }
+            get { return GetValue(() => RL8IsEnabled); }
+            set { SetValue(() => RL8IsEnabled, value); }
         }
 
         [RegularExpression(@"^([0]|[1-9]|[1-9][0-9]|100)$", ErrorMessage = "Repair Loss must be within 0 and 100")]
@@ -452,10 +452,10 @@ namespace HWdB.Model
             set { SetValue(() => RL9, value); }
         }
         [NotMappedAttribute]
-        public bool RL9ReadOnly
+        public bool RL9IsEnabled
         {
-            get { return GetValue(() => RL9ReadOnly); }
-            set { SetValue(() => RL9ReadOnly, value); }
+            get { return GetValue(() => RL9IsEnabled); }
+            set { SetValue(() => RL9IsEnabled, value); }
         }
 
         public string ServiceDays
