@@ -17,9 +17,10 @@ namespace HWdB.Model
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
         public int UserId { get; set; }
-        [MaxLength(30, ErrorMessage = "Name exceeded 30 letters")]
+        [MaxLength(100, ErrorMessage = "Customer exceeded 100 letters")]
         [ExcludeChar("/.,!@#$%", ErrorMessage = "Name contains invalid letters")]
         public string Customer { get; set; }
+        [MaxLength(40, ErrorMessage = "Version exceeded 40 letters")]
         public string Version { get; set; }
         public string Saved
         {
@@ -565,6 +566,108 @@ namespace HWdB.Model
         {
             get { return GetValue(() => l9); }
             set { SetValue(() => l9, value); }
+        }
+        public void Clone(LtbDataSet that)
+        {
+            this.Customer = that.Customer;
+            this.ID = that.ID;
+            this.UserId = that.UserId;
+            this.Version = that.Version;
+            this.Saved = that.Saved;
+            this.LTBDate = that.LTBDate;
+            this.EOSDate = that.EOSDate;
+            this.RepairLeadTime = that.RepairLeadTime;
+            this.ConfidenceLevel = that.ConfidenceLevel;
+            this.RepairPossible = that.RepairPossible;
+
+            this.IB0 = that.IB0;
+            this.IB1 = that.IB1;
+            this.IB1IsEnabled = that.IB1IsEnabled;
+            this.IB2 = that.IB2;
+            this.IB2IsEnabled = that.IB2IsEnabled;
+            this.IB3 = that.IB3;
+            this.IB3IsEnabled = that.IB3IsEnabled;
+            this.IB4 = that.IB4;
+            this.IB4IsEnabled = that.IB4IsEnabled;
+            this.IB5 = that.IB5;
+            this.IB5IsEnabled = that.IB5IsEnabled;
+            this.IB6 = that.IB6;
+            this.IB6IsEnabled = that.IB6IsEnabled;
+            this.IB7 = that.IB7;
+            this.IB7IsEnabled = that.IB7IsEnabled;
+            this.IB8 = that.IB8;
+            this.IB8IsEnabled = that.IB8IsEnabled;
+            this.IB9 = that.IB9;
+            this.IB9IsEnabled = that.IB9IsEnabled;
+            this.IB10 = that.IB10;
+
+            this.FR0 = that.FR0;
+            this.FR1 = that.FR1;
+            this.FR2 = that.FR2;
+            this.FR3 = that.FR3;
+            this.FR4 = that.FR4;
+            this.FR5 = that.FR5;
+            this.FR6 = that.FR6;
+            this.FR7 = that.FR7;
+            this.FR8 = that.FR8;
+            this.FR9 = that.FR9;
+            this.RL0 = that.RL0;
+
+            this.RS0 = that.RS0;
+            this.RS1 = that.RS1;
+            this.RS2 = that.RS2;
+            this.RS3 = that.RS3;
+            this.RS4 = that.RS4;
+            this.RS5 = that.RS5;
+            this.RS6 = that.RS6;
+            this.RS7 = that.RS7;
+            this.RS8 = that.RS8;
+            this.RS9 = that.RS9;
+
+            this.RL0 = that.RL0;
+            this.RL0IsEnabled = that.RL0IsEnabled;
+            this.RL1 = that.RL0;
+            this.RL1IsEnabled = that.RL1IsEnabled;
+            this.RL2 = that.RL2;
+            this.RL2IsEnabled = that.RL2IsEnabled;
+            this.RL3 = that.RL3;
+            this.RL3IsEnabled = that.RL3IsEnabled;
+            this.RL4 = that.RL4;
+            this.RL4IsEnabled = that.RL4IsEnabled;
+            this.RL5 = that.RL5;
+            this.RL5IsEnabled = that.RL5IsEnabled;
+            this.RL6 = that.RL6;
+            this.RL6IsEnabled = that.RL6IsEnabled;
+            this.RL7 = that.RL7;
+            this.RL7IsEnabled = that.RL7IsEnabled;
+            this.RL8 = that.RL8;
+            this.RL8IsEnabled = that.RL8IsEnabled;
+            this.RL9 = that.RL9;
+            this.RL9IsEnabled = that.RL9IsEnabled;
+
+            this.ServiceDays = that.ServiceDays;
+            this.TotalStock = that.TotalStock;
+            this.Stock = that.Stock;
+            this.Safety = that.Safety;
+            this.Failed = that.Failed;
+            this.Repaired = that.Repaired;
+            this.Lost = that.Lost;
+            this.InfoText = that.InfoText;
+            this.StockYearArray = that.StockYearArray;
+            this.RSYearArray = that.RSYearArray;
+            this.SafetyYearArray = that.SafetyYearArray;
+            this.LtbChart = that.LtbChart;
+
+            this.l0 = that.l0;
+            this.l1 = that.l1;
+            this.l2 = that.l2;
+            this.l3 = that.l3;
+            this.l4 = that.l4;
+            this.l5 = that.l5;
+            this.l6 = that.l6;
+            this.l7 = that.l7;
+            this.l8 = that.l8;
+            this.l9 = that.l9;
         }
     }
 }

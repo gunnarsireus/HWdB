@@ -28,13 +28,15 @@ namespace HWdB.ViewModels
             repairIsPossible = CurrentLtbDataSet.RepairPossible;
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(Clear);
-            InitCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
+            NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
             DeleteCommand = new RelayCommand(Delete);
             InitListBox();
         }
 
         private void InitListBox()
         {
+            LtbDataSet tmp = new LtbDataSet();
+            tmp.Clone(CurrentLtbDataSet);
             using (var context = new DataContext())
             {
                 if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
@@ -43,6 +45,7 @@ namespace HWdB.ViewModels
                     context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
                 }
             }
+            CurrentLtbDataSet = tmp;
         }
 
         public LtbDataSet SelectedListBoxItem
@@ -84,7 +87,7 @@ namespace HWdB.ViewModels
             private set;
         }
 
-        public ICommand InitCommand
+        public ICommand NewLtbDataSetCommand
         {
             get;
             private set;
@@ -334,7 +337,7 @@ namespace HWdB.ViewModels
 
         public string RepairPossible
         {
-            get { return this.RepairIsPossible ? "Repair possible, please set Repair Loss" : "Repair not possible, Repair Loss = 100"; }
+            get { return this.RepairIsPossible ? "Check Repair Loss" : "Repair not possible"; }
         }
         static string[] xValues = {
 		"LTB",
