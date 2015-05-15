@@ -244,7 +244,8 @@
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>
 				</Grid>
-				<TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
+                <Label Grid.Row="8"  Grid.Column="1" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Installed Base [0 - 99999]:" FontSize="4" FontWeight="Bold" />
+                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
 				<TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l1" Text="{Binding l1, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
 				<TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l2" Text="{Binding l2, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
 				<TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l3" Text="{Binding l3, Mode=TwoWay}"  FontSize="4" FontWeight="Bold" />
