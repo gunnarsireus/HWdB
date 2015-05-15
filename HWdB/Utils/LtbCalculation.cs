@@ -990,18 +990,7 @@ namespace HWdB.Utils
             LTB.LTBWorker(N, ServiceDays, LeadDays, MyServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
             ref Stock_Array, ref Returned_Array, ref Demand_Array, ref SumDemand_Array, ref RepairLoss_Array, ref  SumRepairLoss_Array, ref Repair_Array, ref SumRepair_Array, ref SafetyMargin_Array, ref SafetyMarginDayArray, ref FSLeadDaysDemand_Array,
             ref IBin, ref  FRin, ref  RLin, ref  RSin, ref  RSDayArray, ref  RLDayArray, ref  StockDayArray, ref  ReturnedDayArray, ref  SumDemandDayArray);
-
-            //For Chart
-            int YearCnt = 0;
-            while (YearCnt <= MyServiceYears)
-            {
-                ltbDataSet.RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
-                ltbDataSet.StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
-                FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1]), 0);
-                FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1] + ReturnedDayArray[YearCnt * 365 + 1] + FromAverage, ReturnedDayArray[YearCnt * 365 + (int)LeadDays + 1]), 0);
-                ltbDataSet.SafetyYearArray[YearCnt] = FromGamma + FromAverage;
-                YearCnt = YearCnt + 1;
-            }
+            SetChartData(ltbDataSet);
 
             StockPresent = RoundLong(Stock_Array[1], 0);
             SafetyPresent = ltbDataSet.SafetyYearArray[0];
@@ -1025,6 +1014,26 @@ namespace HWdB.Utils
             ltbDataSet.Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
 
             if (ltbDataSet.RepairPossible) { ltbDataSet.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { ltbDataSet.Lost = "Nothing"; }
+        }
+
+        public static void SetChartData(LtbDataSet ltbDataSet)
+        {
+            if (ltbDataSet.StockYearArray == null) ltbDataSet.StockYearArray = new long[LTBCommon.MaxYear + 1];
+
+            if (ltbDataSet.RSYearArray == null) ltbDataSet.RSYearArray = new long[LTBCommon.MaxYear + 1];
+
+            if (ltbDataSet.SafetyYearArray == null) ltbDataSet.SafetyYearArray = new long[LTBCommon.MaxYear + 1];
+            //For Chart
+            int YearCnt = 0;
+            while (YearCnt <= MyServiceYears)
+            {
+                ltbDataSet.RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
+                ltbDataSet.StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
+                FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1]), 0);
+                FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1] + ReturnedDayArray[YearCnt * 365 + 1] + FromAverage, ReturnedDayArray[YearCnt * 365 + (int)LeadDays + 1]), 0);
+                ltbDataSet.SafetyYearArray[YearCnt] = FromGamma + FromAverage;
+                YearCnt = YearCnt + 1;
+            }
         }
 
 

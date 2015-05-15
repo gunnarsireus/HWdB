@@ -142,7 +142,7 @@ namespace HWdB.ViewModels
             if (CurrentLtbDataSet.HasErrors.Count > 0)
             {
                 var first = CurrentLtbDataSet.HasErrors.First();
-                CurrentLtbDataSet.InfoText = first.Value;
+                System.Windows.MessageBox.Show(first.Value);
             }
             else
             {
@@ -316,7 +316,19 @@ namespace HWdB.ViewModels
             return image;
 
         }
-
+        static string[] xValues = {
+		"LTB",
+		"+1Year",
+		"+2Year",
+		"+3Year",
+		"+4Year",
+		"+5Year",
+		"+6Year",
+		"+7Year",
+		"+8Year",
+		"+9Year",
+		"EoS"
+	};
         public bool RepairIsPossible
         {
             get { return CurrentLtbDataSet.RepairPossible; }
@@ -341,19 +353,5 @@ namespace HWdB.ViewModels
         {
             get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }
         }
-        static string[] xValues = {
-		"LTB",
-		"+1Year",
-		"+2Year",
-		"+3Year",
-		"+4Year",
-		"+5Year",
-		"+6Year",
-		"+7Year",
-		"+8Year",
-		"+9Year",
-		"EoS"
-	};
-
     }
 }
