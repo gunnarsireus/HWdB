@@ -7,12 +7,23 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Windows.Media.Imaging;
 namespace HWdB.Model
 {
 
     public class LtbDataSet : PropertyChangedNotification
     {
+        public LtbDataSet()
+        {
+            this.StockYearArray = new long[LTBCommon.MaxYear + 1];
+
+            this.RSYearArray = new long[LTBCommon.MaxYear + 1];
+
+            this.SafetyYearArray = new long[LTBCommon.MaxYear + 1];
+            ClearChartData();
+            GetChart();
+        }
         [Key]
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
@@ -669,5 +680,75 @@ namespace HWdB.Model
             this.l8 = that.l8;
             this.l9 = that.l9;
         }
+
+        public void ClearResult()
+        {
+            this.TotalStock = string.Empty;
+            this.Stock = string.Empty;
+            this.Safety = string.Empty;
+            this.InfoText = string.Empty;
+            this.Failed = string.Empty;
+            this.Repaired = string.Empty;
+            this.Lost = string.Empty;
+        }
+        public void ClearChartData()
+        {
+            int YearCnt = 0;
+            while (YearCnt <= 10)
+            {
+                this.RSYearArray[YearCnt] = 0;
+                this.StockYearArray[YearCnt] = 0;
+                this.SafetyYearArray[YearCnt] = 0;
+                YearCnt = YearCnt + 1;
+            }
+        }
+        public void GetChart()
+        {
+            System.Web.UI.DataVisualization.Charting.Chart chart = new System.Web.UI.DataVisualization.Charting.Chart()
+            {
+                Height = 300,
+                Width = 900,
+                ImageType = System.Web.UI.DataVisualization.Charting.ChartImageType.Png
+            };
+            System.Web.UI.DataVisualization.Charting.ChartArea chartArea = chart.ChartAreas.Add("Stock");
+            chartArea.Area3DStyle.Enable3D = true;
+
+            System.Web.UI.DataVisualization.Charting.Series RS = chart.Series.Add("0");
+            System.Web.UI.DataVisualization.Charting.Series Stock = chart.Series.Add("1");
+            System.Web.UI.DataVisualization.Charting.Series Safety = chart.Series.Add("2");
+            RS.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            Stock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            Safety.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+
+            chart.Series["0"].Points.DataBindXY(xValues, this.RSYearArray);
+            chart.Series["0"].Color = System.Drawing.Color.Green;
+            chart.Series["1"].Points.DataBindXY(xValues, this.StockYearArray);
+            chart.Series["1"].Color = System.Drawing.Color.Blue;
+            chart.Series["2"].Points.DataBindXY(xValues, this.SafetyYearArray);
+            chart.Series["2"].Color = System.Drawing.Color.Red;
+            MemoryStream ms = new MemoryStream();
+
+            chart.SaveImage(ms);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = ms;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            this.LtbChart = image;
+
+        }
+        static string[] xValues = {
+		"LTB",
+		"+1Year",
+		"+2Year",
+		"+3Year",
+		"+4Year",
+		"+5Year",
+		"+6Year",
+		"+7Year",
+		"+8Year",
+		"+9Year",
+		"EoS"
+	};
     }
 }

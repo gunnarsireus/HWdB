@@ -653,12 +653,12 @@
 				<Label Grid.Row="6"  Grid.Column="7" Grid.ColumnSpan="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair possible:" FontSize="4" FontWeight="Bold" Width="30"/>
 				<Grid Grid.Row="6" Grid.Column="9">
 					<Viewbox Height="8">
-						<RadioButton IsChecked="{Binding RepairIsPossible,Mode=TwoWay}" GroupName="RepairPossible" FontSize="7" FontWeight="Bold" Padding="0,2,0,0" >Yes</RadioButton>
+						<RadioButton IsChecked="{Binding RepairIsPossible}" GroupName="RepairPossible" FontSize="7" FontWeight="Bold" Padding="0,2,0,0" >Yes</RadioButton>
 					</Viewbox>
 				</Grid>
 				<Grid Grid.Row="6" Grid.Column="10">
 					<Viewbox Height="8">
-						<RadioButton IsChecked="{Binding RepairNotPossible,Mode=TwoWay}" GroupName="RepairPossible"  FontSize="7" FontWeight="Bold" Padding="0,2,0,0">No</RadioButton>
+						<RadioButton IsChecked="{Binding RepairNotPossible}" GroupName="RepairPossible"  FontSize="7" FontWeight="Bold" Padding="0,2,0,0">No</RadioButton>
 					</Viewbox>
 				</Grid>
 				<Button Command="{Binding CalculateCommand}" CommandParameter="{Binding ElementName=This}" Width="25" Grid.Row="13" Grid.Column="8" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Calculate</Button>

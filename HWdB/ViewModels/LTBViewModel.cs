@@ -3,18 +3,15 @@ using HWdB.Model;
 using HWdB.Utils;
 using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Web.UI.DataVisualization.Charting;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace HWdB.ViewModels
 {
     class LTBViewModel : ViewModelBase
     {
+        public override string ButtonName { get; set; }
         public ObservableCollection<LtbDataSet> LtbDataSets
         {
             get { return GetValue(() => LtbDataSets); }
@@ -150,7 +147,7 @@ namespace HWdB.ViewModels
                 LtbCalculation.Calculate(CurrentLtbDataSet);
 
                 //Visa som 3D
-                CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
+                CurrentLtbDataSet.GetChart();
                 SaveLtbDataSet(CurrentLtbDataSet);
             }
         }
@@ -188,9 +185,9 @@ namespace HWdB.ViewModels
         private void Clear(object parameter)
         {
             CleanupDateErrors();
-            LtbCalculation.ClearResult(CurrentLtbDataSet);
-            LtbCalculation.ClearChartData(CurrentLtbDataSet);
-            CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
+            CurrentLtbDataSet.ClearResult();
+            CurrentLtbDataSet.ClearChartData();
+            CurrentLtbDataSet.GetChart();
         }
 
         private void CreateNewCurrentLtbDataSet(object parameter)
@@ -275,60 +272,7 @@ namespace HWdB.ViewModels
                 Safety = string.Empty,
                 InfoText = "Enter values and press 'Calculate'"
             };
-            LtbCalculation.ClearChartData(CurrentLtbDataSet);
-            CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
         }
-
-        public override string ButtonName { get; set; }
-
-        BitmapImage GetChart(LtbDataSet ltbDataSet)
-        {
-            Chart chart = new Chart()
-            {
-                Height = 300,
-                Width = 900,
-                ImageType = ChartImageType.Png
-            };
-            ChartArea chartArea = chart.ChartAreas.Add("Stock");
-            chartArea.Area3DStyle.Enable3D = true;
-
-            Series RS = chart.Series.Add("0");
-            Series Stock = chart.Series.Add("1");
-            Series Safety = chart.Series.Add("2");
-            RS.ChartType = SeriesChartType.StackedColumn;
-            Stock.ChartType = SeriesChartType.StackedColumn;
-            Safety.ChartType = SeriesChartType.StackedColumn;
-
-            chart.Series["0"].Points.DataBindXY(xValues, ltbDataSet.RSYearArray);
-            chart.Series["0"].Color = Color.Green;
-            chart.Series["1"].Points.DataBindXY(xValues, ltbDataSet.StockYearArray);
-            chart.Series["1"].Color = Color.Blue;
-            chart.Series["2"].Points.DataBindXY(xValues, ltbDataSet.SafetyYearArray);
-            chart.Series["2"].Color = Color.Red;
-            MemoryStream ms = new MemoryStream();
-
-            chart.SaveImage(ms);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = ms;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.EndInit();
-            return image;
-
-        }
-        static string[] xValues = {
-		"LTB",
-		"+1Year",
-		"+2Year",
-		"+3Year",
-		"+4Year",
-		"+5Year",
-		"+6Year",
-		"+7Year",
-		"+8Year",
-		"+9Year",
-		"EoS"
-	};
         public bool RepairIsPossible
         {
             get { return CurrentLtbDataSet.RepairPossible; }
@@ -339,7 +283,6 @@ namespace HWdB.ViewModels
                 OnPropertyChanged("ShowRepairPossible");
             }
         }
-
         public bool RepairNotPossible
         {
             get { return !CurrentLtbDataSet.RepairPossible; }
@@ -348,7 +291,6 @@ namespace HWdB.ViewModels
                 RepairIsPossible = !value;
             }
         }
-
         public string ShowRepairPossible
         {
             get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }

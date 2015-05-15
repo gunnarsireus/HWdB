@@ -495,33 +495,6 @@ namespace HWdB.Utils
         {
             return _ServiceYears;
         }
-        public static void ClearResult(LtbDataSet ltbDataSet)
-        {
-            ltbDataSet.TotalStock = string.Empty;
-            ltbDataSet.Stock = string.Empty;
-            ltbDataSet.Safety = string.Empty;
-            ltbDataSet.InfoText = string.Empty;
-            ltbDataSet.Failed = string.Empty;
-            ltbDataSet.Repaired = string.Empty;
-            ltbDataSet.Lost = string.Empty;
-        }
-
-        public static void ClearChartData(LtbDataSet ltbDataSet)
-        {
-            if (ltbDataSet.StockYearArray == null) ltbDataSet.StockYearArray = new long[LTBCommon.MaxYear + 1];
-
-            if (ltbDataSet.RSYearArray == null) ltbDataSet.RSYearArray = new long[LTBCommon.MaxYear + 1];
-
-            if (ltbDataSet.SafetyYearArray == null) ltbDataSet.SafetyYearArray = new long[LTBCommon.MaxYear + 1];
-            int YearCnt = 0;
-            while (YearCnt <= 10)
-            {
-                ltbDataSet.RSYearArray[YearCnt] = 0;
-                ltbDataSet.StockYearArray[YearCnt] = 0;
-                ltbDataSet.SafetyYearArray[YearCnt] = 0;
-                YearCnt = YearCnt + 1;
-            }
-        }
 
         protected static bool BoundariesOK(int LastYear, LtbDataSet ltbDataSet)
         {
@@ -937,8 +910,8 @@ namespace HWdB.Utils
         public static void Calculate(LtbDataSet ltbDataSet)
         {
             ltbDataSet.InfoText = "";
-            ClearResult(ltbDataSet);
-            ClearChartData(ltbDataSet);
+            ltbDataSet.ClearResult();
+            ltbDataSet.ClearChartData();
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
             long StockPresent = 0;
@@ -965,14 +938,14 @@ namespace HWdB.Utils
             ServiceDays = Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, StartDate, EndOfService));
             if (LeadDays > ServiceDays)
             {
-                ClearResult(ltbDataSet);
+                ltbDataSet.ClearResult();
                 ltbDataSet.InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
                 return;
             }
 
             if (ServiceDays > MaxServiceDays)
             {
-                ClearResult(ltbDataSet);
+                ltbDataSet.ClearResult();
                 ltbDataSet.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
                 return;
             }
