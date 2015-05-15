@@ -6,7 +6,7 @@
 			 xmlns:utils="clr-namespace:HWdB.Utils"
 			 xmlns:local="clr-namespace:HWdB"
 			 Height="600"
-			 Width="1200"
+			 Width="1008"
 		Background="WhiteSmoke"
 		HorizontalAlignment="Stretch" 
 		VerticalAlignment="Stretch">
@@ -19,13 +19,12 @@
 	<Grid>
 		<Grid.Resources>
 			<DataTemplate x:Key="listBoxTemplate">
-				<StackPanel FlowDirection="LeftToRight" >
+				<StackPanel Margin="4" FlowDirection="LeftToRight" >
 					<DockPanel>
 						<TextBlock FontSize="4" Width="65"  Text="{Binding Customer, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" FontWeight="Bold" />
                         <TextBlock FontSize="4" Width="30" Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  FontWeight="Bold" />
                         <TextBlock FontSize="4" Width="35" Text="{Binding TotalStock, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  FontWeight="Bold" />
-                        <TextBlock FontSize="4" Width="60" Text="{Binding CreatedBy, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  FontWeight="Bold" />
-                    </DockPanel>
+					</DockPanel>
 				</StackPanel>
 			</DataTemplate>
 		</Grid.Resources>
@@ -38,7 +37,7 @@
 					<RowDefinition Height="220"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -48,16 +47,14 @@
                         <RowDefinition Height="10"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="65"/>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="35"/>
-                        <ColumnDefinition Width="58"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0"  Grid.Column="1" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Customer"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                     <TextBlock Grid.Row="0"  Grid.Column="2" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Version"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                     <TextBlock Grid.Row="0"  Grid.Column="3" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Total Stock"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
-                    <TextBlock Grid.Row="0"  Grid.Column="4" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Created By"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                 </Grid>
 				<Border BorderBrush='Black'  BorderThickness='0,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
                 <Grid Row ="0" Column="0">
@@ -67,7 +64,7 @@
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="0" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="Stored Data Sets" FontSize="10" FontWeight="Bold"/>
                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2">
-					<ListBox Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSets}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="190" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
+					<ListBox Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSets}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="130" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
 				</StackPanel>
 			</Grid>
 		</Viewbox>
@@ -77,7 +74,7 @@
 					<RowDefinition Height="20"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="100"/>
@@ -101,7 +98,7 @@
 					<RowDefinition Height="10"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="40"/>
 					<ColumnDefinition Width="50"/>
@@ -150,7 +147,7 @@
 					<RowDefinition Height="10"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="40"/>
 					<ColumnDefinition Width="30"/>
@@ -215,7 +212,7 @@
 					<RowDefinition Height="10"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="60"/>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="20"/>
@@ -502,7 +499,7 @@
 
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="40"/>
 					<ColumnDefinition Width="30"/>
@@ -626,7 +623,7 @@
 					<RowDefinition Height="10"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="40"/>
 					<ColumnDefinition Width="30"/>
@@ -642,7 +639,7 @@
 			FontWeight="Bold"
             Foreground="Red"
 			FontSize="5"
-			Text="{Binding ShowRepairPossible}"
+			Text="{Binding RepairPossible}"
 			/>
                 <Grid Row="6"  Column="7" Grid.ColumnSpan="2">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -652,12 +649,12 @@
 				<Label Grid.Row="6"  Grid.Column="7" Grid.ColumnSpan="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Repair possible:" FontSize="4" FontWeight="Bold" Width="30"/>
 				<Grid Grid.Row="6" Grid.Column="9">
 					<Viewbox Height="8">
-						<RadioButton IsChecked="{Binding RepairIsPossible,Mode=TwoWay}" GroupName="RepairPossible" FontSize="7" FontWeight="Bold" Padding="0,2,0,0" >Yes</RadioButton>
+						<RadioButton IsChecked="{Binding RepairIsPossible}" GroupName="RepairPossible" FontSize="7" FontWeight="Bold" Padding="0,2,0,0" >Yes</RadioButton>
 					</Viewbox>
 				</Grid>
 				<Grid Grid.Row="6" Grid.Column="10">
 					<Viewbox Height="8">
-						<RadioButton IsChecked="{Binding RepairNotPossible,Mode=TwoWay}" GroupName="RepairPossible"  FontSize="7" FontWeight="Bold" Padding="0,2,0,0">No</RadioButton>
+						<RadioButton IsChecked="{Binding RepairNotPossible}" GroupName="RepairPossible"  FontSize="7" FontWeight="Bold" Padding="0,2,0,0">No</RadioButton>
 					</Viewbox>
 				</Grid>
 				<Button Command="{Binding CalculateCommand}" CommandParameter="{Binding ElementName=This}" Width="25" Grid.Row="13" Grid.Column="8" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Calculate</Button>
@@ -682,7 +679,7 @@
 					<RowDefinition Height="190"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
+					<ColumnDefinition Width="150"/>
 					<ColumnDefinition Width="300"/>
 				</Grid.ColumnDefinitions>
 				<Image Name="Chart" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="10" Source="{Binding LtbChart}" Width="600" Height="85"/>

@@ -86,13 +86,6 @@ namespace HWdB.ViewModels
 
         private void Logout(object parameter)
         {
-            using (var context = new DataContext())
-            {
-                User stored = context.Users.Where(a => (a.ID == LoggedInUser.Instance.UserLoggedin.ID)).FirstOrDefault();
-                stored.LogedIn = false;
-                context.SaveChanges();
-                LoggedInUser.Instance.UserLoggedin.LogedIn = false;
-            }
             _applikationViewModel.Logout();
         }
 
@@ -146,7 +139,6 @@ namespace HWdB.ViewModels
                 if (!context.Users.Any())
                 {
                     context.Users.Add(User.CreateUser("admin", "2c50afa5e6b08724001e9495f86de171", "admin@gmail.com", "Administrator", "Administrator"));
-                    context.Users.Add(User.CreateUser("gunnar", "2c50afa5e6b08724001e9495f86de171", "gunnar@gmail.com", "Administrator", "Administrator"));
 
                     context.SaveChanges();
                 }
@@ -167,11 +159,14 @@ namespace HWdB.ViewModels
                 else
                 {
                     UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString());
-                    stored.LogedIn = true;
-                    stored.LastLogin = DateTime.Now.ToString();
-                    context.Entry(stored).State = System.Data.EntityState.Modified;
+                    User User = new User();
+                    User.Clone(stored);
+                    User.LogedIn = true;
+                    User.LastLogin = DateTime.Now.ToString();
+                    User.Password = hash;
+
                     context.SaveChanges();
-                    LoggedInUser.Instance.UserLoggedin = stored;
+
                     return true;
                 }
             }
