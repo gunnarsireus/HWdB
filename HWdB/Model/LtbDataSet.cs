@@ -16,7 +16,7 @@ namespace HWdB.Model
         [Key]
         [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
-        public int UserId { get; set; }
+        public string CreatedBy { get; set; }
         [MaxLength(100, ErrorMessage = "Customer exceeded 100 letters")]
         [ExcludeChar("/.,!@#$%", ErrorMessage = "Name contains invalid letters")]
         public string Customer { get; set; }
@@ -571,7 +571,7 @@ namespace HWdB.Model
         {
             this.Customer = that.Customer;
             this.ID = that.ID;
-            this.UserId = that.UserId;
+            this.CreatedBy = that.CreatedBy;
             this.Version = that.Version;
             this.Saved = that.Saved;
             this.LTBDate = that.LTBDate;

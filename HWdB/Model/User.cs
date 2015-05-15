@@ -1,15 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace HWdB.Model
 {
     public class User : BaseActivatable
     {
         [Key]
-        [Column(Order = 1)]
         public int ID { get; set; }
-        [Key]
-        [Column(Order = 2)]
+
         [Required(ErrorMessage = "Username is Required")]
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -18,7 +16,7 @@ namespace HWdB.Model
         public string Role { get; set; }
         public bool LogedIn { get; set; }
         public string LastLogin { get; set; }
-
+        public virtual ICollection<LtbDataSet> ltbdatasets { get; set; }
         public static User CreateUser(string userName, string password, string email, string rights, string role)
         {
             return new User { UserName = userName, Password = password, Email = email, Rights = rights, Role = role, LogedIn = false, LastLogin = DateTime.Now.ToString(), active = "1" };

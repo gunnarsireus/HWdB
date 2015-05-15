@@ -40,6 +40,15 @@ namespace HWdB.ViewModels
                     _userLoggedIn = value;
                     if (_userLoggedIn == true)
                     {
+                        //PageViewModels.Add(new ProductsViewModel());
+                        //PageViewModels.Add(new ProductGroupsViewModel());
+                        //PageViewModels.Add(new ExportViewModel());
+                        //PageViewModels.Add(new ImportViewModel());
+                        //PageViewModels.Add(new RepairViewModel());
+                        //PageViewModels.Add(new SupplyViewModel());
+                        //PageViewModels.Add(new StrategyViewModel());
+                        PageViewModels.Add(new LTBViewModel());
+                        PageViewModels.Add(new AdministrationViewModel());
                         CurrentPageViewModel = PageViewModels[1];
                     }
                     OnPropertyChanged("UserLoggedIn");
@@ -71,15 +80,7 @@ namespace HWdB.ViewModels
         {
             UserLoggedIn = false;
             PageViewModels.Add(new LoginViewModel(this));
-            //PageViewModels.Add(new ProductsViewModel());
-            //PageViewModels.Add(new ProductGroupsViewModel());
-            //PageViewModels.Add(new ExportViewModel());
-            //PageViewModels.Add(new ImportViewModel());
-            //PageViewModels.Add(new RepairViewModel());
-            //PageViewModels.Add(new SupplyViewModel());
-            //PageViewModels.Add(new StrategyViewModel());
-            PageViewModels.Add(new LTBViewModel());
-            PageViewModels.Add(new AdministrationViewModel());
+
 
             // Set starting page
 
