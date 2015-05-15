@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web.UI.DataVisualization.Charting;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -25,7 +26,6 @@ namespace HWdB.ViewModels
             CreateNewCurrentLtbDataSet(new object());
             this.ButtonName = "LTB";
             LtbCalculation.InitLabels(CurrentLtbDataSet);
-            repairIsPossible = CurrentLtbDataSet.RepairPossible;
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(Clear);
             NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
@@ -71,6 +71,9 @@ namespace HWdB.ViewModels
                 {
                     _currentLtbDataSet = value;
                     OnPropertyChanged("CurrentLtbDataSet");
+                    OnPropertyChanged("RepairIsPossible");
+                    OnPropertyChanged("RepairNotPossible");
+                    OnPropertyChanged("ShowRepairPossible");
                 }
             }
         }
@@ -102,8 +105,11 @@ namespace HWdB.ViewModels
         {
             if (CurrentLtbDataSet.ID == 0)
             {
-                CurrentLtbDataSet.InfoText = "Cannot delete not saved data!";
+                System.Windows.MessageBox.Show("Cannot delete unsaved data");
+                return;
             }
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
                 LtbDataSet stored = context.LtbDataSets.Where(a => (a.ID == CurrentLtbDataSet.ID)).FirstOrDefault();
@@ -191,6 +197,7 @@ namespace HWdB.ViewModels
         {
             CurrentLtbDataSet = new LtbDataSet()
             {
+                CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName,
                 Customer = "Der Kunde GmbH",
                 Version = "pa1",
                 Saved = "Press 'Calculate'",
@@ -268,14 +275,13 @@ namespace HWdB.ViewModels
                 Safety = string.Empty,
                 InfoText = "Enter values and press 'Calculate'"
             };
-            RepairIsPossible = true;
             LtbCalculation.ClearChartData(CurrentLtbDataSet);
             CurrentLtbDataSet.LtbChart = GetChart(CurrentLtbDataSet);
         }
 
         public override string ButtonName { get; set; }
 
-        public BitmapImage GetChart(LtbDataSet ltb)
+        BitmapImage GetChart(LtbDataSet ltbDataSet)
         {
             Chart chart = new Chart()
             {
@@ -293,11 +299,11 @@ namespace HWdB.ViewModels
             Stock.ChartType = SeriesChartType.StackedColumn;
             Safety.ChartType = SeriesChartType.StackedColumn;
 
-            chart.Series["0"].Points.DataBindXY(xValues, ltb.RSYearArray);
+            chart.Series["0"].Points.DataBindXY(xValues, ltbDataSet.RSYearArray);
             chart.Series["0"].Color = Color.Green;
-            chart.Series["1"].Points.DataBindXY(xValues, ltb.StockYearArray);
+            chart.Series["1"].Points.DataBindXY(xValues, ltbDataSet.StockYearArray);
             chart.Series["1"].Color = Color.Blue;
-            chart.Series["2"].Points.DataBindXY(xValues, ltb.SafetyYearArray);
+            chart.Series["2"].Points.DataBindXY(xValues, ltbDataSet.SafetyYearArray);
             chart.Series["2"].Color = Color.Red;
             MemoryStream ms = new MemoryStream();
 
@@ -311,33 +317,29 @@ namespace HWdB.ViewModels
 
         }
 
-        bool repairIsPossible;
-
         public bool RepairIsPossible
         {
-            get { return this.repairIsPossible; }
+            get { return CurrentLtbDataSet.RepairPossible; }
             set
             {
-                if (this.repairIsPossible == value)
-                    return;
                 CurrentLtbDataSet.RepairPossible = value;
-                this.repairIsPossible = value;
-                CurrentLtbDataSet.RepairPossible = value;
-                OnPropertyChanged("RepairIsPossible");
                 OnPropertyChanged("RepairNotPossible");
-                OnPropertyChanged("RepairPossible");
+                OnPropertyChanged("ShowRepairPossible");
             }
         }
 
         public bool RepairNotPossible
         {
-            get { return !RepairIsPossible; }
-            set { RepairIsPossible = !value; }
+            get { return !CurrentLtbDataSet.RepairPossible; }
+            set
+            {
+                RepairIsPossible = !value;
+            }
         }
 
-        public string RepairPossible
+        public string ShowRepairPossible
         {
-            get { return this.RepairIsPossible ? "Check Repair Loss" : "Repair not possible"; }
+            get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }
         }
         static string[] xValues = {
 		"LTB",
