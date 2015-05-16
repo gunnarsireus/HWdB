@@ -18,6 +18,15 @@ namespace HWdB.ViewModels
             set { SetValue(() => Users, value); InitListBox(); }
         }
 
+        public string ShowPassword
+        {
+            get { return GetValue(() => ShowPassword); }
+            set
+            {
+                SetValue(() => ShowPassword, value);
+            }
+        }
+
         User _currentUser;
         public User CurrentUser
         {
@@ -30,6 +39,7 @@ namespace HWdB.ViewModels
                 if (_currentUser != value)
                 {
                     _currentUser = value;
+                    ShowPassword = "";
                     OnPropertyChanged("CurrentUser");
                 }
             }
@@ -41,7 +51,7 @@ namespace HWdB.ViewModels
             set
             {
                 SetValue(() => SelectedListBoxItem, value);
-                CurrentUser = SelectedListBoxItem;
+                CurrentUser = value;
             }
         }
 
@@ -98,7 +108,7 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                User stored = context.Users.Where(a => (a.ID == CurrentUser.ID)).FirstOrDefault();
+                User stored = context.Users.Where(a => (a.UserName == CurrentUser.UserName)).FirstOrDefault();
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find User : " + CurrentUser.UserName);
@@ -143,8 +153,17 @@ namespace HWdB.ViewModels
                 User stored = context.Users.Where(a => (a.UserName == user.UserName)).FirstOrDefault();
                 if (stored == null)
                 {
+                    if (ShowPassword == "")
+                    {
+                        System.Windows.MessageBox.Show("Password cannot be empty!");
+                        return;
+
+                    }
                     UserLogs.Instance.UserErrorLog("Saved new User : " + user.UserName);
                     user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
+                    user.Password = hash;
+                    SaveUser(user);
                     context.Users.Add(user);
                 }
                 else
@@ -152,6 +171,11 @@ namespace HWdB.ViewModels
                     UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
                     user.ID = stored.ID;
                     user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    if (ShowPassword != "")
+                    {
+                        string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
+                        user.Password = hash;
+                    }
                     context.Entry(stored).CurrentValues.SetValues(user);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
                 }

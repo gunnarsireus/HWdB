@@ -44,7 +44,7 @@ namespace HWdB.ViewModels
             set
             {
                 SetValue(() => SelectedListBoxItem, value);
-                CurrentLtbDataSet = SelectedListBoxItem;
+                CurrentLtbDataSet = value;
             }
         }
 

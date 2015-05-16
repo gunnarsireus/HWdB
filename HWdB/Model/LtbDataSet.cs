@@ -6,7 +6,6 @@ using HWdB.Utils;
 using LTBCore;
 using MHWdB.CustomValidationAttributes;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
@@ -74,7 +73,6 @@ namespace HWdB.Model
             }
         }
         public string ConfidenceLevel { get; set; }
-        [DisplayName(" ")]
         public Boolean RepairPossible
         {
             get { return GetValue(() => RepairPossible); }

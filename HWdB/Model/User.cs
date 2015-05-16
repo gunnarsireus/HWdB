@@ -24,11 +24,7 @@ namespace HWdB.Model
             get { return GetValue(() => Email); }
             set { SetValue(() => Email, value); }
         }
-        public string Rights
-        {
-            get { return GetValue(() => Rights); }
-            set { SetValue(() => Rights, value); }
-        }
+        public string Rights { get; set; }
         public string Role
         {
             get { return GetValue(() => Role); }
