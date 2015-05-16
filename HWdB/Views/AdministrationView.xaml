@@ -193,7 +193,7 @@
                 </Border>
                 <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=This}" Width="25" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Save</Button>
                 <Button Command="{Binding NewUserCommand}" CommandParameter="{Binding ElementName=This}" Width="25"  Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">New</Button>
-                <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=This}" Width="25"  Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Delete</Button>
+                <Button Command="{Binding DeleteUserCommand}" CommandParameter="{Binding ElementName=This}" Width="25"  Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Delete</Button>
             </Grid>
         </Viewbox>
     </Grid>

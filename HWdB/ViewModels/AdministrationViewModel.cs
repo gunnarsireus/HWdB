@@ -56,7 +56,7 @@ namespace HWdB.ViewModels
             get;
             private set;
         }
-        public ICommand DeleteCommand
+        public ICommand DeleteUserCommand
         {
             get;
             private set;
@@ -68,7 +68,7 @@ namespace HWdB.ViewModels
             this.ButtonName = "Administration";
             SaveCommand = new RelayCommand(Save);
             NewUserCommand = new RelayCommand(CreateNewCurrentUser);
-            DeleteCommand = new RelayCommand(Delete);
+            DeleteUserCommand = new RelayCommand(Delete);
             InitListBox();
         }
 
