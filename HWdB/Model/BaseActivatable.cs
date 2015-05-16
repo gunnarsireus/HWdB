@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using HWdB.Notification;
 using HWdB.Properties;
+using System.ComponentModel.DataAnnotations;
 
 namespace HWdB.Model
 {
-    public class BaseActivatable 
+    public class BaseActivatable : PropertyChangedNotification
     {
         [UIHint("Active")]
         [Display(Name = "Active", ResourceType = typeof(Strings))]

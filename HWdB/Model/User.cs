@@ -1,23 +1,49 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace HWdB.Model
 {
     public class User : BaseActivatable
     {
         [Key]
-        [Column(Order = 1)]
         public int ID { get; set; }
-        [Key]
-        [Column(Order = 2)]
+
         [Required(ErrorMessage = "Username is Required")]
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string Rights { get; set; }
-        public string Role { get; set; }
-        public bool LogedIn { get; set; }
-        public string LastLogin { get; set; }
+        public string UserName
+        {
+            get { return GetValue(() => UserName); }
+            set { SetValue(() => UserName, value); }
+        }
+
+        public string Password
+        {
+            get { return GetValue(() => Password); }
+            set { SetValue(() => Password, value); }
+        }
+        public string Email
+        {
+            get { return GetValue(() => Email); }
+            set { SetValue(() => Email, value); }
+        }
+        public string Rights
+        {
+            get { return GetValue(() => Rights); }
+            set { SetValue(() => Rights, value); }
+        }
+        public string Role
+        {
+            get { return GetValue(() => Role); }
+            set { SetValue(() => Role, value); }
+        }
+        public bool LogedIn
+        {
+            get { return GetValue(() => LogedIn); }
+            set { SetValue(() => LogedIn, value); }
+        }
+        public string LastLogin
+        {
+            get { return GetValue(() => LastLogin); }
+            set { SetValue(() => LastLogin, value); }
+        }
 
         public static User CreateUser(string userName, string password, string email, string rights, string role)
         {
