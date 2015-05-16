@@ -991,11 +991,6 @@ namespace HWdB.Utils
 
         public static void SetChartData(LtbDataSet ltbDataSet)
         {
-            if (ltbDataSet.StockYearArray == null) ltbDataSet.StockYearArray = new long[LTBCommon.MaxYear + 1];
-
-            if (ltbDataSet.RSYearArray == null) ltbDataSet.RSYearArray = new long[LTBCommon.MaxYear + 1];
-
-            if (ltbDataSet.SafetyYearArray == null) ltbDataSet.SafetyYearArray = new long[LTBCommon.MaxYear + 1];
             //For Chart
             int YearCnt = 0;
             while (YearCnt <= MyServiceYears)

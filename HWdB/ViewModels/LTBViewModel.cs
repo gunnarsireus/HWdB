@@ -18,43 +18,6 @@ namespace HWdB.ViewModels
             set { SetValue(() => LtbDataSets, value); InitListBox(); }
         }
 
-        public LTBViewModel()
-        {
-            CreateNewCurrentLtbDataSet(new object());
-            this.ButtonName = "LTB";
-            LtbCalculation.InitLabels(CurrentLtbDataSet);
-            CalculateCommand = new RelayCommand(Calculate);
-            ClearCommand = new RelayCommand(Clear);
-            NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
-            DeleteCommand = new RelayCommand(Delete);
-            InitListBox();
-        }
-
-        private void InitListBox()
-        {
-            LtbDataSet tmp = new LtbDataSet();
-            tmp.Clone(CurrentLtbDataSet);
-            using (var context = new DataContext())
-            {
-                if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
-                LtbDataSets.Clear();
-                {
-                    context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
-                }
-            }
-            CurrentLtbDataSet = tmp;
-        }
-
-        public LtbDataSet SelectedListBoxItem
-        {
-            get { return GetValue(() => SelectedListBoxItem); }
-            set
-            {
-                SetValue(() => SelectedListBoxItem, value);
-                CurrentLtbDataSet = SelectedListBoxItem;
-            }
-        }
-
         LtbDataSet _currentLtbDataSet;
         public LtbDataSet CurrentLtbDataSet
         {
@@ -72,6 +35,16 @@ namespace HWdB.ViewModels
                     OnPropertyChanged("RepairNotPossible");
                     OnPropertyChanged("ShowRepairPossible");
                 }
+            }
+        }
+
+        public LtbDataSet SelectedListBoxItem
+        {
+            get { return GetValue(() => SelectedListBoxItem); }
+            set
+            {
+                SetValue(() => SelectedListBoxItem, value);
+                CurrentLtbDataSet = SelectedListBoxItem;
             }
         }
 
@@ -96,6 +69,54 @@ namespace HWdB.ViewModels
         {
             get;
             private set;
+        }
+        public bool RepairIsPossible
+        {
+            get { return CurrentLtbDataSet.RepairPossible; }
+            set
+            {
+                CurrentLtbDataSet.RepairPossible = value;
+                OnPropertyChanged("RepairNotPossible");
+                OnPropertyChanged("ShowRepairPossible");
+            }
+        }
+        public bool RepairNotPossible
+        {
+            get { return !CurrentLtbDataSet.RepairPossible; }
+            set
+            {
+                RepairIsPossible = !value;
+            }
+        }
+        public string ShowRepairPossible
+        {
+            get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }
+        }
+        public LTBViewModel()
+        {
+            CreateNewCurrentLtbDataSet(new object());
+            this.ButtonName = "LTB";
+            LtbCalculation.InitLabels(CurrentLtbDataSet);
+            CalculateCommand = new RelayCommand(Calculate);
+            ClearCommand = new RelayCommand(ClearResultChartErrors);
+            NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
+            DeleteCommand = new RelayCommand(Delete);
+            InitListBox();
+        }
+
+        private void InitListBox()
+        {
+            LtbDataSet tmp = new LtbDataSet();
+            tmp.Clone(CurrentLtbDataSet);
+            using (var context = new DataContext())
+            {
+                if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
+                LtbDataSets.Clear();
+                {
+                    context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
+                }
+            }
+            CurrentLtbDataSet = tmp;
         }
 
         private void Delete(object parameter)
@@ -182,7 +203,7 @@ namespace HWdB.ViewModels
                 InitListBox();
             }
         }
-        private void Clear(object parameter)
+        private void ClearResultChartErrors(object parameter)
         {
             CleanupDateErrors();
             CurrentLtbDataSet.ClearResult();
@@ -272,28 +293,6 @@ namespace HWdB.ViewModels
                 Safety = string.Empty,
                 InfoText = "Enter values and press 'Calculate'"
             };
-        }
-        public bool RepairIsPossible
-        {
-            get { return CurrentLtbDataSet.RepairPossible; }
-            set
-            {
-                CurrentLtbDataSet.RepairPossible = value;
-                OnPropertyChanged("RepairNotPossible");
-                OnPropertyChanged("ShowRepairPossible");
-            }
-        }
-        public bool RepairNotPossible
-        {
-            get { return !CurrentLtbDataSet.RepairPossible; }
-            set
-            {
-                RepairIsPossible = !value;
-            }
-        }
-        public string ShowRepairPossible
-        {
-            get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }
         }
     }
 }
