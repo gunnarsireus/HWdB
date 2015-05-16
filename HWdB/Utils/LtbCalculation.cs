@@ -1018,11 +1018,11 @@ namespace HWdB.Utils
             ltbDataSet.l8 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(8).Year.ToString();
             ltbDataSet.l9 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(9).Year.ToString();
         }
-        public static void InitYearTabIndex(LtbDataSet ltbDataSet)
+        public void InitYearTabIndex(LtbDataSet ltbDataSet)
         {
             if (ltbDataSet.EOSDate == null || ltbDataSet.LTBDate == null) return;
             InitLabels(ltbDataSet);
-            ltbDataSet.ServiceDays = Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate))).ToString();
+            //ltbDataSet.ServiceDays = Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate))).ToString();
             int Cnt = 0;
             int NbrOfServiceYears = 0;
             setServiceYears(Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate));

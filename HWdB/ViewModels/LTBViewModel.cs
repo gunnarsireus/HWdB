@@ -96,7 +96,7 @@ namespace HWdB.ViewModels
         {
             CreateNewCurrentLtbDataSet(new object());
             this.ButtonName = "LTB";
-            LtbCalculation.InitLabels(CurrentLtbDataSet);
+            CurrentLtbDataSet.InitLabels();
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(ClearResultChartErrors);
             NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
@@ -165,7 +165,7 @@ namespace HWdB.ViewModels
             else
             {
                 UiServices.SetBusyState();
-                LtbCalculation.Calculate(CurrentLtbDataSet);
+                CurrentLtbDataSet.Calculate();
 
                 //Visa som 3D
                 CurrentLtbDataSet.GetChart();
@@ -285,7 +285,7 @@ namespace HWdB.ViewModels
                 RL8IsEnabled = true,
                 RL9IsEnabled = true,
                 TotalStock = string.Empty,
-                ServiceDays = "3652",
+                //ServiceDays = 3652,
                 Lost = string.Empty,
                 Stock = string.Empty,
                 Failed = string.Empty,
