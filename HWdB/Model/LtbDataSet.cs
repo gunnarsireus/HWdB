@@ -18,11 +18,11 @@ namespace HWdB.Model
     {
         public LtbDataSet()
         {
-            this.StockYearArray = new long[LTBCommon.MaxYear + 1];
+            StockYearArray = new long[LTBCommon.MaxYear + 1];
 
-            this.RSYearArray = new long[LTBCommon.MaxYear + 1];
+            RSYearArray = new long[LTBCommon.MaxYear + 1];
 
-            this.SafetyYearArray = new long[LTBCommon.MaxYear + 1];
+            SafetyYearArray = new long[LTBCommon.MaxYear + 1];
             ClearChartData();
             GetChart();
         }
@@ -47,7 +47,7 @@ namespace HWdB.Model
             set
             {
                 SetValue(() => LTBDate, value);
-                InitYearTabIndex();
+                SetInputArray();
             }
         }
 
@@ -58,7 +58,7 @@ namespace HWdB.Model
             set
             {
                 SetValue(() => EOSDate, value);
-                InitYearTabIndex();
+                SetInputArray();
             }
         }
 
@@ -70,7 +70,7 @@ namespace HWdB.Model
             set
             {
                 SetValue(() => RepairLeadTime, value);
-                InitYearTabIndex();
+                SetInputArray();
             }
         }
         public string ConfidenceLevel { get; set; }
@@ -83,7 +83,7 @@ namespace HWdB.Model
                 if (RepairPossible != value)
                 {
                     SetValue(() => RepairPossible, value);
-                    InitYearTabIndex();
+                    SetInputArray();
                 }
             }
         }
@@ -607,125 +607,124 @@ namespace HWdB.Model
         }
         public void Clone(LtbDataSet that)
         {
-            this.Customer = that.Customer;
-            this.ID = that.ID;
-            this.CreatedBy = that.CreatedBy;
-            this.Version = that.Version;
-            this.Saved = that.Saved;
-            this.LTBDate = that.LTBDate;
-            this.EOSDate = that.EOSDate;
-            this.RepairLeadTime = that.RepairLeadTime;
-            this.ConfidenceLevel = that.ConfidenceLevel;
-            this.RepairPossible = that.RepairPossible;
+            Customer = that.Customer;
+            ID = that.ID;
+            CreatedBy = that.CreatedBy;
+            Version = that.Version;
+            Saved = that.Saved;
+            LTBDate = that.LTBDate;
+            EOSDate = that.EOSDate;
+            RepairLeadTime = that.RepairLeadTime;
+            ConfidenceLevel = that.ConfidenceLevel;
+            RepairPossible = that.RepairPossible;
 
-            this.IB0 = that.IB0;
-            this.IB1 = that.IB1;
-            this.IB1IsEnabled = that.IB1IsEnabled;
-            this.IB2 = that.IB2;
-            this.IB2IsEnabled = that.IB2IsEnabled;
-            this.IB3 = that.IB3;
-            this.IB3IsEnabled = that.IB3IsEnabled;
-            this.IB4 = that.IB4;
-            this.IB4IsEnabled = that.IB4IsEnabled;
-            this.IB5 = that.IB5;
-            this.IB5IsEnabled = that.IB5IsEnabled;
-            this.IB6 = that.IB6;
-            this.IB6IsEnabled = that.IB6IsEnabled;
-            this.IB7 = that.IB7;
-            this.IB7IsEnabled = that.IB7IsEnabled;
-            this.IB8 = that.IB8;
-            this.IB8IsEnabled = that.IB8IsEnabled;
-            this.IB9 = that.IB9;
-            this.IB9IsEnabled = that.IB9IsEnabled;
-            this.IB10 = that.IB10;
+            IB0 = that.IB0;
+            IB1 = that.IB1;
+            IB1IsEnabled = that.IB1IsEnabled;
+            IB2 = that.IB2;
+            IB2IsEnabled = that.IB2IsEnabled;
+            IB3 = that.IB3;
+            IB3IsEnabled = that.IB3IsEnabled;
+            IB4 = that.IB4;
+            IB4IsEnabled = that.IB4IsEnabled;
+            IB5 = that.IB5;
+            IB5IsEnabled = that.IB5IsEnabled;
+            IB6 = that.IB6;
+            IB6IsEnabled = that.IB6IsEnabled;
+            IB7 = that.IB7;
+            IB7IsEnabled = that.IB7IsEnabled;
+            IB8 = that.IB8;
+            IB8IsEnabled = that.IB8IsEnabled;
+            IB9 = that.IB9;
+            IB9IsEnabled = that.IB9IsEnabled;
+            IB10 = that.IB10;
 
-            this.FR0 = that.FR0;
-            this.FR1 = that.FR1;
-            this.FR2 = that.FR2;
-            this.FR3 = that.FR3;
-            this.FR4 = that.FR4;
-            this.FR5 = that.FR5;
-            this.FR6 = that.FR6;
-            this.FR7 = that.FR7;
-            this.FR8 = that.FR8;
-            this.FR9 = that.FR9;
-            this.RL0 = that.RL0;
+            FR0 = that.FR0;
+            FR1 = that.FR1;
+            FR2 = that.FR2;
+            FR3 = that.FR3;
+            FR4 = that.FR4;
+            FR5 = that.FR5;
+            FR6 = that.FR6;
+            FR7 = that.FR7;
+            FR8 = that.FR8;
+            FR9 = that.FR9;
+            RL0 = that.RL0;
 
-            this.RS0 = that.RS0;
-            this.RS1 = that.RS1;
-            this.RS2 = that.RS2;
-            this.RS3 = that.RS3;
-            this.RS4 = that.RS4;
-            this.RS5 = that.RS5;
-            this.RS6 = that.RS6;
-            this.RS7 = that.RS7;
-            this.RS8 = that.RS8;
-            this.RS9 = that.RS9;
+            RS0 = that.RS0;
+            RS1 = that.RS1;
+            RS2 = that.RS2;
+            RS3 = that.RS3;
+            RS4 = that.RS4;
+            RS5 = that.RS5;
+            RS6 = that.RS6;
+            RS7 = that.RS7;
+            RS8 = that.RS8;
+            RS9 = that.RS9;
 
-            this.RL0 = that.RL0;
-            this.RL0IsEnabled = that.RL0IsEnabled;
-            this.RL1 = that.RL0;
-            this.RL1IsEnabled = that.RL1IsEnabled;
-            this.RL2 = that.RL2;
-            this.RL2IsEnabled = that.RL2IsEnabled;
-            this.RL3 = that.RL3;
-            this.RL3IsEnabled = that.RL3IsEnabled;
-            this.RL4 = that.RL4;
-            this.RL4IsEnabled = that.RL4IsEnabled;
-            this.RL5 = that.RL5;
-            this.RL5IsEnabled = that.RL5IsEnabled;
-            this.RL6 = that.RL6;
-            this.RL6IsEnabled = that.RL6IsEnabled;
-            this.RL7 = that.RL7;
-            this.RL7IsEnabled = that.RL7IsEnabled;
-            this.RL8 = that.RL8;
-            this.RL8IsEnabled = that.RL8IsEnabled;
-            this.RL9 = that.RL9;
-            this.RL9IsEnabled = that.RL9IsEnabled;
+            RL0 = that.RL0;
+            RL0IsEnabled = that.RL0IsEnabled;
+            RL1 = that.RL0;
+            RL1IsEnabled = that.RL1IsEnabled;
+            RL2 = that.RL2;
+            RL2IsEnabled = that.RL2IsEnabled;
+            RL3 = that.RL3;
+            RL3IsEnabled = that.RL3IsEnabled;
+            RL4 = that.RL4;
+            RL4IsEnabled = that.RL4IsEnabled;
+            RL5 = that.RL5;
+            RL5IsEnabled = that.RL5IsEnabled;
+            RL6 = that.RL6;
+            RL6IsEnabled = that.RL6IsEnabled;
+            RL7 = that.RL7;
+            RL7IsEnabled = that.RL7IsEnabled;
+            RL8 = that.RL8;
+            RL8IsEnabled = that.RL8IsEnabled;
+            RL9 = that.RL9;
+            RL9IsEnabled = that.RL9IsEnabled;
 
-            //this.ServiceDays = that.ServiceDays;
-            this.TotalStock = that.TotalStock;
-            this.Stock = that.Stock;
-            this.Safety = that.Safety;
-            this.Failed = that.Failed;
-            this.Repaired = that.Repaired;
-            this.Lost = that.Lost;
-            this.InfoText = that.InfoText;
-            this.StockYearArray = that.StockYearArray;
-            this.RSYearArray = that.RSYearArray;
-            this.SafetyYearArray = that.SafetyYearArray;
-            this.LtbChart = that.LtbChart;
+            TotalStock = that.TotalStock;
+            Stock = that.Stock;
+            Safety = that.Safety;
+            Failed = that.Failed;
+            Repaired = that.Repaired;
+            Lost = that.Lost;
+            InfoText = that.InfoText;
+            StockYearArray = that.StockYearArray;
+            RSYearArray = that.RSYearArray;
+            SafetyYearArray = that.SafetyYearArray;
+            LtbChart = that.LtbChart;
 
-            this.l0 = that.l0;
-            this.l1 = that.l1;
-            this.l2 = that.l2;
-            this.l3 = that.l3;
-            this.l4 = that.l4;
-            this.l5 = that.l5;
-            this.l6 = that.l6;
-            this.l7 = that.l7;
-            this.l8 = that.l8;
-            this.l9 = that.l9;
+            l0 = that.l0;
+            l1 = that.l1;
+            l2 = that.l2;
+            l3 = that.l3;
+            l4 = that.l4;
+            l5 = that.l5;
+            l6 = that.l6;
+            l7 = that.l7;
+            l8 = that.l8;
+            l9 = that.l9;
         }
 
         public void ClearResult()
         {
-            this.TotalStock = string.Empty;
-            this.Stock = string.Empty;
-            this.Safety = string.Empty;
-            this.InfoText = string.Empty;
-            this.Failed = string.Empty;
-            this.Repaired = string.Empty;
-            this.Lost = string.Empty;
+            TotalStock = string.Empty;
+            Stock = string.Empty;
+            Safety = string.Empty;
+            InfoText = string.Empty;
+            Failed = string.Empty;
+            Repaired = string.Empty;
+            Lost = string.Empty;
         }
         public void ClearChartData()
         {
             int YearCnt = 0;
             while (YearCnt <= 10)
             {
-                this.RSYearArray[YearCnt] = 0;
-                this.StockYearArray[YearCnt] = 0;
-                this.SafetyYearArray[YearCnt] = 0;
+                RSYearArray[YearCnt] = 0;
+                StockYearArray[YearCnt] = 0;
+                SafetyYearArray[YearCnt] = 0;
                 YearCnt = YearCnt + 1;
             }
         }
@@ -747,11 +746,11 @@ namespace HWdB.Model
             Stock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
             Safety.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
 
-            chart.Series["0"].Points.DataBindXY(xValues, this.RSYearArray);
+            chart.Series["0"].Points.DataBindXY(xValues, RSYearArray);
             chart.Series["0"].Color = System.Drawing.Color.Green;
-            chart.Series["1"].Points.DataBindXY(xValues, this.StockYearArray);
+            chart.Series["1"].Points.DataBindXY(xValues, StockYearArray);
             chart.Series["1"].Color = System.Drawing.Color.Blue;
-            chart.Series["2"].Points.DataBindXY(xValues, this.SafetyYearArray);
+            chart.Series["2"].Points.DataBindXY(xValues, SafetyYearArray);
             chart.Series["2"].Color = System.Drawing.Color.Red;
             MemoryStream ms = new MemoryStream();
 
@@ -761,7 +760,7 @@ namespace HWdB.Model
             image.StreamSource = ms;
             image.CacheOption = BitmapCacheOption.OnLoad;
             image.EndInit();
-            this.LtbChart = image;
+            LtbChart = image;
 
         }
         static string[] xValues = {
@@ -786,8 +785,6 @@ namespace HWdB.Model
         const long MaxServiceDays = LTBCommon.MaxYear * 365 + 2;
         const long MaxDayArr = MaxServiceDays + 365;
         const long MaxLTArr = MaxServiceDays / MinRepairLeadTime + 2;
-        //const long RedFont = 16711782;
-        //const long BlackFont = 0;
         static long[] IBin = new long[LTBCommon.MaxYear + 1];
         static double[] FRin = new double[LTBCommon.MaxYear + 1];
         static double[] RLin = new double[LTBCommon.MaxYear + 1];
@@ -813,8 +810,6 @@ namespace HWdB.Model
         static double[] SafetyMargin_Array = new double[MaxLTArr + 1];
         static double[] SafetyMarginDayArray = new double[MaxDayArr + 365];
         static double Conf_in;
-        //static double ServiceDays;
-        //static double RepairLeadTime;
         static int N;
         static double Conf_Level;
 
@@ -862,7 +857,7 @@ namespace HWdB.Model
         //}
 
 
-        public static int calcreserve2(int M, double FR, double p)
+        static int calcreserve2(int M, double FR, double p)
         {
             switch (RoundLong(p * 1000, 0))
             {
@@ -876,7 +871,7 @@ namespace HWdB.Model
             }
         }
 
-        public static int calcreserve(int M, double FR, double p)
+        static int calcreserve(int M, double FR, double p)
         {
             if (M * FR > 10000) return calcreserve2(M, FR, p);
             int k; // init counter
@@ -911,27 +906,27 @@ namespace HWdB.Model
         {
             return CountDays(y2) - CountDays(y1);
         }
-        public static double Sqr(double x)
+        static double Sqr(double x)
         {
             return Math.Pow(x, 0.5);
         }
-        public static double RoundUpDouble(double x, int Y)
+        static double RoundUpDouble(double x, int Y)
         {
             return Math.Round(x + 0.49999999999, Y);
         }
-        public static long RoundUpLong(double x, int Y)
+        static long RoundUpLong(double x, int Y)
         {
             return Convert.ToInt64(Math.Round(x + 0.49999999999, Y));
         }
-        public static long RoundLong(double x, int Y)
+        static long RoundLong(double x, int Y)
         {
             return Convert.ToInt64(Math.Round(x, Y));
         }
-        public static long RoundLong(double x)
+        static long RoundLong(double x)
         {
             return Convert.ToInt64(Math.Round(x, 0));
         }
-        public static int RoundUpInt(double x, int Y)
+        static int RoundUpInt(double x, int Y)
         {
             return Convert.ToInt32(Math.Round(x + 0.49999999999, Y));
         }
@@ -940,7 +935,7 @@ namespace HWdB.Model
         // distribution. Refer to http://home.online.no/~pjacklam/notes/invnorm/index.html for
         // a description of the algorithm.
         // Adapted to VB by Christian d'Heureuse, http://www.source-code.biz.
-        public static double NormSInv(double p)
+        static double NormSInv(double p)
         {
             double functionReturnValue = 0;
             const double a1 = -39.6968302866538, a2 = 220.946098424521, a3 = -275.928510446969;
@@ -976,16 +971,16 @@ namespace HWdB.Model
             }
             return functionReturnValue;
         }
-        public static double ConfL(double Y)
+        static double ConfL(double Y)
         {
             return NormSInv(Y);
         }
-        public static double Pow(double x, double Y)
+        static double Pow(double x, double Y)
         {
             return Math.Pow(x, Y);
         }
 
-        public static long Factorial(long x)
+        static long Factorial(long x)
         {
             long functionReturnValue = 0;
             if (x <= 1)
@@ -999,7 +994,7 @@ namespace HWdB.Model
             return functionReturnValue;
         }
 
-        public static string GetCLFromAverage(double CL, double Average)
+        static string GetCLFromAverage(double CL, double Average)
         {
             string functionReturnValue = null;
             if (Average <= 0)
@@ -1030,7 +1025,7 @@ namespace HWdB.Model
             return functionReturnValue;
         }
 
-        public static string GetCLFromStock(double Stock, double Safety)
+        static string GetCLFromStock(double Stock, double Safety)
         {
             string functionReturnValue = null;
             if (Stock == 0)
@@ -1053,7 +1048,7 @@ namespace HWdB.Model
             return functionReturnValue;
         }
 
-        public static long GetSafetyFromAverage(double CL, double Average)
+        static long GetSafetyFromAverage(double CL, double Average)
         {
             long functionReturnValue = 0;
             if (Average <= 0)
@@ -1084,7 +1079,7 @@ namespace HWdB.Model
             return functionReturnValue;
         }
 
-        public static long GetSafetyFromGamma(double CL, double FromAverage, double Returned)
+        static long GetSafetyFromGamma(double CL, double FromAverage, double Returned)
         {
             long ReturnValue;
 
@@ -1096,7 +1091,7 @@ namespace HWdB.Model
         }
 
 
-        public static double GetAverageFromReturned(double Average)
+        static double GetAverageFromReturned(double Average)
         {
             if (Average < 8) { return Average / 3.764705; } else { return (1.125 + Average / 8); }
         }
@@ -1236,11 +1231,11 @@ namespace HWdB.Model
             return Math.Exp(LogGamma(x));
         }
 
-        static void ReadIB(double SD, int LastYear, double LD, ref double CL, int N, LtbDataSet ltbDataSet)
+        void GetInputFromArray(double SD, int LastYear, double LD, ref double CL, int N)
         {
             int Cnt = 0;
             //int Conf = Convert.ToInt32(Ltb.ConfidenceLevel);
-            switch (ltbDataSet.ConfidenceLevel)
+            switch (ConfidenceLevel)
             {
                 //Confidence Level
 
@@ -1284,93 +1279,83 @@ namespace HWdB.Model
                 switch (Cnt)
                 {
                     case 0:
-                        //////ViewData["RS0ForeColor"] = System.Drawing.Color.Black;
-                        IBin[0] = Convert.ToInt64(ltbDataSet.IB0);
-                        RSin[0] = Convert.ToInt64(ltbDataSet.RS0);
-                        FRin[0] = Convert.ToDouble(ltbDataSet.FR0);
-                        RLin[0] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL0) / 100);
+                        IBin[0] = Convert.ToInt64(IB0);
+                        RSin[0] = Convert.ToInt64(RS0);
+                        FRin[0] = Convert.ToDouble(FR0);
+                        RLin[0] = Convert.ToDouble(Convert.ToDouble(RL0) / 100);
 
                         break;
                     case 1:
-                        ////ViewData["RS1ForeColor"] = System.Drawing.Color.Black;
-                        IBin[1] = Convert.ToInt64(ltbDataSet.IB1);
-                        RSin[1] = Convert.ToInt64(ltbDataSet.RS1);
-                        FRin[1] = Convert.ToDouble(ltbDataSet.FR1);
-                        RLin[1] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL1) / 100);
+                        IBin[1] = Convert.ToInt64(IB1);
+                        RSin[1] = Convert.ToInt64(RS1);
+                        FRin[1] = Convert.ToDouble(FR1);
+                        RLin[1] = Convert.ToDouble(Convert.ToDouble(RL1) / 100);
 
                         break;
                     case 2:
-                        ////ViewData["RS2ForeColor"] = System.Drawing.Color.Black;
-                        IBin[2] = Convert.ToInt64(ltbDataSet.IB2);
-                        RSin[2] = Convert.ToInt64(ltbDataSet.RS2);
-                        FRin[2] = Convert.ToDouble(ltbDataSet.FR2);
-                        RLin[2] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL2) / 100);
+                        IBin[2] = Convert.ToInt64(IB2);
+                        RSin[2] = Convert.ToInt64(RS2);
+                        FRin[2] = Convert.ToDouble(FR2);
+                        RLin[2] = Convert.ToDouble(Convert.ToDouble(RL2) / 100);
 
                         break;
                     case 3:
-                        ////ViewData["RS3ForeColor"] = System.Drawing.Color.Black;
-                        IBin[3] = Convert.ToInt64(ltbDataSet.IB3);
-                        RSin[3] = Convert.ToInt64(ltbDataSet.RS3);
-                        FRin[3] = Convert.ToDouble(ltbDataSet.FR3);
-                        RLin[3] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL3) / 100);
+                        IBin[3] = Convert.ToInt64(IB3);
+                        RSin[3] = Convert.ToInt64(RS3);
+                        FRin[3] = Convert.ToDouble(FR3);
+                        RLin[3] = Convert.ToDouble(Convert.ToDouble(RL3) / 100);
 
                         break;
                     case 4:
-                        ////ViewData["RS4ForeColor"] = System.Drawing.Color.Black;
-                        IBin[4] = Convert.ToInt64(ltbDataSet.IB4.ToString());
-                        RSin[4] = Convert.ToInt64(ltbDataSet.RS4);
-                        FRin[4] = Convert.ToDouble(ltbDataSet.FR4);
-                        RLin[4] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL4) / 100);
+                        IBin[4] = Convert.ToInt64(IB4.ToString());
+                        RSin[4] = Convert.ToInt64(RS4);
+                        FRin[4] = Convert.ToDouble(FR4);
+                        RLin[4] = Convert.ToDouble(Convert.ToDouble(RL4) / 100);
 
                         break;
                     case 5:
-                        ////ViewData["RS5ForeColor"] = System.Drawing.Color.Black;
-                        IBin[5] = Convert.ToInt64(ltbDataSet.IB5);
-                        RSin[5] = Convert.ToInt64(ltbDataSet.RS5);
-                        FRin[5] = Convert.ToDouble(ltbDataSet.FR5);
-                        RLin[5] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL5) / 100);
+                        IBin[5] = Convert.ToInt64(IB5);
+                        RSin[5] = Convert.ToInt64(RS5);
+                        FRin[5] = Convert.ToDouble(FR5);
+                        RLin[5] = Convert.ToDouble(Convert.ToDouble(RL5) / 100);
 
                         break;
                     case 6:
-                        ////ViewData["RS6ForeColor"] = System.Drawing.Color.Black;
-                        IBin[6] = Convert.ToInt64(ltbDataSet.IB6.ToString());
-                        RSin[6] = Convert.ToInt64(ltbDataSet.RS6.ToString());
-                        FRin[6] = Convert.ToDouble(ltbDataSet.FR6);
-                        RLin[6] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL6) / 100);
+                        IBin[6] = Convert.ToInt64(IB6.ToString());
+                        RSin[6] = Convert.ToInt64(RS6.ToString());
+                        FRin[6] = Convert.ToDouble(FR6);
+                        RLin[6] = Convert.ToDouble(Convert.ToDouble(RL6) / 100);
 
                         break;
                     case 7:
-                        ////ViewData["RS7ForeColor"] = System.Drawing.Color.Black;
-                        IBin[7] = Convert.ToInt64(ltbDataSet.IB7);
-                        RSin[7] = Convert.ToInt64(ltbDataSet.RS7);
-                        FRin[7] = Convert.ToDouble(ltbDataSet.FR7);
-                        RLin[7] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL7) / 100);
+                        IBin[7] = Convert.ToInt64(IB7);
+                        RSin[7] = Convert.ToInt64(RS7);
+                        FRin[7] = Convert.ToDouble(FR7);
+                        RLin[7] = Convert.ToDouble(Convert.ToDouble(RL7) / 100);
 
                         break;
                     case 8:
-                        ////ViewData["RS8ForeColor"] = System.Drawing.Color.Black;
-                        IBin[8] = Convert.ToInt64(ltbDataSet.IB8);
-                        RSin[8] = Convert.ToInt64(ltbDataSet.RS8);
-                        FRin[8] = Convert.ToDouble(ltbDataSet.FR8);
-                        RLin[8] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL8) / 100);
+                        IBin[8] = Convert.ToInt64(IB8);
+                        RSin[8] = Convert.ToInt64(RS8);
+                        FRin[8] = Convert.ToDouble(FR8);
+                        RLin[8] = Convert.ToDouble(Convert.ToDouble(RL8) / 100);
 
                         break;
                     case 9:
-                        ////ViewData["RS9ForeColor"] = System.Drawing.Color.Black;
-                        IBin[9] = Convert.ToInt64(ltbDataSet.IB9);
-                        RSin[9] = Convert.ToInt64(ltbDataSet.RS9);
-                        FRin[9] = Convert.ToDouble(ltbDataSet.FR9);
-                        RLin[9] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL9) / 100);
+                        IBin[9] = Convert.ToInt64(IB9);
+                        RSin[9] = Convert.ToInt64(RS9);
+                        FRin[9] = Convert.ToDouble(FR9);
+                        RLin[9] = Convert.ToDouble(Convert.ToDouble(RL9) / 100);
 
                         break;
                 }
                 Cnt += 1;
             }
-            AdjustForecolorAndClearRemains(Cnt, ltbDataSet);
+            ClearRemains(Cnt);
 
         }
 
-        static void AdjustForecolorAndClearRemains(int First, LtbDataSet ltbDataSet)
+        void ClearRemains(int First)
         {
 
             int Cnt = First;
@@ -1378,69 +1363,66 @@ namespace HWdB.Model
             {
                 switch (Cnt)
                 {
-
                     case 0:
-                        ltbDataSet.IB0 = string.Empty;
-                        ltbDataSet.RS0 = string.Empty;
-                        ltbDataSet.FR0 = string.Empty;
-                        ltbDataSet.RL0 = string.Empty;
-                        ltbDataSet.IB1 = string.Empty;
-                        ltbDataSet.RS1 = string.Empty;
-                        ltbDataSet.FR1 = string.Empty;
-                        ltbDataSet.RL1 = string.Empty;
+                        IB0 = string.Empty;
+                        RS0 = string.Empty;
+                        FR0 = string.Empty;
+                        RL0 = string.Empty;
+                        IB1 = string.Empty;
+                        RS1 = string.Empty;
+                        FR1 = string.Empty;
+                        RL1 = string.Empty;
                         break;
                     case 1:
-                        ltbDataSet.IB2 = string.Empty;
-                        ltbDataSet.RS2 = string.Empty;
-                        ltbDataSet.FR2 = string.Empty;
-                        ltbDataSet.RL2 = string.Empty;
+                        IB2 = string.Empty;
+                        RS2 = string.Empty;
+                        FR2 = string.Empty;
+                        RL2 = string.Empty;
                         break;
                     case 2:
-                        ltbDataSet.IB3 = string.Empty;
-                        ltbDataSet.RS3 = string.Empty;
-                        ltbDataSet.FR3 = string.Empty;
-                        ltbDataSet.RL3 = string.Empty;
+                        IB3 = string.Empty;
+                        RS3 = string.Empty;
+                        FR3 = string.Empty;
+                        RL3 = string.Empty;
                         break;
                     case 3:
-                        ltbDataSet.IB4 = string.Empty;
-                        ltbDataSet.RS4 = string.Empty;
-                        ltbDataSet.FR4 = string.Empty;
-                        ltbDataSet.RL4 = string.Empty;
+                        IB4 = string.Empty;
+                        RS4 = string.Empty;
+                        FR4 = string.Empty;
+                        RL4 = string.Empty;
                         break;
                     case 4:
-
-                        ltbDataSet.IB5 = string.Empty;
-                        ltbDataSet.RS5 = string.Empty;
-                        ltbDataSet.FR5 = string.Empty;
-                        ltbDataSet.RL5 = string.Empty;
+                        IB5 = string.Empty;
+                        RS5 = string.Empty;
+                        FR5 = string.Empty;
+                        RL5 = string.Empty;
                         break;
                     case 5:
-                        ltbDataSet.IB6 = string.Empty;
-                        ltbDataSet.RS6 = string.Empty;
-                        ltbDataSet.FR6 = string.Empty;
-                        ltbDataSet.RL6 = string.Empty;
+                        IB6 = string.Empty;
+                        RS6 = string.Empty;
+                        FR6 = string.Empty;
+                        RL6 = string.Empty;
                         break;
                     case 6:
-                        ltbDataSet.IB7 = string.Empty;
-                        ltbDataSet.RS7 = string.Empty;
-                        ltbDataSet.FR7 = string.Empty;
-                        ltbDataSet.RL7 = string.Empty;
+                        IB7 = string.Empty;
+                        RS7 = string.Empty;
+                        FR7 = string.Empty;
+                        RL7 = string.Empty;
                         break;
                     case 7:
-                        ltbDataSet.IB8 = string.Empty;
-                        ltbDataSet.RS8 = string.Empty;
-                        ltbDataSet.FR8 = string.Empty;
-                        ltbDataSet.RL8 = string.Empty;
+                        IB8 = string.Empty;
+                        RS8 = string.Empty;
+                        FR8 = string.Empty;
+                        RL8 = string.Empty;
                         break;
                     case 8:
-                        ltbDataSet.IB9 = string.Empty;
-                        ltbDataSet.RS9 = string.Empty;
-                        ltbDataSet.FR9 = string.Empty;
-                        ltbDataSet.RL9 = string.Empty;
+                        IB9 = string.Empty;
+                        RS9 = string.Empty;
+                        FR9 = string.Empty;
+                        RL9 = string.Empty;
                         break;
-
                     case 9:
-                        ltbDataSet.IB10 = string.Empty;
+                        IB10 = string.Empty;
                         break;
                     case 10:
                         break;
@@ -1450,52 +1432,37 @@ namespace HWdB.Model
         }
         public void Calculate()
         {
-            this.InfoText = "";
-            this.ClearResult();
-            this.ClearChartData();
+            InfoText = "";
+            ClearResult();
+            ClearChartData();
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
             long StockPresent = 0;
             long SafetyPresent = 0;
-            ////CultureInfo ci = new CultureInfo(A.ThisCulture);
-            //DateTime StartDate = Convert.ToDateTime(ltbDataSet.LTBDate);
-            ////Start Date = Today
-            //DateTime EndOfService = Convert.ToDateTime(ltbDataSet.EOSDate);
 
-
-            //if (!Information.IsNumeric(ltbDataSet.RepairLeadTime))
-            //{
-            //    ltbDataSet.InfoText = "Repair Lead Time cannot be empty!";
-            //    return;
-            //}
             if (RepairLeadTime < 1 | RepairLeadTime > 365)
             {
-                this.InfoText = "Error: 2 <= Repair Lead Time <=365TextInfo;";
+                InfoText = "Error: 2 <= Repair Lead Time <=365TextInfo;";
                 return;
             }
 
             if (RepairLeadTime > ServiceDays)
             {
-                this.ClearResult();
-                this.InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
+                ClearResult();
+                InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
                 return;
             }
 
             if (ServiceDays > MaxServiceDays)
             {
-                this.ClearResult();
-                this.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
+                ClearResult();
+                InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
                 return;
             }
 
             N = RoundUpInt(ServiceDays / RepairLeadTime, 0);
 
-            //if (!BoundariesOK(MyServiceYears, ltbDataSet))
-            //{
-            //    return;
-            //}
-
-            ReadIB(ServiceDays, ServiceYears, RepairLeadTime, ref Conf_Level, N, this);
+            GetInputFromArray(ServiceDays, ServiceYears, RepairLeadTime, ref Conf_Level, N);
 
             LTBCommon LTB = new LTBCommon();
             LTB.LTBWorker(N, ServiceDays, RepairLeadTime, ServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
@@ -1504,40 +1471,40 @@ namespace HWdB.Model
             SetChartData();
             GetChart();
             StockPresent = RoundLong(Stock_Array[1], 0);
-            SafetyPresent = this.SafetyYearArray[0];
+            SafetyPresent = SafetyYearArray[0];
 
-            this.Stock = StockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
+            Stock = StockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
 
             if (SafetyPresent > 0)
             {
                 FromAverage = GetSafetyFromAverage(Conf_in, SafetyMargin_Array[1]);
-                this.Safety = SafetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
+                Safety = SafetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
             }
             else
             {
-                this.Safety = string.Empty;
+                Safety = string.Empty;
             }
 
-            this.TotalStock = Convert.ToString(StockPresent + SafetyPresent);
+            TotalStock = Convert.ToString(StockPresent + SafetyPresent);
 
-            this.Failed = RoundLong(SumDemand_Array[1], 0).ToString();
+            Failed = RoundLong(SumDemand_Array[1], 0).ToString();
 
-            this.Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
+            Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
 
-            if (this.RepairPossible) { this.Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { this.Lost = "Nothing"; }
+            if (RepairPossible) { Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { Lost = "Nothing"; }
         }
 
-        public void SetChartData()
+        void SetChartData()
         {
             //For Chart
             int YearCnt = 0;
             while (YearCnt <= ServiceYears)
             {
-                this.RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
-                this.StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
+                RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
+                StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
                 FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1]), 0);
                 FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1] + ReturnedDayArray[YearCnt * 365 + 1] + FromAverage, ReturnedDayArray[YearCnt * 365 + RepairLeadTime + 1]), 0);
-                this.SafetyYearArray[YearCnt] = FromGamma + FromAverage;
+                SafetyYearArray[YearCnt] = FromGamma + FromAverage;
                 YearCnt = YearCnt + 1;
             }
         }
@@ -1545,136 +1512,132 @@ namespace HWdB.Model
 
         public void InitLabels()
         {
-            this.l0 = "LTB";
-            this.l1 = Convert.ToDateTime(this.LTBDate).AddYears(1).Year.ToString();
-            this.l2 = Convert.ToDateTime(this.LTBDate).AddYears(2).Year.ToString();
-            this.l3 = Convert.ToDateTime(this.LTBDate).AddYears(3).Year.ToString();
-            this.l4 = Convert.ToDateTime(this.LTBDate).AddYears(4).Year.ToString();
-            this.l5 = Convert.ToDateTime(this.LTBDate).AddYears(5).Year.ToString();
-            this.l6 = Convert.ToDateTime(this.LTBDate).AddYears(6).Year.ToString();
-            this.l7 = Convert.ToDateTime(this.LTBDate).AddYears(7).Year.ToString();
-            this.l8 = Convert.ToDateTime(this.LTBDate).AddYears(8).Year.ToString();
-            this.l9 = Convert.ToDateTime(this.LTBDate).AddYears(9).Year.ToString();
+            l0 = "LTB";
+            l1 = Convert.ToDateTime(LTBDate).AddYears(1).Year.ToString();
+            l2 = Convert.ToDateTime(LTBDate).AddYears(2).Year.ToString();
+            l3 = Convert.ToDateTime(LTBDate).AddYears(3).Year.ToString();
+            l4 = Convert.ToDateTime(LTBDate).AddYears(4).Year.ToString();
+            l5 = Convert.ToDateTime(LTBDate).AddYears(5).Year.ToString();
+            l6 = Convert.ToDateTime(LTBDate).AddYears(6).Year.ToString();
+            l7 = Convert.ToDateTime(LTBDate).AddYears(7).Year.ToString();
+            l8 = Convert.ToDateTime(LTBDate).AddYears(8).Year.ToString();
+            l9 = Convert.ToDateTime(LTBDate).AddYears(9).Year.ToString();
         }
-        public void InitYearTabIndex()
+        public void SetInputArray()
         {
-            if (this.EOSDate == null || this.LTBDate == null) return;
+            if (EOSDate == null || LTBDate == null) return;
             InitLabels();
             int Cnt = 0;
-            ServiceDays = ServiceDays;
-            //int ServiceYears = 0;
-            //setServiceYears(Convert.ToDateTime(this.LTBDate), Convert.ToDateTime(this.EOSDate));
-            //ServiceYears = getServiceYears();
+            ServiceDays = ServiceDays;  //Trigger update of View
             Cnt = 0;
             bool EOSFound = false;
             while (Cnt <= ServiceYears)
             {
-
                 switch (Cnt)
                 {
                     case 0:
-                        if (this.IB1 == "EoS")
+                        if (IB1 == "EoS")
                         {
                             EOSFound = true;
-                            this.IB1 = " ";
-                            this.FR1 = " ";
-                            this.RL1 = " ";
-                            this.RS1 = " ";
+                            IB1 = " ";
+                            FR1 = " ";
+                            RL1 = " ";
+                            RS1 = " ";
                         }
-                        this.IB1IsEnabled = true;
+                        IB1IsEnabled = true;
                         break;
                     case 1:
-                        if (this.IB2 == "EoS" || EOSFound)
+                        if (IB2 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB2 = " ";
-                            this.FR2 = " ";
-                            this.RL2 = " ";
-                            this.RS2 = " ";
+                            IB2 = " ";
+                            FR2 = " ";
+                            RL2 = " ";
+                            RS2 = " ";
                         }
-                        this.IB2IsEnabled = true;
+                        IB2IsEnabled = true;
                         break;
                     case 2:
-                        if (this.IB3 == "EoS" || EOSFound)
+                        if (IB3 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB3 = " ";
-                            this.FR3 = " ";
-                            this.RL3 = " ";
-                            this.RS3 = " ";
+                            IB3 = " ";
+                            FR3 = " ";
+                            RL3 = " ";
+                            RS3 = " ";
                         }
-                        this.IB3IsEnabled = true;
+                        IB3IsEnabled = true;
                         break; ;
                     case 3:
-                        if (this.IB4 == "EoS" || EOSFound)
+                        if (IB4 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB4 = " ";
-                            this.FR4 = " ";
-                            this.RL4 = " ";
-                            this.RS4 = " ";
+                            IB4 = " ";
+                            FR4 = " ";
+                            RL4 = " ";
+                            RS4 = " ";
                         }
-                        this.IB4IsEnabled = true;
+                        IB4IsEnabled = true;
                         break; ;
                     case 4:
-                        if (this.IB5 == "EoS" || EOSFound)
+                        if (IB5 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB5 = " ";
-                            this.FR5 = " ";
-                            this.RL5 = " ";
-                            this.RS5 = " ";
+                            IB5 = " ";
+                            FR5 = " ";
+                            RL5 = " ";
+                            RS5 = " ";
                         }
-                        this.IB5IsEnabled = true;
+                        IB5IsEnabled = true;
                         break;
                     case 5:
-                        if (this.IB6 == "EoS" || EOSFound)
+                        if (IB6 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB6 = " ";
-                            this.FR6 = " ";
-                            this.RL6 = " ";
-                            this.RS6 = " ";
+                            IB6 = " ";
+                            FR6 = " ";
+                            RL6 = " ";
+                            RS6 = " ";
                         }
-                        this.IB6IsEnabled = true;
+                        IB6IsEnabled = true;
                         break;
                     case 6:
-                        if (this.IB7 == "EoS" || EOSFound)
+                        if (IB7 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB7 = " ";
-                            this.FR7 = " ";
-                            this.RL7 = " ";
-                            this.RS7 = " ";
+                            IB7 = " ";
+                            FR7 = " ";
+                            RL7 = " ";
+                            RS7 = " ";
                         }
-                        this.IB7IsEnabled = true;
+                        IB7IsEnabled = true;
                         break;
                     case 7:
-                        if (this.IB8 == "EoS" || EOSFound)
+                        if (IB8 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB8 = " ";
-                            this.FR8 = " ";
-                            this.RL8 = " ";
-                            this.RS8 = " ";
+                            IB8 = " ";
+                            FR8 = " ";
+                            RL8 = " ";
+                            RS8 = " ";
                         }
-                        this.IB8IsEnabled = true;
+                        IB8IsEnabled = true;
                         break;
                     case 8:
-                        if (this.IB9 == "EoS" || EOSFound)
+                        if (IB9 == "EoS" || EOSFound)
                         {
                             EOSFound = true;
-                            this.IB9 = " ";
-                            this.FR9 = " ";
-                            this.RL9 = " ";
-                            this.RS9 = " ";
+                            IB9 = " ";
+                            FR9 = " ";
+                            RL9 = " ";
+                            RS9 = " ";
                         }
-                        this.IB9IsEnabled = true;
+                        IB9IsEnabled = true;
                         break;
                     case 9:
-                        if (this.IB10 == "EoS" || EOSFound)
+                        if (IB10 == "EoS" || EOSFound)
                         {
-                            this.IB10 = " ";
+                            IB10 = " ";
                         }
                         break;
                 }
@@ -1684,79 +1647,79 @@ namespace HWdB.Model
             switch (ServiceYears)
             {
                 case 0:
-                    this.IB1 = "EoS";
-                    this.RS1 = string.Empty;
-                    this.RL1 = string.Empty;
-                    this.FR1 = string.Empty;
-                    this.IB1IsEnabled = false;
-                    this.RL1IsEnabled = false;
+                    IB1 = "EoS";
+                    RS1 = string.Empty;
+                    RL1 = string.Empty;
+                    FR1 = string.Empty;
+                    IB1IsEnabled = false;
+                    RL1IsEnabled = false;
                     break;
                 case 1:
-                    this.IB2 = "EoS";
-                    this.RS2 = string.Empty;
-                    this.RL2 = string.Empty;
-                    this.FR2 = string.Empty;
-                    this.IB2IsEnabled = false;
-                    this.RL2IsEnabled = false;
+                    IB2 = "EoS";
+                    RS2 = string.Empty;
+                    RL2 = string.Empty;
+                    FR2 = string.Empty;
+                    IB2IsEnabled = false;
+                    RL2IsEnabled = false;
                     break;
                 case 2:
-                    this.IB3 = "EoS";
-                    this.RS3 = string.Empty;
-                    this.RL3 = string.Empty;
-                    this.FR3 = string.Empty;
-                    this.IB3IsEnabled = false;
-                    this.RL3IsEnabled = false;
+                    IB3 = "EoS";
+                    RS3 = string.Empty;
+                    RL3 = string.Empty;
+                    FR3 = string.Empty;
+                    IB3IsEnabled = false;
+                    RL3IsEnabled = false;
                     break;
                 case 3:
-                    this.IB4 = "EoS";
-                    this.RS4 = string.Empty;
-                    this.RL4 = string.Empty;
-                    this.FR4 = string.Empty;
-                    this.RL4IsEnabled = false;
-                    this.IB4IsEnabled = false;
+                    IB4 = "EoS";
+                    RS4 = string.Empty;
+                    RL4 = string.Empty;
+                    FR4 = string.Empty;
+                    RL4IsEnabled = false;
+                    IB4IsEnabled = false;
                     break;
                 case 4:
-                    this.IB5 = "EoS";
-                    this.RS5 = string.Empty;
-                    this.RL5 = string.Empty;
-                    this.FR5 = string.Empty;
-                    this.IB5IsEnabled = false;
-                    this.RL5IsEnabled = false;
+                    IB5 = "EoS";
+                    RS5 = string.Empty;
+                    RL5 = string.Empty;
+                    FR5 = string.Empty;
+                    IB5IsEnabled = false;
+                    RL5IsEnabled = false;
                     break;
                 case 5:
-                    this.IB6 = "EoS";
-                    this.RS6 = string.Empty;
-                    this.RL6 = string.Empty;
-                    this.FR6 = string.Empty;
-                    this.IB6IsEnabled = false;
-                    this.RL6IsEnabled = false;
+                    IB6 = "EoS";
+                    RS6 = string.Empty;
+                    RL6 = string.Empty;
+                    FR6 = string.Empty;
+                    IB6IsEnabled = false;
+                    RL6IsEnabled = false;
                     break;
                 case 6:
-                    this.IB7 = "EoS";
-                    this.RS7 = string.Empty;
-                    this.RL7 = string.Empty;
-                    this.FR7 = string.Empty;
-                    this.IB7IsEnabled = false;
-                    this.RL7IsEnabled = false;
+                    IB7 = "EoS";
+                    RS7 = string.Empty;
+                    RL7 = string.Empty;
+                    FR7 = string.Empty;
+                    IB7IsEnabled = false;
+                    RL7IsEnabled = false;
                     break;
                 case 7:
-                    this.IB8 = "EoS";
-                    this.RS8 = string.Empty;
-                    this.RL8 = string.Empty;
-                    this.FR8 = string.Empty;
-                    this.IB8IsEnabled = false;
-                    this.RL8IsEnabled = false;
+                    IB8 = "EoS";
+                    RS8 = string.Empty;
+                    RL8 = string.Empty;
+                    FR8 = string.Empty;
+                    IB8IsEnabled = false;
+                    RL8IsEnabled = false;
                     break;
                 case 8:
-                    this.IB9 = "EoS";
-                    this.RS9 = string.Empty;
-                    this.RL9 = string.Empty;
-                    this.FR9 = string.Empty;
-                    this.IB9IsEnabled = false;
-                    this.RL9IsEnabled = false;
+                    IB9 = "EoS";
+                    RS9 = string.Empty;
+                    RL9 = string.Empty;
+                    FR9 = string.Empty;
+                    IB9IsEnabled = false;
+                    RL9IsEnabled = false;
                     break;
                 case 9:
-                    this.IB10 = "EoS";
+                    IB10 = "EoS";
                     break;
                 case 10:
                     break;
@@ -1768,108 +1731,107 @@ namespace HWdB.Model
                     case 1:
                         if (ServiceYears != 0)
                         {
-                            this.IB1 = string.Empty;
-                            this.FR1 = string.Empty;
-                            this.RS1 = string.Empty;
-                            this.RL1 = string.Empty;
-                            this.IB1IsEnabled = false;
-                            this.RL1IsEnabled = false;
+                            IB1 = string.Empty;
+                            FR1 = string.Empty;
+                            RS1 = string.Empty;
+                            RL1 = string.Empty;
+                            IB1IsEnabled = false;
+                            RL1IsEnabled = false;
                         }
                         break;
                     case 2:
                         if (ServiceYears != 1)
                         {
-                            this.IB2 = string.Empty;
-                            this.FR2 = string.Empty;
-                            this.RS2 = string.Empty;
-                            this.RL2 = string.Empty;
-                            this.IB2IsEnabled = false;
-                            this.RL2IsEnabled = false;
+                            IB2 = string.Empty;
+                            FR2 = string.Empty;
+                            RS2 = string.Empty;
+                            RL2 = string.Empty;
+                            IB2IsEnabled = false;
+                            RL2IsEnabled = false;
                         }
                         break;
                     case 3:
                         if (ServiceYears != 2)
                         {
-                            this.IB3 = string.Empty;
-                            this.FR3 = string.Empty;
-                            this.RS3 = string.Empty;
-                            this.RL3 = string.Empty;
-                            this.IB3IsEnabled = false;
-                            this.RL3IsEnabled = false;
+                            IB3 = string.Empty;
+                            FR3 = string.Empty;
+                            RS3 = string.Empty;
+                            RL3 = string.Empty;
+                            IB3IsEnabled = false;
+                            RL3IsEnabled = false;
                         }
                         break;
                     case 4:
                         if (ServiceYears != 3)
                         {
-                            this.IB4 = string.Empty;
-                            this.FR4 = string.Empty;
-                            this.RS4 = string.Empty;
-                            this.RL4 = string.Empty;
-                            this.IB4IsEnabled = false;
-                            this.RL4IsEnabled = false;
+                            IB4 = string.Empty;
+                            FR4 = string.Empty;
+                            RS4 = string.Empty;
+                            RL4 = string.Empty;
+                            IB4IsEnabled = false;
+                            RL4IsEnabled = false;
                         }
                         break;
                     case 5:
                         if (ServiceYears != 4)
                         {
-                            this.IB5 = string.Empty;
-                            this.FR5 = string.Empty;
-                            this.RS5 = string.Empty;
-                            this.RL5 = string.Empty;
-                            this.IB5IsEnabled = false;
-                            this.RL5IsEnabled = false;
+                            IB5 = string.Empty;
+                            FR5 = string.Empty;
+                            RS5 = string.Empty;
+                            RL5 = string.Empty;
+                            IB5IsEnabled = false;
+                            RL5IsEnabled = false;
                         }
                         break;
                     case 6:
                         if (ServiceYears != 5)
                         {
-                            this.IB6 = string.Empty;
-                            this.FR6 = string.Empty;
-                            this.RS6 = string.Empty;
-                            this.RL6 = string.Empty;
-                            this.IB6IsEnabled = false;
-                            this.RL6IsEnabled = false;
+                            IB6 = string.Empty;
+                            FR6 = string.Empty;
+                            RS6 = string.Empty;
+                            RL6 = string.Empty;
+                            IB6IsEnabled = false;
+                            RL6IsEnabled = false;
                         }
                         break;
                     case 7:
                         if (ServiceYears != 6)
                         {
-                            this.FR7 = string.Empty;
-                            this.RS7 = string.Empty;
-                            this.RL7 = string.Empty;
-                            this.IB7 = string.Empty;
-                            this.IB7IsEnabled = false;
-                            this.RL7IsEnabled = false;
+                            FR7 = string.Empty;
+                            RS7 = string.Empty;
+                            RL7 = string.Empty;
+                            IB7 = string.Empty;
+                            IB7IsEnabled = false;
+                            RL7IsEnabled = false;
                         }
                         break;
                     case 8:
                         if (ServiceYears != 7)
                         {
-                            this.IB8 = string.Empty;
-                            this.FR8 = string.Empty;
-                            this.RS8 = string.Empty;
-                            this.RL8 = string.Empty;
-                            this.IB8IsEnabled = false;
-                            this.RL8IsEnabled = false;
+                            IB8 = string.Empty;
+                            FR8 = string.Empty;
+                            RS8 = string.Empty;
+                            RL8 = string.Empty;
+                            IB8IsEnabled = false;
+                            RL8IsEnabled = false;
                         }
                         break;
                     case 9:
                         if (ServiceYears != 8)
                         {
-                            this.IB9 = string.Empty;
-                            this.FR9 = string.Empty;
-                            this.RS9 = string.Empty;
-                            this.RL9 = string.Empty;
-                            this.IB9IsEnabled = false;
-                            this.RL9IsEnabled = false;
+                            IB9 = string.Empty;
+                            FR9 = string.Empty;
+                            RS9 = string.Empty;
+                            RL9 = string.Empty;
+                            IB9IsEnabled = false;
+                            RL9IsEnabled = false;
                         }
                         break;
                     case 10:
                         if (ServiceYears != 9)
                         {
-                            this.IB10 = string.Empty;
+                            IB10 = string.Empty;
                         }
-
                         break;
                 }
                 Cnt += 1;
@@ -1884,113 +1846,113 @@ namespace HWdB.Model
                 switch (Cnt)
                 {
                     case 0:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL0IsEnabled = false;
-                            this.RL0 = "100";
+                            RL0IsEnabled = false;
+                            RL0 = "100";
                         }
                         else
                         {
-                            this.RL0IsEnabled = true;
+                            RL0IsEnabled = true;
                         }
                         break;
                     case 1:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL1IsEnabled = false;
-                            this.RL1 = "100";
+                            RL1IsEnabled = false;
+                            RL1 = "100";
                         }
                         else
                         {
-                            this.RL1IsEnabled = true;
+                            RL1IsEnabled = true;
                         }
                         break;
                     case 2:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL2IsEnabled = false;
-                            this.RL2 = "100";
+                            RL2IsEnabled = false;
+                            RL2 = "100";
                         }
                         else
                         {
-                            this.RL2IsEnabled = true;
+                            RL2IsEnabled = true;
                         }
                         break;
                     case 3:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL3IsEnabled = false;
-                            this.RL3 = "100";
+                            RL3IsEnabled = false;
+                            RL3 = "100";
                         }
                         else
                         {
-                            this.RL3IsEnabled = true;
+                            RL3IsEnabled = true;
                         }
                         break;
                     case 4:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL4IsEnabled = false;
-                            this.RL4 = "100";
+                            RL4IsEnabled = false;
+                            RL4 = "100";
                         }
                         else
                         {
-                            this.RL4IsEnabled = true;
+                            RL4IsEnabled = true;
                         }
                         break;
                     case 5:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL5IsEnabled = false;
-                            this.RL5 = "100";
+                            RL5IsEnabled = false;
+                            RL5 = "100";
                         }
                         else
                         {
-                            this.RL5IsEnabled = true;
+                            RL5IsEnabled = true;
                         }
                         break;
                     case 6:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL6IsEnabled = false;
-                            this.RL6 = "100";
+                            RL6IsEnabled = false;
+                            RL6 = "100";
                         }
                         else
                         {
-                            this.RL6IsEnabled = true;
+                            RL6IsEnabled = true;
                         }
                         break;
                     case 7:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL7IsEnabled = false;
-                            this.RL7 = "100";
+                            RL7IsEnabled = false;
+                            RL7 = "100";
                         }
                         else
                         {
-                            this.RL7IsEnabled = true;
+                            RL7IsEnabled = true;
                         }
                         break;
                     case 8:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL8IsEnabled = false;
-                            this.RL8 = "100";
+                            RL8IsEnabled = false;
+                            RL8 = "100";
                         }
                         else
                         {
-                            this.RL8IsEnabled = true;
+                            RL8IsEnabled = true;
                         }
                         break;
                     case 9:
-                        if (!this.RepairPossible)
+                        if (!RepairPossible)
                         {
-                            this.RL9IsEnabled = false;
-                            this.RL9 = "100";
+                            RL9IsEnabled = false;
+                            RL9 = "100";
                         }
                         else
                         {
-                            this.RL9IsEnabled = true;
+                            RL9IsEnabled = true;
                         }
 
                         break;
