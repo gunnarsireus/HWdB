@@ -94,20 +94,28 @@ namespace HWdB.ViewModels
         }
         public LTBViewModel()
         {
-            CreateNewCurrentLtbDataSet(new object());
             this.ButtonName = "LTB";
-            CurrentLtbDataSet.InitLabels();
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(ClearResultChartErrors);
             NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
             DeleteCommand = new RelayCommand(Delete);
             InitListBox();
+            if (LtbDataSets.Any())
+            {
+                CurrentLtbDataSet = LtbDataSets[0];
+            }
+            else
+            {
+                CreateNewCurrentLtbDataSet(new object());
+            }
+            CurrentLtbDataSet.InitLabels();
+
         }
 
         private void InitListBox()
         {
             LtbDataSet tmp = new LtbDataSet();
-            tmp.Clone(CurrentLtbDataSet);
+            if (CurrentLtbDataSet != null) { tmp.Clone(CurrentLtbDataSet); }
             using (var context = new DataContext())
             {
                 if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
@@ -116,7 +124,15 @@ namespace HWdB.ViewModels
                     context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
                 }
             }
-            CurrentLtbDataSet = tmp;
+            if (CurrentLtbDataSetIsNotNull(tmp))
+            {
+                CurrentLtbDataSet = tmp;  //Restore old value, if existed
+            }
+        }
+
+        private static bool CurrentLtbDataSetIsNotNull(LtbDataSet tmp)
+        {
+            return tmp.ID > 0;
         }
 
         private void Delete(object parameter)

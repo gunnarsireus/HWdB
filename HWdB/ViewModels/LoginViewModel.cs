@@ -4,6 +4,7 @@ using HWdB.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HWdB.ViewModels
@@ -99,7 +100,7 @@ namespace HWdB.ViewModels
                     }
                 }
             }
-            _applikationViewModel.Logout();
+            Application.Current.Shutdown();
         }
 
         private string ConvertToUnsecureString(System.Security.SecureString securePassword)

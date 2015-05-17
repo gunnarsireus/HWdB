@@ -74,18 +74,25 @@ namespace HWdB.ViewModels
 
         public AdministrationViewModel()
         {
-            CreateNewCurrentUser(new object());
             this.ButtonName = "Administration";
             SaveCommand = new RelayCommand(Save);
             NewUserCommand = new RelayCommand(CreateNewCurrentUser);
             DeleteUserCommand = new RelayCommand(Delete);
             InitListBox();
+            if (Users.Any())
+            {
+                CurrentUser = Users[0];
+            }
+            else
+            {
+                CreateNewCurrentUser(new object());
+            }
         }
 
         private void InitListBox()
         {
             User tmp = new User();
-            tmp.Clone(CurrentUser);
+            if (CurrentUser != null) { tmp.Clone(CurrentUser); }
             using (var context = new DataContext())
             {
                 if (Users == null) Users = new ObservableCollection<User>();
@@ -94,7 +101,15 @@ namespace HWdB.ViewModels
                     context.Users.ToList().ForEach(i => Users.Add(i));
                 }
             }
-            CurrentUser = tmp;
+            if (CurrentUserIsNotNull(tmp))
+            {
+                CurrentUser = tmp; //Restore old value, if existed
+            }
+        }
+
+        private static bool CurrentUserIsNotNull(User tmp)
+        {
+            return tmp.ID > 0;
         }
 
         private void Delete(object parameter)
