@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HWdB.CustomValidationAttributes;
+using System;
 using System.ComponentModel.DataAnnotations;
 namespace HWdB.Model
 {
@@ -8,6 +9,7 @@ namespace HWdB.Model
         public int ID { get; set; }
 
         [RegularExpression(@"^[a-z0-9_\-]+$", ErrorMessage = "Only lower case letters, no spaces")]
+        [UserNameUniqueAttribute]
         public string UserName
         {
             get { return GetValue(() => UserName); }
@@ -50,6 +52,8 @@ namespace HWdB.Model
         {
             base.Clone(that);
             this.ID = that.ID;
+            this.Password = that.Password;
+            this.LastLogin = that.LastLogin;
             this.UserName = that.UserName;
             this.Email = that.Email;
             this.Rights = that.Rights;

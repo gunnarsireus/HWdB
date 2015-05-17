@@ -168,7 +168,7 @@
                 </Grid>
                 <Label Grid.Row="2"  Grid.Column="8" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="LastLogin:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="LastLogin" Text="{Binding LastLogin}"   FontSize="5" FontWeight="Bold" IsEnabled="False"/>
+                    <TextBox  x:Name="LastLogin" Text="{Binding LastLogin,UpdateSourceTrigger=PropertyChanged}"   FontSize="5" FontWeight="Bold" IsEnabled="False"/>
                 </Border>
                 <Grid Row="3"  Column="2">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -190,7 +190,7 @@
                 </Grid>
                 <Label Grid.Row="3"  Grid.Column="5" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Email:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="Email" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"   FontSize="5" FontWeight="Bold" IsReadOnly="True"/>
+                    <TextBox  x:Name="Email" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"   FontSize="5" FontWeight="Bold"/>
                 </Border>
             </Grid>
         </Viewbox>

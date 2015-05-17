@@ -39,7 +39,7 @@ namespace HWdB.ViewModels
                 if (_currentUser != value)
                 {
                     _currentUser = value;
-                    ShowPassword = "";
+                    OnPropertyChanged("ShowPassword");
                     OnPropertyChanged("CurrentUser");
                 }
             }
@@ -178,6 +178,7 @@ namespace HWdB.ViewModels
                     user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                     user.Password = hash;
+                    ShowPassword = "";
                     context.Users.Add(user);
                     context.SaveChanges();
                 }
@@ -190,6 +191,7 @@ namespace HWdB.ViewModels
                     {
                         string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                         user.Password = hash;
+                        ShowPassword = "";
                     }
                     context.Entry(stored).CurrentValues.SetValues(user);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
@@ -210,7 +212,7 @@ namespace HWdB.ViewModels
                 Rights = "Administrator",
                 Role = "Administrator",
                 active = "1",
-                LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                LastLogin = "Press 'Save'"
             };
         }
     }
