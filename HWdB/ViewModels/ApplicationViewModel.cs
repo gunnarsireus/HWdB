@@ -40,6 +40,8 @@ namespace HWdB.ViewModels
                     _userLoggedIn = value;
                     if (_userLoggedIn == true)
                     {
+                        PageViewModels.Clear();
+                        PageViewModels.Add(new LoginViewModel(this));
                         //PageViewModels.Add(new ProductsViewModel());
                         //PageViewModels.Add(new ProductGroupsViewModel());
                         //PageViewModels.Add(new ExportViewModel());

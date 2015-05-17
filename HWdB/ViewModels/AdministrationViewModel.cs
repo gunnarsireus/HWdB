@@ -2,7 +2,6 @@
 using HWdB.Model;
 using HWdB.Utils;
 using MHWdB.CustomValidationAttributes;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -129,6 +128,12 @@ namespace HWdB.ViewModels
                 System.Windows.MessageBox.Show("Cannot delete unsaved data");
                 return;
             }
+            if (CurrentUser.UserName == LoggedInUser.Instance.UserLoggedin.UserName)
+            {
+                System.Windows.MessageBox.Show("Cannot delete own account");
+                return;
+            }
+
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
@@ -184,14 +189,14 @@ namespace HWdB.ViewModels
                 User stored = context.Users.Where(a => (a.UserName == user.UserName)).FirstOrDefault();
                 if (stored == null)
                 {
-                    if (ShowPassword == "")
+                    if ((ShowPassword == null) || (ShowPassword == ""))
                     {
                         System.Windows.MessageBox.Show("Password cannot be empty!");
                         return;
 
                     }
                     UserLogs.Instance.UserErrorLog("Saved new User : " + user.UserName);
-                    user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    user.LastLogin = "Never loged in";
                     string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                     user.Password = hash;
                     ShowPassword = "";
@@ -202,7 +207,6 @@ namespace HWdB.ViewModels
                 {
                     UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
                     user.ID = stored.ID;
-                    user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     if (ShowPassword != "")
                     {
                         string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
