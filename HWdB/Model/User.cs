@@ -7,7 +7,7 @@ namespace HWdB.Model
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Username is Required")]
+        [RegularExpression(@"^[a-z0-9_\-]+$", ErrorMessage = "Only lower case letters, no spaces")]
         public string UserName
         {
             get { return GetValue(() => UserName); }
@@ -19,6 +19,7 @@ namespace HWdB.Model
             get { return GetValue(() => Password); }
             set { SetValue(() => Password, value); }
         }
+        [RegularExpression(@"^[\wÅÄÖåäö\-_]+(\.[\wÅÄÖåäö\-_]+)*@[\wÅÄÖåäö\-_]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", ErrorMessage = "Not valid e-mail")]
         public string Email
         {
             get { return GetValue(() => Email); }
@@ -48,7 +49,7 @@ namespace HWdB.Model
         public void Clone(User that)
         {
             base.Clone(that);
-            // Don't clone id, password or lastlogin
+            this.ID = that.ID;
             this.UserName = that.UserName;
             this.Email = that.Email;
             this.Rights = that.Rights;

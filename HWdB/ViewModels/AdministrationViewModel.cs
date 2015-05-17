@@ -101,13 +101,13 @@ namespace HWdB.ViewModels
                     context.Users.ToList().ForEach(i => Users.Add(i));
                 }
             }
-            if (CurrentUserIsNotNull(tmp))
+            if (CurrentUserWasNotNull(tmp))
             {
                 CurrentUser = tmp; //Restore old value, if existed
             }
         }
 
-        private static bool CurrentUserIsNotNull(User tmp)
+        private static bool CurrentUserWasNotNull(User tmp)
         {
             return tmp.ID > 0;
         }
@@ -178,8 +178,8 @@ namespace HWdB.ViewModels
                     user.LastLogin = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                     user.Password = hash;
-                    SaveUser(user);
                     context.Users.Add(user);
+                    context.SaveChanges();
                 }
                 else
                 {
@@ -193,8 +193,9 @@ namespace HWdB.ViewModels
                     }
                     context.Entry(stored).CurrentValues.SetValues(user);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+
                 InitListBox();
             }
         }
@@ -203,7 +204,7 @@ namespace HWdB.ViewModels
         {
             CurrentUser = new User()
             {
-                UserName = "John Doe",
+                UserName = "johndoe",
                 Password = "2c50afa5e6b08724001e9495f86de171",
                 Email = "john.doe@gmail.com",
                 Rights = "Administrator",

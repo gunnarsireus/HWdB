@@ -124,13 +124,13 @@ namespace HWdB.ViewModels
                     context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
                 }
             }
-            if (CurrentLtbDataSetIsNotNull(tmp))
+            if (CurrentLtbDataSetWasNotNull(tmp))
             {
                 CurrentLtbDataSet = tmp;  //Restore old value, if existed
             }
         }
 
-        private static bool CurrentLtbDataSetIsNotNull(LtbDataSet tmp)
+        private static bool CurrentLtbDataSetWasNotNull(LtbDataSet tmp)
         {
             return tmp.ID > 0;
         }
