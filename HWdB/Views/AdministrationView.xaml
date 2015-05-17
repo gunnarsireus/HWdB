@@ -235,7 +235,7 @@
                 </Grid>
                 <Label Grid.Row="2"  Grid.Column="5" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Password:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="ShowPassword" Text="{Binding ShowPassword, UpdateSourceTrigger=PropertyChanged}"  FontSize="5" FontWeight="Bold"/>
+                    <TextBox  x:Name="ShowPassword" Text="{Binding ShowPassword, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
                 </Border>
                 <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=This}" Width="25" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Save</Button>
                 <Button Command="{Binding NewUserCommand}" CommandParameter="{Binding ElementName=This}" Width="25"  Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">New</Button>

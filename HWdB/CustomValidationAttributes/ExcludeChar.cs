@@ -24,6 +24,7 @@ namespace MHWdB.CustomValidationAttributes
                     }
                 }
             }
+
             return ValidationResult.Success;
         }
     }

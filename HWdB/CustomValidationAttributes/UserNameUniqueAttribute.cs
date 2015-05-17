@@ -10,23 +10,30 @@ namespace HWdB.CustomValidationAttributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            string userName = (string)value;
-
-            int userId = (int)validationContext.ObjectType.GetProperty("ID").GetValue(validationContext.ObjectInstance, null);
-
-            if (userId > 0) return ValidationResult.Success;
-
-            using (var context = new DataContext())
+            if (value != null)
             {
-                User stored = context.Users.Where(a => (a.UserName == userName)).FirstOrDefault();
-                if (stored != null)
+                string userName = (string)value;
+
+                int userId = (int)validationContext.ObjectType.GetProperty("ID").GetValue(validationContext.ObjectInstance, null);
+
+                if (userId > 0) return ValidationResult.Success;
+
+                using (var context = new DataContext())
                 {
-                    return new ValidationResult("Name already exists");
+                    User stored = context.Users.Where(a => (a.UserName == userName)).FirstOrDefault();
+                    if (stored != null)
+                    {
+                        return new ValidationResult("Name already exists");
+                    }
+                    else
+                    {
+                        return ValidationResult.Success;
+                    }
                 }
-                else
-                {
-                    return ValidationResult.Success;
-                }
+            }
+            else
+            {
+                return new ValidationResult("Name cannot be empty");
             }
         }
     }

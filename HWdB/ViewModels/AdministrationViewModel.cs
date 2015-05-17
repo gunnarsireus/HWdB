@@ -1,6 +1,7 @@
 ﻿using HWdB.DataAccess;
 using HWdB.Model;
 using HWdB.Utils;
+using MHWdB.CustomValidationAttributes;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,6 +19,15 @@ namespace HWdB.ViewModels
             set { SetValue(() => Users, value); InitListBox(); }
         }
 
+        public int UserID //Needed for PasswordMinLenghtOrEmptyAttribute validation
+        {
+            get
+            {
+                return CurrentUser.ID;
+            }
+        }
+        [ExcludeChar("/.,!#$%", ErrorMessage = "Password contains invalid letters")]
+        [PasswordMinLenghtOrEmpty(5)]
         public string ShowPassword
         {
             get { return GetValue(() => ShowPassword); }
@@ -155,10 +165,16 @@ namespace HWdB.ViewModels
                 System.Windows.MessageBox.Show(first.Value);
             }
             else
-            {
-                UiServices.SetBusyState();
-                SaveUser(CurrentUser);
-            }
+                if (this.HasErrors.Count > 0)
+                {
+                    var first = this.HasErrors.First();
+                    System.Windows.MessageBox.Show(first.Value);
+                }
+                else
+                {
+                    UiServices.SetBusyState();
+                    SaveUser(CurrentUser);
+                }
         }
 
         private void SaveUser(User user)
