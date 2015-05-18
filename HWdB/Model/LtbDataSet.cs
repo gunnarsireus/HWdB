@@ -626,7 +626,7 @@ namespace HWdB.Model
 
                 System.DateTime NewYear = default(System.DateTime);
 
-                if (Convert.ToDateTime(LTBDate).Year == Convert.ToDateTime(EOSDate).Year)
+                if (Convert.ToDateTime(LTBDate).Year >= Convert.ToDateTime(EOSDate).Year)
                 {
                     return 0;
                 }
@@ -1762,6 +1762,7 @@ namespace HWdB.Model
                     break;
                 case 10:
                     break;
+                default: break;
             }
             while (Cnt <= LTBCommon.MaxYear)
             {
