@@ -196,7 +196,7 @@ namespace HWdB.ViewModels
 
                     }
                     UserLogs.Instance.UserErrorLog("Saved new User : " + user.UserName);
-                    user.LastLogin = "Never loged in";
+                    user.LastLogin = "Never logged in";
                     string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                     user.Password = hash;
                     ShowPassword = "";

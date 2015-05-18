@@ -191,6 +191,7 @@ namespace HWdB.ViewModels
 
         private void CleanupDateErrors()
         {
+            CurrentLtbDataSet.Version = CurrentLtbDataSet.Version;
             CurrentLtbDataSet.EOSDate = CurrentLtbDataSet.EOSDate;
             CurrentLtbDataSet.LTBDate = CurrentLtbDataSet.LTBDate;
             CurrentLtbDataSet.RepairLeadTime = CurrentLtbDataSet.RepairLeadTime;

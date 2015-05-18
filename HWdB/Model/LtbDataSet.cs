@@ -30,9 +30,28 @@ namespace HWdB.Model
         public string CreatedBy { get; set; }
         [MaxLength(100, ErrorMessage = "Customer exceeded 100 letters")]
         [ExcludeChar("/.,!@#$%", ErrorMessage = "Name contains invalid letters")]
-        public string Customer { get; set; }
+        [CustomerUniqueAttribute]
+        public string Customer
+        {
+            get { return GetValue(() => Customer); }
+            set
+            {
+                SetValue(() => Customer, value);
+            }
+        }
+
         [MaxLength(40, ErrorMessage = "Version exceeded 40 letters")]
-        public string Version { get; set; }
+        [VersionUniqueAttribute]
+        public string Version
+        {
+            get { return GetValue(() => Version); }
+            set
+            {
+                SetValue(() => Version, value);
+                Customer = Customer;
+            }
+        }
+
         public string Saved
         {
             get { return GetValue(() => Saved); }

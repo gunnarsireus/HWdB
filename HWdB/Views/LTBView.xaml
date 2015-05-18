@@ -522,7 +522,7 @@
 				</Grid>
 				<Label Grid.Row="2"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Customer:" FontSize="4" FontWeight="Bold" />
 				<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3">
-					<TextBox  x:Name="Customer" Text="{Binding Customer}"  FontSize="5" FontWeight="Bold"/>
+                    <TextBox  x:Name="Customer" Text="{Binding Customer, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
 				</Border>
 				<Grid Row="2"  Column="6">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -531,7 +531,7 @@
 				</Grid>
 				<Label Grid.Row="2"  Grid.Column="6" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Version:" FontSize="4" FontWeight="Bold" />
 				<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="7">
-					<TextBox  x:Name="Version" Text="{Binding Version}"  FontSize="5" FontWeight="Bold"/>
+                    <TextBox  x:Name="Version" Text="{Binding Version, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
 				</Border>
 				<Grid Row="2"  Column="8">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>

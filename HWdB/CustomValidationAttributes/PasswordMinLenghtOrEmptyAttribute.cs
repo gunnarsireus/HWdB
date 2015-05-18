@@ -21,7 +21,7 @@ namespace MHWdB.CustomValidationAttributes
                 }
                 else
                 {
-                    {//New user, password required
+                    {//New user, password required OR old user updating password
                         if (password.Length < _minLength)
                         {
                             return new ValidationResult("Password must be at least " + _minLength + " characters");

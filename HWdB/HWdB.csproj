@@ -111,7 +111,9 @@
     <Compile Include="ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomValidationAttributes\VersionUniqueAttribute.cs" />
     <Compile Include="CustomValidationAttributes\PasswordMinLenghtOrEmptyAttribute.cs" />
+    <Compile Include="CustomValidationAttributes\CustomerUniqueAttribute.cs" />
     <Compile Include="CustomValidationAttributes\UserNameUniqueAttribute.cs" />
     <Compile Include="CustomValidationAttributes\RepairLeadTimeEOSLTBRangeAttribute.cs" />
     <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
