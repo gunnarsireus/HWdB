@@ -1,16 +1,9 @@
-HWdB:
+LTB calculation application:
 
-Framework with menu and login handling for a SQL Server database with WPF MVVM as GUI. The database is for storage of hardware information. Developed with Visual Studio 2013 Ultimate. 
+During installation an Icon is created on your desktop, "LTB Calculation". When you click on this Icon the program starts and you can log in with Username="admin" and Password="password".
+
+A database, HWdB.mdf, is created on your desktop. You can add users under "Administration". Thereafter, you can dimension LTB stocks with various input data. Each calculation is stored in the database for later use.
+Developed with Visual Studio 2013 Ultimate. 
 Open with Visual Studio, Run Debug and log in with username=admin and password=password.
-Or run without Visaul Studio with HWdB.exe, like this:
-
-Copy the following files to a folder on your computer:
-HWdB.exe
-HWdB.exe.config
-EntityFramework.dll
-
-Then click on HWdB.exe.
-
-My intention is to some day complete this design but there is no timeplan for the completion.
 
 Best regards, Gunnar Siréus
