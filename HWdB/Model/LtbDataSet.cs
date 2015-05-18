@@ -15,6 +15,7 @@ namespace HWdB.Model
 
     public class LtbDataSet : PropertyChangedNotification
     {
+        bool loopOk;
         public LtbDataSet()
         {
             StockYearArray = new long[LTBCommon.MaxYear + 1];
@@ -36,7 +37,9 @@ namespace HWdB.Model
             get { return GetValue(() => Customer); }
             set
             {
+                loopOk = (value != Customer);
                 SetValue(() => Customer, value);
+                if (loopOk) Version = Version;
             }
         }
 
@@ -47,8 +50,9 @@ namespace HWdB.Model
             get { return GetValue(() => Version); }
             set
             {
+                loopOk = (value != Version);
                 SetValue(() => Version, value);
-                Customer = Customer;
+                if (loopOk) Customer = Customer;
             }
         }
 
@@ -64,7 +68,13 @@ namespace HWdB.Model
             get { return GetValue(() => LTBDate); }
             set
             {
+                loopOk = (value != LTBDate);
                 SetValue(() => LTBDate, value);
+                if (loopOk)
+                {
+                    EOSDate = EOSDate;
+                    RepairLeadTime = RepairLeadTime;
+                }
                 SetInputArray();
             }
         }
@@ -75,7 +85,13 @@ namespace HWdB.Model
             get { return GetValue(() => EOSDate); }
             set
             {
+                loopOk = (value != EOSDate);
                 SetValue(() => EOSDate, value);
+                if (loopOk)
+                {
+                    RepairLeadTime = RepairLeadTime;
+                    LTBDate = LTBDate;
+                }
                 SetInputArray();
             }
         }
@@ -87,7 +103,13 @@ namespace HWdB.Model
             get { return GetValue(() => RepairLeadTime); }
             set
             {
+                loopOk = (value != RepairLeadTime);
                 SetValue(() => RepairLeadTime, value);
+                if (loopOk)
+                {
+                    EOSDate = EOSDate;
+                    LTBDate = LTBDate;
+                }
                 SetInputArray();
             }
         }

@@ -172,7 +172,6 @@ namespace HWdB.ViewModels
         }
         private void Calculate(object parameter)
         {
-            CleanupDateErrors();
             if (CurrentLtbDataSet.HasErrors.Count > 0)
             {
                 var first = CurrentLtbDataSet.HasErrors.First();
@@ -188,15 +187,6 @@ namespace HWdB.ViewModels
                 SaveLtbDataSet(CurrentLtbDataSet);
             }
         }
-
-        private void CleanupDateErrors()
-        {
-            CurrentLtbDataSet.Version = CurrentLtbDataSet.Version;
-            CurrentLtbDataSet.EOSDate = CurrentLtbDataSet.EOSDate;
-            CurrentLtbDataSet.LTBDate = CurrentLtbDataSet.LTBDate;
-            CurrentLtbDataSet.RepairLeadTime = CurrentLtbDataSet.RepairLeadTime;
-        }
-
         private void SaveLtbDataSet(LtbDataSet ltbDataSet)
         {
             using (var context = new DataContext())
@@ -222,7 +212,6 @@ namespace HWdB.ViewModels
         }
         private void ClearResultChartErrors(object parameter)
         {
-            CleanupDateErrors();
             CurrentLtbDataSet.ClearResult();
             CurrentLtbDataSet.ClearChartData();
             CurrentLtbDataSet.GetChart();
