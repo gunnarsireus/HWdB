@@ -11,9 +11,9 @@ namespace MHWdB.CustomValidationAttributes
         }
         protected override ValidationResult IsValid(object value, System.ComponentModel.DataAnnotations.ValidationContext validationContext)
         {
+            int userId = (int)validationContext.ObjectType.GetProperty("UserID").GetValue(validationContext.ObjectInstance, null);
             if (value != null)
             {
-                int userId = (int)validationContext.ObjectType.GetProperty("UserID").GetValue(validationContext.ObjectInstance, null);
                 string password = (string)value;
                 if ((userId > 0) && (password.Length == 0))
                 {
@@ -33,7 +33,17 @@ namespace MHWdB.CustomValidationAttributes
                     }
                 }
             }
-            return ValidationResult.Success;
+            else
+            {
+                if ((userId > 0))
+                {
+                    return ValidationResult.Success;
+                }
+                else
+                {
+                    return new ValidationResult("Password must be at least " + _minLength + " characters");
+                }
+            }
         }
     }
 }
