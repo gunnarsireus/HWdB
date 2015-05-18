@@ -5,6 +5,7 @@ namespace HWdB.Model
 {
     public class User : BaseActivatable
     {
+        bool loopOk;
         [Key]
         public int ID { get; set; }
 
@@ -13,13 +14,29 @@ namespace HWdB.Model
         public string UserName
         {
             get { return GetValue(() => UserName); }
-            set { SetValue(() => UserName, value); }
+            set
+            {
+                loopOk = (value != UserName);
+                SetValue(() => UserName, value);
+                if (loopOk)
+                {
+                    Password = Password;
+                }
+            }
         }
 
         public string Password
         {
             get { return GetValue(() => Password); }
-            set { SetValue(() => Password, value); }
+            set
+            {
+                loopOk = (value != Password);
+                SetValue(() => Password, value);
+                if (loopOk)
+                {
+                    UserName = UserName;
+                }
+            }
         }
         [RegularExpression(@"^[\wÅÄÖåäö\-_]+(\.[\wÅÄÖåäö\-_]+)*@[\wÅÄÖåäö\-_]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", ErrorMessage = "Not valid e-mail")]
         public string Email

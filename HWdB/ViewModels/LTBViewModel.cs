@@ -142,6 +142,7 @@ namespace HWdB.ViewModels
                 System.Windows.MessageBox.Show("Cannot delete unsaved data");
                 return;
             }
+            UiServices.SetBusyState();
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
