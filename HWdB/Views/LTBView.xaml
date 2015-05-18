@@ -515,7 +515,8 @@
 					<ColumnDefinition Width="30"/>
 					<ColumnDefinition Width="30"/>
 				</Grid.ColumnDefinitions>
-				<Grid Row="2"  Column="2">
+                <Image HorizontalAlignment="Center" Width="70" Height="15" Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="3"  Source="../Images/Sireus.png"/>
+                <Grid Row="2"  Column="2">
 					<Border BorderBrush='White'  BorderThickness='1,1,0,0'>
 						<Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
 					</Border>

@@ -273,6 +273,8 @@
     <Resource Include="Images\Frm_Strategies.jpg" />
     <Resource Include="Images\Frm_Supply.jpg" />
     <Resource Include="Images\Sireus.ico" />
+    <Resource Include="Images\Sireus.png" />
+    <Resource Include="Images\Sireus.jpg" />
     <Content Include="Libs\EntityFramework.dll" />
     <Resource Include="Libs\EntityFramework.xml" />
     <Content Include="Libs\LTBCommon.dll" />
