@@ -22,7 +22,7 @@ namespace HWdB.ViewModels
         {
             get
             {
-                return CurrentUser.ID;
+                { return CurrentUser==null ? 0 : CurrentUser.ID; }
             }
         }
         [ExcludeChar("/.,!#$%", ErrorMessage = "Password contains invalid letters")]
@@ -189,7 +189,7 @@ namespace HWdB.ViewModels
                 User stored = context.Users.Where(a => (a.UserName == user.UserName)).FirstOrDefault();
                 if (stored == null)
                 {
-                    if ((ShowPassword == null) || (ShowPassword == ""))
+                    if ((ShowPassword == null) || (ShowPassword.Trim() == ""))
                     {
                         System.Windows.MessageBox.Show("Password cannot be empty!");
                         return;
@@ -207,7 +207,7 @@ namespace HWdB.ViewModels
                 {
                     UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
                     user.ID = stored.ID;
-                    if (ShowPassword != "")
+                    if (ShowPassword != null && ShowPassword != "")
                     {
                         string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                         user.Password = hash;

@@ -157,8 +157,8 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="2"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Name:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2">
+                    <TextBox  BorderThickness="1" x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
                 </Border>
 
                 <Grid Row="2"  Column="8">
@@ -167,8 +167,8 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="2"  Grid.Column="8" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="LastLogin:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="LastLogin" Text="{Binding LastLogin,UpdateSourceTrigger=PropertyChanged}"   FontSize="5" FontWeight="Bold" IsEnabled="False"/>
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2">
+                    <TextBox  BorderThickness="1" x:Name="LastLogin" Text="{Binding LastLogin,UpdateSourceTrigger=PropertyChanged}"   FontSize="5" FontWeight="Bold" IsEnabled="False"/>
                 </Border>
                 <Grid Row="3"  Column="2">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
@@ -176,8 +176,8 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="3"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Rights:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="3" Grid.Column="3">
-                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="5" FontWeight="Bold"   Padding="0,1,0,0" Width="40" Height="10" Background="White" >
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="3" Grid.Column="3">
+                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="4" FontWeight="Bold"   Padding="0,1,0,0" Width="40" Height="13" Background="White" >
                         <ComboBoxItem>Administrator</ComboBoxItem>
                         <ComboBoxItem>Employee</ComboBoxItem>
                         <ComboBoxItem>Customer</ComboBoxItem>
@@ -189,8 +189,8 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="3"  Grid.Column="5" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Email:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="Email" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"   FontSize="5" FontWeight="Bold"/>
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2">
+                    <TextBox  BorderThickness="1" x:Name="Email" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"   FontSize="5" FontWeight="Bold"/>
                 </Border>
             </Grid>
         </Viewbox>
@@ -202,8 +202,8 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="8"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
@@ -235,12 +235,12 @@
                     </Border>
                 </Grid>
                 <Label Grid.Row="2"  Grid.Column="5" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Password:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='1,1,1,1'  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2">
-                    <TextBox  x:Name="ShowPassword" Text="{Binding ShowPassword, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2">
+                    <TextBox  BorderThickness="1" x:Name="ShowPassword" Text="{Binding ShowPassword, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}"  FontSize="5" FontWeight="Bold"/>
                 </Border>
-                <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=This}" Width="30" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Save user</Button>
-                <Button Command="{Binding NewUserCommand}" CommandParameter="{Binding ElementName=This}" Width="30"  Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Add new user</Button>
-                <Button Command="{Binding DeleteUserCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Grid.Row="5" Grid.Column="7" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Delete user</Button>
+                <Button BorderThickness="1" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=This}" Width="40" Height="11" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Save user</Button>
+                <Button BorderThickness="1" Command="{Binding NewUserCommand}" CommandParameter="{Binding ElementName=This}" Width="40" Height="11" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Add new user</Button>
+                <Button BorderThickness="1" Command="{Binding DeleteUserCommand}" CommandParameter="{Binding ElementName=This}" Width="40" Height="11" Grid.Row="5" Grid.Column="7" Grid.ColumnSpan="2" HorizontalAlignment="Left"  FontSize="4" FontWeight="Bold">Delete user</Button>
             </Grid>
         </Viewbox>
     </Grid>
