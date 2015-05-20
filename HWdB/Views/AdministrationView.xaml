@@ -53,9 +53,9 @@
                         <ColumnDefinition Width="35"/>
                         <ColumnDefinition Width="58"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0"  Grid.Column="1" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="UserName"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
+                    <TextBlock Grid.Row="0"  Grid.Column="1" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Username"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                     <TextBlock Grid.Row="0"  Grid.Column="2" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Rights" Width="30" FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
-                    <TextBlock Grid.Row="0"  Grid.Column="3" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="LastLogin"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
+                    <TextBlock Grid.Row="0"  Grid.Column="3" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Last login"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                 </Grid>
                 <Border BorderBrush='Black'  BorderThickness='0,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
                 <Grid Row ="0" Column="0">
@@ -140,8 +140,8 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
@@ -151,12 +151,12 @@
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <Grid Row="2"  Column="2">
+                <Grid Row="2"  Column="1" ColumnSpan="2">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="2"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Name:" FontSize="4" FontWeight="Bold" />
+                <Label Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="2"  Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Username:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2">
                     <TextBox  BorderThickness="1" x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Padding="0,0,0,0"  FontSize="5" FontWeight="Bold"/>
                 </Border>
@@ -166,18 +166,18 @@
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="2"  Grid.Column="8" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="LastLogin:" FontSize="4" FontWeight="Bold" />
+                <Label Grid.Row="2"  Grid.Column="8" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Last login:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="2">
                     <TextBox  BorderThickness="1" x:Name="LastLogin" Text="{Binding LastLogin,UpdateSourceTrigger=PropertyChanged}"  Padding="0,0,0,0"  FontSize="5" FontWeight="Bold" IsEnabled="False"/>
                 </Border>
-                <Grid Row="3"  Column="2">
+                <Grid Row="3"  Column="1" ColumnSpan="2">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="3"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Rights:" FontSize="4" FontWeight="Bold" />
-                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="3" Grid.Column="3">
-                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="5" FontWeight="Bold"   Padding="0,1,0,0" Width="40" Height="13" Background="White" >
+                <Label Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Rights:" FontSize="4" FontWeight="Bold" />
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="3" Grid.Column="3" Width="40" Grid.ColumnSpan="2" Height="11" Margin="0,0,20,0">
+                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="5" FontWeight="Bold"   Padding="0,1,0,0" Width="60" Height="13" Background="White" >
                         <ComboBoxItem>Administrator</ComboBoxItem>
                         <ComboBoxItem>Employee</ComboBoxItem>
                         <ComboBoxItem>Customer</ComboBoxItem>
