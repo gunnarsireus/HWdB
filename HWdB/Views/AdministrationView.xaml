@@ -177,7 +177,7 @@
                 </Grid>
                 <Label Grid.Row="3"  Grid.Column="2" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Rights:" FontSize="4" FontWeight="Bold" />
                 <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush='White'  BorderThickness='0,0,0,0'  Grid.Row="3" Grid.Column="3">
-                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="4" FontWeight="Bold"   Padding="0,1,0,0" Width="40" Height="13" Background="White" >
+                    <ComboBox  Text="{Binding Rights}" Name="Rights" FontSize="5" FontWeight="Bold"   Padding="0,1,0,0" Width="40" Height="13" Background="White" >
                         <ComboBoxItem>Administrator</ComboBoxItem>
                         <ComboBoxItem>Employee</ComboBoxItem>
                         <ComboBoxItem>Customer</ComboBoxItem>
