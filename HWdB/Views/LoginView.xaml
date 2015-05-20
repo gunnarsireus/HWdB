@@ -91,7 +91,7 @@
                         </Border>
                     </Grid>
                     <Label Grid.Row="5" Grid.Column="1" Padding="0,0,0,3" Margin="0,3,10,0" HorizontalAlignment="Right" Content="Database:" FontSize="8" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="5" Grid.Column="2" FontSize="8" FontWeight="Bold"  Padding="0,1,0,0" Margin="3,2,0,1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    <TextBlock Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" FontSize="8" FontWeight="Bold"  Padding="0,1,0,0" Margin="3,2,0,1" HorizontalAlignment="Left" VerticalAlignment="Top"
 				   Text="{Binding DbLocation}" />
                 </Grid>
             </Viewbox>
