@@ -112,7 +112,7 @@ namespace HWdB.ViewModels
 
         }
 
-        private void InitListBox()
+        public void InitListBox()
         {
             LtbDataSet tmp = new LtbDataSet();
             if (CurrentLtbDataSet != null) { tmp.Clone(CurrentLtbDataSet); }

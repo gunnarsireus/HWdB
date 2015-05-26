@@ -22,7 +22,7 @@ namespace HWdB.ViewModels
         {
             get
             {
-                { return CurrentUser==null ? 0 : CurrentUser.ID; }
+                { return CurrentUser == null ? 0 : CurrentUser.ID; }
             }
         }
         [ExcludeChar("/.,!#$%", ErrorMessage = "Password contains invalid letters")]
@@ -147,6 +147,12 @@ namespace HWdB.ViewModels
                 else
                 {
                     UserLogs.Instance.UserErrorLog("Deleted User : " + CurrentUser.UserName);
+                    var list = context.LtbDataSets.Where(l => l.CreatedBy == stored.UserName).ToList();
+                    foreach (var ltbdataset in list)
+                    {
+                        context.LtbDataSets.Remove(ltbdataset);
+                    }
+                    context.SaveChanges();
                     context.Users.Remove(stored);
                     context.SaveChanges();
                     User firstItem = context.Users.FirstOrDefault();
