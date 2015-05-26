@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A1860E
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LTBCalculation", "LTBCalculation\LTBCalculation.vdproj", "{8E9D19F9-5A97-498D-889A-6C29247CDC66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatingInstaller", "CreatingInstaller\CreatingInstaller.csproj", "{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,24 +68,6 @@ Global
 		{8E9D19F9-5A97-498D-889A-6C29247CDC66}.Release|x64.Build.0 = Release
 		{8E9D19F9-5A97-498D-889A-6C29247CDC66}.Release|x86.ActiveCfg = Release
 		{8E9D19F9-5A97-498D-889A-6C29247CDC66}.Release|x86.Build.0 = Release
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|ARM.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|Win32.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|Win32.Build.0 = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|x64.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|x86.ActiveCfg = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Debug|x86.Build.0 = Debug|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|Any CPU.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|ARM.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|Mixed Platforms.Build.0 = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|Win32.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|Win32.Build.0 = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|x64.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|x86.ActiveCfg = Release|x86
-		{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

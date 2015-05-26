@@ -33,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_01EAF6F8552C4169B2BCB395766DA234"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_09566F61C8466668AB86043AF72EBD21"
         "OwnerKey" = "8:_7800C25C01E74561B3E3CA79C1DFDE97"
         "MsmSig" = "8:_UNDEFINED"
@@ -309,12 +303,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C6D67F95B624486CAC5BCC34B42245C6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D0786AFF589DB0C04B3FAA7D9A3ED122"
         "OwnerKey" = "8:_7800C25C01E74561B3E3CA79C1DFDE97"
         "MsmSig" = "8:_UNDEFINED"
@@ -425,12 +413,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7800C25C01E74561B3E3CA79C1DFDE97"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6D67F95B624486CAC5BCC34B42245C6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -847,20 +829,6 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_45B56F6143874A809B3C9E66DCADF551"
-            {
-            "Name" = "8:Primary output from CreatingInstaller (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_C6D67F95B624486CAC5BCC34B42245C6"
-            "FileType" = "3:1"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_E34B509C_B25F_4F06_AF1D_A615D83594E9"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
         }
         "DefaultFeature"
         {
@@ -913,26 +881,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_01EAF6F8552C4169B2BCB395766DA234"
-            {
-            "SourcePath" = "8:..\\SqlLocalDB.MSI"
-            "TargetName" = "8:SqlLocalDB.MSI"
-            "Tag" = "8:"
-            "Folder" = "8:_71FF044152FA41FC819BC8BDB57594FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_09566F61C8466668AB86043AF72EBD21"
@@ -2784,7 +2732,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LTBCalculation"
         "ProductCode" = "8:{57AC2A33-96BA-40E0-B8BC-B3C41650B4B0}"
-        "PackageCode" = "8:{B86E73AF-3BE4-483E-90BB-3639FB00D854}"
+        "PackageCode" = "8:{49602CD9-EE6B-48F2-859F-BFD5903F4496}"
         "UpgradeCode" = "8:{95971F75-770B-4B80-A7DB-7BBDF2F0BFDC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3354,34 +3302,6 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{230F8542-BCC3-4F19-B937-F7A765570EC0}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C6D67F95B624486CAC5BCC34B42245C6"
-            {
-            "SourcePath" = "8:..\\CreatingInstaller\\obj\\x86\\Release\\CreatingInstaller.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_71FF044152FA41FC819BC8BDB57594FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{AF88ACAA-C7FB-411B-A750-DD60885E3DAC}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
