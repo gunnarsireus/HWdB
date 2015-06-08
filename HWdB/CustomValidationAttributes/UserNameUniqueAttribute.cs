@@ -20,7 +20,7 @@ namespace HWdB.CustomValidationAttributes
 
                 using (var context = new DataContext())
                 {
-                    User stored = context.Users.Where(a => (a.UserName == userName)).FirstOrDefault();
+                    User stored = context.Users.FirstOrDefault(a => (a.UserName == userName));
                     if (stored != null)
                     {
                         return new ValidationResult("Name already exists");

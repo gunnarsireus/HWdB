@@ -91,7 +91,7 @@ namespace HWdB.ViewModels
             {
                 if (LoggedInUser.Instance.UserLoggedin != null)
                 {
-                    User stored = context.Users.Where(a => (a.ID == LoggedInUser.Instance.UserLoggedin.ID)).FirstOrDefault();
+                    User stored = context.Users.FirstOrDefault(a => (a.ID == LoggedInUser.Instance.UserLoggedin.ID));
                     if (stored != null)
                     {
                         stored.LogedIn = false;
@@ -160,7 +160,7 @@ namespace HWdB.ViewModels
             string hash = PasswordEncoder.GetMd5Encoding(usernamePassword.Password);
             using (var context = new DataContext())
             {
-                User stored = context.Users.Where(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash)).FirstOrDefault();
+                User stored = context.Users.FirstOrDefault(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash));
                 if (stored == null || (stored.IsActive() == false))
                 {
                     UserLogs.Instance.UserErrorLog("ValidateUser() user " + usernamePassword.UserName + " not found or inactive");

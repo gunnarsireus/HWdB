@@ -138,7 +138,7 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                User stored = context.Users.Where(a => (a.UserName == CurrentUser.UserName)).FirstOrDefault();
+                User stored = context.Users.FirstOrDefault(a => (a.UserName == CurrentUser.UserName));
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find User : " + CurrentUser.UserName);
@@ -192,7 +192,7 @@ namespace HWdB.ViewModels
         {
             using (var context = new DataContext())
             {
-                User stored = context.Users.Where(a => (a.UserName == user.UserName)).FirstOrDefault();
+                User stored = context.Users.FirstOrDefault(a => (a.UserName == user.UserName));
                 if (stored == null)
                 {
                     if ((ShowPassword == null) || (ShowPassword.Trim() == ""))

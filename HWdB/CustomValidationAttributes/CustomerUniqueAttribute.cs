@@ -21,7 +21,7 @@ namespace HWdB.CustomValidationAttributes
 
                 using (var context = new DataContext())
                 {
-                    LtbDataSet stored = context.LtbDataSets.Where(a => ((a.Customer == customer) && (a.Version == version))).FirstOrDefault();
+                    LtbDataSet stored = context.LtbDataSets.FirstOrDefault(a => ((a.Customer == customer) && (a.Version == version)));
                     if (stored != null)
                     {
                         return new ValidationResult("Customer already exists");

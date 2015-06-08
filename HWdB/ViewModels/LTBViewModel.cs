@@ -147,7 +147,7 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                LtbDataSet stored = context.LtbDataSets.Where(a => (a.ID == CurrentLtbDataSet.ID)).FirstOrDefault();
+                LtbDataSet stored = context.LtbDataSets.FirstOrDefault(a => (a.ID == CurrentLtbDataSet.ID));
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
@@ -192,7 +192,7 @@ namespace HWdB.ViewModels
         {
             using (var context = new DataContext())
             {
-                LtbDataSet stored = context.LtbDataSets.Where(a => (a.Customer == ltbDataSet.Customer) && (a.Version == ltbDataSet.Version)).FirstOrDefault();
+                LtbDataSet stored = context.LtbDataSets.FirstOrDefault(a => (a.Customer == ltbDataSet.Customer) && (a.Version == ltbDataSet.Version));
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
