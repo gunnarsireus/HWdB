@@ -49,7 +49,7 @@ namespace HWdB.ViewModels
                         //PageViewModels.Add(new RepairViewModel());
                         //PageViewModels.Add(new SupplyViewModel());
                         //PageViewModels.Add(new StrategyViewModel());
-                        PageViewModels.Add(new LTBViewModel());
+                        PageViewModels.Add(new LtbViewModel());
                         PageViewModels.Add(new AdministrationViewModel());
                         CurrentPageViewModel = PageViewModels[1];
                     }
@@ -93,26 +93,15 @@ namespace HWdB.ViewModels
         {
             get
             {
-                if (_changePageCommand == null)
-                {
-                    _changePageCommand = new RelayCommand(
-                        p => ChangeViewModel((ViewModelBase)p),
-                        p => p is ViewModelBase);
-                }
-
-                return _changePageCommand;
+                return _changePageCommand ?? (_changePageCommand = new RelayCommand(
+                    p => ChangeViewModel((ViewModelBase)p),
+                    p => p is ViewModelBase));
             }
         }
 
         public ObservableCollection<ViewModelBase> PageViewModels
         {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new ObservableCollection<ViewModelBase>();
-
-                return _pageViewModels;
-            }
+            get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<ViewModelBase>()); }
         }
 
         public ViewModelBase CurrentPageViewModel
@@ -123,22 +112,18 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_currentPageViewModel != value)
-                {
-                    _currentPageViewModel = value;
-                    OnPropertyChanged("CurrentPageViewModel");
-                    if (value.ButtonName == "LTB")
-                    {
-                        var ltbViewModel = (LTBViewModel)PageViewModels[1];
-                        ltbViewModel.InitListBox();
-                    }
-                }
+                if (_currentPageViewModel == value) return;
+                _currentPageViewModel = value;
+                OnPropertyChanged("CurrentPageViewModel");
+                if (value.ButtonName != "LTB") return;
+                var ltbViewModel = (LtbViewModel)PageViewModels[1];
+                ltbViewModel.InitListBox();
             }
         }
 
         private void ChangeViewModel(ViewModelBase viewModel)
         {
-            if (viewModel.GetType().Equals(typeof(LoginViewModel)))
+            if (viewModel.GetType() == typeof(LoginViewModel))
             {
                 UserLoggedIn = false;
             }

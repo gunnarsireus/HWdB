@@ -11,20 +11,9 @@ namespace HWdB.ViewModels
             ButtonName = "";
         }
 
-        string _buttonName;
-        public virtual string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public virtual string ButtonName { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;

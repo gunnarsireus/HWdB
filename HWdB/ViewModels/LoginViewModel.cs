@@ -3,6 +3,7 @@ using HWdB.Model;
 using HWdB.Utils;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -23,7 +24,7 @@ namespace HWdB.ViewModels
             ButtonName = "Logout";
         }
 
-        private string _DbLocation;
+        private string _dbLocation;
 
         public ICommand LoginCommand
         {
@@ -56,13 +57,13 @@ namespace HWdB.ViewModels
         {
             get
             {
-                return _DbLocation;
+                return _dbLocation;
             }
             set
             {
-                if (_DbLocation != value)
+                if (_dbLocation != value)
                 {
-                    _DbLocation = value;
+                    _dbLocation = value;
                     OnPropertyChanged("DbLocation");
                 }
             }
@@ -85,7 +86,7 @@ namespace HWdB.ViewModels
             }
         }
 
-        private void Logout(object parameter)
+        private static void Logout(object parameter)
         {
             using (var context = new DataContext())
             {
@@ -103,7 +104,7 @@ namespace HWdB.ViewModels
             Application.Current.Shutdown();
         }
 
-        private string ConvertToUnsecureString(System.Security.SecureString securePassword)
+        private static string ConvertToUnsecureString(System.Security.SecureString securePassword)
         {
             if (securePassword == null)
             {
@@ -122,19 +123,8 @@ namespace HWdB.ViewModels
             }
         }
 
-        string _buttonName;
+        public override sealed string ButtonName { get; set; }
 
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
         public ObservableCollection<User> AllUsers
         {
             get;
@@ -160,7 +150,7 @@ namespace HWdB.ViewModels
             string hash = PasswordEncoder.GetMd5Encoding(usernamePassword.Password);
             using (var context = new DataContext())
             {
-                User stored = context.Users.FirstOrDefault(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash));
+                var stored = context.Users.FirstOrDefault(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash));
                 if (stored == null || (stored.IsActive() == false))
                 {
                     UserLogs.Instance.UserErrorLog("ValidateUser() user " + usernamePassword.UserName + " not found or inactive");
@@ -169,16 +159,13 @@ namespace HWdB.ViewModels
                     _applikationViewModel.Message(status.message);
                     return false;
                 }
-                else
-                {
-                    UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString());
-                    stored.LogedIn = true;
-                    stored.LastLogin = DateTime.Now.ToString();
-                    context.Entry(stored).State = System.Data.EntityState.Modified;
-                    context.SaveChanges();
-                    LoggedInUser.Instance.UserLoggedin = stored;
-                    return true;
-                }
+                UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                stored.LogedIn = true;
+                stored.LastLogin = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+                context.Entry(stored).State = System.Data.EntityState.Modified;
+                context.SaveChanges();
+                LoggedInUser.Instance.UserLoggedin = stored;
+                return true;
             }
         }
     }

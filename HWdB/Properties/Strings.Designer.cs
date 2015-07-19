@@ -61,11 +61,29 @@ namespace HWdB.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password contains invalid letters.
+        /// </summary>
+        internal static string AdministrationViewModel_ShowPassword_Password_contains_invalid_letters {
+            get {
+                return ResourceManager.GetString("AdministrationViewModel_ShowPassword_Password_contains_invalid_letters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute cannot be null..
+        /// </summary>
+        internal static string RelayCommand_RelayCommand_Execute_cannot_be_null_ {
+            get {
+                return ResourceManager.GetString("RelayCommand_RelayCommand_Execute_cannot_be_null_", resourceCulture);
             }
         }
         

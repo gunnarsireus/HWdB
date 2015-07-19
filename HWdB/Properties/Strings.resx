@@ -126,4 +126,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="AdministrationViewModel_ShowPassword_Password_contains_invalid_letters" xml:space="preserve">
+    <value>Password contains invalid letters</value>
+  </data>
+  <data name="RelayCommand_RelayCommand_Execute_cannot_be_null_" xml:space="preserve">
+    <value>Execute cannot be null.</value>
+  </data>
 </root>

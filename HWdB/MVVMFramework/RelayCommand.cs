@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HWdB.Properties;
+using System;
 using System.Windows.Input;
 
 namespace HWdB
@@ -18,7 +19,7 @@ namespace HWdB
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute", "Execute cannot be null.");
+                throw new ArgumentNullException("execute", Strings.RelayCommand_RelayCommand_Execute_cannot_be_null_);
             }
 
             _Execute = execute;
@@ -38,12 +39,7 @@ namespace HWdB
 
         public bool CanExecute(object parameter)
         {
-            if (_CanExecute == null)
-            {
-                return true;
-            }
-
-            return _CanExecute(parameter);
+            return _CanExecute == null || _CanExecute(parameter);
         }
     }
 }

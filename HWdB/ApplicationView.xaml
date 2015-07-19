@@ -33,7 +33,7 @@
         <DataTemplate DataType="{x:Type vm:StrategyViewModel}">
             <vw:StrategyView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LTBViewModel}">
+        <DataTemplate DataType="{x:Type vm:LtbViewModel}">
             <vw:LTBView/>
         </DataTemplate>
     </Window.Resources>

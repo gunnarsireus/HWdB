@@ -1,5 +1,6 @@
 ﻿using HWdB.DataAccess;
 using HWdB.Model;
+using HWdB.Properties;
 using HWdB.Utils;
 using MHWdB.CustomValidationAttributes;
 using System.Collections.ObjectModel;
@@ -11,21 +12,21 @@ namespace HWdB.ViewModels
 {
     class AdministrationViewModel : ViewModelBase
     {
-        public override string ButtonName { get; set; }
+        public override sealed string ButtonName { get; set; }
         public ObservableCollection<User> Users
         {
             get { return GetValue(() => Users); }
             set { SetValue(() => Users, value); InitListBox(); }
         }
 
-        public int UserID //Needed for PasswordMinLenghtOrEmptyAttribute validation
+        public int UserId //Needed for PasswordMinLenghtOrEmptyAttribute validation
         {
             get
             {
                 { return CurrentUser == null ? 0 : CurrentUser.ID; }
             }
         }
-        [ExcludeChar("/.,!#$%", ErrorMessage = "Password contains invalid letters")]
+        [ExcludeChar("/.,!#$%", ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = "AdministrationViewModel_ShowPassword_Password_contains_invalid_letters")]
         [PasswordMinLenghtOrEmpty(5)]
         public string ShowPassword
         {
@@ -83,7 +84,7 @@ namespace HWdB.ViewModels
 
         public AdministrationViewModel()
         {
-            this.ButtonName = "Administration";
+            ButtonName = "Administration";
             SaveCommand = new RelayCommand(Save);
             NewUserCommand = new RelayCommand(CreateNewCurrentUser);
             DeleteUserCommand = new RelayCommand(Delete);
