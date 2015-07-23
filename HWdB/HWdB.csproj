@@ -118,6 +118,7 @@
     <Compile Include="CustomValidationAttributes\RepairLeadTimeEOSLTBRangeAttribute.cs" />
     <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
+    <Compile Include="Model\HW.cs" />
     <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
     <Compile Include="Notification\PropertyChangeNotification.cs" />

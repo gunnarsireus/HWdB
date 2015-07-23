@@ -42,7 +42,7 @@ namespace HWdB.ViewModels
                     {
                         PageViewModels.Clear();
                         PageViewModels.Add(new LoginViewModel(this));
-                        //PageViewModels.Add(new ProductsViewModel());
+                        PageViewModels.Add(new ProductsViewModel());
                         //PageViewModels.Add(new ProductGroupsViewModel());
                         //PageViewModels.Add(new ExportViewModel());
                         //PageViewModels.Add(new ImportViewModel());
@@ -116,7 +116,7 @@ namespace HWdB.ViewModels
                 _currentPageViewModel = value;
                 OnPropertyChanged("CurrentPageViewModel");
                 if (value.ButtonName != "LTB") return;
-                var ltbViewModel = (LtbViewModel)PageViewModels[1];
+                var ltbViewModel = (LtbViewModel)PageViewModels[PageViewModels.Count - 2];
                 ltbViewModel.InitListBox();
             }
         }

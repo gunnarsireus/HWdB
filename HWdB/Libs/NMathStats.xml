@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>NMathStats</name>
@@ -3780,7 +3780,7 @@
         </member>
         <member name="T:CenterSpace.NMath.Stats.FO.SD">
             <summary>
-            Standard deviation statistics
+            HwNumber deviation statistics
             </summary>
         </member>
         <member name="M:CenterSpace.NMath.Stats.FO.SD.Statistics(System.Double[])">
@@ -7423,7 +7423,7 @@
             Gets the value of this parameter.
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.LinearRegressionParameter.StandardError">
+        <member name="P:CenterSpace.NMath.Stats.LinearRegressionParameter.HwNumberError">
             <summary>
             Gets the standard error of this parameter.
             </summary>
@@ -7694,7 +7694,7 @@
             <param name="factors">Input: The factor matrix.
             Output: The factor matrix with signs adjusted.</param>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.DoubleFactorAnalysis`2.StandardizeData(CenterSpace.NMath.Core.DoubleMatrix,CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.DoubleFactorAnalysis`2.HwNumberizeData(CenterSpace.NMath.Core.DoubleMatrix,CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Computes the standardized data - means 0 and variances 1.
             </summary>
@@ -7720,7 +7720,7 @@
             <param name="bias">The bias type.</param>
             <returns>Covariance as a symmetric matrix.</returns>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.DoubleFactorAnalysis`2.StandardizeData(CenterSpace.NMath.Core.DoubleMatrix,CenterSpace.NMath.Stats.BiasType,CenterSpace.NMath.Core.DoubleVector@,CenterSpace.NMath.Core.DoubleVector@)">
+        <member name="M:CenterSpace.NMath.Stats.DoubleFactorAnalysis`2.HwNumberizeData(CenterSpace.NMath.Core.DoubleMatrix,CenterSpace.NMath.Stats.BiasType,CenterSpace.NMath.Core.DoubleVector@,CenterSpace.NMath.Core.DoubleVector@)">
             <summary>
             Computes the standardized data - means 0 and variances 1.
             </summary>
@@ -8436,7 +8436,7 @@
             <c>number of samples - number of components - 1</c>.
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.PLS1Anova.StandardError">
+        <member name="P:CenterSpace.NMath.Stats.PLS1Anova.HwNumberError">
             <summary>
             Gets the standard error for the model. This is the square root of
             the residual sum of squares divided by the degrees of freedom for 
@@ -8471,7 +8471,7 @@
             mean and standard deviation.
             </summary>
             <param name="mu">Mean of the logarithm of self.</param>
-            <param name="sigma">Standard deviation of the logarithm of self.</param>
+            <param name="sigma">HwNumber deviation of the logarithm of self.</param>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">Thrown if sigma is 
             negative.</exception>
         </member>
@@ -10919,13 +10919,13 @@
             case data being analyzed.
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.FactorAnalysisCorrelation`2.StandardDeviations">
+        <member name="P:CenterSpace.NMath.Stats.FactorAnalysisCorrelation`2.HwNumberDeviations">
             <summary>
             Gets the vector of variable standard deviations. This is 
             the column standard deviations of the case data being analyzed.
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.FactorAnalysisCorrelation`2.StandardizedCaseData">
+        <member name="P:CenterSpace.NMath.Stats.FactorAnalysisCorrelation`2.HwNumberizedCaseData">
             <summary>
             Gets the case data standardized to have zero mean and unit variance.
             </summary>
@@ -11892,7 +11892,7 @@
             of the standard deviations of the principal components. 
             </remarks>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.FloatPCA.StandardDeviations">
+        <member name="P:CenterSpace.NMath.Stats.FloatPCA.HwNumberDeviations">
             <summary>
             Gets the standard deviations of the principal components.
             </summary>
@@ -13474,7 +13474,7 @@
             model degrees of freedom.
             </remarks>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.GoodnessOfFit.ResidualStandardError">
+        <member name="P:CenterSpace.NMath.Stats.GoodnessOfFit.ResidualHwNumberError">
             <summary>
             Gets the residual standard error.
             </summary>
@@ -21375,14 +21375,14 @@
         </member>
         <member name="M:CenterSpace.NMath.Stats.StatsFunctions.Cronbach(CenterSpace.NMath.Core.FloatMatrix)">
             <summary>
-            Standardized Cronbach alpha test for reliability.
+            HwNumberized Cronbach alpha test for reliability.
             </summary>
             <param name="M">Data.</param>
             <returns>Cronbach's alpha.</returns>
         </member>
         <member name="M:CenterSpace.NMath.Stats.StatsFunctions.Cronbach(CenterSpace.NMath.Core.DoubleMatrix)">
             <summary>
-            Standardized Cronbach alpha test for reliability.
+            HwNumberized Cronbach alpha test for reliability.
             </summary>
             <param name="M">Data.</param>
             <returns>Cronbach's alpha.</returns>
@@ -23468,159 +23468,159 @@
             Thrown if <c>data</c> is not numeric.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(CenterSpace.NMath.Core.DoubleVector)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(CenterSpace.NMath.Core.DoubleVector)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set.
             </summary>
             <param name="data">A vector.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(System.Double[])">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(System.Double[])">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set.
             </summary>
             <param name="data">An array of doubles.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(System.Int32[])">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(System.Int32[])">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set.
             </summary>
             <param name="data">An array of integers.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(CenterSpace.NMath.Stats.IDFColumn)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(CenterSpace.NMath.Stats.IDFColumn)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set.
             </summary>
             <param name="data">A column.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> is not numeric or has length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(CenterSpace.NMath.Core.DoubleVector)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(CenterSpace.NMath.Core.DoubleVector)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             excluding NaN values.
             </summary>
             <param name="data">A vector.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(System.Double[])">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(System.Double[])">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             excluding NaN values.
             </summary>
             <param name="data">An array of doubles.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(CenterSpace.NMath.Stats.IDFColumn)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(CenterSpace.NMath.Stats.IDFColumn)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             excluding missing values.
             </summary>
             <param name="data">A column.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> is not numeric or has length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(CenterSpace.NMath.Core.DoubleVector,CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(CenterSpace.NMath.Core.DoubleVector,CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias.
             </summary>
             <param name="data">A vector.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(System.Double[],CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(System.Double[],CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias.
             </summary>
             <param name="data">An array of doubles.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(System.Int32[],CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(System.Int32[],CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias.
             </summary>
             <param name="data">An array of integers.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.StandardDeviation(CenterSpace.NMath.Stats.IDFColumn,CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.HwNumberDeviation(CenterSpace.NMath.Stats.IDFColumn,CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias.
             </summary>
             <param name="data">A column.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> is not numeric or has length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(CenterSpace.NMath.Core.DoubleVector,CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(CenterSpace.NMath.Core.DoubleVector,CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias and excluding NaN values.
             </summary>
             <param name="data">A vector.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(System.Double[],CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(System.Double[],CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias and excluding NaN values.
             </summary>
             <param name="data">An array of doubles.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> has a length of zero.
             </exception>
         </member>
-        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNStandardDeviation(CenterSpace.NMath.Stats.IDFColumn,CenterSpace.NMath.Stats.BiasType)">
+        <member name="M:CenterSpace.NMath.Stats.StatsFunctions.NaNHwNumberDeviation(CenterSpace.NMath.Stats.IDFColumn,CenterSpace.NMath.Stats.BiasType)">
             <summary>
             Calculates the biased standard deviation of the elements in the given data set,
             using the specified bias and excluding missing values.
             </summary>
             <param name="data">A column.</param>
             <param name="type">Bias type.</param>
-            <returns>Standard deviation.</returns>
+            <returns>HwNumber deviation.</returns>
             <exception cref="T:CenterSpace.NMath.Core.InvalidArgumentException">
             Thrown if <c>data</c> is not numeric or has length of zero.
             </exception>
@@ -26982,7 +26982,7 @@
             Gets the value of this parameter.
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.GoodnessOfFitParameter.StandardError">
+        <member name="P:CenterSpace.NMath.Stats.GoodnessOfFitParameter.HwNumberError">
             <summary>
             Gets the standard error of this parameter.
             </summary>
@@ -28309,7 +28309,7 @@
             of the standard deviations of the principal components. 
             </remarks>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.DoublePCA.StandardDeviations">
+        <member name="P:CenterSpace.NMath.Stats.DoublePCA.HwNumberDeviations">
             <summary>
             Gets the standard deviations of the principal components.
             </summary>
@@ -30629,7 +30629,7 @@
         </member>
         <member name="T:CenterSpace.NMath.Stats.TDistribution">
             <summary>
-            Class TDistribution represents Student's t-distribution with the specified
+            Class TDistribution represents HwVersion's t-distribution with the specified
             degrees of freedom.
             </summary>
             <remarks>
@@ -33066,7 +33066,7 @@
             <code>number of samples - number of components - 1</code>
             </summary>
         </member>
-        <member name="P:CenterSpace.NMath.Stats.PLS2Anova.StandardError">
+        <member name="P:CenterSpace.NMath.Stats.PLS2Anova.HwNumberError">
             <summary>
             Gets the standard error for the model. This is the square root of
             the residual sum of squares divided by the degrees of freedom for 

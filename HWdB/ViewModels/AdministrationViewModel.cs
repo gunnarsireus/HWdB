@@ -214,7 +214,7 @@ namespace HWdB.ViewModels
                 {
                     UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
                     user.ID = stored.ID;
-                    if (ShowPassword != null && ShowPassword != "")
+                    if (!string.IsNullOrEmpty(ShowPassword))
                     {
                         string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                         user.Password = hash;

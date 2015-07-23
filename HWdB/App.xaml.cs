@@ -1,6 +1,4 @@
-﻿using HWdB.DataAccess;
-using HWdB.ViewModels;
-using Microsoft.Win32;
+﻿using HWdB.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -29,22 +27,22 @@ namespace HWdB
 
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("de-DE");
-            XmlLanguage lang = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
+            var lang = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(lang));
             FrameworkContentElement.LanguageProperty.OverrideMetadata(typeof(System.Windows.Documents.TextElement), new FrameworkPropertyMetadata(lang));
 
             AppDomain.CurrentDomain.SetData("DataDirectory", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-            using (RegistryKey Key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\11.0"))
-                if (Key == null)
-                {
-                    MessageBox.Show("LocalDb missing. Please install MS SQL Server 2012 Express: https://www.microsoft.com/en-us/download/details.aspx?id=29062");
-                    Application.Current.Shutdown();
-                }
-            using (var db = new DataContext())
-            {
-                db.Database.CreateIfNotExists();
-            }
+            //using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\11.0"))
+            //    if (key == null)
+            //    {
+            //        MessageBox.Show("LocalDb missing. Please install MS SQL Server 2012 Express: https://www.microsoft.com/en-us/download/details.aspx?id=29062");
+            //        Application.Current.Shutdown();
+            //    }
+            //using (var db = new DataContext())
+            //{
+            //    db.Database.CreateIfNotExists();
+            //}
             base.OnStartup(e);
             ApplicationView app = new ApplicationView();
             ApplicationViewModel context = new ApplicationViewModel();

@@ -35,8 +35,9 @@
                     <RowDefinition Height="20" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="10" />
-                    <RowDefinition Height="220" />
-				</Grid.RowDefinitions>
+                    <RowDefinition Height="190" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="200"/>
 					<ColumnDefinition Width="100"/>
@@ -58,17 +59,19 @@
                     <TextBlock  Grid.Row="0"  Grid.Column="2" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Version"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                     <TextBlock  Grid.Row="0"  Grid.Column="4" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Created By"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                 </Grid>
-				<Border BorderBrush='Black'  BorderThickness='0,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
+				<Border BorderBrush='Black'  BorderThickness='1,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
                 <Grid Row ="0" Column="0">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="0" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="Stored Data Sets" FontSize="10" FontWeight="Bold"/>
-                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2">
+                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,5">
                     <ListBox  Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSets}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="190" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
-				</StackPanel>
-			</Grid>
+                </StackPanel>
+                <Button  Command="{Binding Next}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
+                <Button  Command="{Binding Previous}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
+            </Grid>
 		</Viewbox>
 		<Viewbox Stretch="Uniform">
 			<Grid Height="250">
@@ -667,7 +670,7 @@
                 <Button  Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="14" Grid.Column="9" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Delete</Button>
 			</Grid>
 		</Viewbox>
-		<Viewbox Stretch="Uniform">
+		<Viewbox Stretch="Uniform" Margin="10,0,-10,0">
 			<Grid Height="250" DataContext="{Binding CurrentLtbDataSet}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="20"/>
@@ -682,11 +685,11 @@
 					<RowDefinition Height="14"/>
 					<RowDefinition Height="190"/>
 				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
-					<ColumnDefinition Width="300"/>
-				</Grid.ColumnDefinitions>
-				<Image Name="Chart" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="10" Source="{Binding LtbChart}" Width="500" Height="85"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Image Name="Chart" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="10" Source="{Binding LtbChart}" Width="500" Height="85"/>
 			</Grid>
 		</Viewbox>
 	</Grid>
