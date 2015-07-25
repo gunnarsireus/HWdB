@@ -27,7 +27,7 @@ namespace HWdB.Model
             GetChart();
         }
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string CreatedBy { get; set; }
         [MaxLength(100, ErrorMessage = "Customer exceeded 100 letters")]
         [ExcludeChar("/.,!@#$%", ErrorMessage = "Name contains invalid letters")]
@@ -647,7 +647,7 @@ namespace HWdB.Model
         public void Clone(LtbDataSet that)
         {
             Customer = that.Customer;
-            ID = that.ID;
+            Id = that.Id;
             CreatedBy = that.CreatedBy;
             Version = that.Version;
             Saved = that.Saved;

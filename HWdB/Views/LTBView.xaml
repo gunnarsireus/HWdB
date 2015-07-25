@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:utils="clr-namespace:HWdB.Utils"
 			 xmlns:local="clr-namespace:HWdB"
+			 xmlns:viewModels="clr-namespace:HWdB.ViewModels"
 			 Height="600"
 			 Width="1200"
 		Background="WhiteSmoke"
@@ -16,7 +17,7 @@
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 		<utils:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
 	</UserControl.Resources>
-    <Grid  >
+    <Grid>
         <Grid.Resources>
 			<DataTemplate x:Key="listBoxTemplate"  >
                 <StackPanel FlowDirection="LeftToRight" >
@@ -30,8 +31,8 @@
 			</DataTemplate>
 		</Grid.Resources>
         <Viewbox Stretch="Uniform"  >
-			<Grid Height="250">
-				<Grid.RowDefinitions>
+            <Grid Height="250" >
+                <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="10" />
@@ -67,10 +68,10 @@
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="0" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="Stored Data Sets" FontSize="10" FontWeight="Bold"/>
                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,5">
-                    <ListBox  Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSets}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="190" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
+                    <ListBox SelectionMode="Single"  Focusable="True" IsSynchronizedWithCurrentItem="True" Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSetsObs}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  SelectedValue ="{Binding SelectedValue}" SelectedValuePath="Id"  Height="200" Width="190" />
                 </StackPanel>
-                <Button  Command="{Binding Next}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
-                <Button  Command="{Binding Previous}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
+                <Button  Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
+                <Button  Command="{Binding PreviousCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
             </Grid>
 		</Viewbox>
 		<Viewbox Stretch="Uniform">

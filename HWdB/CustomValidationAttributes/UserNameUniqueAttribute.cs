@@ -14,7 +14,7 @@ namespace HWdB.CustomValidationAttributes
             {
                 string userName = (string)value;
 
-                int userId = (int)validationContext.ObjectType.GetProperty("ID").GetValue(validationContext.ObjectInstance, null);
+                int userId = (int)validationContext.ObjectType.GetProperty("Id").GetValue(validationContext.ObjectInstance, null);
 
                 if (userId > 0) return ValidationResult.Success;
 

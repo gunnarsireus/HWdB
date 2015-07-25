@@ -15,7 +15,7 @@ namespace HWdB.CustomValidationAttributes
                 string customer = (string)value;
                 string version = (string)validationContext.ObjectType.GetProperty("Version").GetValue(validationContext.ObjectInstance, null);
 
-                int dataSetId = (int)validationContext.ObjectType.GetProperty("ID").GetValue(validationContext.ObjectInstance, null);
+                int dataSetId = (int)validationContext.ObjectType.GetProperty("Id").GetValue(validationContext.ObjectInstance, null);
 
                 if (dataSetId > 0) return ValidationResult.Success;
 

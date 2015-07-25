@@ -7,7 +7,7 @@ namespace HWdB.Model
     {
         bool loopOk;
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [RegularExpression(@"^[a-z0-9_\-]+$", ErrorMessage = "Only lower case letters, no spaces")]
         [UserNameUniqueAttribute]
@@ -68,7 +68,7 @@ namespace HWdB.Model
         public void Clone(User that)
         {
             base.Clone(that);
-            this.ID = that.ID;
+            this.Id = that.Id;
             this.Password = that.Password;
             this.LastLogin = that.LastLogin;
             this.UserName = that.UserName;

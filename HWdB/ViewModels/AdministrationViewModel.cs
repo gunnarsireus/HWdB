@@ -23,7 +23,7 @@ namespace HWdB.ViewModels
         {
             get
             {
-                { return CurrentUser == null ? 0 : CurrentUser.ID; }
+                { return CurrentUser == null ? 0 : CurrentUser.Id; }
             }
         }
         [ExcludeChar("/.,!#$%", ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = "AdministrationViewModel_ShowPassword_Password_contains_invalid_letters")]
@@ -119,12 +119,12 @@ namespace HWdB.ViewModels
 
         private static bool CurrentUserWasNotNull(User tmp)
         {
-            return tmp.ID > 0;
+            return tmp.Id > 0;
         }
 
         private void Delete(object parameter)
         {
-            if (CurrentUser.ID == 0)
+            if (CurrentUser.Id == 0)
             {
                 System.Windows.MessageBox.Show("Cannot delete unsaved data");
                 return;
@@ -213,7 +213,7 @@ namespace HWdB.ViewModels
                 else
                 {
                     UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
-                    user.ID = stored.ID;
+                    user.Id = stored.Id;
                     if (!string.IsNullOrEmpty(ShowPassword))
                     {
                         string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);

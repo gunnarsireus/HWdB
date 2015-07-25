@@ -92,7 +92,7 @@ namespace HWdB.ViewModels
             {
                 if (LoggedInUser.Instance.UserLoggedin != null)
                 {
-                    User stored = context.Users.FirstOrDefault(a => (a.ID == LoggedInUser.Instance.UserLoggedin.ID));
+                    User stored = context.Users.FirstOrDefault(a => (a.Id == LoggedInUser.Instance.UserLoggedin.Id));
                     if (stored != null)
                     {
                         stored.LogedIn = false;

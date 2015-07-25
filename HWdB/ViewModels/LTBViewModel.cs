@@ -12,10 +12,10 @@ namespace HWdB.ViewModels
     class LtbViewModel : ViewModelBase
     {
         public override sealed string ButtonName { get; set; }
-        public ObservableCollection<LtbDataSet> LtbDataSets
+        public ObservableCollection<LtbDataSet> LtbDataSetsObs
         {
-            get { return GetValue(() => LtbDataSets); }
-            set { SetValue(() => LtbDataSets, value); InitListBox(); }
+            get { return GetValue(() => LtbDataSetsObs); }
+            set { SetValue(() => LtbDataSetsObs, value); InitListBox(); }
         }
 
         LtbDataSet _currentLtbDataSet;
@@ -29,6 +29,7 @@ namespace HWdB.ViewModels
             {
                 if (_currentLtbDataSet == value) return;
                 _currentLtbDataSet = value;
+                SelectedValue = _currentLtbDataSet.Id;
                 OnPropertyChanged("CurrentLtbDataSet");
                 OnPropertyChanged("RepairIsPossible");
                 OnPropertyChanged("RepairNotPossible");
@@ -43,9 +44,29 @@ namespace HWdB.ViewModels
             {
                 SetValue(() => SelectedListBoxItem, value);
                 CurrentLtbDataSet = value;
+                SelectedValue = CurrentLtbDataSet.Id;
             }
         }
 
+        public int SelectedValue
+        {
+            get { return GetValue(() => SelectedValue); }
+            set
+            {
+                SetValue(() => SelectedValue, value);
+            }
+        }
+
+        public ICommand NextCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand PreviousCommand
+        {
+            get;
+            private set;
+        }
         public ICommand CalculateCommand
         {
             get;
@@ -97,30 +118,28 @@ namespace HWdB.ViewModels
             ClearCommand = new RelayCommand(ClearResultChartErrors);
             NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);
             DeleteCommand = new RelayCommand(Delete);
+            NextCommand = new RelayCommand(Next);
+            PreviousCommand = new RelayCommand(Previous);
             InitListBox();
-            if (LtbDataSets.Any())
+            if (LtbDataSetsObs.Any())
             {
-                CurrentLtbDataSet = LtbDataSets[0];
+                CurrentLtbDataSet = LtbDataSetsObs[0];
             }
             else
             {
                 CreateNewCurrentLtbDataSet(new object());
             }
             CurrentLtbDataSet.InitLabels();
-
         }
-
         public void InitListBox()
         {
             var tmp = new LtbDataSet();
             if (CurrentLtbDataSet != null) { tmp.Clone(CurrentLtbDataSet); }
             using (var context = new DataContext())
             {
-                if (LtbDataSets == null) LtbDataSets = new ObservableCollection<LtbDataSet>();
-                LtbDataSets.Clear();
-                {
-                    context.LtbDataSets.ToList().ForEach(i => LtbDataSets.Add(i));
-                }
+                if (LtbDataSetsObs == null) LtbDataSetsObs = new ObservableCollection<LtbDataSet>();
+                LtbDataSetsObs.Clear();
+                context.LtbDataSets.ToList().ForEach(i => LtbDataSetsObs.Add(i));
             }
             if (CurrentLtbDataSetWasNotNull(tmp))
             {
@@ -130,12 +149,61 @@ namespace HWdB.ViewModels
 
         private static bool CurrentLtbDataSetWasNotNull(LtbDataSet tmp)
         {
-            return tmp.ID > 0;
+            return tmp.Id > 0;
+        }
+
+        private void Next(object parameter)
+        {
+            if (LtbDataSetsObs.Count > 1)
+            {
+                if (CurrentLtbDataSet.Id == LtbDataSetsObs[LtbDataSetsObs.Count - 1].Id)
+                {
+                    CurrentLtbDataSet = LtbDataSetsObs[0];
+                    return;
+                }
+                var found = false;
+                foreach (var item in LtbDataSetsObs)
+                {
+                    if (found)
+                    {
+                        CurrentLtbDataSet = item;
+                        break;
+                    }
+                    if (item.Id == CurrentLtbDataSet.Id)
+                    {
+                        found = true;
+                    }
+                }
+            }
+        }
+        private void Previous(object parameter)
+        {
+            if (LtbDataSetsObs.Count > 1)
+            {
+                if (CurrentLtbDataSet.Id == LtbDataSetsObs[0].Id)
+                {
+                    CurrentLtbDataSet = LtbDataSetsObs[LtbDataSetsObs.Count - 1];
+                    return;
+                }
+                var found = false;
+                foreach (var item in LtbDataSetsObs.Reverse())
+                {
+                    if (found)
+                    {
+                        CurrentLtbDataSet = item;
+                        break;
+                    }
+                    if (item.Id == CurrentLtbDataSet.Id)
+                    {
+                        found = true;
+                    }
+                }
+            }
         }
 
         private void Delete(object parameter)
         {
-            if (CurrentLtbDataSet.ID == 0)
+            if (CurrentLtbDataSet.Id == 0)
             {
                 MessageBox.Show("Cannot delete unsaved data");
                 return;
@@ -145,7 +213,7 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                var stored = context.LtbDataSets.FirstOrDefault(a => (a.ID == CurrentLtbDataSet.ID));
+                var stored = context.LtbDataSets.FirstOrDefault(a => (a.Id == CurrentLtbDataSet.Id));
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
@@ -164,7 +232,6 @@ namespace HWdB.ViewModels
                 {
                     CurrentLtbDataSet = firstItem;
                 }
-
                 InitListBox();
             }
         }
@@ -199,7 +266,7 @@ namespace HWdB.ViewModels
                 else
                 {
                     UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
-                    ltbDataSet.ID = stored.ID;
+                    ltbDataSet.Id = stored.Id;
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.Entry(stored).CurrentValues.SetValues(ltbDataSet);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
