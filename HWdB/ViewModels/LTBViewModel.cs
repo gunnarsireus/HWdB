@@ -29,7 +29,6 @@ namespace HWdB.ViewModels
             {
                 if (_currentLtbDataSet == value) return;
                 _currentLtbDataSet = value;
-                SelectedValue = _currentLtbDataSet.Id;
                 OnPropertyChanged("CurrentLtbDataSet");
                 OnPropertyChanged("RepairIsPossible");
                 OnPropertyChanged("RepairNotPossible");
@@ -44,16 +43,15 @@ namespace HWdB.ViewModels
             {
                 SetValue(() => SelectedListBoxItem, value);
                 CurrentLtbDataSet = value;
-                SelectedValue = CurrentLtbDataSet.Id;
             }
         }
 
-        public int SelectedValue
+        public int SelectedIndex
         {
-            get { return GetValue(() => SelectedValue); }
+            get { return GetValue(() => SelectedIndex); }
             set
             {
-                SetValue(() => SelectedValue, value);
+                SetValue(() => SelectedIndex, value);
             }
         }
 
@@ -156,48 +154,20 @@ namespace HWdB.ViewModels
         {
             if (LtbDataSetsObs.Count > 1)
             {
-                if (CurrentLtbDataSet.Id == LtbDataSetsObs[LtbDataSetsObs.Count - 1].Id)
-                {
-                    CurrentLtbDataSet = LtbDataSetsObs[0];
-                    return;
-                }
-                var found = false;
-                foreach (var item in LtbDataSetsObs)
-                {
-                    if (found)
-                    {
-                        CurrentLtbDataSet = item;
-                        break;
-                    }
-                    if (item.Id == CurrentLtbDataSet.Id)
-                    {
-                        found = true;
-                    }
-                }
+                SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
+                CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
             }
         }
         private void Previous(object parameter)
         {
             if (LtbDataSetsObs.Count > 1)
             {
-                if (CurrentLtbDataSet.Id == LtbDataSetsObs[0].Id)
+                SelectedIndex = (SelectedIndex - 1);
+                if (SelectedIndex < 0)
                 {
-                    CurrentLtbDataSet = LtbDataSetsObs[LtbDataSetsObs.Count - 1];
-                    return;
+                    SelectedIndex = LtbDataSetsObs.Count - 1;
                 }
-                var found = false;
-                foreach (var item in LtbDataSetsObs.Reverse())
-                {
-                    if (found)
-                    {
-                        CurrentLtbDataSet = item;
-                        break;
-                    }
-                    if (item.Id == CurrentLtbDataSet.Id)
-                    {
-                        found = true;
-                    }
-                }
+                CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
             }
         }
 

@@ -62,7 +62,7 @@
                     </PasswordBox.InputBindings>
                 </PasswordBox>
                 <Button Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=This}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="5,10,10,10" Background="WhiteSmoke" HorizontalAlignment="Left"   FontSize="7" FontWeight="Bold" Style="{DynamicResource ButtonStyler}" >Login</Button>
-                <Button  Command="{Binding LogoutCommand}"  Grid.Row="4" Grid.Column="2"  Width="44" Margin="10,10,5,10" Background="WhiteSmoke" HorizontalAlignment="Right"  FontSize="7" FontWeight="Bold" Style="{DynamicResource ButtonStyler}">Exit HWdB</Button>
+                <Button Command="{Binding LogoutCommand}" Grid.Row="4" Grid.Column="2"  Width="44" Margin="10,10,5,10" Background="WhiteSmoke" HorizontalAlignment="Right"  FontSize="7" FontWeight="Bold" Style="{DynamicResource ButtonStyler}">Exit HWdB</Button>
             </Grid>
         </Viewbox>
         <Grid>
