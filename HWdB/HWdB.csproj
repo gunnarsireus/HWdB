@@ -124,6 +124,7 @@
     <Compile Include="Notification\PropertyChangeNotification.cs" />
     <Compile Include="CustomValidationAttributes\EOSDateWithinRangeAttribute.cs" />
     <Compile Include="CustomValidationAttributes\LTBDateWithinRangeAttribute.cs" />
+    <Compile Include="Utils\BooleanToForegroundConverter.cs" />
     <Compile Include="Utils\LoggedInUser.cs" />
     <Compile Include="Utils\DateTimeUtil.cs" />
     <Compile Include="Utils\UIServices.cs" />

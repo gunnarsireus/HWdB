@@ -154,20 +154,24 @@ namespace HWdB.ViewModels
         {
             if (LtbDataSetsObs.Count > 1)
             {
+                CurrentLtbDataSet.IsSelected = false;
                 SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
                 CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
+                CurrentLtbDataSet.IsSelected = true;
             }
         }
         private void Previous(object parameter)
         {
             if (LtbDataSetsObs.Count > 1)
             {
+                CurrentLtbDataSet.IsSelected = false;
                 SelectedIndex = (SelectedIndex - 1);
                 if (SelectedIndex < 0)
                 {
                     SelectedIndex = LtbDataSetsObs.Count - 1;
                 }
                 CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
+                CurrentLtbDataSet.IsSelected = true;
             }
         }
 

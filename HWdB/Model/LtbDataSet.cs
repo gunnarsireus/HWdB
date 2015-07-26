@@ -26,7 +26,12 @@ namespace HWdB.Model
             ClearChartData();
             GetChart();
         }
-        [Key]
+        [NotMapped]
+        public bool IsSelected
+        {
+            get { return GetValue(() => IsSelected); }
+            set { SetValue(() => IsSelected, value); }
+        }
         public int Id { get; set; }
         public string CreatedBy { get; set; }
         [MaxLength(100, ErrorMessage = "Customer exceeded 100 letters")]
