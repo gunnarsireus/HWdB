@@ -11,10 +11,10 @@ namespace HWdB.Utils
         {
             // Always test MultiValueConverter inputs for non-null
             // (to avoid crash bugs for views in the designer)
-            if (!(value is bool)) return Brushes.Black;
-            if ((bool)value) return Brushes.Red;
+            if (!(value is bool)) return Brushes.Transparent;
+            if ((bool)value) return Brushes.DeepSkyBlue;
 
-            return Brushes.Black;
+            return Brushes.Transparent;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

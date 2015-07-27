@@ -28,7 +28,12 @@ namespace HWdB.ViewModels
             set
             {
                 if (_currentLtbDataSet == value) return;
+                if (_currentLtbDataSet != null)
+                {
+                    _currentLtbDataSet.IsSelected = false;
+                }
                 _currentLtbDataSet = value;
+                _currentLtbDataSet.IsSelected = true;
                 OnPropertyChanged("CurrentLtbDataSet");
                 OnPropertyChanged("RepairIsPossible");
                 OnPropertyChanged("RepairNotPossible");
@@ -131,48 +136,29 @@ namespace HWdB.ViewModels
         }
         public void InitListBox()
         {
-            var tmp = new LtbDataSet();
-            if (CurrentLtbDataSet != null) { tmp.Clone(CurrentLtbDataSet); }
             using (var context = new DataContext())
             {
                 if (LtbDataSetsObs == null) LtbDataSetsObs = new ObservableCollection<LtbDataSet>();
                 LtbDataSetsObs.Clear();
                 context.LtbDataSets.ToList().ForEach(i => LtbDataSetsObs.Add(i));
             }
-            if (CurrentLtbDataSetWasNotNull(tmp))
-            {
-                CurrentLtbDataSet = tmp;  //Restore old value, if existed
-            }
-        }
-
-        private static bool CurrentLtbDataSetWasNotNull(LtbDataSet tmp)
-        {
-            return tmp.Id > 0;
         }
 
         private void Next(object parameter)
         {
-            if (LtbDataSetsObs.Count > 1)
-            {
-                CurrentLtbDataSet.IsSelected = false;
-                SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
-                CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
-                CurrentLtbDataSet.IsSelected = true;
-            }
+            if (LtbDataSetsObs.Count <= 1) return;
+            SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
+            CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
         }
         private void Previous(object parameter)
         {
-            if (LtbDataSetsObs.Count > 1)
+            if (LtbDataSetsObs.Count <= 1) return;
+            SelectedIndex = (SelectedIndex - 1);
+            if (SelectedIndex < 0)
             {
-                CurrentLtbDataSet.IsSelected = false;
-                SelectedIndex = (SelectedIndex - 1);
-                if (SelectedIndex < 0)
-                {
-                    SelectedIndex = LtbDataSetsObs.Count - 1;
-                }
-                CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
-                CurrentLtbDataSet.IsSelected = true;
+                SelectedIndex = LtbDataSetsObs.Count - 1;
             }
+            CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
         }
 
         private void Delete(object parameter)
@@ -207,6 +193,11 @@ namespace HWdB.ViewModels
                     CurrentLtbDataSet = firstItem;
                 }
                 InitListBox();
+                if (LtbDataSetsObs.Any())
+                {
+                    CurrentLtbDataSet = LtbDataSetsObs[0];
+                    SelectedIndex = 0;
+                }
             }
         }
         private void Calculate(object parameter)

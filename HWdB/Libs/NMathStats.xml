@@ -15801,7 +15801,7 @@
             Class NMFact performs non-negative matrix factorization.
             </summary>
             <remarks>
-            Users can choose the number of iterations, whether the cost
+            UsersObs can choose the number of iterations, whether the cost
             is computed at each step, and the update algorithm.
             </remarks>
         </member>

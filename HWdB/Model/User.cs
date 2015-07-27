@@ -1,13 +1,22 @@
 ﻿using HWdB.CustomValidationAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HWdB.Model
 {
     public class User : BaseActivatable
     {
-        bool loopOk;
-        [Key]
+        bool _loopOk;
+
         public int Id { get; set; }
+
+        [NotMapped]
+        public bool IsSelected
+        {
+            get { return GetValue(() => IsSelected); }
+            set { SetValue(() => IsSelected, value); }
+        }
 
         [RegularExpression(@"^[a-z0-9_\-]+$", ErrorMessage = "Only lower case letters, no spaces")]
         [UserNameUniqueAttribute]
@@ -16,9 +25,9 @@ namespace HWdB.Model
             get { return GetValue(() => UserName); }
             set
             {
-                loopOk = (value != UserName);
+                _loopOk = (value != UserName);
                 SetValue(() => UserName, value);
-                if (loopOk)
+                if (_loopOk)
                 {
                     Password = Password;
                 }
@@ -30,9 +39,9 @@ namespace HWdB.Model
             get { return GetValue(() => Password); }
             set
             {
-                loopOk = (value != Password);
+                _loopOk = (value != Password);
                 SetValue(() => Password, value);
-                if (loopOk)
+                if (_loopOk)
                 {
                     UserName = UserName;
                 }

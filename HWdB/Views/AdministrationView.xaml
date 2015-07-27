@@ -11,19 +11,16 @@
 		HorizontalAlignment="Stretch" 
 		VerticalAlignment="Stretch">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
-        <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <utils:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
+        <utils:BooleanToForegroundConverter x:Key="BooleanToForegroundConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="listBoxTemplate">
                 <StackPanel FlowDirection="LeftToRight" >
                     <DockPanel>
-                        <TextBlock FontSize="4" Width="65"  Text="{Binding UserName}" HorizontalAlignment="Left" FontWeight="Bold" />
-                        <TextBlock FontSize="4" Width="30" Text="{Binding Rights}" HorizontalAlignment="Left" FontWeight="Bold" />
-                        <TextBlock FontSize="4" Width="35" Text="{Binding LastLogin}" HorizontalAlignment="Left"  FontWeight="Bold" />
+                        <TextBlock FontSize="4" Width="65"  Text="{Binding UserName}" HorizontalAlignment="Left" FontWeight="Bold"  Background="{Binding IsSelected, Converter={StaticResource BooleanToForegroundConverter}}" />
+                        <TextBlock FontSize="4" Width="30" Text="{Binding Rights}" HorizontalAlignment="Left" FontWeight="Bold"  Background="{Binding IsSelected, Converter={StaticResource BooleanToForegroundConverter}}"  />
+                        <TextBlock FontSize="4" Width="35" Text="{Binding LastLogin}" HorizontalAlignment="Left"  FontWeight="Bold"  Background="{Binding IsSelected, Converter={StaticResource BooleanToForegroundConverter}}" />
                     </DockPanel>
                 </StackPanel>
             </DataTemplate>
@@ -34,7 +31,8 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="190" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
@@ -57,16 +55,18 @@
                     <TextBlock Grid.Row="0"  Grid.Column="2" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Rights" Width="30" FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                     <TextBlock Grid.Row="0"  Grid.Column="3" Padding="0,0,0,0"  HorizontalAlignment="Left"  Text="Last login"  FontSize="5" FontWeight="Bold" Margin="0,3,0,0" />
                 </Grid>
-                <Border BorderBrush='Black'  BorderThickness='0,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
+                <Border BorderBrush='Black'  BorderThickness='1,0,1,1' Grid.Column="0" Grid.RowSpan="4"/>
                 <Grid Row ="0" Column="0">
                     <Border BorderBrush='White'  BorderThickness='1,1,0,0'>
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="0" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="Stored Users" FontSize="10" FontWeight="Bold"/>
-                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2">
-                    <ListBox Name="BasicBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Users}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="140" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
+                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,5">
+                    <ListBox Name="UsersListBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=UsersObs}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"  Height="200" Width="140"/>
                 </StackPanel>
+                <Button  Name="Next" Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
+                <Button  Name="Previous" Command="{Binding PreviousCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
             </Grid>
         </Viewbox>
         <Viewbox Stretch="Uniform">
@@ -194,7 +194,7 @@
                 </Border>
             </Grid>
         </Viewbox>
-        <Viewbox Stretch="Uniform">
+        <Viewbox Stretch="Uniform" Margin="10,0,-10,0">
             <Grid Height="250">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
@@ -210,7 +210,7 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="12"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="50"/>

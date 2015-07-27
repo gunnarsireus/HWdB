@@ -13,10 +13,10 @@ namespace HWdB.ViewModels
     class AdministrationViewModel : ViewModelBase
     {
         public override sealed string ButtonName { get; set; }
-        public ObservableCollection<User> Users
+        public ObservableCollection<User> UsersObs
         {
-            get { return GetValue(() => Users); }
-            set { SetValue(() => Users, value); InitListBox(); }
+            get { return GetValue(() => UsersObs); }
+            set { SetValue(() => UsersObs, value); InitListBox(); }
         }
 
         public int UserId //Needed for PasswordMinLenghtOrEmptyAttribute validation
@@ -46,12 +46,15 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_currentUser != value)
+                if (_currentUser == value) return;
+                if (_currentUser != null)
                 {
-                    _currentUser = value;
-                    OnPropertyChanged("ShowPassword");
-                    OnPropertyChanged("CurrentUser");
+                    _currentUser.IsSelected = false;
                 }
+                _currentUser = value;
+                _currentUser.IsSelected = true;
+                OnPropertyChanged("ShowPassword");
+                OnPropertyChanged("CurrentUser");
             }
         }
 
@@ -63,6 +66,25 @@ namespace HWdB.ViewModels
                 SetValue(() => SelectedListBoxItem, value);
                 CurrentUser = value;
             }
+        }
+
+        public int SelectedIndex
+        {
+            get { return GetValue(() => SelectedIndex); }
+            set
+            {
+                SetValue(() => SelectedIndex, value);
+            }
+        }
+        public ICommand NextCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand PreviousCommand
+        {
+            get;
+            private set;
         }
 
         public ICommand SaveCommand
@@ -88,10 +110,12 @@ namespace HWdB.ViewModels
             SaveCommand = new RelayCommand(Save);
             NewUserCommand = new RelayCommand(CreateNewCurrentUser);
             DeleteUserCommand = new RelayCommand(Delete);
+            NextCommand = new RelayCommand(Next);
+            PreviousCommand = new RelayCommand(Previous);
             InitListBox();
-            if (Users.Any())
+            if (UsersObs.Any())
             {
-                CurrentUser = Users[0];
+                CurrentUser = UsersObs[0];
             }
             else
             {
@@ -101,41 +125,46 @@ namespace HWdB.ViewModels
 
         private void InitListBox()
         {
-            User tmp = new User();
-            if (CurrentUser != null) { tmp.Clone(CurrentUser); }
             using (var context = new DataContext())
             {
-                if (Users == null) Users = new ObservableCollection<User>();
-                Users.Clear();
+                if (UsersObs == null) UsersObs = new ObservableCollection<User>();
+                UsersObs.Clear();
                 {
-                    context.Users.ToList().ForEach(i => Users.Add(i));
+                    context.Users.ToList().ForEach(i => UsersObs.Add(i));
                 }
             }
-            if (CurrentUserWasNotNull(tmp))
-            {
-                CurrentUser = tmp; //Restore old value, if existed
-            }
         }
 
-        private static bool CurrentUserWasNotNull(User tmp)
+        private void Next(object parameter)
         {
-            return tmp.Id > 0;
+            if (UsersObs.Count <= 1) return;
+            SelectedIndex = (SelectedIndex + 1) % UsersObs.Count;
+            CurrentUser = UsersObs[SelectedIndex];
         }
-
+        private void Previous(object parameter)
+        {
+            if (UsersObs.Count <= 1) return;
+            SelectedIndex = (SelectedIndex - 1);
+            if (SelectedIndex < 0)
+            {
+                SelectedIndex = UsersObs.Count - 1;
+            }
+            CurrentUser = UsersObs[SelectedIndex];
+        }
         private void Delete(object parameter)
         {
             if (CurrentUser.Id == 0)
             {
-                System.Windows.MessageBox.Show("Cannot delete unsaved data");
+                MessageBox.Show("Cannot delete unsaved data");
                 return;
             }
             if (CurrentUser.UserName == LoggedInUser.Instance.UserLoggedin.UserName)
             {
-                System.Windows.MessageBox.Show("Cannot delete own account");
+                MessageBox.Show("Cannot delete own account");
                 return;
             }
             UiServices.SetBusyState();
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            var messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
@@ -156,7 +185,7 @@ namespace HWdB.ViewModels
                     context.SaveChanges();
                     context.Users.Remove(stored);
                     context.SaveChanges();
-                    User firstItem = context.Users.FirstOrDefault();
+                    var firstItem = context.Users.FirstOrDefault();
                     if (firstItem == null)
                     {
                         CreateNewCurrentUser(new object());
@@ -167,6 +196,11 @@ namespace HWdB.ViewModels
                     }
                 }
                 InitListBox();
+                if (UsersObs.Any())
+                {
+                    CurrentUser = UsersObs[0];
+                    SelectedIndex = 0;
+                }
             }
         }
         private void Save(object parameter)
@@ -174,13 +208,13 @@ namespace HWdB.ViewModels
             if (CurrentUser.HasErrors.Count > 0)
             {
                 var first = CurrentUser.HasErrors.First();
-                System.Windows.MessageBox.Show(first.Value);
+                MessageBox.Show(first.Value);
             }
             else
                 if (this.HasErrors.Count > 0)
                 {
                     var first = this.HasErrors.First();
-                    System.Windows.MessageBox.Show(first.Value);
+                    MessageBox.Show(first.Value);
                 }
                 else
                 {
@@ -193,7 +227,7 @@ namespace HWdB.ViewModels
         {
             using (var context = new DataContext())
             {
-                User stored = context.Users.FirstOrDefault(a => (a.UserName == user.UserName));
+                var stored = context.Users.FirstOrDefault(a => (a.UserName == user.UserName));
                 if (stored == null)
                 {
                     if ((ShowPassword == null) || (ShowPassword.Trim() == ""))
@@ -208,7 +242,6 @@ namespace HWdB.ViewModels
                     user.Password = hash;
                     ShowPassword = "";
                     context.Users.Add(user);
-                    context.SaveChanges();
                 }
                 else
                 {
@@ -216,16 +249,17 @@ namespace HWdB.ViewModels
                     user.Id = stored.Id;
                     if (!string.IsNullOrEmpty(ShowPassword))
                     {
-                        string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
+                        var hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                         user.Password = hash;
                         ShowPassword = "";
                     }
                     context.Entry(stored).CurrentValues.SetValues(user);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
-                    context.SaveChanges();
                 }
-
+                context.SaveChanges();
                 InitListBox();
+                CurrentUser = UsersObs[UsersObs.Count - 1];
+                SelectedIndex = UsersObs.Count - 1;
             }
         }
 
