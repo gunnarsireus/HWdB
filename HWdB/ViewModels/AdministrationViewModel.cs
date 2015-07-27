@@ -68,14 +68,7 @@ namespace HWdB.ViewModels
             }
         }
 
-        public int SelectedIndex
-        {
-            get { return GetValue(() => SelectedIndex); }
-            set
-            {
-                SetValue(() => SelectedIndex, value);
-            }
-        }
+        private int SelectedIndex { get; set; }
         public ICommand NextCommand
         {
             get;
@@ -116,6 +109,7 @@ namespace HWdB.ViewModels
             if (UsersObs.Any())
             {
                 SelectedListBoxItem = UsersObs[0];
+                SelectedIndex = 0;
             }
             else
             {
@@ -168,39 +162,32 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                User stored = context.Users.FirstOrDefault(a => (a.UserName == CurrentUser.UserName));
+                var stored = context.Users.FirstOrDefault(a => (a.UserName == CurrentUser.UserName));
                 if (stored == null)
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find User : " + CurrentUser.UserName);
                     return;
                 }
-                else
+
+                UserLogs.Instance.UserErrorLog("Deleted User : " + CurrentUser.UserName);
+                var list = context.LtbDataSets.Where(l => l.CreatedBy == stored.UserName).ToList();
+                foreach (var ltbdataset in list)
                 {
-                    UserLogs.Instance.UserErrorLog("Deleted User : " + CurrentUser.UserName);
-                    var list = context.LtbDataSets.Where(l => l.CreatedBy == stored.UserName).ToList();
-                    foreach (var ltbdataset in list)
-                    {
-                        context.LtbDataSets.Remove(ltbdataset);
-                    }
-                    context.SaveChanges();
-                    context.Users.Remove(stored);
-                    context.SaveChanges();
-                    var firstItem = context.Users.FirstOrDefault();
-                    if (firstItem == null)
-                    {
-                        CreateNewCurrentUser(new object());
-                    }
-                    else
-                    {
-                        SelectedListBoxItem = firstItem;
-                    }
+                    context.LtbDataSets.Remove(ltbdataset);
                 }
+                context.SaveChanges();
+                context.Users.Remove(stored);
+                context.SaveChanges();
+                var firstItem = context.Users.FirstOrDefault();
+                if (firstItem == null)
+                {
+                    CreateNewCurrentUser(new object());
+                }
+
                 InitListBox();
-                if (UsersObs.Any())
-                {
-                    SelectedListBoxItem = UsersObs[0];
-                    SelectedIndex = 0;
-                }
+                if (!UsersObs.Any()) return;
+                SelectedListBoxItem = UsersObs[0];
+                SelectedIndex = 0;
             }
         }
         private void Save(object parameter)
@@ -232,20 +219,20 @@ namespace HWdB.ViewModels
                 {
                     if ((ShowPassword == null) || (ShowPassword.Trim() == ""))
                     {
-                        System.Windows.MessageBox.Show("Password cannot be empty!");
+                        MessageBox.Show("Password cannot be empty!");
                         return;
 
                     }
                     UserLogs.Instance.UserErrorLog("Saved new User : " + user.UserName);
                     user.LastLogin = "Never logged in";
-                    string hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
+                    var hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
                     user.Password = hash;
                     ShowPassword = "";
                     context.Users.Add(user);
                     context.SaveChanges();
                     InitListBox();
-                    SelectedListBoxItem = UsersObs[UsersObs.Count - 1];
                     SelectedIndex = UsersObs.Count - 1;
+                    SelectedListBoxItem = UsersObs[SelectedIndex];
                 }
                 else
                 {
@@ -261,7 +248,6 @@ namespace HWdB.ViewModels
                     context.Entry(stored).State = System.Data.EntityState.Modified;
                     context.SaveChanges();
                 }
-
             }
         }
 

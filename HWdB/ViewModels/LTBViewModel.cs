@@ -51,14 +51,8 @@ namespace HWdB.ViewModels
             }
         }
 
-        public int SelectedIndex
-        {
-            get { return GetValue(() => SelectedIndex); }
-            set
-            {
-                SetValue(() => SelectedIndex, value);
-            }
-        }
+        private int SelectedIndex { get; set; }
+
 
         public ICommand NextCommand
         {
@@ -127,6 +121,7 @@ namespace HWdB.ViewModels
             if (LtbDataSetsObs.Any())
             {
                 SelectedListBoxItem = LtbDataSetsObs[0];
+                SelectedIndex = 0;
             }
             else
             {
@@ -188,16 +183,11 @@ namespace HWdB.ViewModels
                 {
                     CreateNewCurrentLtbDataSet(new object());
                 }
-                else
-                {
-                    SelectedListBoxItem = firstItem;
-                }
+
                 InitListBox();
-                if (LtbDataSetsObs.Any())
-                {
-                    SelectedListBoxItem = LtbDataSetsObs[0];
-                    SelectedIndex = 0;
-                }
+                if (!LtbDataSetsObs.Any()) return;
+                SelectedListBoxItem = LtbDataSetsObs[0];
+                SelectedIndex = 0;
             }
         }
         private void Calculate(object parameter)
@@ -229,7 +219,8 @@ namespace HWdB.ViewModels
                     context.LtbDataSets.Add(ltbDataSet);
                     context.SaveChanges();
                     InitListBox();
-                    SelectedListBoxItem = LtbDataSetsObs[LtbDataSetsObs.Count - 1];
+                    SelectedIndex = LtbDataSetsObs.Count - 1;
+                    //SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                 }
                 else
                 {
@@ -251,7 +242,7 @@ namespace HWdB.ViewModels
 
         private void CreateNewCurrentLtbDataSet(object parameter)
         {
-            SelectedListBoxItem = new LtbDataSet()
+            CurrentLtbDataSet = new LtbDataSet()
             {
                 CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName,
                 Customer = "Der Kunde GmbH",
