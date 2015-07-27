@@ -9,7 +9,15 @@
 		Background="WhiteSmoke"
 		HorizontalAlignment="Stretch" 
 		VerticalAlignment="Stretch">
-	<Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Local styles here -->
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
 		<Viewbox Stretch="Uniform">
 			<Grid>
 				<Grid.RowDefinitions>

@@ -16,7 +16,7 @@ namespace HWdB.ViewModels
         public ObservableCollection<User> UsersObs
         {
             get { return GetValue(() => UsersObs); }
-            set { SetValue(() => UsersObs, value); InitListBox(); }
+            set { SetValue(() => UsersObs, value); }
         }
 
         public int UserId //Needed for PasswordMinLenghtOrEmptyAttribute validation
@@ -115,7 +115,7 @@ namespace HWdB.ViewModels
             InitListBox();
             if (UsersObs.Any())
             {
-                CurrentUser = UsersObs[0];
+                SelectedListBoxItem = UsersObs[0];
             }
             else
             {
@@ -139,7 +139,7 @@ namespace HWdB.ViewModels
         {
             if (UsersObs.Count <= 1) return;
             SelectedIndex = (SelectedIndex + 1) % UsersObs.Count;
-            CurrentUser = UsersObs[SelectedIndex];
+            SelectedListBoxItem = UsersObs[SelectedIndex];
         }
         private void Previous(object parameter)
         {
@@ -149,7 +149,7 @@ namespace HWdB.ViewModels
             {
                 SelectedIndex = UsersObs.Count - 1;
             }
-            CurrentUser = UsersObs[SelectedIndex];
+            SelectedListBoxItem = UsersObs[SelectedIndex];
         }
         private void Delete(object parameter)
         {
@@ -192,13 +192,13 @@ namespace HWdB.ViewModels
                     }
                     else
                     {
-                        CurrentUser = firstItem;
+                        SelectedListBoxItem = firstItem;
                     }
                 }
                 InitListBox();
                 if (UsersObs.Any())
                 {
-                    CurrentUser = UsersObs[0];
+                    SelectedListBoxItem = UsersObs[0];
                     SelectedIndex = 0;
                 }
             }
@@ -242,6 +242,10 @@ namespace HWdB.ViewModels
                     user.Password = hash;
                     ShowPassword = "";
                     context.Users.Add(user);
+                    context.SaveChanges();
+                    InitListBox();
+                    SelectedListBoxItem = UsersObs[UsersObs.Count - 1];
+                    SelectedIndex = UsersObs.Count - 1;
                 }
                 else
                 {
@@ -255,11 +259,9 @@ namespace HWdB.ViewModels
                     }
                     context.Entry(stored).CurrentValues.SetValues(user);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
-                InitListBox();
-                CurrentUser = UsersObs[UsersObs.Count - 1];
-                SelectedIndex = UsersObs.Count - 1;
+
             }
         }
 

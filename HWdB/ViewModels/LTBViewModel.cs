@@ -15,7 +15,7 @@ namespace HWdB.ViewModels
         public ObservableCollection<LtbDataSet> LtbDataSetsObs
         {
             get { return GetValue(() => LtbDataSetsObs); }
-            set { SetValue(() => LtbDataSetsObs, value); InitListBox(); }
+            set { SetValue(() => LtbDataSetsObs, value); }
         }
 
         LtbDataSet _currentLtbDataSet;
@@ -126,7 +126,7 @@ namespace HWdB.ViewModels
             InitListBox();
             if (LtbDataSetsObs.Any())
             {
-                CurrentLtbDataSet = LtbDataSetsObs[0];
+                SelectedListBoxItem = LtbDataSetsObs[0];
             }
             else
             {
@@ -148,7 +148,7 @@ namespace HWdB.ViewModels
         {
             if (LtbDataSetsObs.Count <= 1) return;
             SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
-            CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
+            SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
         }
         private void Previous(object parameter)
         {
@@ -158,7 +158,7 @@ namespace HWdB.ViewModels
             {
                 SelectedIndex = LtbDataSetsObs.Count - 1;
             }
-            CurrentLtbDataSet = LtbDataSetsObs[SelectedIndex];
+            SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
         }
 
         private void Delete(object parameter)
@@ -190,12 +190,12 @@ namespace HWdB.ViewModels
                 }
                 else
                 {
-                    CurrentLtbDataSet = firstItem;
+                    SelectedListBoxItem = firstItem;
                 }
                 InitListBox();
                 if (LtbDataSetsObs.Any())
                 {
-                    CurrentLtbDataSet = LtbDataSetsObs[0];
+                    SelectedListBoxItem = LtbDataSetsObs[0];
                     SelectedIndex = 0;
                 }
             }
@@ -227,6 +227,9 @@ namespace HWdB.ViewModels
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
+                    context.SaveChanges();
+                    InitListBox();
+                    SelectedListBoxItem = LtbDataSetsObs[LtbDataSetsObs.Count - 1];
                 }
                 else
                 {
@@ -235,9 +238,8 @@ namespace HWdB.ViewModels
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.Entry(stored).CurrentValues.SetValues(ltbDataSet);
                     context.Entry(stored).State = System.Data.EntityState.Modified;
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
-                InitListBox();
             }
         }
         private void ClearResultChartErrors(object parameter)
@@ -249,7 +251,7 @@ namespace HWdB.ViewModels
 
         private void CreateNewCurrentLtbDataSet(object parameter)
         {
-            CurrentLtbDataSet = new LtbDataSet()
+            SelectedListBoxItem = new LtbDataSet()
             {
                 CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName,
                 Customer = "Der Kunde GmbH",

@@ -46,7 +46,7 @@
                 <!-- Local styles here -->
             </ResourceDictionary>
         </StackPanel.Resources>
-        <ContentControl Content="{Binding CurrentPageViewModel}"  Background="{Binding BackgroundBrush}" />
+        <ContentControl Content="{Binding CurrentPageViewModel}" />
         <Border  BorderBrush="Black" BorderThickness="0,0,1,0" CornerRadius="2" >
             <Border.Resources>
                 <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

@@ -57,6 +57,7 @@ namespace HWdB.ViewModels
                 }
             }
         }
+
         public override string ButtonName
         {
             get
