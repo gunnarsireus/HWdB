@@ -68,7 +68,11 @@ namespace HWdB.ViewModels
             }
         }
 
-        private int SelectedIndex { get; set; }
+        public int SelectedIndex
+        {
+            get { return GetValue(() => SelectedIndex); }
+            set { SetValue(() => SelectedIndex, value); }
+        }
         public ICommand NextCommand
         {
             get;

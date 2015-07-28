@@ -69,7 +69,7 @@
                 </Grid>
                 <Label Grid.Row="0" Grid.Column="0" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="Stored Data Sets" FontSize="10" FontWeight="Bold"/>
                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,5">
-                    <ListBox  Name="LtbDataSetBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSetsObs}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}"   Height="200" Width="190" />
+                    <ListBox  Name="LtbDataSetBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSetsObs}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}" SelectedIndex="{Binding SelectedIndex}"  Height="200" Width="190" />
                 </StackPanel>
                 <Button  Name="Next" Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
                 <Button  Name="Previous" Command="{Binding PreviousCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
