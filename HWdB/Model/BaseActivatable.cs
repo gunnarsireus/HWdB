@@ -8,34 +8,34 @@ namespace HWdB.Model
     {
         [UIHint("Active")]
         [Display(Name = "Active", ResourceType = typeof(Strings))]
-        public string active { get; set; }
+        public string Active { get; set; }
 
         public BaseActivatable()
         {
-            active = "";
+            Active = "";
         }
 
         public BaseActivatable(BaseActivatable that)
         {
-            this.active = that.active;
+            this.Active = that.Active;
         }
 
         public string ActiveAsString
         {
             get
             {
-                return (active == "1") ? Properties.Strings.Yes : Properties.Strings.No;
+                return (Active == "1") ? Properties.Strings.Yes : Properties.Strings.No;
             }
         }
 
         public bool IsActive()
         {
-            return (active == "1");
+            return (Active == "1");
         }
 
         public void Clone(BaseActivatable that)
         {
-            this.active = that.active;
+            this.Active = that.Active;
         }
     }
 }

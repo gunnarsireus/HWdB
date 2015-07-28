@@ -264,7 +264,7 @@ namespace HWdB.ViewModels
                 Email = "john.doe@gmail.com",
                 Rights = "Administrator",
                 Role = "Administrator",
-                active = "1",
+                Active = "1",
                 LastLogin = "Press 'Save'"
             };
         }

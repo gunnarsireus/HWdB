@@ -72,7 +72,7 @@ namespace HWdB.Model
 
         public static User CreateUser(string userName, string password, string email, string rights, string role)
         {
-            return new User { UserName = userName, Password = password, Email = email, Rights = rights, Role = role, LogedIn = false, LastLogin = DateTime.Now.ToString(), active = "1" };
+            return new User { UserName = userName, Password = password, Email = email, Rights = rights, Role = role, LogedIn = false, LastLogin = DateTime.Now.ToString(), Active = "1" };
         }
         public void Clone(User that)
         {
@@ -85,7 +85,7 @@ namespace HWdB.Model
             this.Rights = that.Rights;
             this.Role = that.Role;
             this.LogedIn = that.LogedIn;
-            this.active = that.active;
+            this.Active = that.Active;
         }
     }
 }

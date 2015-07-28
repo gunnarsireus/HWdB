@@ -16,12 +16,10 @@ namespace HWdB.ViewModels
         public new event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
+            var handler = this.PropertyChanged;
+            if (handler == null) return;
+            var e = new PropertyChangedEventArgs(propertyName);
+            handler(this, e);
         }
         public virtual void Dispose()
         {

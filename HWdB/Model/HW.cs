@@ -1,10 +1,12 @@
 ﻿using HWdB.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace HWdB.Model
 {
+    [Table("HwVersions")]
     public class HwVersion : DropCreateDatabaseIfModelChanges<DataContext>
     {
         public int Id { get; set; }
@@ -24,6 +26,7 @@ namespace HWdB.Model
         //public virtual HwNumber HwNumber { get; set; }
     }
 
+    [Table("HwNumbers")]
     public class HwNumber : DropCreateDatabaseIfModelChanges<DataContext>
     {
         public int Id { get; set; }
@@ -33,6 +36,8 @@ namespace HWdB.Model
         public List<HwVersion> HwVersions { get; set; }
     }
 
+
+    [Table("ProductGroups")]
     public class ProductGroup : DropCreateDatabaseIfModelChanges<DataContext>
     {
         public int Id { get; set; }

@@ -15,7 +15,7 @@ namespace HWdB.Model
 
     public class LtbDataSet : PropertyChangedNotification
     {
-        bool loopOk;
+        bool _loopOk;
         public LtbDataSet()
         {
             StockYearArray = new long[LTBCommon.MaxYear + 1];
@@ -42,9 +42,9 @@ namespace HWdB.Model
             get { return GetValue(() => Customer); }
             set
             {
-                loopOk = (value != Customer);
+                _loopOk = (value != Customer);
                 SetValue(() => Customer, value);
-                if (loopOk) Version = Version;
+                if (_loopOk) Version = Version;
             }
         }
 
@@ -55,9 +55,9 @@ namespace HWdB.Model
             get { return GetValue(() => Version); }
             set
             {
-                loopOk = (value != Version);
+                _loopOk = (value != Version);
                 SetValue(() => Version, value);
-                if (loopOk) Customer = Customer;
+                if (_loopOk) Customer = Customer;
             }
         }
 
@@ -73,9 +73,9 @@ namespace HWdB.Model
             get { return GetValue(() => LTBDate); }
             set
             {
-                loopOk = (value != LTBDate);
+                _loopOk = (value != LTBDate);
                 SetValue(() => LTBDate, value);
-                if (loopOk)
+                if (_loopOk)
                 {
                     EOSDate = EOSDate;
                     RepairLeadTime = RepairLeadTime;
@@ -90,9 +90,9 @@ namespace HWdB.Model
             get { return GetValue(() => EOSDate); }
             set
             {
-                loopOk = (value != EOSDate);
+                _loopOk = (value != EOSDate);
                 SetValue(() => EOSDate, value);
-                if (loopOk)
+                if (_loopOk)
                 {
                     RepairLeadTime = RepairLeadTime;
                     LTBDate = LTBDate;
@@ -108,9 +108,9 @@ namespace HWdB.Model
             get { return GetValue(() => RepairLeadTime); }
             set
             {
-                loopOk = (value != RepairLeadTime);
+                _loopOk = (value != RepairLeadTime);
                 SetValue(() => RepairLeadTime, value);
-                if (loopOk)
+                if (_loopOk)
                 {
                     EOSDate = EOSDate;
                     LTBDate = LTBDate;

@@ -61,11 +61,9 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_dbLocation != value)
-                {
-                    _dbLocation = value;
-                    OnPropertyChanged("DbLocation");
-                }
+                if (_dbLocation == value) return;
+                _dbLocation = value;
+                OnPropertyChanged("DbLocation");
             }
         }
 
@@ -111,7 +109,7 @@ namespace HWdB.ViewModels
                 return string.Empty;
             }
 
-            IntPtr unmanagedString = IntPtr.Zero;
+            var unmanagedString = IntPtr.Zero;
             try
             {
                 unmanagedString = System.Runtime.InteropServices.Marshal.SecureStringToGlobalAllocUnicode(securePassword);
@@ -146,17 +144,17 @@ namespace HWdB.ViewModels
                     context.SaveChanges();
                 }
             }
-            StatusMessage status = new StatusMessage();
-            string hash = PasswordEncoder.GetMd5Encoding(usernamePassword.Password);
+            var status = new StatusMessage();
+            var hash = PasswordEncoder.GetMd5Encoding(usernamePassword.Password);
             using (var context = new DataContext())
             {
                 var stored = context.Users.FirstOrDefault(a => (a.UserName == usernamePassword.UserName) && (a.Password == hash));
                 if (stored == null || (stored.IsActive() == false))
                 {
                     UserLogs.Instance.UserErrorLog("ValidateUser() user " + usernamePassword.UserName + " not found or inactive");
-                    status.success = false;
-                    status.message = Properties.Strings.Username_or_password_wrong;
-                    _applikationViewModel.Message(status.message);
+                    status.Success = false;
+                    status.Message = Properties.Strings.Username_or_password_wrong;
+                    _applikationViewModel.Message(status.Message);
                     return false;
                 }
                 UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString(CultureInfo.InvariantCulture));

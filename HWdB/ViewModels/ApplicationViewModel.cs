@@ -42,7 +42,7 @@ namespace HWdB.ViewModels
                     {
                         PageViewModels.Clear();
                         PageViewModels.Add(new LoginViewModel(this));
-                        PageViewModels.Add(new ProductsViewModel());
+                        //PageViewModels.Add(new ProductsViewModel());
                         //PageViewModels.Add(new ProductGroupsViewModel());
                         //PageViewModels.Add(new ExportViewModel());
                         //PageViewModels.Add(new ImportViewModel());
