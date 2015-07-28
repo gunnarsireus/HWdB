@@ -27,7 +27,7 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_currentLtbDataSet == value) return;
+                if (value == null) return;
                 if (_currentLtbDataSet != null)
                 {
                     _currentLtbDataSet.IsSelected = false;
@@ -222,9 +222,11 @@ namespace HWdB.ViewModels
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
                     context.SaveChanges();
+                    var ltbChart = ltbDataSet.LtbChart;
                     InitListBox();
                     SelectedIndex = LtbDataSetsObs.Count - 1;
-                    //SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
+                    LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart;  //Get the LtbChart previously calculated;
+                    SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                 }
                 else
                 {
