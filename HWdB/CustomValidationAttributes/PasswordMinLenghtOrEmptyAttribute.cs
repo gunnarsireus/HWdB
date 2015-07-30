@@ -11,7 +11,7 @@ namespace MHWdB.CustomValidationAttributes
         }
         protected override ValidationResult IsValid(object value, System.ComponentModel.DataAnnotations.ValidationContext validationContext)
         {
-            int userId = (int)validationContext.ObjectType.GetProperty("UserID").GetValue(validationContext.ObjectInstance, null);
+            int userId = (int)validationContext.ObjectType.GetProperty("UserId").GetValue(validationContext.ObjectInstance, null);
             if (value != null)
             {
                 string password = (string)value;
