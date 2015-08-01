@@ -166,30 +166,31 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                var stored = context.Users.FirstOrDefault(a => (a.UserName == CurrentUser.UserName));
-                if (stored == null)
+                var oldUser = context.Users.FirstOrDefault(a => (a.UserName == CurrentUser.UserName));
+                if (NotStoredInDb(oldUser))
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find User : " + CurrentUser.UserName);
                     return;
                 }
 
                 UserLogs.Instance.UserErrorLog("Deleted User : " + CurrentUser.UserName);
-                var list = context.LtbDataSets.Where(l => l.CreatedBy == stored.UserName).ToList();
+                var list = context.LtbDataSets.Where(l => l.CreatedBy == oldUser.UserName).ToList();
                 foreach (var ltbdataset in list)
                 {
                     context.LtbDataSets.Remove(ltbdataset);
                 }
                 context.SaveChanges();
-                context.Users.Remove(stored);
+                context.Users.Remove(oldUser);
                 context.SaveChanges();
-                var firstItem = context.Users.FirstOrDefault();
-                if (firstItem == null)
+
+                if (!context.Users.Any())
                 {
                     CreateNewCurrentUser(new object());
+                    UsersObs.Clear();
+                    return;
                 }
 
                 InitListBox();
-                if (!UsersObs.Any()) return;
                 SelectedListBoxItem = UsersObs[0];
                 SelectedIndex = 0;
             }
@@ -202,7 +203,7 @@ namespace HWdB.ViewModels
                 MessageBox.Show(first.Value);
             }
             else
-                if (this.HasErrors.Count > 0)
+                if (HasErrors.Count > 0)
                 {
                     var first = this.HasErrors.First();
                     MessageBox.Show(first.Value);
@@ -218,8 +219,8 @@ namespace HWdB.ViewModels
         {
             using (var context = new DataContext())
             {
-                var stored = context.Users.FirstOrDefault(a => (a.UserName == user.UserName));
-                if (stored == null)
+                var oldUser = context.Users.FirstOrDefault(a => (a.UserName == user.UserName));
+                if (NotStoredInDb(oldUser))
                 {
                     if ((ShowPassword == null) || (ShowPassword.Trim() == ""))
                     {
@@ -237,22 +238,26 @@ namespace HWdB.ViewModels
                     InitListBox();
                     SelectedIndex = UsersObs.Count - 1;
                     SelectedListBoxItem = UsersObs[SelectedIndex];
+                    return;
                 }
-                else
+
+                UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
+                //user.Id = oldUser.Id;
+                if (!string.IsNullOrEmpty(ShowPassword))
                 {
-                    UserLogs.Instance.UserErrorLog("Updated User : " + user.UserName);
-                    user.Id = stored.Id;
-                    if (!string.IsNullOrEmpty(ShowPassword))
-                    {
-                        var hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
-                        user.Password = hash;
-                        ShowPassword = "";
-                    }
-                    context.Entry(stored).CurrentValues.SetValues(user);
-                    context.Entry(stored).State = System.Data.EntityState.Modified;
-                    context.SaveChanges();
+                    var hash = PasswordEncoder.GetMd5Encoding(ShowPassword);
+                    user.Password = hash;
+                    ShowPassword = "";
                 }
+                context.Entry(oldUser).CurrentValues.SetValues(user);
+                context.Entry(oldUser).State = System.Data.EntityState.Modified;
+                context.SaveChanges();
             }
+        }
+
+        private static bool NotStoredInDb(User stored)
+        {
+            return stored == null;
         }
 
         private void CreateNewCurrentUser(object parameter)
