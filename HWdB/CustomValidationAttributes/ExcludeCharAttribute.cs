@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace MHWdB.CustomValidationAttributes
 {
-    public class ExcludeChar : ValidationAttribute
+    public class ExcludeCharAttribute : ValidationAttribute
     {
         string _characters;
-        public ExcludeChar(string characters)
+        public ExcludeCharAttribute(string characters)
         {
             _characters = characters;
         }

@@ -172,24 +172,24 @@ namespace HWdB.ViewModels
             if (messageBoxResult == MessageBoxResult.No) return;
             using (var context = new DataContext())
             {
-                var stored = context.LtbDataSets.FirstOrDefault(a => (a.Id == CurrentLtbDataSet.Id));
-                if (stored == null)
+                var oldLtbDataSet = context.LtbDataSets.FirstOrDefault(a => (a.Id == CurrentLtbDataSet.Id));
+                if (NotStoredInDb(oldLtbDataSet))
                 {
                     UserLogs.Instance.UserErrorLog("Error: Could not find LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
                     return;
                 }
 
                 UserLogs.Instance.UserErrorLog("Deleted LtbDataSet for Customer : " + CurrentLtbDataSet.Customer + " " + CurrentLtbDataSet.Version);
-                context.LtbDataSets.Remove(stored);
+                context.LtbDataSets.Remove(oldLtbDataSet);
                 context.SaveChanges();
-                var firstItem = context.LtbDataSets.FirstOrDefault();
-                if (firstItem == null)
+
+                if (!context.LtbDataSets.Any())
                 {
                     CreateNewCurrentLtbDataSet(new object());
+                    LtbDataSetsObs.Clear();
+                    return;
                 }
-
                 InitListBox();
-                if (!LtbDataSetsObs.Any()) return;
                 SelectedListBoxItem = LtbDataSetsObs[0];
                 SelectedIndex = 0;
             }
@@ -215,30 +215,39 @@ namespace HWdB.ViewModels
         {
             using (var context = new DataContext())
             {
-                var stored = context.LtbDataSets.FirstOrDefault(a => (a.Customer == ltbDataSet.Customer) && (a.Version == ltbDataSet.Version));
-                if (stored == null)
+                var oldLtbDataSet = context.LtbDataSets.FirstOrDefault(a => (a.Customer == ltbDataSet.Customer) && (a.Version == ltbDataSet.Version));
+                if (NotStoredInDb(oldLtbDataSet))
                 {
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
                     context.SaveChanges();
-                    var ltbChart = ltbDataSet.LtbChart;
-                    InitListBox();
-                    SelectedIndex = LtbDataSetsObs.Count - 1;
-                    LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart;  //Get the LtbChart previously calculated;
-                    SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
+                    CloneChartToLtbDataSetsObsAndInitListBox(ltbDataSet);
+                    return;
                 }
-                else
-                {
-                    UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
-                    ltbDataSet.Id = stored.Id;
-                    ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-                    context.Entry(stored).CurrentValues.SetValues(ltbDataSet);
-                    context.Entry(stored).State = System.Data.EntityState.Modified;
-                    context.SaveChanges();
-                }
+                UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
+                ltbDataSet.Id = oldLtbDataSet.Id;
+                ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                context.Entry(oldLtbDataSet).CurrentValues.SetValues(ltbDataSet);
+                context.Entry(oldLtbDataSet).State = System.Data.EntityState.Modified;
+                context.SaveChanges();
             }
         }
+
+        private static bool NotStoredInDb(LtbDataSet stored)
+        {
+            return stored == null;
+        }
+
+        private void CloneChartToLtbDataSetsObsAndInitListBox(LtbDataSet ltbDataSet)
+        {
+            var ltbChart = ltbDataSet.LtbChart;
+            InitListBox();
+            SelectedIndex = LtbDataSetsObs.Count - 1;
+            LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart; //Get the LtbChart previously calculated;
+            SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
+        }
+
         private void ClearResultChartErrors(object parameter)
         {
             CurrentLtbDataSet.ClearResult();

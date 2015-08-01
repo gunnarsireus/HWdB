@@ -116,7 +116,7 @@
     <Compile Include="CustomValidationAttributes\CustomerUniqueAttribute.cs" />
     <Compile Include="CustomValidationAttributes\UserNameUniqueAttribute.cs" />
     <Compile Include="CustomValidationAttributes\RepairLeadTimeEOSLTBRangeAttribute.cs" />
-    <Compile Include="CustomValidationAttributes\ExcludeChar.cs" />
+    <Compile Include="CustomValidationAttributes\ExcludeCharAttribute.cs" />
     <Compile Include="DataAccess\DataContext.cs" />
     <Compile Include="Model\HW.cs" />
     <Compile Include="Model\LtbDataSet.cs" />
