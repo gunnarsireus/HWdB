@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace HWdB.Notification
+namespace HWdB.MVVMFramework
 {
     public abstract class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
     {

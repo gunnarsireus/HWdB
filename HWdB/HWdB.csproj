@@ -121,7 +121,7 @@
     <Compile Include="Model\HW.cs" />
     <Compile Include="Model\LtbDataSet.cs" />
     <Compile Include="MVVMFramework\IHavePassword.cs" />
-    <Compile Include="Notification\PropertyChangeNotification.cs" />
+    <Compile Include="MVVMFramework\PropertyChangeNotification.cs" />
     <Compile Include="CustomValidationAttributes\EOSDateWithinRangeAttribute.cs" />
     <Compile Include="CustomValidationAttributes\LTBDateWithinRangeAttribute.cs" />
     <Compile Include="Utils\BooleanToForegroundConverter.cs" />

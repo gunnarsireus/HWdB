@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class ProductsViewModel:ViewModelBase
+    class ProductsViewModel : BaseViewModel
     {
 
         string _buttonName;
@@ -18,7 +18,7 @@
 
         public ProductsViewModel()
         {
-             this.ButtonName = "Products";
+            this.ButtonName = "Products";
         }
 
         protected override void OnDispose()

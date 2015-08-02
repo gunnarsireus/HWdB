@@ -1,7 +1,7 @@
 ﻿
 namespace HWdB.ViewModels
 {
-    class StrategyViewModel:ViewModelBase
+    class StrategyViewModel : BaseViewModel
     {
         string _buttonName;
         public override string ButtonName

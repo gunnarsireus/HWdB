@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class ImportViewModel:ViewModelBase
+    class ImportViewModel : BaseViewModel
     {
         string _buttonName;
         public override string ButtonName

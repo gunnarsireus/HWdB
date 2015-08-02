@@ -1,7 +1,7 @@
 ﻿using CenterSpace.NMath.Core;
 using CenterSpace.NMath.Stats;
 using HWdB.CustomValidationAttributes;
-using HWdB.Notification;
+using HWdB.MVVMFramework;
 using HWdB.Utils;
 using LTBCore;
 using MHWdB.CustomValidationAttributes;

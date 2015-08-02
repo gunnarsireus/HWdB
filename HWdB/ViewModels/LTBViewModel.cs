@@ -1,5 +1,6 @@
 ﻿using HWdB.DataAccess;
 using HWdB.Model;
+using HWdB.MVVMFramework;
 using HWdB.Utils;
 using System;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace HWdB.ViewModels
 {
-    class LtbViewModel : ViewModelBase
+    class LtbViewModel : BaseViewModel
     {
         public override sealed string ButtonName { get; set; }
         public ObservableCollection<LtbDataSet> LtbDataSetsObs

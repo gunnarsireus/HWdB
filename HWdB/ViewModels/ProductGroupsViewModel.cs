@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class ProductGroupsViewModel:ViewModelBase
+    class ProductGroupsViewModel : BaseViewModel
     {
         string _buttonName;
         public override string ButtonName

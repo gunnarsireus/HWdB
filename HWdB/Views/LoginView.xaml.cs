@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using HWdB.ViewModels;
+﻿using HWdB.MVVMFramework;
+using System.Windows.Controls;
 
 namespace HWdB.Views
 {

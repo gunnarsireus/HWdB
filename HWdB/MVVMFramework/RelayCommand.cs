@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Input;
 
-namespace HWdB
+namespace HWdB.MVVMFramework
 {
     public class RelayCommand : ICommand
     {

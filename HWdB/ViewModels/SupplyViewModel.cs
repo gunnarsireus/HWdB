@@ -1,7 +1,7 @@
 ﻿
 namespace HWdB.ViewModels
 {
-    class SupplyViewModel:ViewModelBase
+    class SupplyViewModel : BaseViewModel
     {
         string _buttonName;
         public override string ButtonName

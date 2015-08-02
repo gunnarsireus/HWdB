@@ -1,5 +1,6 @@
 ﻿using HWdB.DataAccess;
 using HWdB.Model;
+using HWdB.MVVMFramework;
 using HWdB.Properties;
 using HWdB.Utils;
 using MHWdB.CustomValidationAttributes;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace HWdB.ViewModels
 {
-    class AdministrationViewModel : ViewModelBase
+    class AdministrationViewModel : BaseViewModel
     {
         public override sealed string ButtonName { get; set; }
         public ObservableCollection<User> UsersObs

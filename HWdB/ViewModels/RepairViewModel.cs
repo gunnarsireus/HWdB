@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class RepairViewModel:ViewModelBase
+    class RepairViewModel : BaseViewModel
     {
         string _buttonName;
         public override string ButtonName

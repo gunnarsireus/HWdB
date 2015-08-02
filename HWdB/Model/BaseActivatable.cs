@@ -1,4 +1,4 @@
-﻿using HWdB.Notification;
+﻿using HWdB.MVVMFramework;
 using HWdB.Properties;
 using System.ComponentModel.DataAnnotations;
 

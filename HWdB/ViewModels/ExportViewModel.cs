@@ -1,6 +1,6 @@
 ﻿namespace HWdB.ViewModels
 {
-    class ExportViewModel:ViewModelBase
+    class ExportViewModel : BaseViewModel
     {
 
         string _buttonName;

@@ -1,5 +1,6 @@
 ﻿using HWdB.DataAccess;
 using HWdB.Model;
+using HWdB.MVVMFramework;
 using HWdB.Utils;
 using System;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace HWdB.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    class LoginViewModel : BaseViewModel
     {
         ApplicationViewModel _applikationViewModel;
         public LoginViewModel(ApplicationViewModel applikationViewModel)

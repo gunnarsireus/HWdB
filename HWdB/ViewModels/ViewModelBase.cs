@@ -1,12 +1,12 @@
-﻿using HWdB.Notification;
+﻿using HWdB.MVVMFramework;
 using System;
 using System.ComponentModel;
 
 namespace HWdB.ViewModels
 {
-    public abstract class ViewModelBase : PropertyChangedNotification, INotifyPropertyChanged, IDisposable
+    public abstract class BaseViewModel : PropertyChangedNotification, INotifyPropertyChanged, IDisposable
     {
-        protected ViewModelBase()
+        protected BaseViewModel()
         {
             ButtonName = "";
         }

@@ -14,16 +14,10 @@
    limitations under the License. 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HWdB
+namespace HWdB.MVVMFramework
 {
-	public interface IHavePassword
-	{
-		System.Security.SecureString Password { get; }
-	}
+    public interface IHavePassword
+    {
+        System.Security.SecureString Password { get; }
+    }
 }

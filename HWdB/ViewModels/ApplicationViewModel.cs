@@ -1,4 +1,5 @@
 ﻿using HWdB.Model;
+using HWdB.MVVMFramework;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -6,7 +7,7 @@ using System.Windows.Input;
 
 namespace HWdB.ViewModels
 {
-    class ApplicationViewModel : ViewModelBase
+    class ApplicationViewModel : BaseViewModel
     {
 
         string _buttonName;
@@ -76,8 +77,8 @@ namespace HWdB.ViewModels
         }
 
         private ICommand _changePageCommand;
-        private ViewModelBase _currentPageViewModel;
-        private ObservableCollection<ViewModelBase> _pageViewModels;
+        private BaseViewModel _currentPageViewModel;
+        private ObservableCollection<BaseViewModel> _pageViewModels;
 
         public ApplicationViewModel()
         {
@@ -95,17 +96,17 @@ namespace HWdB.ViewModels
             get
             {
                 return _changePageCommand ?? (_changePageCommand = new RelayCommand(
-                    p => ChangeViewModel((ViewModelBase)p),
-                    p => p is ViewModelBase));
+                    p => ChangeViewModel((BaseViewModel)p),
+                    p => p is BaseViewModel));
             }
         }
 
-        public ObservableCollection<ViewModelBase> PageViewModels
+        public ObservableCollection<BaseViewModel> PageViewModels
         {
-            get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<ViewModelBase>()); }
+            get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<BaseViewModel>()); }
         }
 
-        public ViewModelBase CurrentPageViewModel
+        public BaseViewModel CurrentPageViewModel
         {
             get
             {
@@ -122,7 +123,7 @@ namespace HWdB.ViewModels
             }
         }
 
-        private void ChangeViewModel(ViewModelBase viewModel)
+        private void ChangeViewModel(BaseViewModel viewModel)
         {
             if (viewModel.GetType() == typeof(LoginViewModel))
             {
