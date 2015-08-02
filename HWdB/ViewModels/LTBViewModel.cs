@@ -189,7 +189,7 @@ namespace HWdB.ViewModels
                     LtbDataSetsObs.Clear();
                     return;
                 }
-                InitListBox();
+                LtbDataSetsObs.Remove(CurrentLtbDataSet);
                 SelectedListBoxItem = LtbDataSetsObs[0];
                 SelectedIndex = 0;
             }
@@ -222,7 +222,11 @@ namespace HWdB.ViewModels
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
                     context.SaveChanges();
-                    CloneChartToLtbDataSetsObsAndInitListBox(ltbDataSet);
+                    //var ltbChart = ltbDataSet.LtbChart;
+                    LtbDataSetsObs.Add(ltbDataSet);
+                    SelectedIndex = LtbDataSetsObs.Count - 1;
+                    //LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart; //Get the LtbChart previously calculated;
+                    SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                     return;
                 }
                 UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
@@ -237,15 +241,6 @@ namespace HWdB.ViewModels
         private static bool NotStoredInDb(LtbDataSet stored)
         {
             return stored == null;
-        }
-
-        private void CloneChartToLtbDataSetsObsAndInitListBox(LtbDataSet ltbDataSet)
-        {
-            var ltbChart = ltbDataSet.LtbChart;
-            InitListBox();
-            SelectedIndex = LtbDataSetsObs.Count - 1;
-            LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart; //Get the LtbChart previously calculated;
-            SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
         }
 
         private void ClearResultChartErrors(object parameter)

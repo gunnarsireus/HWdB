@@ -189,8 +189,7 @@ namespace HWdB.ViewModels
                     UsersObs.Clear();
                     return;
                 }
-
-                InitListBox();
+                UsersObs.Remove(CurrentUser);
                 SelectedListBoxItem = UsersObs[0];
                 SelectedIndex = 0;
             }
@@ -235,7 +234,7 @@ namespace HWdB.ViewModels
                     ShowPassword = "";
                     context.Users.Add(user);
                     context.SaveChanges();
-                    InitListBox();
+                    UsersObs.Add(user);
                     SelectedIndex = UsersObs.Count - 1;
                     SelectedListBoxItem = UsersObs[SelectedIndex];
                     return;
