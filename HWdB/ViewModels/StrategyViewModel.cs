@@ -3,18 +3,7 @@ namespace HWdB.ViewModels
 {
     class StrategyViewModel : BaseViewModel
     {
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override sealed string ButtonName { get; set; }
 
         public StrategyViewModel()
         {

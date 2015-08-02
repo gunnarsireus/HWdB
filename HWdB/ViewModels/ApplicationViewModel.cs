@@ -1,5 +1,4 @@
-﻿using HWdB.Model;
-using HWdB.MVVMFramework;
+﻿using HWdB.MVVMFramework;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -9,18 +8,10 @@ namespace HWdB.ViewModels
 {
     class ApplicationViewModel : BaseViewModel
     {
-
-        string _buttonName;
-        bool _userLoggedIn;
-
+        public override sealed string ButtonName { get; set; }
         public void Logout()
         {
             Application.Current.Shutdown();
-        }
-
-        public void Message(string message)
-        {
-            MessageBox.Show(message);
         }
 
         public void Login()
@@ -28,6 +19,7 @@ namespace HWdB.ViewModels
             CurrentPageViewModel = new LoginViewModel(this);
         }
 
+        bool _userLoggedIn;
         public bool UserLoggedIn
         {
             get
@@ -36,61 +28,35 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_userLoggedIn != value)
+                if (_userLoggedIn == value) return;
+                _userLoggedIn = value;
+                if (_userLoggedIn)
                 {
-                    _userLoggedIn = value;
-                    if (_userLoggedIn == true)
-                    {
-                        PageViewModels.Clear();
-                        PageViewModels.Add(new LoginViewModel(this));
-                        //PageViewModels.Add(new ProductsViewModel());
-                        //PageViewModels.Add(new ProductGroupsViewModel());
-                        //PageViewModels.Add(new ExportViewModel());
-                        //PageViewModels.Add(new ImportViewModel());
-                        //PageViewModels.Add(new RepairViewModel());
-                        //PageViewModels.Add(new SupplyViewModel());
-                        //PageViewModels.Add(new StrategyViewModel());
-                        PageViewModels.Add(new LtbViewModel());
-                        PageViewModels.Add(new AdministrationViewModel());
-                        CurrentPageViewModel = PageViewModels[1];
-                    }
-                    OnPropertyChanged("UserLoggedIn");
+                    PageViewModels.Clear();
+                    PageViewModels.Add(new LoginViewModel(this));
+                    //PageViewModels.Add(new ProductsViewModel());
+                    //PageViewModels.Add(new ProductGroupsViewModel());
+                    //PageViewModels.Add(new ExportViewModel());
+                    //PageViewModels.Add(new ImportViewModel());
+                    //PageViewModels.Add(new RepairViewModel());
+                    //PageViewModels.Add(new SupplyViewModel());
+                    //PageViewModels.Add(new StrategyViewModel());
+                    PageViewModels.Add(new LtbViewModel());
+                    PageViewModels.Add(new AdministrationViewModel());
+                    CurrentPageViewModel = PageViewModels[1];
                 }
+                OnPropertyChanged("UserLoggedIn");
             }
         }
-
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
-        public ObservableCollection<User> AllUsers
-        {
-            get;
-            private set;
-        }
-
-        private ICommand _changePageCommand;
-        private BaseViewModel _currentPageViewModel;
-        private ObservableCollection<BaseViewModel> _pageViewModels;
 
         public ApplicationViewModel()
         {
             UserLoggedIn = false;
-            PageViewModels.Add(new LoginViewModel(this));
-
-
-            // Set starting page
-
-            CurrentPageViewModel = PageViewModels[0];
+            CurrentPageViewModel = new LoginViewModel(this);
         }
 
+
+        private ICommand _changePageCommand;
         public ICommand ChangePageCommand
         {
             get
@@ -101,11 +67,13 @@ namespace HWdB.ViewModels
             }
         }
 
+        private ObservableCollection<BaseViewModel> _pageViewModels;
         public ObservableCollection<BaseViewModel> PageViewModels
         {
             get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<BaseViewModel>()); }
         }
 
+        private BaseViewModel _currentPageViewModel;
         public BaseViewModel CurrentPageViewModel
         {
             get
@@ -126,8 +94,6 @@ namespace HWdB.ViewModels
             {
                 UserLoggedIn = false;
             }
-            if (!PageViewModels.Contains(viewModel))
-                PageViewModels.Add(viewModel);
 
             CurrentPageViewModel = PageViewModels
                 .FirstOrDefault(vm => vm == viewModel);

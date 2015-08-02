@@ -2,22 +2,11 @@
 {
     class ImportViewModel : BaseViewModel
     {
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override sealed string ButtonName { get; set; }
 
         public ImportViewModel()
         {
-            this.ButtonName = "Import";
+            ButtonName = "Import";
         }
 
         protected override void OnDispose()

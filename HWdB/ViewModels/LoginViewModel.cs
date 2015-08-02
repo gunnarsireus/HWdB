@@ -3,7 +3,6 @@ using HWdB.Model;
 using HWdB.MVVMFramework;
 using HWdB.Utils;
 using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -13,7 +12,7 @@ namespace HWdB.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-        ApplicationViewModel _applikationViewModel;
+        readonly ApplicationViewModel _applikationViewModel;
         public LoginViewModel(ApplicationViewModel applikationViewModel)
         {
             DbLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + @"\HWdB.mdf";
@@ -71,17 +70,15 @@ namespace HWdB.ViewModels
         private void Login(object parameter)
         {
             var passwordContainer = parameter as IHavePassword;
-            if (passwordContainer != null)
-            {
-                string password = "";
-                var secureString = passwordContainer.Password;
-                password = ConvertToUnsecureString(secureString);
+            if (passwordContainer == null) return;
+            var password = "";
+            var secureString = passwordContainer.Password;
+            password = ConvertToUnsecureString(secureString);
 
-                UsernamePassword usernamePassword = new UsernamePassword(UserName, password);
-                if (UserOk(usernamePassword))
-                {
-                    _applikationViewModel.UserLoggedIn = true;
-                }
+            var usernamePassword = new UsernamePassword(UserName, password);
+            if (UserOk(usernamePassword))
+            {
+                _applikationViewModel.UserLoggedIn = true;  //Shows menu at the bottom
             }
         }
 
@@ -91,10 +88,10 @@ namespace HWdB.ViewModels
             {
                 if (LoggedInUser.Instance.UserLoggedin != null)
                 {
-                    User stored = context.Users.FirstOrDefault(a => (a.Id == LoggedInUser.Instance.UserLoggedin.Id));
-                    if (stored != null)
+                    var storedUser = context.Users.FirstOrDefault(a => (a.Id == LoggedInUser.Instance.UserLoggedin.Id));
+                    if (storedUser != null)
                     {
-                        stored.LogedIn = false;
+                        storedUser.LogedIn = false;
                         context.SaveChanges();
                         LoggedInUser.Instance.UserLoggedin.LogedIn = false;
                     }
@@ -124,17 +121,6 @@ namespace HWdB.ViewModels
 
         public override sealed string ButtonName { get; set; }
 
-        public ObservableCollection<User> AllUsers
-        {
-            get;
-            private set;
-        }
-
-        protected override void OnDispose()
-        {
-            this.AllUsers.Clear();
-        }
-
         public bool UserOk(UsernamePassword usernamePassword)
         {
             using (var context = new DataContext())
@@ -155,7 +141,7 @@ namespace HWdB.ViewModels
                     UserLogs.Instance.UserErrorLog("ValidateUser() user " + usernamePassword.UserName + " not found or inactive");
                     status.Success = false;
                     status.Message = Properties.Strings.Username_or_password_wrong;
-                    _applikationViewModel.Message(status.Message);
+                    MessageBox.Show(status.Message);
                     return false;
                 }
                 UserLogs.Instance.UserInfoLog("User " + usernamePassword.UserName + " logged in " + DateTime.Now.ToString(CultureInfo.InvariantCulture));

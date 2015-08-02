@@ -2,18 +2,7 @@
 {
     class RepairViewModel : BaseViewModel
     {
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override sealed string ButtonName { get; set; }
 
         public RepairViewModel()
         {

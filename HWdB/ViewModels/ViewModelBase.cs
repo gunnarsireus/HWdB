@@ -6,24 +6,19 @@ namespace HWdB.ViewModels
 {
     public abstract class BaseViewModel : PropertyChangedNotification, INotifyPropertyChanged, IDisposable
     {
-        protected BaseViewModel()
-        {
-            ButtonName = "";
-        }
-
-        public virtual string ButtonName { get; set; }
+        public abstract string ButtonName { get; set; }
 
         public new event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
-            var handler = this.PropertyChanged;
+            var handler = PropertyChanged;
             if (handler == null) return;
             var e = new PropertyChangedEventArgs(propertyName);
             handler(this, e);
         }
         public virtual void Dispose()
         {
-            this.OnDispose();
+            OnDispose();
         }
         protected virtual void OnDispose()
         {

@@ -2,22 +2,11 @@
 {
     class ProductGroupsViewModel : BaseViewModel
     {
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override sealed string ButtonName { get; set; }
 
         public ProductGroupsViewModel()
         {
-            this.ButtonName = "Product Groups";
+            ButtonName = "Product Groups";
         }
 
         protected override void OnDispose()

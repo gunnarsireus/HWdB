@@ -3,22 +3,11 @@ namespace HWdB.ViewModels
 {
     class SupplyViewModel : BaseViewModel
     {
-        string _buttonName;
-        public override string ButtonName
-        {
-            get
-            {
-                return _buttonName;
-            }
-            set
-            {
-                _buttonName = value;
-            }
-        }
+        public override sealed string ButtonName { get; set; }
 
         public SupplyViewModel()
         {
-            this.ButtonName = "Supply";
+            ButtonName = "Supply";
         }
 
         protected override void OnDispose()
