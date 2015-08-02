@@ -117,9 +117,6 @@ namespace HWdB.ViewModels
                 if (_currentPageViewModel == value) return;
                 _currentPageViewModel = value;
                 OnPropertyChanged("CurrentPageViewModel");
-                if (value.ButtonName != "LTB") return;
-                var ltbViewModel = (LtbViewModel)PageViewModels[PageViewModels.Count - 2];
-                ltbViewModel.InitListBox();
             }
         }
 
