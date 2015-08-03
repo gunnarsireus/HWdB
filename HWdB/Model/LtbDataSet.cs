@@ -1481,12 +1481,12 @@ namespace HWdB.Model
             ClearChartData();
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
-            long StockPresent = 0;
-            long SafetyPresent = 0;
+            long stockPresent = 0;
+            long safetyPresent = 0;
 
             if (RepairLeadTime < 1 | RepairLeadTime > 365)
             {
-                InfoText = "Error: 2 <= Repair Lead Time <=365TextInfo;";
+                InfoText = "Error: 2 <= Repair Lead Time <=365;";
                 return;
             }
 
@@ -1508,48 +1508,48 @@ namespace HWdB.Model
 
             GetInputFromArray(ServiceDays, ServiceYears, RepairLeadTime, ref Conf_Level, N);
 
-            LTBCommon LTB = new LTBCommon();
-            LTB.LTBWorker(N, ServiceDays, RepairLeadTime, ServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
+            var ltb = new LTBCommon();
+            ltb.LTBWorker(N, ServiceDays, RepairLeadTime, ServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
             ref Stock_Array, ref Returned_Array, ref Demand_Array, ref SumDemand_Array, ref RepairLoss_Array, ref  SumRepairLoss_Array, ref Repair_Array, ref SumRepair_Array, ref SafetyMargin_Array, ref SafetyMarginDayArray, ref FSRepairLeadTimeDemand_Array,
             ref IBin, ref  FRin, ref  RLin, ref  RSin, ref  RSDayArray, ref  RLDayArray, ref  StockDayArray, ref  ReturnedDayArray, ref  SumDemandDayArray);
             SetChartData();
             GetChart();
-            StockPresent = RoundLong(Stock_Array[1], 0);
-            SafetyPresent = SafetyYearArray[0];
+            stockPresent = RoundLong(Stock_Array[1], 0);
+            safetyPresent = SafetyYearArray[0];
 
-            Stock = StockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
+            Stock = stockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
 
-            if (SafetyPresent > 0)
+            if (safetyPresent > 0)
             {
                 FromAverage = GetSafetyFromAverage(Conf_in, SafetyMargin_Array[1]);
-                Safety = SafetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
+                Safety = safetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
             }
             else
             {
                 Safety = string.Empty;
             }
 
-            TotalStock = Convert.ToString(StockPresent + SafetyPresent);
+            TotalStock = Convert.ToString(stockPresent + safetyPresent);
 
             Failed = RoundLong(SumDemand_Array[1], 0).ToString();
 
             Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
 
-            if (RepairPossible) { Lost = RoundUpLong(SumRepairLoss_Array[1], 0).ToString(); } else { Lost = "Nothing"; }
+            Lost = RepairPossible ? RoundUpLong(SumRepairLoss_Array[1], 0).ToString() : "Nothing";
         }
 
         void SetChartData()
         {
             //For Chart
-            int YearCnt = 0;
-            while (YearCnt <= ServiceYears)
+            var yearCnt = 0;
+            while (yearCnt <= ServiceYears)
             {
-                RSYearArray[YearCnt] = RSDayArray[YearCnt * 365 + 1];
-                StockYearArray[YearCnt] = RoundLong(StockDayArray[YearCnt * 365 + 1] - RSDayArray[YearCnt * 365 + 1], 0);
-                FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1]), 0);
-                FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[YearCnt * 365 + 1] + ReturnedDayArray[YearCnt * 365 + 1] + FromAverage, ReturnedDayArray[YearCnt * 365 + RepairLeadTime + 1]), 0);
-                SafetyYearArray[YearCnt] = FromGamma + FromAverage;
-                YearCnt = YearCnt + 1;
+                RSYearArray[yearCnt] = RSDayArray[yearCnt * 365 + 1];
+                StockYearArray[yearCnt] = RoundLong(StockDayArray[yearCnt * 365 + 1] - RSDayArray[yearCnt * 365 + 1], 0);
+                FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[yearCnt * 365 + 1]), 0);
+                FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[yearCnt * 365 + 1] + ReturnedDayArray[yearCnt * 365 + 1] + FromAverage, ReturnedDayArray[yearCnt * 365 + RepairLeadTime + 1]), 0);
+                SafetyYearArray[yearCnt] = FromGamma + FromAverage;
+                yearCnt = yearCnt + 1;
             }
         }
 
@@ -1571,18 +1571,18 @@ namespace HWdB.Model
         {
             if (EOSDate == null || LTBDate == null) return;
             InitLabels();
-            int Cnt = 0;
+            var cnt = 0;
             ServiceDays = ServiceDays;  //Trigger update of View
-            Cnt = 0;
-            bool EOSFound = false;
-            while (Cnt <= ServiceYears)
+            cnt = 0;
+            var eosFound = false;
+            while (cnt <= ServiceYears)
             {
-                switch (Cnt)
+                switch (cnt)
                 {
                     case 0:
                         if (IB1 == "EoS")
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB1 = " ";
                             FR1 = " ";
                             RL1 = " ";
@@ -1591,9 +1591,9 @@ namespace HWdB.Model
                         IB1IsEnabled = true;
                         break;
                     case 1:
-                        if (IB2 == "EoS" || EOSFound)
+                        if (IB2 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB2 = " ";
                             FR2 = " ";
                             RL2 = " ";
@@ -1602,9 +1602,9 @@ namespace HWdB.Model
                         IB2IsEnabled = true;
                         break;
                     case 2:
-                        if (IB3 == "EoS" || EOSFound)
+                        if (IB3 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB3 = " ";
                             FR3 = " ";
                             RL3 = " ";
@@ -1613,9 +1613,9 @@ namespace HWdB.Model
                         IB3IsEnabled = true;
                         break; ;
                     case 3:
-                        if (IB4 == "EoS" || EOSFound)
+                        if (IB4 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB4 = " ";
                             FR4 = " ";
                             RL4 = " ";
@@ -1624,9 +1624,9 @@ namespace HWdB.Model
                         IB4IsEnabled = true;
                         break; ;
                     case 4:
-                        if (IB5 == "EoS" || EOSFound)
+                        if (IB5 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB5 = " ";
                             FR5 = " ";
                             RL5 = " ";
@@ -1635,9 +1635,9 @@ namespace HWdB.Model
                         IB5IsEnabled = true;
                         break;
                     case 5:
-                        if (IB6 == "EoS" || EOSFound)
+                        if (IB6 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB6 = " ";
                             FR6 = " ";
                             RL6 = " ";
@@ -1646,9 +1646,9 @@ namespace HWdB.Model
                         IB6IsEnabled = true;
                         break;
                     case 6:
-                        if (IB7 == "EoS" || EOSFound)
+                        if (IB7 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB7 = " ";
                             FR7 = " ";
                             RL7 = " ";
@@ -1657,9 +1657,9 @@ namespace HWdB.Model
                         IB7IsEnabled = true;
                         break;
                     case 7:
-                        if (IB8 == "EoS" || EOSFound)
+                        if (IB8 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB8 = " ";
                             FR8 = " ";
                             RL8 = " ";
@@ -1668,9 +1668,9 @@ namespace HWdB.Model
                         IB8IsEnabled = true;
                         break;
                     case 8:
-                        if (IB9 == "EoS" || EOSFound)
+                        if (IB9 == "EoS" || eosFound)
                         {
-                            EOSFound = true;
+                            eosFound = true;
                             IB9 = " ";
                             FR9 = " ";
                             RL9 = " ";
@@ -1679,13 +1679,13 @@ namespace HWdB.Model
                         IB9IsEnabled = true;
                         break;
                     case 9:
-                        if (IB10 == "EoS" || EOSFound)
+                        if (IB10 == "EoS" || eosFound)
                         {
                             IB10 = " ";
                         }
                         break;
                 }
-                Cnt += 1;
+                cnt += 1;
             }
 
             switch (ServiceYears)
@@ -1769,9 +1769,9 @@ namespace HWdB.Model
                     break;
                 default: break;
             }
-            while (Cnt <= LTBCommon.MaxYear)
+            while (cnt <= LTBCommon.MaxYear)
             {
-                switch (Cnt)
+                switch (cnt)
                 {
                     case 1:
                         if (ServiceYears != 0)
@@ -1879,7 +1879,7 @@ namespace HWdB.Model
                         }
                         break;
                 }
-                Cnt += 1;
+                cnt += 1;
             }
             AdjustRepair();
         }

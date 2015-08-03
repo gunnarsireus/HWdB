@@ -223,10 +223,8 @@ namespace HWdB.ViewModels
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     context.LtbDataSets.Add(ltbDataSet);
                     context.SaveChanges();
-                    //var ltbChart = ltbDataSet.LtbChart;
                     LtbDataSetsObs.Add(ltbDataSet);
                     SelectedIndex = LtbDataSetsObs.Count - 1;
-                    //LtbDataSetsObs[SelectedIndex].LtbChart = ltbChart; //Get the LtbChart previously calculated;
                     SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                     return;
                 }
