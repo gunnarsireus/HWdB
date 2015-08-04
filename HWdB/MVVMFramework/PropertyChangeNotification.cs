@@ -10,8 +10,6 @@ namespace HWdB.MVVMFramework
 {
     public abstract class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
     {
-        //This dictionary contains a list of our validation errors for each field
-
         private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
         protected void AddError(string columnName, string msg)
         {
@@ -31,20 +29,8 @@ namespace HWdB.MVVMFramework
 
         public virtual Dictionary<string, string> HasErrors { get { return validationErrors; } }
 
-        #region Fields
-
         private readonly Dictionary<string, object> _values = new Dictionary<string, object>();
 
-        #endregion
-
-        #region Protected
-
-        /// <summary>
-        /// Sets the value of a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property value.</typeparam>
-        /// <param name="propertySelector">Expression tree contains the property definition.</param>
-        /// <param name="value">The property value.</param>
         protected void SetValue<T>(Expression<Func<T>> propertySelector, T value)
         {
             string propertyName = GetPropertyName(propertySelector);
@@ -52,12 +38,6 @@ namespace HWdB.MVVMFramework
             SetValue<T>(propertyName, value);
         }
 
-        /// <summary>
-        /// Sets the value of a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property value.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="value">The property value.</param>
         protected void SetValue<T>(string propertyName, T value)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -69,12 +49,6 @@ namespace HWdB.MVVMFramework
             NotifyPropertyChanged(propertyName);
         }
 
-        /// <summary>
-        /// Gets the value of a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property value.</typeparam>
-        /// <param name="propertySelector">Expression tree contains the property definition.</param>
-        /// <returns>The value of the property or default value if not exist.</returns>
         protected T GetValue<T>(Expression<Func<T>> propertySelector)
         {
             string propertyName = GetPropertyName(propertySelector);
@@ -82,12 +56,6 @@ namespace HWdB.MVVMFramework
             return GetValue<T>(propertyName);
         }
 
-        /// <summary>
-        /// Gets the value of a property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property value.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <returns>The value of the property or default value if not exist.</returns>
         protected T GetValue<T>(string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -105,11 +73,6 @@ namespace HWdB.MVVMFramework
             return (T)value;
         }
 
-        /// <summary>
-        /// Validates current instance properties using Data Annotations.
-        /// </summary>
-        /// <param name="propertyName">This instance property to validate.</param>
-        /// <returns>Relevant error string on validation failure or <see cref="System.String.Empty"/> on validation success.</returns>
         protected virtual string OnValidate(string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -139,19 +102,9 @@ namespace HWdB.MVVMFramework
             return error;
         }
 
-        #endregion
 
-        #region Change Notification
-
-        /// <summary>
-        /// Raised when a property on this object has a new value.
-        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Raises this object's PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyName">The property that has a new value.</param>
         protected void NotifyPropertyChanged(string propertyName)
         {
             this.VerifyPropertyName(propertyName);
@@ -174,10 +127,6 @@ namespace HWdB.MVVMFramework
             }
         }
 
-        #endregion // INotifyPropertyChanged Members
-
-        #region Data Validation
-
         string IDataErrorInfo.Error
         {
             get
@@ -193,10 +142,6 @@ namespace HWdB.MVVMFramework
                 return OnValidate(propertyName);
             }
         }
-
-        #endregion
-
-        #region Privates
 
         private string GetPropertyName(LambdaExpression expression)
         {
@@ -227,15 +172,7 @@ namespace HWdB.MVVMFramework
             return value;
         }
 
-        #endregion
 
-        #region Debugging
-
-        /// <summary>
-        /// Warns the developer if this object does not have
-        /// a public property with the specified name. This 
-        /// method does not exist in a Release build.
-        /// </summary>
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)
@@ -252,15 +189,7 @@ namespace HWdB.MVVMFramework
                     Debug.Fail(msg);
             }
         }
-
-        /// <summary>
-        /// Returns whether an exception is thrown, or if a Debug.Fail() is used
-        /// when an invalid property name is passed to the VerifyPropertyName method.
-        /// The default value is false, but subclasses used by unit tests might 
-        /// override this property's getter to return true.
-        /// </summary>
         protected virtual bool ThrowOnInvalidPropertyName { get; private set; }
 
-        #endregion // Debugging Aides
     }
 }
