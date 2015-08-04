@@ -140,7 +140,7 @@ namespace HWdB.ViewModels
             {
                 if (LtbDataSetsObs == null) LtbDataSetsObs = new ObservableCollection<LtbDataSet>();
                 LtbDataSetsObs.Clear();
-                context.LtbDataSets.ToList().ForEach(i => LtbDataSetsObs.Add(i));
+                context.LtbDataSets.OrderBy(l => l.Customer).ThenBy(l => l.Version).ToList().ForEach(i => LtbDataSetsObs.Add(i));
             }
         }
 
@@ -221,15 +221,28 @@ namespace HWdB.ViewModels
                 {
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
                     ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-                    context.LtbDataSets.Add(ltbDataSet);
-                    context.SaveChanges();
-                    LtbDataSetsObs.Add(ltbDataSet);
+                    if (ltbDataSet.Id == 0)
+                    {
+                        context.LtbDataSets.Add(ltbDataSet);
+                        context.SaveChanges();
+                        LtbDataSetsObs.Add(ltbDataSet);
+                    }
+                    else
+                    {
+                        var tmpLtbDataSet = new LtbDataSet();
+                        tmpLtbDataSet.Clone(ltbDataSet);
+                        tmpLtbDataSet.LtbChart = ltbDataSet.LtbChart;
+                        tmpLtbDataSet.CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName;
+                        context.LtbDataSets.Add(tmpLtbDataSet);
+                        context.SaveChanges();
+                        InitListBox();
+                    }
                     SelectedIndex = LtbDataSetsObs.Count - 1;
                     SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                     return;
                 }
                 UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
-                //ltbDataSet.Id = oldLtbDataSet.Id;
+                ltbDataSet.Id = oldLtbDataSet.Id;
                 ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                 context.Entry(oldLtbDataSet).CurrentValues.SetValues(ltbDataSet);
                 context.Entry(oldLtbDataSet).State = System.Data.EntityState.Modified;

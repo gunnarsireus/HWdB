@@ -652,7 +652,7 @@ namespace HWdB.Model
         public void Clone(LtbDataSet that)
         {
             Customer = that.Customer;
-            Id = that.Id;
+            //Id = that.Id;
             CreatedBy = that.CreatedBy;
             Version = that.Version;
             Saved = that.Saved;

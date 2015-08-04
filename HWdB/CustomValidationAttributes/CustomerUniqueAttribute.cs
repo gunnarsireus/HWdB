@@ -17,11 +17,9 @@ namespace HWdB.CustomValidationAttributes
 
                 int dataSetId = (int)validationContext.ObjectType.GetProperty("Id").GetValue(validationContext.ObjectInstance, null);
 
-                if (dataSetId > 0) return ValidationResult.Success;
-
                 using (var context = new DataContext())
                 {
-                    LtbDataSet stored = context.LtbDataSets.FirstOrDefault(a => ((a.Customer == customer) && (a.Version == version)));
+                    LtbDataSet stored = context.LtbDataSets.FirstOrDefault(a => ((a.Customer == customer) && (a.Version == version) && (dataSetId != a.Id)));
                     if (stored != null)
                     {
                         return new ValidationResult("Customer already exists");
