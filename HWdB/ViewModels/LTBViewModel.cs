@@ -122,7 +122,7 @@ namespace HWdB.ViewModels
             DeleteCommand = new RelayCommand(Delete);
             NextCommand = new RelayCommand(Next);
             PreviousCommand = new RelayCommand(Previous);
-            InitListBox();
+            InitListBox(new LtbDataSet());
             if (LtbDataSetsObs.Any())
             {
                 SelectedListBoxItem = LtbDataSetsObs[0];
@@ -134,7 +134,7 @@ namespace HWdB.ViewModels
             }
             CurrentLtbDataSet.InitLabels();
         }
-        public void InitListBox()
+        public void InitListBox(LtbDataSet oldSet)
         {
             using (var context = new DataContext())
             {
@@ -150,14 +150,24 @@ namespace HWdB.ViewModels
                 {
                     foreach (var item in LtbDataSetsObs)
                     {
-                        if (item.Id == tmpItem.Id)
-                        {
-                            item.LtbChart = tmpItem.LtbChart;
-                        }
+                        if (item.Customer == oldSet.Customer && item.Version == oldSet.Version)
+                            if (item.Id == tmpItem.Id)
+                            {
+                                item.LtbChart = tmpItem.LtbChart;
+                            }
                     }
                 }
             }
-            Next(new object());
+            SelectedIndex = 0;
+            foreach (var item in LtbDataSetsObs)
+            {
+                if (item.Customer == oldSet.Customer && item.Version == oldSet.Version)
+                {
+                    SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
+                    break;
+                }
+                SelectedIndex = (SelectedIndex + 1) % LtbDataSetsObs.Count;
+            }
         }
 
         private void Next(object parameter)
@@ -252,7 +262,7 @@ namespace HWdB.ViewModels
                         context.LtbDataSets.Add(tmpLtbDataSet);
                         context.SaveChanges();
                         LtbDataSetsObs.Add(tmpLtbDataSet);
-                        InitListBox();
+                        InitListBox(CurrentLtbDataSet);
                     }
                     return;
                 }

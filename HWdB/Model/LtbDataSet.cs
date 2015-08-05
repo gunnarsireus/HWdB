@@ -18,6 +18,8 @@ namespace HWdB.Model
         bool _loopOk;
         public LtbDataSet()
         {
+            Customer = "";
+            Version = "";
             StockYearArray = new long[LTBCommon.MaxYear + 1];
 
             RSYearArray = new long[LTBCommon.MaxYear + 1];
