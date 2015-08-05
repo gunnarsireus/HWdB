@@ -139,9 +139,25 @@ namespace HWdB.ViewModels
             using (var context = new DataContext())
             {
                 if (LtbDataSetsObs == null) LtbDataSetsObs = new ObservableCollection<LtbDataSet>();
+                var tmpList = new ObservableCollection<LtbDataSet>();
+                foreach (var item in LtbDataSetsObs)
+                {
+                    tmpList.Add(item);
+                }
                 LtbDataSetsObs.Clear();
                 context.LtbDataSets.OrderBy(l => l.Customer).ThenBy(l => l.Version).ToList().ForEach(i => LtbDataSetsObs.Add(i));
+                foreach (var tmpItem in tmpList)
+                {
+                    foreach (var item in LtbDataSetsObs)
+                    {
+                        if (item.Id == tmpItem.Id)
+                        {
+                            item.LtbChart = tmpItem.LtbChart;
+                        }
+                    }
+                }
             }
+            Next(new object());
         }
 
         private void Next(object parameter)
@@ -235,10 +251,9 @@ namespace HWdB.ViewModels
                         tmpLtbDataSet.CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName;
                         context.LtbDataSets.Add(tmpLtbDataSet);
                         context.SaveChanges();
+                        LtbDataSetsObs.Add(tmpLtbDataSet);
                         InitListBox();
                     }
-                    SelectedIndex = LtbDataSetsObs.Count - 1;
-                    SelectedListBoxItem = LtbDataSetsObs[SelectedIndex];
                     return;
                 }
                 UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
