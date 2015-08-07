@@ -262,12 +262,12 @@ namespace HWdB.ViewModels
                         context.LtbDataSets.Add(tmpLtbDataSet);
                         context.SaveChanges();
                         LtbDataSetsObs.Add(tmpLtbDataSet);
-                        InitListBox(CurrentLtbDataSet);
+                        InitListBox(ltbDataSet);
                     }
                     return;
                 }
                 UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
-                ltbDataSet.Id = oldLtbDataSet.Id;
+                //ltbDataSet.Id = oldLtbDataSet.Id;
                 ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                 context.Entry(oldLtbDataSet).CurrentValues.SetValues(ltbDataSet);
                 context.Entry(oldLtbDataSet).State = System.Data.EntityState.Modified;
