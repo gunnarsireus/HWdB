@@ -8,9 +8,5 @@
         {
             ButtonName = "Export";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }

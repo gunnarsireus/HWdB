@@ -8,9 +8,5 @@
         {
             ButtonName = "Products";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }

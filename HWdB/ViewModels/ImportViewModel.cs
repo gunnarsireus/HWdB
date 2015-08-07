@@ -8,9 +8,5 @@
         {
             ButtonName = "Import";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }

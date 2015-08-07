@@ -9,9 +9,5 @@ namespace HWdB.ViewModels
         {
             ButtonName = "Supply";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }

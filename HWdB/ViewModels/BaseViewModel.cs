@@ -1,5 +1,7 @@
 ﻿using HWdB.MVVMFramework;
+using Microsoft.Win32.SafeHandles;
 using System;
+using System.Runtime.InteropServices;
 
 namespace HWdB.ViewModels
 {
@@ -7,13 +9,34 @@ namespace HWdB.ViewModels
     {
         public abstract string ButtonName { get; set; }
 
-        public virtual void Dispose()
-        {
-            OnDispose();
-        }
-        protected virtual void OnDispose()
-        {
+        // Flag: Has Dispose already been called? 
+        private bool _disposed = false;
+        // Instantiate a SafeHandle instance.
+        private readonly SafeHandle _handle = new SafeFileHandle(IntPtr.Zero, true);
 
+        // Public implementation of Dispose pattern callable by consumers. 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern. 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                _handle.Dispose();
+                // Free any other managed objects here. 
+                //
+            }
+
+            // Free any unmanaged objects here. 
+            //
+            _disposed = true;
         }
     }
 }

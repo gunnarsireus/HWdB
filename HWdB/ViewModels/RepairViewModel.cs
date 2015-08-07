@@ -8,9 +8,5 @@
         {
             this.ButtonName = "Repair";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }

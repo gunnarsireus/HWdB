@@ -9,9 +9,5 @@ namespace HWdB.ViewModels
         {
             this.ButtonName = "Strategies";
         }
-
-        protected override void OnDispose()
-        {
-        }
     }
 }
