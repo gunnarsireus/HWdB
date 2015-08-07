@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace HWdB.MVVMFramework
 {
-    public abstract class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
+    public class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
     {
         private readonly Dictionary<string, string> _validationErrors = new Dictionary<string, string>();
         protected void AddError(string columnName, string msg)
