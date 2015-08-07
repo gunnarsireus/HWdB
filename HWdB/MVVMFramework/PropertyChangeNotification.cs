@@ -10,32 +10,32 @@ namespace HWdB.MVVMFramework
 {
     public abstract class PropertyChangedNotification : INotifyPropertyChanged, IDataErrorInfo
     {
-        private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _validationErrors = new Dictionary<string, string>();
         protected void AddError(string columnName, string msg)
         {
-            if (!validationErrors.ContainsKey(columnName))
+            if (!_validationErrors.ContainsKey(columnName))
             {
-                validationErrors.Add(columnName, msg);
+                _validationErrors.Add(columnName, msg);
             }
         }
 
         protected void RemoveError(string columnName)
         {
-            if (validationErrors.ContainsKey(columnName))
+            if (_validationErrors.ContainsKey(columnName))
             {
-                validationErrors.Remove(columnName);
+                _validationErrors.Remove(columnName);
             }
         }
 
-        public virtual Dictionary<string, string> HasErrors { get { return validationErrors; } }
+        public virtual Dictionary<string, string> HasErrors { get { return _validationErrors; } }
 
         private readonly Dictionary<string, object> _values = new Dictionary<string, object>();
 
         protected void SetValue<T>(Expression<Func<T>> propertySelector, T value)
         {
-            string propertyName = GetPropertyName(propertySelector);
+            var propertyName = GetPropertyName(propertySelector);
 
-            SetValue<T>(propertyName, value);
+            SetValue(propertyName, value);
         }
 
         protected void SetValue<T>(string propertyName, T value)
@@ -46,12 +46,12 @@ namespace HWdB.MVVMFramework
             }
 
             _values[propertyName] = value;
-            NotifyPropertyChanged(propertyName);
+            OnPropertyChanged(propertyName);
         }
 
         protected T GetValue<T>(Expression<Func<T>> propertySelector)
         {
-            string propertyName = GetPropertyName(propertySelector);
+            var propertyName = GetPropertyName(propertySelector);
 
             return GetValue<T>(propertyName);
         }
@@ -64,11 +64,9 @@ namespace HWdB.MVVMFramework
             }
 
             object value;
-            if (!_values.TryGetValue(propertyName, out value))
-            {
-                value = default(T);
-                _values.Add(propertyName, value);
-            }
+            if (_values.TryGetValue(propertyName, out value)) return (T)value;
+            value = default(T);
+            _values.Add(propertyName, value);
 
             return (T)value;
         }
@@ -80,10 +78,10 @@ namespace HWdB.MVVMFramework
                 throw new ArgumentException("Invalid property name", propertyName);
             }
 
-            string error = string.Empty;
+            var error = string.Empty;
             RemoveError(propertyName);
             var value = GetValue(propertyName);
-            var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>(1);
+            var results = new List<ValidationResult>(1);
             var result = Validator.TryValidateProperty(
                 value,
                 new ValidationContext(this, null, null)
@@ -92,39 +90,30 @@ namespace HWdB.MVVMFramework
                 },
                 results);
 
-            if (!result)
-            {
-                var validationResult = results.First();
-                error = validationResult.ErrorMessage;
-                AddError(propertyName, error);
-            }
+            if (result) return error;
+            var validationResult = results.First();
+            error = validationResult.ErrorMessage;
+            AddError(propertyName, error);
 
             return error;
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
-            this.VerifyPropertyName(propertyName);
-
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
+            var handler = PropertyChanged;
+            if (handler == null) return;
+            var e = new PropertyChangedEventArgs(propertyName);
+            handler(this, e);
         }
 
-        protected void NotifyPropertyChanged<T>(Expression<Func<T>> propertySelector)
+        protected void OnPropertyChanged<T>(Expression<Func<T>> propertySelector)
         {
             var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                string propertyName = GetPropertyName(propertySelector);
-                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            if (propertyChanged == null) return;
+            var propertyName = GetPropertyName(propertySelector);
+            propertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         string IDataErrorInfo.Error
@@ -143,7 +132,7 @@ namespace HWdB.MVVMFramework
             }
         }
 
-        private string GetPropertyName(LambdaExpression expression)
+        private static string GetPropertyName(LambdaExpression expression)
         {
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
@@ -157,17 +146,15 @@ namespace HWdB.MVVMFramework
         private object GetValue(string propertyName)
         {
             object value;
-            if (!_values.TryGetValue(propertyName, out value))
+            if (_values.TryGetValue(propertyName, out value)) return value;
+            var propertyDescriptor = TypeDescriptor.GetProperties(GetType()).Find(propertyName, false);
+            if (propertyDescriptor == null)
             {
-                var propertyDescriptor = TypeDescriptor.GetProperties(GetType()).Find(propertyName, false);
-                if (propertyDescriptor == null)
-                {
-                    throw new ArgumentException("Invalid property name", propertyName);
-                }
-
-                value = propertyDescriptor.GetValue(this);
-                _values.Add(propertyName, value);
+                throw new ArgumentException("Invalid property name", propertyName);
             }
+
+            value = propertyDescriptor.GetValue(this);
+            _values.Add(propertyName, value);
 
             return value;
         }
