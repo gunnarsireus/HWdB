@@ -1081,10 +1081,10 @@ namespace HWdB.Model
             }
             if (Stock < 2492000)
             {
-                PoissonDistribution Poisson = new PoissonDistribution(Stock);
+                var poisson = new PoissonDistribution(Stock);
                 double tmp = 0;
                 NMathConfiguration.Init();
-                tmp = Poisson.CDF(Math.Round(Stock + Safety, 0));
+                tmp = poisson.CDF(Math.Round(Stock + Safety, 0));
                 functionReturnValue = " (" + (100 * Math.Round(tmp, 4)).ToString() + "%)";
             }
             else
@@ -1105,11 +1105,11 @@ namespace HWdB.Model
 
             if (Average < 2492000)
             {
-                PoissonDistribution Poisson = new PoissonDistribution(Average);
+                var poisson = new PoissonDistribution(Average);
                 long K = 0;
                 K = Convert.ToInt64(Math.Round(Average, 0));
 
-                while (Poisson.CDF(K) < CL)
+                while (poisson.CDF(K) < CL)
                 {
                     K = K + 1;
                 }
