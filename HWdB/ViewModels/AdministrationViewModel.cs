@@ -47,7 +47,7 @@ namespace HWdB.ViewModels
             }
             set
             {
-                if (_currentUser == value) return;
+                if (value == null) return;
                 if (_currentUser != null)
                 {
                     _currentUser.IsSelected = false;
