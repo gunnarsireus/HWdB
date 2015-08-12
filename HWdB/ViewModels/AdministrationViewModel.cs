@@ -13,7 +13,7 @@ namespace HWdB.ViewModels
 {
     class AdministrationViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
         public ObservableCollection<User> UsersObs
         {
             get { return GetValue(() => UsersObs); }
@@ -104,7 +104,7 @@ namespace HWdB.ViewModels
 
         public AdministrationViewModel()
         {
-            ButtonName = "Administration";
+            Title = "Administration";
             SaveCommand = new RelayCommand(Save);
             NewUserCommand = new RelayCommand(CreateNewCurrentUser);
             DeleteUserCommand = new RelayCommand(Delete);

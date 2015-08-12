@@ -59,7 +59,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button  Height="20"  Content="{Binding ButtonName}" Style="{DynamicResource ButtonStyler}" 
+                        <Button  Height="20"  Content="{Binding Title}" Style="{DynamicResource ButtonStyler}" 
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
                                 Margin="2,5"/>

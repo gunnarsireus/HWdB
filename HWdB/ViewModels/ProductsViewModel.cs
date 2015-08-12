@@ -2,11 +2,11 @@
 {
     class ProductsViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
 
         public ProductsViewModel()
         {
-            ButtonName = "Products";
+            Title = "Products";
         }
     }
 }

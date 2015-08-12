@@ -2,11 +2,11 @@
 {
     class RepairViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
 
         public RepairViewModel()
         {
-            this.ButtonName = "Repair";
+            this.Title = "Repair";
         }
     }
 }

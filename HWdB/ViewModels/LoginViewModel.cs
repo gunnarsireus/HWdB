@@ -21,7 +21,7 @@ namespace HWdB.ViewModels
             ReturnCommand = new RelayCommand(Login);
             EnterCommand = new RelayCommand(Login);
             _applikationViewModel = applikationViewModel;
-            ButtonName = "Logout";
+            Title = "Logout";
         }
 
         private string _dbLocation;
@@ -119,7 +119,7 @@ namespace HWdB.ViewModels
             }
         }
 
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
 
         public bool UserOk(UsernamePassword usernamePassword)
         {

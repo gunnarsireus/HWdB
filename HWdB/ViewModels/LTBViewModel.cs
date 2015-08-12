@@ -12,7 +12,7 @@ namespace HWdB.ViewModels
 {
     class LtbViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
         public ObservableCollection<LtbDataSet> LtbDataSetsObs
         {
             get { return GetValue(() => LtbDataSetsObs); }
@@ -115,7 +115,7 @@ namespace HWdB.ViewModels
         }
         public LtbViewModel()
         {
-            ButtonName = "LTB";
+            Title = "LTB";
             CalculateCommand = new RelayCommand(Calculate);
             ClearCommand = new RelayCommand(ClearResultChartErrors);
             NewLtbDataSetCommand = new RelayCommand(CreateNewCurrentLtbDataSet);

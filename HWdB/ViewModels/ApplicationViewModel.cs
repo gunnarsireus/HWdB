@@ -8,7 +8,7 @@ namespace HWdB.ViewModels
 {
     class ApplicationViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
         public void Logout()
         {
             Application.Current.Shutdown();

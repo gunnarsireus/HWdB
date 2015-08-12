@@ -2,11 +2,11 @@
 {
     class ExportViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
 
         public ExportViewModel()
         {
-            ButtonName = "Export";
+            Title = "Export";
         }
     }
 }

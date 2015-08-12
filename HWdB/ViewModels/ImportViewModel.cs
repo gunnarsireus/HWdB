@@ -2,11 +2,11 @@
 {
     class ImportViewModel : BaseViewModel
     {
-        public override sealed string ButtonName { get; set; }
+        public override sealed string Title { get; set; }
 
         public ImportViewModel()
         {
-            ButtonName = "Import";
+            Title = "Import";
         }
     }
 }

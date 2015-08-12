@@ -7,7 +7,7 @@ namespace HWdB.ViewModels
 {
     public abstract class BaseViewModel : PropertyChangedNotification, IDisposable
     {
-        public abstract string ButtonName { get; set; }
+        public abstract string Title { get; set; }
 
         // Flag: Has Dispose already been called? 
         private bool _disposed = false;

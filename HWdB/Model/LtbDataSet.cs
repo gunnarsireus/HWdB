@@ -121,7 +121,7 @@ namespace HWdB.Model
             }
         }
         public string ConfidenceLevel { get; set; }
-        public Boolean RepairPossible
+        public bool RepairPossible
         {
             get { return GetValue(() => RepairPossible); }
             set
@@ -631,24 +631,18 @@ namespace HWdB.Model
             get
             {
 
-                System.DateTime NewYear = default(System.DateTime);
+                DateTime NewYear = default(System.DateTime);
 
                 if (Convert.ToDateTime(LTBDate).Year >= Convert.ToDateTime(EOSDate).Year)
                 {
                     return 0;
                 }
-                else
+                NewYear = Convert.ToDateTime(Convert.ToDateTime(LTBDate).Year.ToString() + "-01-01");
+                if (IsLeapYear(Convert.ToDateTime(LTBDate).Year) & DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, NewYear, Convert.ToDateTime(LTBDate)) < 59)
                 {
-                    NewYear = Convert.ToDateTime(Convert.ToDateTime(LTBDate).Year.ToString() + "-01-01");
-                    if (IsLeapYear(Convert.ToDateTime(LTBDate).Year) & DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, NewYear, Convert.ToDateTime(LTBDate)) < 59)
-                    {
-                        return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 2) / 365);
-                    }
-                    else
-                    {
-                        return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 1) / 365);
-                    }
+                    return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 2) / 365);
                 }
+                return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 1) / 365);
             }
         }
         public void Clone(LtbDataSet that)
