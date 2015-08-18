@@ -249,16 +249,16 @@
 					</Border>
 				</Grid>
                 <Label Grid.Row="8"  Grid.Column="1" Padding="0,0,0,0" Margin="0,2,3,0" HorizontalAlignment="Right" Content="Installed Base [0 - 99999]:" FontSize="4" FontWeight="Bold" />
-                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="l0" Text="{Binding l0}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
-				<TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l1" Text="{Binding l1}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l2" Text="{Binding l2}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l3" Text="{Binding l3}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l4" Text="{Binding l4}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l5" Text="{Binding l5}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l6" Text="{Binding l6}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l7" Text="{Binding l7}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l8" Text="{Binding l8}"  FontSize="4" FontWeight="Bold" />
-				<TextBlock Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="l9" Text="{Binding l9}"  FontSize="4" FontWeight="Bold" />				
+                <TextBlock Grid.Row="7"  Grid.Column="2" Padding="0,0,0,0" Margin="0,4,7,0" HorizontalAlignment="Right" Name="YearLabel0" Text="{Binding YearLabel0}"  FontSize="4" FontWeight="Bold" Foreground="Red" />
+				<TextBlock Grid.Row="7"  Grid.Column="3" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel1" Text="{Binding YearLabel1}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="4" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel2" Text="{Binding YearLabel2}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="5" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel3" Text="{Binding YearLabel3}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="6" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel4" Text="{Binding YearLabel4}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="7" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel5" Text="{Binding YearLabel5}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="8" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel6" Text="{Binding YearLabel6}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="9" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel7" Text="{Binding YearLabel7}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="10" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel8" Text="{Binding YearLabel8}"  FontSize="4" FontWeight="Bold" />
+				<TextBlock Grid.Row="7"  Grid.Column="11" Padding="0,0,0,0" Margin="0,4,5,0" HorizontalAlignment="Right" Name="YearLabel9" Text="{Binding YearLabel9}"  FontSize="4" FontWeight="Bold" />				
 				<Grid Grid.Row="8"  Grid.Column="2" Background="{StaticResource brushWatermarkBackground}" >
 					<Border BorderBrush='WhiteSmoke'  BorderThickness='2,1,0,1'/>
 					<TextBlock Margin="5,2" Text="IB0" FontSize="4" Visibility="{Binding ElementName=IB0, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource brushWatermarkForeground}"/>

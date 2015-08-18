@@ -132,7 +132,7 @@ namespace HWdB.ViewModels
             {
                 CreateNewCurrentLtbDataSet(new object());
             }
-            CurrentLtbDataSet.InitLabels();
+            CurrentLtbDataSet.InitLabels(CurrentLtbDataSet);
         }
         public void InitListBox(LtbDataSet oldSet)
         {
@@ -231,10 +231,10 @@ namespace HWdB.ViewModels
             else
             {
                 UiServices.SetBusyState();
-                CurrentLtbDataSet.Calculate();
+                CurrentLtbDataSet.Calculate(CurrentLtbDataSet);
 
                 //Visa som 3D
-                CurrentLtbDataSet.GetChart();
+                Presenter.GetChart(CurrentLtbDataSet);
                 SaveLtbDataSet(CurrentLtbDataSet);
             }
         }
@@ -282,9 +282,9 @@ namespace HWdB.ViewModels
 
         private void ClearResultChartErrors(object parameter)
         {
-            CurrentLtbDataSet.ClearResult();
-            CurrentLtbDataSet.ClearChartData();
-            CurrentLtbDataSet.GetChart();
+            Presenter.ClearResult(CurrentLtbDataSet);
+            Presenter.ClearChartData(CurrentLtbDataSet);
+            Presenter.GetChart(CurrentLtbDataSet);
         }
 
         private void CreateNewCurrentLtbDataSet(object parameter)

@@ -8,7 +8,6 @@ using MHWdB.CustomValidationAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
 using System.Windows.Media.Imaging;
 namespace HWdB.Model
 {
@@ -25,8 +24,8 @@ namespace HWdB.Model
             RSYearArray = new long[LTBCommon.MaxYear + 1];
 
             SafetyYearArray = new long[LTBCommon.MaxYear + 1];
-            ClearChartData();
-            GetChart();
+            Presenter.ClearChartData(this);
+            Presenter.GetChart(this);
         }
         [NotMapped]
         public bool IsSelected
@@ -84,7 +83,7 @@ namespace HWdB.Model
                     OnPropertyChanged("ServiceDays");
                 }
 
-                SetInputArray();
+                UpdateInputViewModel();
             }
         }
 
@@ -102,7 +101,7 @@ namespace HWdB.Model
                     OnPropertyChanged("LTBDate");
                     OnPropertyChanged("ServiceDays");
                 }
-                SetInputArray();
+                UpdateInputViewModel();
             }
         }
 
@@ -120,7 +119,7 @@ namespace HWdB.Model
                     EOSDate = EOSDate;
                     LTBDate = LTBDate;
                 }
-                SetInputArray();
+                UpdateInputViewModel();
             }
         }
         public string ConfidenceLevel { get; set; }
@@ -132,7 +131,7 @@ namespace HWdB.Model
                 if (RepairPossible != value)
                 {
                     SetValue(() => RepairPossible, value);
-                    SetInputArray();
+                    UpdateInputViewModel();
                 }
             }
         }
@@ -569,85 +568,66 @@ namespace HWdB.Model
             set { SetValue(() => LtbChart, value); }
         }
         [NotMappedAttribute]
-        public string l0
+        public string YearLabel0
         {
-            get { return GetValue(() => l0); }
-            set { SetValue(() => l0, value); }
+            get { return GetValue(() => YearLabel0); }
+            set { SetValue(() => YearLabel0, value); }
         }
         [NotMappedAttribute]
-        public string l1
+        public string YearLabel1
         {
-            get { return GetValue(() => l1); }
-            set { SetValue(() => l1, value); }
+            get { return GetValue(() => YearLabel1); }
+            set { SetValue(() => YearLabel1, value); }
         }
         [NotMappedAttribute]
-        public string l2
+        public string YearLabel2
         {
-            get { return GetValue(() => l2); }
-            set { SetValue(() => l2, value); }
+            get { return GetValue(() => YearLabel2); }
+            set { SetValue(() => YearLabel2, value); }
         }
         [NotMappedAttribute]
-        public string l3
+        public string YearLabel3
         {
-            get { return GetValue(() => l3); }
-            set { SetValue(() => l3, value); }
+            get { return GetValue(() => YearLabel3); }
+            set { SetValue(() => YearLabel3, value); }
         }
         [NotMappedAttribute]
-        public string l4
+        public string YearLabel4
         {
-            get { return GetValue(() => l4); }
-            set { SetValue(() => l4, value); }
+            get { return GetValue(() => YearLabel4); }
+            set { SetValue(() => YearLabel4, value); }
         }
         [NotMappedAttribute]
-        public string l5
+        public string YearLabel5
         {
-            get { return GetValue(() => l5); }
-            set { SetValue(() => l5, value); }
+            get { return GetValue(() => YearLabel5); }
+            set { SetValue(() => YearLabel5, value); }
         }
         [NotMappedAttribute]
-        public string l6
+        public string YearLabel6
         {
-            get { return GetValue(() => l6); }
-            set { SetValue(() => l6, value); }
+            get { return GetValue(() => YearLabel6); }
+            set { SetValue(() => YearLabel6, value); }
         }
         [NotMappedAttribute]
-        public string l7
+        public string YearLabel7
         {
-            get { return GetValue(() => l7); }
-            set { SetValue(() => l7, value); }
+            get { return GetValue(() => YearLabel7); }
+            set { SetValue(() => YearLabel7, value); }
         }
         [NotMappedAttribute]
-        public string l8
+        public string YearLabel8
         {
-            get { return GetValue(() => l8); }
-            set { SetValue(() => l8, value); }
+            get { return GetValue(() => YearLabel8); }
+            set { SetValue(() => YearLabel8, value); }
         }
         [NotMappedAttribute]
-        public string l9
+        public string YearLabel9
         {
-            get { return GetValue(() => l9); }
-            set { SetValue(() => l9, value); }
+            get { return GetValue(() => YearLabel9); }
+            set { SetValue(() => YearLabel9, value); }
         }
-        [NotMappedAttribute]
-        int ServiceYears
-        {
-            get
-            {
 
-                DateTime NewYear = default(System.DateTime);
-
-                if (Convert.ToDateTime(LTBDate).Year >= Convert.ToDateTime(EOSDate).Year)
-                {
-                    return 0;
-                }
-                NewYear = Convert.ToDateTime(Convert.ToDateTime(LTBDate).Year.ToString() + "-01-01");
-                if (IsLeapYear(Convert.ToDateTime(LTBDate).Year) & DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, NewYear, Convert.ToDateTime(LTBDate)) < 59)
-                {
-                    return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 2) / 365);
-                }
-                return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(LTBDate), Convert.ToDateTime(EOSDate)) + CountLeaps(Convert.ToDateTime(LTBDate).Year) - CountLeaps(Convert.ToDateTime(EOSDate).Year) - 1) / 365);
-            }
-        }
         public void Clone(LtbDataSet that)
         {
             Customer = that.Customer;
@@ -738,303 +718,16 @@ namespace HWdB.Model
             SafetyYearArray = that.SafetyYearArray;
             LtbChart = that.LtbChart;
 
-            l0 = that.l0;
-            l1 = that.l1;
-            l2 = that.l2;
-            l3 = that.l3;
-            l4 = that.l4;
-            l5 = that.l5;
-            l6 = that.l6;
-            l7 = that.l7;
-            l8 = that.l8;
-            l9 = that.l9;
-        }
-
-        public void ClearResult()
-        {
-            TotalStock = string.Empty;
-            Stock = string.Empty;
-            Safety = string.Empty;
-            InfoText = string.Empty;
-            Failed = string.Empty;
-            Repaired = string.Empty;
-            Lost = string.Empty;
-        }
-        public void ClearChartData()
-        {
-            int YearCnt = 0;
-            while (YearCnt <= 10)
-            {
-                RSYearArray[YearCnt] = 0;
-                StockYearArray[YearCnt] = 0;
-                SafetyYearArray[YearCnt] = 0;
-                YearCnt = YearCnt + 1;
-            }
-        }
-        public void GetChart()
-        {
-            System.Web.UI.DataVisualization.Charting.Chart chart = new System.Web.UI.DataVisualization.Charting.Chart()
-            {
-                Height = 300,
-                Width = 900,
-                ImageType = System.Web.UI.DataVisualization.Charting.ChartImageType.Png
-            };
-            System.Web.UI.DataVisualization.Charting.ChartArea chartArea = chart.ChartAreas.Add("Stock");
-            chartArea.Area3DStyle.Enable3D = true;
-
-            System.Web.UI.DataVisualization.Charting.Series RS = chart.Series.Add("0");
-            System.Web.UI.DataVisualization.Charting.Series Stock = chart.Series.Add("1");
-            System.Web.UI.DataVisualization.Charting.Series Safety = chart.Series.Add("2");
-            RS.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            Stock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            Safety.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
-
-            chart.Series["0"].Points.DataBindXY(xValues, RSYearArray);
-            chart.Series["0"].Color = System.Drawing.Color.Green;
-            chart.Series["1"].Points.DataBindXY(xValues, StockYearArray);
-            chart.Series["1"].Color = System.Drawing.Color.Blue;
-            chart.Series["2"].Points.DataBindXY(xValues, SafetyYearArray);
-            chart.Series["2"].Color = System.Drawing.Color.Red;
-            MemoryStream ms = new MemoryStream();
-
-            chart.SaveImage(ms);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = ms;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.EndInit();
-            LtbChart = image;
-
-        }
-        static string[] xValues = {
-		"LTB",
-		"+1Year",
-		"+2Year",
-		"+3Year",
-		"+4Year",
-		"+5Year",
-		"+6Year",
-		"+7Year",
-		"+8Year",
-		"+9Year",
-		"EoS"
-	};
-
-        static long FromGamma;
-        static long FromAverage;
-        //const long MaxYear = 10;
-        const long MinRepairLeadTime = 2;
-        const long MaxRepairLeadTime = 365;
-        const long MaxServiceDays = LTBCommon.MaxYear * 365 + 2;
-        const long MaxDayArr = MaxServiceDays + 365;
-        const long MaxLTArr = MaxServiceDays / MinRepairLeadTime + 2;
-        static long[] IBin = new long[LTBCommon.MaxYear + 1];
-        static double[] FRin = new double[LTBCommon.MaxYear + 1];
-        static double[] RLin = new double[LTBCommon.MaxYear + 1];
-        static long[] RSin = new long[LTBCommon.MaxYear + 1];
-        static long[] RSArray = new long[MaxLTArr + 1];
-        static long[] RSDayArray = new long[MaxDayArr + 365];
-        static double[] StockDayArray = new double[MaxDayArr + 365];
-        static double[] ReturnedDayArray = new double[MaxDayArr + 365];
-        static double[] SumDemandDayArray = new double[MaxDayArr + 365];
-        static double[] IBArray = new double[MaxLTArr + 1];
-        static double[] FRArray = new double[MaxLTArr + 1];
-        static double[] RLArray = new double[MaxLTArr + 1];
-        static double[] RLDayArray = new double[MaxDayArr + 365];
-        static double[] Stock_Array = new double[MaxLTArr + 1];
-        static double[] Returned_Array = new double[MaxLTArr + 2];
-        static double[] Demand_Array = new double[MaxLTArr + 1];
-        static double[] SumDemand_Array = new double[MaxLTArr + 1];
-        static double[] FSRepairLeadTimeDemand_Array = new double[MaxLTArr + 1];
-        static double[] RepairLoss_Array = new double[MaxLTArr + 1];
-        static double[] SumRepairLoss_Array = new double[MaxLTArr + 1];
-        static double[] Repair_Array = new double[MaxLTArr + 1];
-        static double[] SumRepair_Array = new double[MaxLTArr + 1];
-        static double[] SafetyMargin_Array = new double[MaxLTArr + 1];
-        static double[] SafetyMarginDayArray = new double[MaxDayArr + 365];
-        static double ConfidenceLevelDbl;
-        static int NbrOfSamples;
-        static double ConfidenceLevelFromNormsInv;
-
-
-        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        //private static double[] norminv_a = { 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637 };
-        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        //private static double[] norminv_b = { -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833 };
-        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        //private static double[] norminv_c = { 0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187 };
-        ////private static double norminv(double u)
-        //{
-        //    /* returns the inverse of cumulative normal distribution function Reference> The Full Monte, by Boris Moro, Union Bank of Switzerland
-        //                 RISK 1995(2)*/
-
-        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-        //    //static double a[4]={ 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637};
-        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-        //    //static double b[4]={ -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833};
-        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-        //    //static double c[9]={0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187};
-        //    double x;
-        //    double r;
-        //    x = u - 0.5;
-        //    if (Math.Abs(x) < 0.42)
-        //    {
-        //        r = x * x;
-        //        r = x * (((norminv_a[3] * r + norminv_a[2]) * r + norminv_a[1]) * r + norminv_a[0]) / ((((norminv_b[3] * r + norminv_b[2]) * r + norminv_b[1]) * r + norminv_b[0]) * r + 1.0);
-        //        return (r);
-        //    }
-        //    r = u;
-        //    if (x > 0.0) r = 1.0 - u;
-        //    r = Math.Log(-Math.Log(r));
-        //    r = norminv_c[0] + r * (norminv_c[1] + r * (norminv_c[2] + r * (norminv_c[3] + r * (norminv_c[4] + r * (norminv_c[5] + r * (norminv_c[6] + r * (norminv_c[7] + r * norminv_c[8])))))));
-        //    if (x < 0.0) r = -r;
-        //    return (r);
-        //}
-
-        //private static int calcreserve2(int M, double FR, double p)
-        //{
-        //    double pi = 3.1415926535897932384626433832795028841971693993751058209749;
-        //    double L = M * FR / pi;
-        //    //double lp;
-        //    return (int)(RoundLong(2 * Math.Sqrt(L) + pi * L + NormSInv(p) * Math.Sqrt(L * (2 * pi - 4) + Math.Sqrt(L) + 3 / 16)));
-        //}
-
-
-        static int calcreserve2(int M, double FR, double p)
-        {
-            switch (RoundLong(p * 1000, 0))
-            {
-                case 600: return (int)RoundLong(M + (133 * Sqr((double)M) / 100), 0);
-                case 700: return (int)RoundLong(M + (156 * Sqr((double)M) / 100), 0);
-                case 800: return (int)RoundLong(M + (184 * Sqr((double)M) / 100), 0);
-                case 900: return (int)RoundLong(M + (223 * Sqr((double)M) / 100), 0);
-                case 950: return (int)RoundLong(M + (255 * Sqr((double)M) / 100), 0);
-                case 995: return (int)RoundLong(M + (340 * Sqr((double)M) / 100), 0);
-                default: return (int)RoundLong(M + (340 * Sqr((double)M) / 100), 0);
-            }
-        }
-
-        static int calcreserve(int M, double FR, double p)
-        {
-            if (M * FR > 10000) return calcreserve2(M, FR, p);
-            int k; // init counter
-            int i = 0;
-            double pp = 0; // init prob
-            while (pp < p) // loop while cumaltive probability less than p
-            {
-                for (k = 0; k <= i; k++)
-                    /* calculate probability */
-                    pp = pp + Math.Exp(-StatsFunctions.GammaLn(i + 2) - StatsFunctions.GammaLn(k + 1) + 2.0 * Math.Log((double)i + 1 - k) - 2.0 * FR * M + (k + i) * Math.Log(FR * M));
-                i = i + 1;
-            }
-            return (i - 1);
-        }
-        static bool IsLeapYear(long Y)
-        {
-            return (Y > 0) && (Y % 4) == 0 && !((Y % 100) == 0 && !((Y % 400) == 0));
-        }
-        static long CountLeaps(long Y)
-        {
-            return (Y - 1) / 4 - (Y - 1) / 100 + (Y - 1) / 400;
-        }
-        static long CountDays(long Y)
-        {
-            return (Y - 1) * 365 + CountLeaps(Y);
-        }
-        //static long CountYears(long d)
-        //{
-        //    return 1 + (d - CountLeaps(d / 365)) / 365;
-        //}
-        //static long DaysBetweenYears(long y1, long y2)
-        //{
-        //    return CountDays(y2) - CountDays(y1);
-        //}
-        static double Sqr(double x)
-        {
-            return Math.Pow(x, 0.5);
-        }
-        //static double RoundUpDouble(double x, int Y)
-        //{
-        //    return Math.Round(x + 0.49999999999, Y);
-        //}
-        static long RoundUpLong(double x, int Y)
-        {
-            return Convert.ToInt64(Math.Round(x + 0.49999999999, Y));
-        }
-        static long RoundLong(double x, int Y)
-        {
-            return Convert.ToInt64(Math.Round(x, Y));
-        }
-        //static long RoundLong(double x)
-        //{
-        //    return Convert.ToInt64(Math.Round(x, 0));
-        //}
-        static int RoundUpInt(double x, int Y)
-        {
-            return Convert.ToInt32(Math.Round(x + 0.49999999999, Y));
-        }
-        // This function is a replacement for the Microsoft Excel Worksheet function NORMSINV.
-        // It uses the algorithm of Peter J. Acklam to compute the inverse normal cumulative
-        // distribution. Refer to http://home.online.no/~pjacklam/notes/invnorm/index.html for
-        // a description of the algorithm.
-        // Adapted to VB by Christian d'Heureuse, http://www.source-code.biz.
-        static double NormSInv(double p)
-        {
-            double functionReturnValue = 0;
-            const double a1 = -39.6968302866538, a2 = 220.946098424521, a3 = -275.928510446969;
-            const double a4 = 138.357751867269, a5 = -30.6647980661472, a6 = 2.50662827745924;
-            const double b1 = -54.4760987982241, b2 = 161.585836858041, b3 = -155.698979859887;
-            const double b4 = 66.8013118877197, b5 = -13.2806815528857, c1 = -0.00778489400243029;
-            const double c2 = -0.322396458041136, c3 = -2.40075827716184, c4 = -2.54973253934373;
-            const double c5 = 4.37466414146497, c6 = 2.93816398269878, d1 = 0.00778469570904146;
-            const double d2 = 0.32246712907004, d3 = 2.445134137143, d4 = 3.75440866190742;
-            const double p_low = 0.02425, p_high = 1 - p_low;
-            double q = 0;
-            double r = 0;
-            functionReturnValue = 0;
-            if (p < 0 | p > 1)
-            {
-                // Err.Raise(Constants.vbObjectError, "", "NormSInv: Argument out of range.");
-            }
-            else if (p < p_low)
-            {
-                q = Sqr(-2 * Math.Log(p));
-                functionReturnValue = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
-            }
-            else if (p <= p_high)
-            {
-                q = p - 0.5;
-                r = q * q;
-                functionReturnValue = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) * r + b3) * r + b4) * r + b5) * r + 1);
-            }
-            else
-            {
-                q = Sqr(-2 * Math.Log(1 - p));
-                functionReturnValue = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
-            }
-            return functionReturnValue;
-        }
-        static double ConfL(double Y)
-        {
-            return NormSInv(Y);
-        }
-        //static double Pow(double x, double Y)
-        //{
-        //    return Math.Pow(x, Y);
-        //}
-
-        static long Factorial(long x)
-        {
-            long functionReturnValue = 0;
-            if (x <= 1)
-            {
-                functionReturnValue = 1;
-            }
-            else
-            {
-                functionReturnValue = x * Factorial(x - 1);
-            }
-            return functionReturnValue;
+            YearLabel0 = that.YearLabel0;
+            YearLabel1 = that.YearLabel1;
+            YearLabel2 = that.YearLabel2;
+            YearLabel3 = that.YearLabel3;
+            YearLabel4 = that.YearLabel4;
+            YearLabel5 = that.YearLabel5;
+            YearLabel6 = that.YearLabel6;
+            YearLabel7 = that.YearLabel7;
+            YearLabel8 = that.YearLabel8;
+            YearLabel9 = that.YearLabel9;
         }
 
         static string GetCLFromAverage(double CL, double Average)
@@ -1117,7 +810,7 @@ namespace HWdB.Model
             }
             else
             {
-                functionReturnValue = RoundLong(NormSInv(CL) * Sqr(Average), 0);
+                functionReturnValue = Mathematics.RoundLong(Mathematics.NormSInv(CL) * Mathematics.Sqr(Average), 0);
             }
             return functionReturnValue;
         }
@@ -1126,7 +819,7 @@ namespace HWdB.Model
         {
             long ReturnValue;
 
-            ReturnValue = (long)(calcreserve((int)RoundLong(Returned, 0), 1, CL) - FromAverage);
+            ReturnValue = (long)(Mathematics.calcreserve((int)Mathematics.RoundLong(Returned, 0), 1, CL) - FromAverage);
             if (ReturnValue < 0) ReturnValue = 0;
             if (ReturnValue > FromAverage) ReturnValue = (long)FromAverage;
 
@@ -1134,181 +827,42 @@ namespace HWdB.Model
         }
 
 
-        //static double GetAverageFromReturned(double Average)
-        //{
-        //    if (Average < 8) { return Average / 3.764705; } else { return (1.125 + Average / 8); }
-        //}
-
-
-
-        private static double LogGamma(double x)
-        {
-
-            if (x <= 0.0)
-            {
-                //std.stringstream os = new std.stringstream();
-                //os << "Invalid input argument " << x << ". Argument must be positive.";
-                //throw std.invalid_argument(os.str());
-            }
-
-            if (x < 12.0)
-            {
-                return Math.Log(Math.Abs(Gamma(x)));
-            }
-
-            // Abramowitz and Stegun 6.1.41
-            // Asymptotic series should be good to at least 11 or 12 figures
-            // For error analysis, see Whittiker and Watson
-            // A Course in Modern Analysis (1927), page 252
-
-            double[] c = { 1.0 / 12.0, -1.0 / 360.0, 1.0 / 1260.0, -1.0 / 1680.0, 1.0 / 1188.0, -691.0 / 360360.0, 1.0 / 156.0, -3617.0 / 122400.0 };
-            double z = 1.0 / (x * x);
-            double sum = c[7];
-            for (int i = 6; i >= 0; i--)
-            {
-                sum *= z;
-                sum += c[i];
-            }
-            double series = sum / x;
-
-            const double halfLogTwoPi = 0.91893853320467274178032973640562;
-            double LogGamma = (x - 0.5) * Math.Log(x) - x + halfLogTwoPi + series;
-            return LogGamma;
-        }
-
-
-        private static double Gamma(double x)
-        {
-            if (x <= 0.0)
-            {
-                //std.stringstream os = new std.stringstream();
-                //os << "Invalid input argument " << x << ". Argument must be positive.";
-                //throw std.invalid_argument(os.str());
-            }
-
-            // Split the function domain into three intervals:
-            // (0, 0.001), [0.001, 12), and (12, infinity)
-
-            ///////////////////////////////////////////////////////////////////////////
-            // First interval: (0, 0.001)
-            //
-            // For small x, 1/Gamma(x) has power series x + gamma x^2  - ...
-            // So in this range, 1/Gamma(x) = x + gamma x^2 with error on the order of x^3.
-            // The relative error over this interval is less than 6e-7.
-
-            const double Gamma = 0.577215664901532860606512090; // Euler's gamma constant
-
-            if (x < 0.001)
-                return 1.0 / (x * (1.0 + Gamma * x));
-
-            ///////////////////////////////////////////////////////////////////////////
-            // Second interval: [0.001, 12)
-
-            if (x < 12.0)
-            {
-                // The algorithm directly approximates Gamma over (1,2) and uses
-                // reduction identities to reduce other arguments to this interval.
-
-                double y = x;
-                int n = 0;
-                bool arg_was_less_than_one = (y < 1.0);
-
-                // Add or subtract integers as necessary to bring y into (1,2)
-                // Will correct for this below
-                if (arg_was_less_than_one)
-                {
-                    y += 1.0;
-                }
-                else
-                {
-                    n = (int)(Math.Floor(y)) - 1; // will use n later
-                    y -= n;
-                }
-
-                // numerator coefficients for approximation over the interval (1,2)
-                double[] p = { -1.71618513886549492533811E+0, 2.47656508055759199108314E+1, -3.79804256470945635097577E+2, 6.29331155312818442661052E+2, 8.66966202790413211295064E+2, -3.14512729688483675254357E+4, -3.61444134186911729807069E+4, 6.64561438202405440627855E+4 };
-
-                // denominator coefficients for approximation over the interval (1,2)
-                double[] q = { -3.08402300119738975254353E+1, 3.15350626979604161529144E+2, -1.01515636749021914166146E+3, -3.10777167157231109440444E+3, 2.25381184209801510330112E+4, 4.75584627752788110767815E+3, -1.34659959864969306392456E+5, -1.15132259675553483497211E+5 };
-
-                double num = 0.0;
-                double den = 1.0;
-                int i;
-
-                double z = y - 1;
-                for (i = 0; i < 8; i++)
-                {
-                    num = (num + p[i]) * z;
-                    den = den * z + q[i];
-                }
-                double result = num / den + 1.0;
-
-                // Apply correction if argument was not initially in (1,2)
-                if (arg_was_less_than_one)
-                {
-                    // Use identity Gamma(z) = gamma(z+1)/z
-                    // The variable "result" now holds Gamma of the original y + 1
-                    // Thus we use y-1 to get back the orginal y.
-                    result /= (y - 1.0);
-                }
-                else
-                {
-                    // Use the identity Gamma(z+n) = z*(z+1)* ... *(z+n-1)*gamma(z)
-                    for (i = 0; i < n; i++)
-                        result *= y++;
-                }
-
-                return result;
-            }
-
-            ///////////////////////////////////////////////////////////////////////////
-            // Third interval: [12, infinity)
-
-            if (x > 171.624)
-            {
-                // Correct answer too large to display. Force +infinity.
-                double temp = double.MaxValue;
-                return temp * 2.0;
-            }
-
-            return Math.Exp(LogGamma(x));
-        }
-
-        void ConvertFromViewModel(double ServiceDays, int FinalYear, double LeadDays, ref double ConfidenceLevelFromNormsInv)
+        void ConvertFromViewModel(double ServiceDays, int FinalYear, double LeadDays, out double ConfidenceLevelFromNormsInv)
         {
             int Cnt = 0;
-            //int Conf = Convert.ToInt32(Ltb.ConfidenceLevel);
+            ConfidenceLevelFromNormsInv = 0.0;
+
             switch (ConfidenceLevel)
             {
                 //Confidence Level
 
                 case "60%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.6);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.6);
                     ConfidenceLevelDbl = 0.6;
 
                     break;
                 case "70%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.7);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.7);
                     ConfidenceLevelDbl = 0.7;
 
                     break;
                 case "80%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.8);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.8);
                     ConfidenceLevelDbl = 0.8;
 
                     break;
                 case "90%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.9);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.9);
                     ConfidenceLevelDbl = 0.9;
 
                     break;
                 case "95%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.95);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.95);
                     ConfidenceLevelDbl = 0.95;
 
                     break;
                 case "99,5%":
-                    ConfidenceLevelFromNormsInv = ConfL(0.995);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.995);
                     ConfidenceLevelDbl = 0.995;
 
                     break;
@@ -1400,7 +954,6 @@ namespace HWdB.Model
 
         void ClearRemains(int First)
         {
-
             int Cnt = First;
             while (Cnt <= LTBCommon.MaxYear)
             {
@@ -1473,47 +1026,83 @@ namespace HWdB.Model
                 Cnt += 1;
             }
         }
-        public void Calculate()
+
+        static long FromGamma;
+        static long FromAverage;
+        //const long MaxYear = 10;
+        const long MinRepairLeadTime = 2;
+        const long MaxRepairLeadTime = 365;
+        const long MaxServiceDays = LTBCommon.MaxYear * 365 + 2;
+        const long MaxDayArr = MaxServiceDays + 365;
+        const long MaxLTArr = MaxServiceDays / MinRepairLeadTime + 2;
+        static long[] IBin = new long[LTBCommon.MaxYear + 1];
+        static double[] FRin = new double[LTBCommon.MaxYear + 1];
+        static double[] RLin = new double[LTBCommon.MaxYear + 1];
+        static long[] RSin = new long[LTBCommon.MaxYear + 1];
+        static long[] RSArray = new long[MaxLTArr + 1];
+        static long[] RSDayArray = new long[MaxDayArr + 365];
+        static double[] StockDayArray = new double[MaxDayArr + 365];
+        static double[] ReturnedDayArray = new double[MaxDayArr + 365];
+        static double[] SumDemandDayArray = new double[MaxDayArr + 365];
+        static double[] IBArray = new double[MaxLTArr + 1];
+        static double[] FRArray = new double[MaxLTArr + 1];
+        static double[] RLArray = new double[MaxLTArr + 1];
+        static double[] RLDayArray = new double[MaxDayArr + 365];
+        static double[] Stock_Array = new double[MaxLTArr + 1];
+        static double[] Returned_Array = new double[MaxLTArr + 2];
+        static double[] Demand_Array = new double[MaxLTArr + 1];
+        static double[] SumDemand_Array = new double[MaxLTArr + 1];
+        static double[] FSRepairLeadTimeDemand_Array = new double[MaxLTArr + 1];
+        static double[] RepairLoss_Array = new double[MaxLTArr + 1];
+        static double[] SumRepairLoss_Array = new double[MaxLTArr + 1];
+        static double[] Repair_Array = new double[MaxLTArr + 1];
+        static double[] SumRepair_Array = new double[MaxLTArr + 1];
+        static double[] SafetyMargin_Array = new double[MaxLTArr + 1];
+        static double[] SafetyMarginDayArray = new double[MaxDayArr + 365];
+        static double ConfidenceLevelDbl;
+        public void Calculate(LtbDataSet ltbDataSet)
         {
-            InfoText = "";
-            ClearResult();
-            ClearChartData();
+
+            int NbrOfSamples;
+            double ConfidenceLevelFromNormsInv;
+            Presenter.ClearResult(this);
+            Presenter.ClearChartData(this);
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
             long stockPresent = 0;
             long safetyPresent = 0;
 
-            if (RepairLeadTime < 1 | RepairLeadTime > 365)
+            if (ltbDataSet.RepairLeadTime < 1 || ltbDataSet.RepairLeadTime > 365)
             {
-                InfoText = "Error: 2 <= Repair Lead Time <=365;";
+                ltbDataSet.InfoText = "Error: 2 <= Repair Lead Time <=365;";
                 return;
             }
 
-            if (RepairLeadTime > ServiceDays)
+            if (ltbDataSet.RepairLeadTime > ltbDataSet.ServiceDays)
             {
-                ClearResult();
-                InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
+                Presenter.ClearResult(this);
+                ltbDataSet.InfoText = "Error: Repair Lead Time cannot be longer than Service Period. Please change EoS or Repair Lead Time";
                 return;
             }
 
-            if (ServiceDays > MaxServiceDays)
+            if (ltbDataSet.ServiceDays > MaxServiceDays)
             {
-                ClearResult();
-                InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
+                Presenter.ClearResult(this);
+                ltbDataSet.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
                 return;
             }
 
-            NbrOfSamples = RoundUpInt(ServiceDays / RepairLeadTime, 0);
+            NbrOfSamples = Mathematics.RoundUpInt(ServiceDays / RepairLeadTime, 0);
 
-            ConvertFromViewModel(ServiceDays, ServiceYears, RepairLeadTime, ref ConfidenceLevelFromNormsInv);
+            ConvertFromViewModel(ServiceDays, Mathematics.ServiceYears(this), RepairLeadTime, out ConfidenceLevelFromNormsInv);
 
             var ltb = new LTBCommon();
-            ltb.LTBWorker(NbrOfSamples, ServiceDays, RepairLeadTime, ServiceYears, ConfidenceLevelFromNormsInv, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
+            ltb.LTBWorker(NbrOfSamples, ltbDataSet.ServiceDays, ltbDataSet.RepairLeadTime, Mathematics.ServiceYears(this), ConfidenceLevelFromNormsInv, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
             ref Stock_Array, ref Returned_Array, ref Demand_Array, ref SumDemand_Array, ref RepairLoss_Array, ref  SumRepairLoss_Array, ref Repair_Array, ref SumRepair_Array, ref SafetyMargin_Array, ref SafetyMarginDayArray, ref FSRepairLeadTimeDemand_Array,
-            ref IBin, ref  FRin, ref  RLin, ref  RSin, ref  RSDayArray, ref  RLDayArray, ref  StockDayArray, ref  ReturnedDayArray, ref  SumDemandDayArray);
+            ref IBin, ref  FRin, ref  RLin, ref  RSin, ref RSDayArray, ref  RLDayArray, ref  StockDayArray, ref  ReturnedDayArray, ref  SumDemandDayArray);
             SetChartData();
-            GetChart();
-            stockPresent = RoundLong(Stock_Array[1], 0);
+            Presenter.GetChart(this);
+            stockPresent = Mathematics.RoundLong(Stock_Array[1], 0);
             safetyPresent = SafetyYearArray[0];
 
             Stock = stockPresent.ToString() + GetCLFromAverage(ConfidenceLevelDbl, SafetyMargin_Array[1]).ToString();
@@ -1530,50 +1119,50 @@ namespace HWdB.Model
 
             TotalStock = Convert.ToString(stockPresent + safetyPresent);
 
-            Failed = RoundLong(SumDemand_Array[1], 0).ToString();
+            Failed = Mathematics.RoundLong(SumDemand_Array[1], 0).ToString();
 
-            Repaired = RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
+            Repaired = Mathematics.RoundLong(SumRepair_Array[1] - SumRepairLoss_Array[1], 0).ToString();
 
-            Lost = RepairPossible ? RoundUpLong(SumRepairLoss_Array[1], 0).ToString() : "Nothing";
+            Lost = RepairPossible ? Mathematics.RoundUpLong(SumRepairLoss_Array[1], 0).ToString() : "Nothing";
         }
 
         void SetChartData()
         {
             //For Chart
             var yearCnt = 0;
-            while (yearCnt <= ServiceYears)
+            while (yearCnt <= Mathematics.ServiceYears(this))
             {
                 RSYearArray[yearCnt] = RSDayArray[yearCnt * 365 + 1];
-                StockYearArray[yearCnt] = RoundLong(StockDayArray[yearCnt * 365 + 1] - RSDayArray[yearCnt * 365 + 1], 0);
-                FromAverage = RoundLong(GetSafetyFromAverage(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1]), 0);
-                FromGamma = RoundLong(GetSafetyFromGamma(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1] + ReturnedDayArray[yearCnt * 365 + 1] + FromAverage, ReturnedDayArray[yearCnt * 365 + RepairLeadTime + 1]), 0);
+                StockYearArray[yearCnt] = Mathematics.RoundLong(StockDayArray[yearCnt * 365 + 1] - RSDayArray[yearCnt * 365 + 1], 0);
+                FromAverage = Mathematics.RoundLong(GetSafetyFromAverage(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1]), 0);
+                FromGamma = Mathematics.RoundLong(GetSafetyFromGamma(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1] + ReturnedDayArray[yearCnt * 365 + 1] + FromAverage, ReturnedDayArray[yearCnt * 365 + RepairLeadTime + 1]), 0);
                 SafetyYearArray[yearCnt] = FromGamma + FromAverage;
                 yearCnt = yearCnt + 1;
             }
         }
 
 
-        public void InitLabels()
+        public void InitLabels(LtbDataSet ltbDataSet)
         {
-            l0 = "LTB";
-            l1 = Convert.ToDateTime(LTBDate).AddYears(1).Year.ToString();
-            l2 = Convert.ToDateTime(LTBDate).AddYears(2).Year.ToString();
-            l3 = Convert.ToDateTime(LTBDate).AddYears(3).Year.ToString();
-            l4 = Convert.ToDateTime(LTBDate).AddYears(4).Year.ToString();
-            l5 = Convert.ToDateTime(LTBDate).AddYears(5).Year.ToString();
-            l6 = Convert.ToDateTime(LTBDate).AddYears(6).Year.ToString();
-            l7 = Convert.ToDateTime(LTBDate).AddYears(7).Year.ToString();
-            l8 = Convert.ToDateTime(LTBDate).AddYears(8).Year.ToString();
-            l9 = Convert.ToDateTime(LTBDate).AddYears(9).Year.ToString();
+            ltbDataSet.YearLabel0 = "LTB";
+            ltbDataSet.YearLabel1 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(1).Year.ToString();
+            ltbDataSet.YearLabel2 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(2).Year.ToString();
+            ltbDataSet.YearLabel3 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(3).Year.ToString();
+            ltbDataSet.YearLabel4 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(4).Year.ToString();
+            ltbDataSet.YearLabel5 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(5).Year.ToString();
+            ltbDataSet.YearLabel6 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(6).Year.ToString();
+            ltbDataSet.YearLabel7 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(7).Year.ToString();
+            ltbDataSet.YearLabel8 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(8).Year.ToString();
+            ltbDataSet.YearLabel9 = Convert.ToDateTime(ltbDataSet.LTBDate).AddYears(9).Year.ToString();
         }
-        public void SetInputArray()
+        void UpdateInputViewModel()
         {
             if (EOSDate == null || LTBDate == null) return;
-            InitLabels();
+            InitLabels(this);
             var cnt = 0;
             cnt = 0;
             var eosFound = false;
-            while (cnt <= ServiceYears)
+            while (cnt <= Mathematics.ServiceYears(this))
             {
                 switch (cnt)
                 {
@@ -1686,7 +1275,7 @@ namespace HWdB.Model
                 cnt += 1;
             }
 
-            switch (ServiceYears)
+            switch (Mathematics.ServiceYears(this))
             {
                 case 0:
                     IB1 = "EoS";
@@ -1772,7 +1361,7 @@ namespace HWdB.Model
                 switch (cnt)
                 {
                     case 1:
-                        if (ServiceYears != 0)
+                        if (Mathematics.ServiceYears(this) != 0)
                         {
                             IB1 = string.Empty;
                             FR1 = string.Empty;
@@ -1783,7 +1372,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 2:
-                        if (ServiceYears != 1)
+                        if (Mathematics.ServiceYears(this) != 1)
                         {
                             IB2 = string.Empty;
                             FR2 = string.Empty;
@@ -1794,7 +1383,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 3:
-                        if (ServiceYears != 2)
+                        if (Mathematics.ServiceYears(this) != 2)
                         {
                             IB3 = string.Empty;
                             FR3 = string.Empty;
@@ -1805,7 +1394,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 4:
-                        if (ServiceYears != 3)
+                        if (Mathematics.ServiceYears(this) != 3)
                         {
                             IB4 = string.Empty;
                             FR4 = string.Empty;
@@ -1816,7 +1405,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 5:
-                        if (ServiceYears != 4)
+                        if (Mathematics.ServiceYears(this) != 4)
                         {
                             IB5 = string.Empty;
                             FR5 = string.Empty;
@@ -1827,7 +1416,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 6:
-                        if (ServiceYears != 5)
+                        if (Mathematics.ServiceYears(this) != 5)
                         {
                             IB6 = string.Empty;
                             FR6 = string.Empty;
@@ -1838,7 +1427,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 7:
-                        if (ServiceYears != 6)
+                        if (Mathematics.ServiceYears(this) != 6)
                         {
                             FR7 = string.Empty;
                             RS7 = string.Empty;
@@ -1849,7 +1438,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 8:
-                        if (ServiceYears != 7)
+                        if (Mathematics.ServiceYears(this) != 7)
                         {
                             IB8 = string.Empty;
                             FR8 = string.Empty;
@@ -1860,7 +1449,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 9:
-                        if (ServiceYears != 8)
+                        if (Mathematics.ServiceYears(this) != 8)
                         {
                             IB9 = string.Empty;
                             FR9 = string.Empty;
@@ -1871,7 +1460,7 @@ namespace HWdB.Model
                         }
                         break;
                     case 10:
-                        if (ServiceYears != 9)
+                        if (Mathematics.ServiceYears(this) != 9)
                         {
                             IB10 = string.Empty;
                         }
@@ -1884,7 +1473,7 @@ namespace HWdB.Model
         void AdjustRepair()
         {
             int Cnt = 0;
-            while (Cnt <= ServiceYears)
+            while (Cnt <= Mathematics.ServiceYears(this))
             {
                 switch (Cnt)
                 {
