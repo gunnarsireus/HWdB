@@ -79,9 +79,11 @@ namespace HWdB.Model
                 SetValue(() => LTBDate, value);
                 if (_loopOk)
                 {
-                    EOSDate = EOSDate;
-                    RepairLeadTime = RepairLeadTime;
+                    OnPropertyChanged("RepairLeadTime");
+                    OnPropertyChanged("EOSDate");
+                    OnPropertyChanged("ServiceDays");
                 }
+
                 SetInputArray();
             }
         }
@@ -96,8 +98,9 @@ namespace HWdB.Model
                 SetValue(() => EOSDate, value);
                 if (_loopOk)
                 {
-                    RepairLeadTime = RepairLeadTime;
-                    LTBDate = LTBDate;
+                    OnPropertyChanged("RepairLeadTime");
+                    OnPropertyChanged("LTBDate");
+                    OnPropertyChanged("ServiceDays");
                 }
                 SetInputArray();
             }
@@ -849,44 +852,44 @@ namespace HWdB.Model
         static double[] SumRepair_Array = new double[MaxLTArr + 1];
         static double[] SafetyMargin_Array = new double[MaxLTArr + 1];
         static double[] SafetyMarginDayArray = new double[MaxDayArr + 365];
-        static double Conf_in;
-        static int N;
-        static double Conf_Level;
+        static double ConfidenceLevelDbl;
+        static int NbrOfSamples;
+        static double ConfidenceLevelFromNormsInv;
 
 
-        //C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        private static double[] norminv_a = { 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637 };
-        //C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        private static double[] norminv_b = { -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833 };
-        //C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
-        private static double[] norminv_c = { 0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187 };
-        private static double norminv(double u)
-        {
-            /* returns the inverse of cumulative normal distribution function Reference> The Full Monte, by Boris Moro, Union Bank of Switzerland
-                         RISK 1995(2)*/
+        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
+        //private static double[] norminv_a = { 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637 };
+        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
+        //private static double[] norminv_b = { -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833 };
+        ////C++ TO C# CONVERTER NOTE: This was formerly a static local variable declaration (not allowed in C#):
+        //private static double[] norminv_c = { 0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187 };
+        ////private static double norminv(double u)
+        //{
+        //    /* returns the inverse of cumulative normal distribution function Reference> The Full Monte, by Boris Moro, Union Bank of Switzerland
+        //                 RISK 1995(2)*/
 
-            //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-            //static double a[4]={ 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637};
-            //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-            //static double b[4]={ -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833};
-            //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
-            //static double c[9]={0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187};
-            double x;
-            double r;
-            x = u - 0.5;
-            if (Math.Abs(x) < 0.42)
-            {
-                r = x * x;
-                r = x * (((norminv_a[3] * r + norminv_a[2]) * r + norminv_a[1]) * r + norminv_a[0]) / ((((norminv_b[3] * r + norminv_b[2]) * r + norminv_b[1]) * r + norminv_b[0]) * r + 1.0);
-                return (r);
-            }
-            r = u;
-            if (x > 0.0) r = 1.0 - u;
-            r = Math.Log(-Math.Log(r));
-            r = norminv_c[0] + r * (norminv_c[1] + r * (norminv_c[2] + r * (norminv_c[3] + r * (norminv_c[4] + r * (norminv_c[5] + r * (norminv_c[6] + r * (norminv_c[7] + r * norminv_c[8])))))));
-            if (x < 0.0) r = -r;
-            return (r);
-        }
+        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
+        //    //static double a[4]={ 2.50662823884, -18.61500062529, 41.39119773534, -25.44106049637};
+        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
+        //    //static double b[4]={ -8.47351093090, 23.08336743743, -21.06224101826, 3.13082909833};
+        //    //C++ TO C# CONVERTER NOTE: This static local variable declaration (not allowed in C#) has been moved just prior to the method:
+        //    //static double c[9]={0.3374754822726147, 0.9761690190917186, 0.1607979714918209, 0.0276438810333863, 0.0038405729373609, 0.0003951896511919, 0.0000321767881768, 0.0000002888167364, 0.0000003960315187};
+        //    double x;
+        //    double r;
+        //    x = u - 0.5;
+        //    if (Math.Abs(x) < 0.42)
+        //    {
+        //        r = x * x;
+        //        r = x * (((norminv_a[3] * r + norminv_a[2]) * r + norminv_a[1]) * r + norminv_a[0]) / ((((norminv_b[3] * r + norminv_b[2]) * r + norminv_b[1]) * r + norminv_b[0]) * r + 1.0);
+        //        return (r);
+        //    }
+        //    r = u;
+        //    if (x > 0.0) r = 1.0 - u;
+        //    r = Math.Log(-Math.Log(r));
+        //    r = norminv_c[0] + r * (norminv_c[1] + r * (norminv_c[2] + r * (norminv_c[3] + r * (norminv_c[4] + r * (norminv_c[5] + r * (norminv_c[6] + r * (norminv_c[7] + r * norminv_c[8])))))));
+        //    if (x < 0.0) r = -r;
+        //    return (r);
+        //}
 
         //private static int calcreserve2(int M, double FR, double p)
         //{
@@ -938,22 +941,22 @@ namespace HWdB.Model
         {
             return (Y - 1) * 365 + CountLeaps(Y);
         }
-        static long CountYears(long d)
-        {
-            return 1 + (d - CountLeaps(d / 365)) / 365;
-        }
-        static long DaysBetweenYears(long y1, long y2)
-        {
-            return CountDays(y2) - CountDays(y1);
-        }
+        //static long CountYears(long d)
+        //{
+        //    return 1 + (d - CountLeaps(d / 365)) / 365;
+        //}
+        //static long DaysBetweenYears(long y1, long y2)
+        //{
+        //    return CountDays(y2) - CountDays(y1);
+        //}
         static double Sqr(double x)
         {
             return Math.Pow(x, 0.5);
         }
-        static double RoundUpDouble(double x, int Y)
-        {
-            return Math.Round(x + 0.49999999999, Y);
-        }
+        //static double RoundUpDouble(double x, int Y)
+        //{
+        //    return Math.Round(x + 0.49999999999, Y);
+        //}
         static long RoundUpLong(double x, int Y)
         {
             return Convert.ToInt64(Math.Round(x + 0.49999999999, Y));
@@ -962,10 +965,10 @@ namespace HWdB.Model
         {
             return Convert.ToInt64(Math.Round(x, Y));
         }
-        static long RoundLong(double x)
-        {
-            return Convert.ToInt64(Math.Round(x, 0));
-        }
+        //static long RoundLong(double x)
+        //{
+        //    return Convert.ToInt64(Math.Round(x, 0));
+        //}
         static int RoundUpInt(double x, int Y)
         {
             return Convert.ToInt32(Math.Round(x + 0.49999999999, Y));
@@ -1015,10 +1018,10 @@ namespace HWdB.Model
         {
             return NormSInv(Y);
         }
-        static double Pow(double x, double Y)
-        {
-            return Math.Pow(x, Y);
-        }
+        //static double Pow(double x, double Y)
+        //{
+        //    return Math.Pow(x, Y);
+        //}
 
         static long Factorial(long x)
         {
@@ -1131,10 +1134,10 @@ namespace HWdB.Model
         }
 
 
-        static double GetAverageFromReturned(double Average)
-        {
-            if (Average < 8) { return Average / 3.764705; } else { return (1.125 + Average / 8); }
-        }
+        //static double GetAverageFromReturned(double Average)
+        //{
+        //    if (Average < 8) { return Average / 3.764705; } else { return (1.125 + Average / 8); }
+        //}
 
 
 
@@ -1271,7 +1274,7 @@ namespace HWdB.Model
             return Math.Exp(LogGamma(x));
         }
 
-        void GetInputFromArray(double SD, int LastYear, double LD, ref double CL, int N)
+        void ConvertFromViewModel(double ServiceDays, int FinalYear, double LeadDays, ref double ConfidenceLevelFromNormsInv)
         {
             int Cnt = 0;
             //int Conf = Convert.ToInt32(Ltb.ConfidenceLevel);
@@ -1280,33 +1283,33 @@ namespace HWdB.Model
                 //Confidence Level
 
                 case "60%":
-                    CL = ConfL(0.6);
-                    Conf_in = 0.6;
+                    ConfidenceLevelFromNormsInv = ConfL(0.6);
+                    ConfidenceLevelDbl = 0.6;
 
                     break;
                 case "70%":
-                    CL = ConfL(0.7);
-                    Conf_in = 0.7;
+                    ConfidenceLevelFromNormsInv = ConfL(0.7);
+                    ConfidenceLevelDbl = 0.7;
 
                     break;
                 case "80%":
-                    CL = ConfL(0.8);
-                    Conf_in = 0.8;
+                    ConfidenceLevelFromNormsInv = ConfL(0.8);
+                    ConfidenceLevelDbl = 0.8;
 
                     break;
                 case "90%":
-                    CL = ConfL(0.9);
-                    Conf_in = 0.9;
+                    ConfidenceLevelFromNormsInv = ConfL(0.9);
+                    ConfidenceLevelDbl = 0.9;
 
                     break;
                 case "95%":
-                    CL = ConfL(0.95);
-                    Conf_in = 0.95;
+                    ConfidenceLevelFromNormsInv = ConfL(0.95);
+                    ConfidenceLevelDbl = 0.95;
 
                     break;
                 case "99,5%":
-                    CL = ConfL(0.995);
-                    Conf_in = 0.995;
+                    ConfidenceLevelFromNormsInv = ConfL(0.995);
+                    ConfidenceLevelDbl = 0.995;
 
                     break;
 
@@ -1314,7 +1317,7 @@ namespace HWdB.Model
 
             Cnt = 0;
 
-            while (Cnt <= LastYear)
+            while (Cnt <= FinalYear)
             {
                 switch (Cnt)
                 {
@@ -1500,12 +1503,12 @@ namespace HWdB.Model
                 return;
             }
 
-            N = RoundUpInt(ServiceDays / RepairLeadTime, 0);
+            NbrOfSamples = RoundUpInt(ServiceDays / RepairLeadTime, 0);
 
-            GetInputFromArray(ServiceDays, ServiceYears, RepairLeadTime, ref Conf_Level, N);
+            ConvertFromViewModel(ServiceDays, ServiceYears, RepairLeadTime, ref ConfidenceLevelFromNormsInv);
 
             var ltb = new LTBCommon();
-            ltb.LTBWorker(N, ServiceDays, RepairLeadTime, ServiceYears, Conf_Level, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
+            ltb.LTBWorker(NbrOfSamples, ServiceDays, RepairLeadTime, ServiceYears, ConfidenceLevelFromNormsInv, ref IBArray, ref RSArray, ref FRArray, ref RLArray,
             ref Stock_Array, ref Returned_Array, ref Demand_Array, ref SumDemand_Array, ref RepairLoss_Array, ref  SumRepairLoss_Array, ref Repair_Array, ref SumRepair_Array, ref SafetyMargin_Array, ref SafetyMarginDayArray, ref FSRepairLeadTimeDemand_Array,
             ref IBin, ref  FRin, ref  RLin, ref  RSin, ref  RSDayArray, ref  RLDayArray, ref  StockDayArray, ref  ReturnedDayArray, ref  SumDemandDayArray);
             SetChartData();
@@ -1513,11 +1516,11 @@ namespace HWdB.Model
             stockPresent = RoundLong(Stock_Array[1], 0);
             safetyPresent = SafetyYearArray[0];
 
-            Stock = stockPresent.ToString() + GetCLFromAverage(Conf_in, SafetyMargin_Array[1]).ToString();
+            Stock = stockPresent.ToString() + GetCLFromAverage(ConfidenceLevelDbl, SafetyMargin_Array[1]).ToString();
 
             if (safetyPresent > 0)
             {
-                FromAverage = GetSafetyFromAverage(Conf_in, SafetyMargin_Array[1]);
+                FromAverage = GetSafetyFromAverage(ConfidenceLevelDbl, SafetyMargin_Array[1]);
                 Safety = safetyPresent.ToString() + GetCLFromStock(SafetyMargin_Array[1], FromAverage).ToString();
             }
             else
@@ -1542,8 +1545,8 @@ namespace HWdB.Model
             {
                 RSYearArray[yearCnt] = RSDayArray[yearCnt * 365 + 1];
                 StockYearArray[yearCnt] = RoundLong(StockDayArray[yearCnt * 365 + 1] - RSDayArray[yearCnt * 365 + 1], 0);
-                FromAverage = RoundLong(GetSafetyFromAverage(Conf_in, SafetyMarginDayArray[yearCnt * 365 + 1]), 0);
-                FromGamma = RoundLong(GetSafetyFromGamma(Conf_in, SafetyMarginDayArray[yearCnt * 365 + 1] + ReturnedDayArray[yearCnt * 365 + 1] + FromAverage, ReturnedDayArray[yearCnt * 365 + RepairLeadTime + 1]), 0);
+                FromAverage = RoundLong(GetSafetyFromAverage(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1]), 0);
+                FromGamma = RoundLong(GetSafetyFromGamma(ConfidenceLevelDbl, SafetyMarginDayArray[yearCnt * 365 + 1] + ReturnedDayArray[yearCnt * 365 + 1] + FromAverage, ReturnedDayArray[yearCnt * 365 + RepairLeadTime + 1]), 0);
                 SafetyYearArray[yearCnt] = FromGamma + FromAverage;
                 yearCnt = yearCnt + 1;
             }
@@ -1568,7 +1571,6 @@ namespace HWdB.Model
             if (EOSDate == null || LTBDate == null) return;
             InitLabels();
             var cnt = 0;
-            ServiceDays = ServiceDays;  //Trigger update of View
             cnt = 0;
             var eosFound = false;
             while (cnt <= ServiceYears)
