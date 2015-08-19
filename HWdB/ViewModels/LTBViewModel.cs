@@ -231,7 +231,7 @@ namespace HWdB.ViewModels
             else
             {
                 UiServices.SetBusyState();
-                CurrentLtbDataSet.Calculate(CurrentLtbDataSet);
+                CurrentLtbDataSet.CalculateLtb(CurrentLtbDataSet);
 
                 //Visa som 3D
                 Presenter.GetChart(CurrentLtbDataSet);

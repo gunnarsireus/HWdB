@@ -59,10 +59,10 @@ namespace HWdB.Utils
         {
             return (Y - 1) / 4 - (Y - 1) / 100 + (Y - 1) / 400;
         }
-        static long CountDays(long Y)
-        {
-            return (Y - 1) * 365 + CountLeaps(Y);
-        }
+        //static long CountDays(long Y)
+        //{
+        //    return (Y - 1) * 365 + CountLeaps(Y);
+        //}
 
         public static double Sqr(double x)
         {
@@ -123,7 +123,7 @@ namespace HWdB.Utils
             }
             return functionReturnValue;
         }
-        public static double ConfL(double Y)
+        public static double ConfidenceLevelFromNormsInv(double Y)
         {
             return NormSInv(Y);
         }

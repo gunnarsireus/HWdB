@@ -837,32 +837,32 @@ namespace HWdB.Model
                 //Confidence Level
 
                 case "60%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.6);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.6);
                     ConfidenceLevelDbl = 0.6;
 
                     break;
                 case "70%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.7);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.7);
                     ConfidenceLevelDbl = 0.7;
 
                     break;
                 case "80%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.8);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.8);
                     ConfidenceLevelDbl = 0.8;
 
                     break;
                 case "90%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.9);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.9);
                     ConfidenceLevelDbl = 0.9;
 
                     break;
                 case "95%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.95);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.95);
                     ConfidenceLevelDbl = 0.95;
 
                     break;
                 case "99,5%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfL(0.995);
+                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.995);
                     ConfidenceLevelDbl = 0.995;
 
                     break;
@@ -1060,7 +1060,7 @@ namespace HWdB.Model
         static double[] SafetyMargin_Array = new double[MaxLTArr + 1];
         static double[] SafetyMarginDayArray = new double[MaxDayArr + 365];
         static double ConfidenceLevelDbl;
-        public void Calculate(LtbDataSet ltbDataSet)
+        public void CalculateLtb(LtbDataSet ltbDataSet)
         {
 
             int NbrOfSamples;
