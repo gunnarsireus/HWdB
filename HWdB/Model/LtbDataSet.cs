@@ -1,5 +1,4 @@
 ﻿using CenterSpace.NMath.Core;
-using CenterSpace.NMath.Stats;
 using HWdB.CustomValidationAttributes;
 using HWdB.MVVMFramework;
 using HWdB.Utils;
@@ -47,7 +46,10 @@ namespace HWdB.Model
             {
                 _loopOk = (value != Customer);
                 SetValue(() => Customer, value);
-                if (_loopOk) Version = Version;
+                if (_loopOk)
+                {
+                    OnPropertyChanged("Version");
+                }
             }
         }
 
@@ -60,7 +62,10 @@ namespace HWdB.Model
             {
                 _loopOk = (value != Version);
                 SetValue(() => Version, value);
-                if (_loopOk) Customer = Customer;
+                if (_loopOk)
+                {
+                    OnPropertyChanged("Customer");
+                }
             }
         }
 
@@ -118,8 +123,8 @@ namespace HWdB.Model
                 SetValue(() => RepairLeadTime, value);
                 if (_loopOk)
                 {
-                    EOSDate = EOSDate;
-                    LTBDate = LTBDate;
+                    OnPropertyChanged("EOSDate");
+                    OnPropertyChanged("LTBDate");
                 }
                 Presenter.UpdateInputViewModel(this);
             }
