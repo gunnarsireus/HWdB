@@ -8,61 +8,54 @@ namespace HWdB.Utils
     {
         public static int ServiceYears(LtbDataSet ltbDataSet)
         {
-            DateTime NewYear = default(System.DateTime);
-
             if (Convert.ToDateTime(ltbDataSet.LTBDate).Year >= Convert.ToDateTime(ltbDataSet.EOSDate).Year)
             {
                 return 0;
             }
-            NewYear = Convert.ToDateTime(Convert.ToDateTime(ltbDataSet.LTBDate).Year.ToString() + "-01-01");
-            if (Mathematics.IsLeapYear(Convert.ToDateTime(ltbDataSet.LTBDate).Year) & DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, NewYear, Convert.ToDateTime(ltbDataSet.LTBDate)) < 59)
+            var newYear = Convert.ToDateTime(Convert.ToDateTime(ltbDataSet.LTBDate).Year.ToString() + "-01-01");
+            if (Mathematics.IsLeapYear(Convert.ToDateTime(ltbDataSet.LTBDate).Year) & DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, newYear, Convert.ToDateTime(ltbDataSet.LTBDate)) < 59)
             {
                 return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate)) + Mathematics.CountLeaps(Convert.ToDateTime(ltbDataSet.LTBDate).Year) - Mathematics.CountLeaps(Convert.ToDateTime(ltbDataSet.EOSDate).Year) - 2) / 365);
             }
             return Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, Convert.ToDateTime(ltbDataSet.LTBDate), Convert.ToDateTime(ltbDataSet.EOSDate)) + Mathematics.CountLeaps(Convert.ToDateTime(ltbDataSet.LTBDate).Year) - Mathematics.CountLeaps(Convert.ToDateTime(ltbDataSet.EOSDate).Year) - 1) / 365);
-
         }
-        static int calcreserve2(int M, double FR, double p)
+        static int Calcreserve2(int m, double failureRate, double p)
         {
             switch (RoundLong(p * 1000, 0))
             {
-                case 600: return (int)RoundLong(M + (133 * Sqr((double)M) / 100), 0);
-                case 700: return (int)RoundLong(M + (156 * Sqr((double)M) / 100), 0);
-                case 800: return (int)RoundLong(M + (184 * Sqr((double)M) / 100), 0);
-                case 900: return (int)RoundLong(M + (223 * Sqr((double)M) / 100), 0);
-                case 950: return (int)RoundLong(M + (255 * Sqr((double)M) / 100), 0);
-                case 995: return (int)RoundLong(M + (340 * Sqr((double)M) / 100), 0);
-                default: return (int)RoundLong(M + (340 * Sqr((double)M) / 100), 0);
+                case 600: return (int)RoundLong(m + (133 * Sqr((double)m) / 100), 0);
+                case 700: return (int)RoundLong(m + (156 * Sqr((double)m) / 100), 0);
+                case 800: return (int)RoundLong(m + (184 * Sqr((double)m) / 100), 0);
+                case 900: return (int)RoundLong(m + (223 * Sqr((double)m) / 100), 0);
+                case 950: return (int)RoundLong(m + (255 * Sqr((double)m) / 100), 0);
+                case 995: return (int)RoundLong(m + (340 * Sqr((double)m) / 100), 0);
+                default: return (int)RoundLong(m + (340 * Sqr((double)m) / 100), 0);
             }
         }
 
-        public static int calcreserve(int M, double FR, double p)
+        public static int Calcreserve(int m, double failureRate, double p)
         {
-            if (M * FR > 10000) return calcreserve2(M, FR, p);
-            int k; // init counter
-            int i = 0;
+            if (m * failureRate > 10000) return Calcreserve2(m, failureRate, p);
+            var i = 0;
             double pp = 0; // init prob
             while (pp < p) // loop while cumaltive probability less than p
             {
+                int k; // init counter
                 for (k = 0; k <= i; k++)
                     /* calculate probability */
-                    pp = pp + Math.Exp(-StatsFunctions.GammaLn(i + 2) - StatsFunctions.GammaLn(k + 1) + 2.0 * Math.Log((double)i + 1 - k) - 2.0 * FR * M + (k + i) * Math.Log(FR * M));
+                    pp = pp + Math.Exp(-StatsFunctions.GammaLn(i + 2) - StatsFunctions.GammaLn(k + 1) + 2.0 * Math.Log((double)i + 1 - k) - 2.0 * failureRate * m + (k + i) * Math.Log(failureRate * m));
                 i = i + 1;
             }
             return (i - 1);
         }
         public static bool IsLeapYear(long Y)
         {
-            return (Y > 0) && (Y % 4) == 0 && !((Y % 100) == 0 && !((Y % 400) == 0));
+            return (Y > 0) && (Y % 4) == 0 && !((Y % 100) == 0 && (Y % 400) != 0);
         }
-        public static long CountLeaps(long Y)
+        public static long CountLeaps(long y)
         {
-            return (Y - 1) / 4 - (Y - 1) / 100 + (Y - 1) / 400;
+            return (y - 1) / 4 - (y - 1) / 100 + (y - 1) / 400;
         }
-        //static long CountDays(long Y)
-        //{
-        //    return (Y - 1) * 365 + CountLeaps(Y);
-        //}
 
         public static double Sqr(double x)
         {
@@ -97,23 +90,22 @@ namespace HWdB.Utils
             const double c2 = -0.322396458041136, c3 = -2.40075827716184, c4 = -2.54973253934373;
             const double c5 = 4.37466414146497, c6 = 2.93816398269878, d1 = 0.00778469570904146;
             const double d2 = 0.32246712907004, d3 = 2.445134137143, d4 = 3.75440866190742;
-            const double p_low = 0.02425, p_high = 1 - p_low;
+            const double pLow = 0.02425, pHigh = 1 - pLow;
             double q = 0;
-            double r = 0;
             functionReturnValue = 0;
             if (p < 0 | p > 1)
             {
                 // Err.Raise(Constants.vbObjectError, "", "NormSInv: Argument out of range.");
             }
-            else if (p < p_low)
+            else if (p < pLow)
             {
                 q = Sqr(-2 * Math.Log(p));
                 functionReturnValue = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
             }
-            else if (p <= p_high)
+            else if (p <= pHigh)
             {
                 q = p - 0.5;
-                r = q * q;
+                var r = q * q;
                 functionReturnValue = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) * r + b3) * r + b4) * r + b5) * r + 1);
             }
             else
@@ -150,18 +142,18 @@ namespace HWdB.Utils
             // A Course in Modern Analysis (1927), page 252
 
             double[] c = { 1.0 / 12.0, -1.0 / 360.0, 1.0 / 1260.0, -1.0 / 1680.0, 1.0 / 1188.0, -691.0 / 360360.0, 1.0 / 156.0, -3617.0 / 122400.0 };
-            double z = 1.0 / (x * x);
-            double sum = c[7];
-            for (int i = 6; i >= 0; i--)
+            var z = 1.0 / (x * x);
+            var sum = c[7];
+            for (var i = 6; i >= 0; i--)
             {
                 sum *= z;
                 sum += c[i];
             }
-            double series = sum / x;
+            var series = sum / x;
 
             const double halfLogTwoPi = 0.91893853320467274178032973640562;
-            double LogGamma = (x - 0.5) * Math.Log(x) - x + halfLogTwoPi + series;
-            return LogGamma;
+            var logGamma = (x - 0.5) * Math.Log(x) - x + halfLogTwoPi + series;
+            return logGamma;
         }
 
 
@@ -197,13 +189,13 @@ namespace HWdB.Utils
                 // The algorithm directly approximates Gamma over (1,2) and uses
                 // reduction identities to reduce other arguments to this interval.
 
-                double y = x;
-                int n = 0;
-                bool arg_was_less_than_one = (y < 1.0);
+                var y = x;
+                var n = 0;
+                bool argWasLessThanOne = (y < 1.0);
 
                 // Add or subtract integers as necessary to bring y into (1,2)
                 // Will correct for this below
-                if (arg_was_less_than_one)
+                if (argWasLessThanOne)
                 {
                     y += 1.0;
                 }
@@ -219,20 +211,20 @@ namespace HWdB.Utils
                 // denominator coefficients for approximation over the interval (1,2)
                 double[] q = { -3.08402300119738975254353E+1, 3.15350626979604161529144E+2, -1.01515636749021914166146E+3, -3.10777167157231109440444E+3, 2.25381184209801510330112E+4, 4.75584627752788110767815E+3, -1.34659959864969306392456E+5, -1.15132259675553483497211E+5 };
 
-                double num = 0.0;
-                double den = 1.0;
+                var num = 0.0;
+                var den = 1.0;
                 int i;
 
-                double z = y - 1;
+                var z = y - 1;
                 for (i = 0; i < 8; i++)
                 {
                     num = (num + p[i]) * z;
                     den = den * z + q[i];
                 }
-                double result = num / den + 1.0;
+                var result = num / den + 1.0;
 
                 // Apply correction if argument was not initially in (1,2)
-                if (arg_was_less_than_one)
+                if (argWasLessThanOne)
                 {
                     // Use identity Gamma(z) = gamma(z+1)/z
                     // The variable "result" now holds Gamma of the original y + 1
@@ -252,14 +244,10 @@ namespace HWdB.Utils
             ///////////////////////////////////////////////////////////////////////////
             // Third interval: [12, infinity)
 
-            if (x > 171.624)
-            {
-                // Correct answer too large to display. Force +infinity.
-                double temp = double.MaxValue;
-                return temp * 2.0;
-            }
-
-            return Math.Exp(LogGamma(x));
+            if (!(x > 171.624)) return Math.Exp(LogGamma(x));
+            // Correct answer too large to display. Force +infinity.
+            const double temp = double.MaxValue;
+            return temp * 2.0;
         }
     }
 }

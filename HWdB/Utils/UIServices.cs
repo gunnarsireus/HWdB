@@ -14,7 +14,7 @@ namespace HWdB.Utils
         /// <summary>
         ///   A value indicating whether the UI is currently busy
         /// </summary>
-        private static bool IsBusy;
+        private static bool _isBusy;
 
         /// <summary>
         /// Sets the busystate as busy.
@@ -30,15 +30,13 @@ namespace HWdB.Utils
         /// <param name="busy">if set to <c>true</c> the application is now busy.</param>
         private static void SetBusyState(bool busy)
         {
-            if (busy != IsBusy)
-            {
-                IsBusy = busy;
-                Mouse.OverrideCursor = busy ? Cursors.Wait : null;
+            if (busy == _isBusy) return;
+            _isBusy = busy;
+            Mouse.OverrideCursor = busy ? Cursors.Wait : null;
 
-                if (IsBusy)
-                {
-                    new DispatcherTimer(TimeSpan.FromSeconds(0), DispatcherPriority.ApplicationIdle, dispatcherTimer_Tick, Application.Current.Dispatcher);
-                }
+            if (_isBusy)
+            {
+                new DispatcherTimer(TimeSpan.FromSeconds(0), DispatcherPriority.ApplicationIdle, dispatcherTimer_Tick, Application.Current.Dispatcher);
             }
         }
 
@@ -50,11 +48,9 @@ namespace HWdB.Utils
         private static void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             var dispatcherTimer = sender as DispatcherTimer;
-            if (dispatcherTimer != null)
-            {
-                SetBusyState(false);
-                dispatcherTimer.Stop();
-            }
+            if (dispatcherTimer == null) return;
+            SetBusyState(false);
+            dispatcherTimer.Stop();
         }
     }
 }

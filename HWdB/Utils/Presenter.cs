@@ -485,39 +485,39 @@ namespace HWdB.Utils
         }
         public static BitmapImage GetChart(LtbDataSet ltbDataSet)
         {
-            System.Web.UI.DataVisualization.Charting.Chart chart = new System.Web.UI.DataVisualization.Charting.Chart()
+            var chart = new System.Web.UI.DataVisualization.Charting.Chart()
             {
                 Height = 300,
                 Width = 900,
                 ImageType = System.Web.UI.DataVisualization.Charting.ChartImageType.Png
             };
-            System.Web.UI.DataVisualization.Charting.ChartArea chartArea = chart.ChartAreas.Add("Stock");
+            var chartArea = chart.ChartAreas.Add("Stock");
             chartArea.Area3DStyle.Enable3D = true;
 
-            System.Web.UI.DataVisualization.Charting.Series RS = chart.Series.Add("0");
-            System.Web.UI.DataVisualization.Charting.Series Stock = chart.Series.Add("1");
-            System.Web.UI.DataVisualization.Charting.Series Safety = chart.Series.Add("2");
-            RS.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            Stock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            Safety.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            var regionalStock = chart.Series.Add("0");
+            var stock = chart.Series.Add("1");
+            var safety = chart.Series.Add("2");
+            regionalStock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            stock.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            safety.ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
 
-            chart.Series["0"].Points.DataBindXY(xValues, ltbDataSet.RSYearArray);
+            chart.Series["0"].Points.DataBindXY(XValues, ltbDataSet.RSYearArray);
             chart.Series["0"].Color = System.Drawing.Color.Green;
-            chart.Series["1"].Points.DataBindXY(xValues, ltbDataSet.StockYearArray);
+            chart.Series["1"].Points.DataBindXY(XValues, ltbDataSet.StockYearArray);
             chart.Series["1"].Color = System.Drawing.Color.Blue;
-            chart.Series["2"].Points.DataBindXY(xValues, ltbDataSet.SafetyYearArray);
+            chart.Series["2"].Points.DataBindXY(XValues, ltbDataSet.SafetyYearArray);
             chart.Series["2"].Color = System.Drawing.Color.Red;
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
 
             chart.SaveImage(ms);
-            BitmapImage image = new BitmapImage();
+            var image = new BitmapImage();
             image.BeginInit();
             image.StreamSource = ms;
             image.CacheOption = BitmapCacheOption.OnLoad;
             image.EndInit();
             return image;
         }
-        static string[] xValues = {
+        static readonly string[] XValues = {
 		"LTB",
 		"+1Year",
 		"+2Year",
