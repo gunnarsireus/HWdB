@@ -2,6 +2,7 @@
 using HWdB.Model;
 using HWdB.MVVMFramework;
 using HWdB.Utils;
+using LTBCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -232,9 +233,7 @@ namespace HWdB.ViewModels
             {
                 UiServices.SetBusyState();
                 Calculator.CalculateLtb(CurrentLtbDataSet);
-
-                //Visa som 3D
-                CurrentLtbDataSet.LtbChart= Presenter.GetChart(CurrentLtbDataSet);
+                Presenter.GetChart(CurrentLtbDataSet);
                 SaveLtbDataSet(CurrentLtbDataSet);
             }
         }
@@ -283,8 +282,8 @@ namespace HWdB.ViewModels
         private void ClearResultChartErrors(object parameter)
         {
             Presenter.ClearResult(CurrentLtbDataSet);
-            Presenter.ClearChartData(CurrentLtbDataSet);
-            CurrentLtbDataSet.LtbChart= Presenter.GetChart(CurrentLtbDataSet);
+            CurrentLtbDataSet.ClearChart();
+            Presenter.GetChart(CurrentLtbDataSet);
         }
 
         private void CreateNewCurrentLtbDataSet(object parameter)

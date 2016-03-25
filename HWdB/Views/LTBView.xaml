@@ -691,7 +691,7 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
-                <Image Name="Chart" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="10" Source="{Binding LtbChart}" Width="500" Height="85"/>
+                <Image Name="Chart" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="10" Source="{Binding LtbChart}" Width="1500" Height="85"/>
 			</Grid>
 		</Viewbox>
 	</Grid>

@@ -54,9 +54,9 @@
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="LTBCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LTBCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\LTBCommon.dll</HintPath>
+      <HintPath>Libs\LTBCore.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NMath, Version=5.2.0.0, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
@@ -128,7 +128,9 @@
     <Compile Include="Utils\Calculator.cs" />
     <Compile Include="Utils\LoggedInUser.cs" />
     <Compile Include="Utils\DateTimeUtil.cs" />
-    <Compile Include="Utils\Mathematics.cs" />
+    <Compile Include="Utils\Mathematics.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\Presenter.cs" />
     <Compile Include="Utils\UIServices.cs" />
     <Compile Include="Utils\WaterMark.cs" />
@@ -283,7 +285,7 @@
     <Content Include="Libs\EntityFramework.dll" />
     <Resource Include="Libs\EntityFramework.xml" />
     <Content Include="Libs\LTBCommon.dll" />
-    <Content Include="Libs\LTBCommon.pdb" />
+    <Content Include="Libs\LTBCore.dll" />
     <Content Include="Libs\NMath.dll" />
     <Resource Include="Libs\NMath.xml" />
     <Content Include="Libs\NMathChartMicrosoft.dll" />

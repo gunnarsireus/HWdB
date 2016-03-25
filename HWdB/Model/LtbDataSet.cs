@@ -7,6 +7,7 @@ using MHWdB.CustomValidationAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace HWdB.Model
@@ -17,13 +18,21 @@ namespace HWdB.Model
         {
             Customer = "";
             Version = "";
-            StockYearArray = new long[LTBCommon.MaxYear + 1];
+            ClearChart();
+        }
 
-            RSYearArray = new long[LTBCommon.MaxYear + 1];
-
-            SafetyYearArray = new long[LTBCommon.MaxYear + 1];
-            Presenter.ClearChartData(this);
-            LtbChart = Presenter.GetChart(this);
+        public void ClearChart()
+        {
+            LtbChart = ConvertToBitmapImage(LtbCommon.GetEmptyChart(900));
+        }
+        public BitmapImage ConvertToBitmapImage(MemoryStream stream)
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            return image;
         }
 
         bool _loopOk;
@@ -562,11 +571,11 @@ namespace HWdB.Model
             set { SetValue(() => InfoText, value); }
         }
         [NotMappedAttribute]
-        public long[] StockYearArray = new long[LTBCommon.MaxYear + 1];
+        public long[] StockYearArray = new long[LtbCommon.MaxYear + 1];
         [NotMappedAttribute]
-        public long[] RSYearArray = new long[LTBCommon.MaxYear + 1];
+        public long[] RSYearArray = new long[LtbCommon.MaxYear + 1];
         [NotMappedAttribute]
-        public long[] SafetyYearArray = new long[LTBCommon.MaxYear + 1];
+        public long[] SafetyYearArray = new long[LtbCommon.MaxYear + 1];
 
         [NotMappedAttribute]
         public BitmapImage LtbChart
@@ -574,6 +583,7 @@ namespace HWdB.Model
             get { return GetValue(() => LtbChart); }
             set { SetValue(() => LtbChart, value); }
         }
+
         [NotMappedAttribute]
         public string YearLabel0
         {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HWdB.Model;
-using System.Windows.Media.Imaging;
-using System.IO;
+﻿using HWdB.Model;
 using LTBCore;
+using System;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace HWdB.Utils
 {
@@ -226,7 +222,7 @@ namespace HWdB.Utils
                     break;
                 default: break;
             }
-            while (cnt <= LTBCommon.MaxYear)
+            while (cnt <= LtbCommon.MaxYear)
             {
                 switch (cnt)
                 {

@@ -1,149 +1,115 @@
 ﻿using CenterSpace.NMath.Core;
-using CenterSpace.NMath.Stats;
 using HWdB.Model;
 using LTBCore;
 using System;
+using System.IO;
 
 namespace HWdB.Utils
 {
     class Calculator
     {
-        static string GetConfidenceLLevelFromAverage(double confidenceLevel, double average)
+        private static readonly int[] InstalledBasePerYear = new int[LtbCommon.MaxYear + 1];
+        private static readonly double[] FailureRatePerYear = new double[LtbCommon.MaxYear + 1];
+        private static readonly double[] RepairLossPerYear = new double[LtbCommon.MaxYear + 1];
+        private static readonly int[] RegionalStocksPerYear = new int[LtbCommon.MaxYear + 1];
+
+        private static string _stock = string.Empty;
+        private static string _safety = string.Empty;
+        private static string _failed = string.Empty;
+        private static string _repaired = string.Empty;
+        private static string _lost = string.Empty;
+        private static string _total = string.Empty;
+        private static MemoryStream _ltbChart;
+
+        private static double _confidenceLevelConverted;
+        private static DateTime LifeTimeBuy { get; set; }
+        private static DateTime EndOfService { get; set; }
+
+        public static int RoundUpInt(double x, int y)
         {
-            string functionReturnValue = null;
-            if (average <= 0)
-            {
-                functionReturnValue = " (100%)";
-                return functionReturnValue;
-            }
-            if (average < 2492000)
-            {
-                var poisson = new PoissonDistribution(average);
-                double tmp = 0;
-                NMathConfiguration.Init();
-                tmp = poisson.CDF(Math.Round(average, 0));
-                //tmp = 0.75
-                if (tmp > confidenceLevel)
-                {
-                    functionReturnValue = " (" + (100 * Math.Round(tmp, 2)).ToString() + "%)";
-                }
-                else
-                {
-                    functionReturnValue = string.Empty;
-                }
-            }
-            else
-            {
-                functionReturnValue = string.Empty;
-            }
-            return functionReturnValue;
+            return Convert.ToInt32(Math.Round(x + 0.49999999999, y));
+        }
+        private static bool IsLeapYear(long year)
+        {
+            return (year > 0) && (year % 4) == 0 && !((year % 100) == 0 && (year % 400) != 0);
         }
 
-        static string GetConfidenceLevelFromStock(double stock, double safety)
+        private static long CountLeaps(long year)
         {
-            string functionReturnValue = null;
-            if (stock == 0)
+            return (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+        }
+        private static int ServiceDays
+        {
+            get
             {
-                functionReturnValue = " (100%)";
-                return functionReturnValue;
+                return Convert.ToInt32(DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, LifeTimeBuy, EndOfService));
             }
-            if (stock < 2492000)
-            {
-                var poisson = new PoissonDistribution(stock);
-                double tmp = 0;
-                NMathConfiguration.Init();
-                tmp = poisson.CDF(Math.Round(stock + safety, 0));
-                functionReturnValue = " (" + (100 * Math.Round(tmp, 4)).ToString() + "%)";
-            }
-            else
-            {
-                functionReturnValue = string.Empty;
-            }
-            return functionReturnValue;
         }
 
-        static long GetSafetyFromAverage(double confidenceLevel, double average)
+        private static int ServiceYears
         {
-            long functionReturnValue = 0;
-            if (average <= 0)
+            get
             {
-                functionReturnValue = 0;
-                return functionReturnValue;
-            }
-
-            if (average < 2492000)
-            {
-                var poisson = new PoissonDistribution(average);
-                long K = 0;
-                K = Convert.ToInt64(Math.Round(average, 0));
-
-                while (poisson.CDF(K) < confidenceLevel)
+                if (LifeTimeBuy.Year == EndOfService.Year)
                 {
-                    K = K + 1;
+                    return 0;
                 }
 
-                functionReturnValue = Convert.ToInt64(Math.Round(K - average, 0));
-                if (functionReturnValue < 0)
-                    functionReturnValue = 0;
+                var newYear = Convert.ToDateTime(LifeTimeBuy.Year + "-01-01");
+                if (IsLeapYear(LifeTimeBuy.Year) &
+                    DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, newYear, LifeTimeBuy) < 59)
+                {
+                    return
+                        Convert.ToInt32(
+                            (DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, LifeTimeBuy, EndOfService) +
+                             CountLeaps(LifeTimeBuy.Year) - CountLeaps(EndOfService.Year) - 2) / 365);
+                }
+                return
+                    Convert.ToInt32((DateTimeUtil.DateDiff(DateTimeUtil.DateInterval.Day, LifeTimeBuy, EndOfService) +
+                                     CountLeaps(LifeTimeBuy.Year) - CountLeaps(EndOfService.Year) - 1) / 365);
             }
-            else
-            {
-                functionReturnValue = Mathematics.RoundLong(Mathematics.NormSInv(confidenceLevel) * Mathematics.Sqr(average), 0);
-            }
-            return functionReturnValue;
         }
 
-        static long GetSafetyFromGamma(double confidenceLevel, double fromAverage, double returned)
+        static void ConvertFromViewModel(LtbDataSet ltbDataSet, out double getConfidenceLevelFromNormsInv)
         {
-            var returnValue = (long)(Mathematics.Calcreserve((int)Mathematics.RoundLong(returned, 0), 1, confidenceLevel) - fromAverage);
-            if (returnValue < 0) returnValue = 0;
-            if (returnValue > fromAverage) returnValue = (long)fromAverage;
-
-            return returnValue;
-        }
-
-
-        static void ConvertFromViewModel(LtbDataSet ltbDataSet, out double ConfidenceLevelFromNormsInv)
-        {
-            var serviceDays = Convert.ToDouble(ltbDataSet.ServiceDays);
-            var finalYear = Mathematics.ServiceYears(ltbDataSet);
-            var leadDays = Convert.ToDouble(ltbDataSet.RepairLeadTime);
+            LifeTimeBuy = Convert.ToDateTime(ltbDataSet.LTBDate);
+            EndOfService = Convert.ToDateTime(ltbDataSet.EOSDate);
 
             var cnt = 0;
-            ConfidenceLevelFromNormsInv = 0.0;
+            getConfidenceLevelFromNormsInv = 0.0;
 
             switch (ltbDataSet.ConfidenceLevel)
             {
                 //Confidence Level
 
                 case "60%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.6);
-                    _confidenceLevelDbl = 0.6;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.6);
+                    _confidenceLevelConverted = 0.6;
 
                     break;
                 case "70%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.7);
-                    _confidenceLevelDbl = 0.7;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.7);
+                    _confidenceLevelConverted = 0.7;
 
                     break;
                 case "80%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.8);
-                    _confidenceLevelDbl = 0.8;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.8);
+                    _confidenceLevelConverted = 0.8;
 
                     break;
                 case "90%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.9);
-                    _confidenceLevelDbl = 0.9;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.9);
+                    _confidenceLevelConverted = 0.9;
 
                     break;
                 case "95%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.95);
-                    _confidenceLevelDbl = 0.95;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.95);
+                    _confidenceLevelConverted = 0.95;
 
                     break;
                 case "99,5%":
-                    ConfidenceLevelFromNormsInv = Mathematics.ConfidenceLevelFromNormsInv(0.995);
-                    _confidenceLevelDbl = 0.995;
+                    getConfidenceLevelFromNormsInv = LtbCommon.GetConfidenceLevelFromNormsInv(0.995);
+                    _confidenceLevelConverted = 0.995;
 
                     break;
 
@@ -151,78 +117,78 @@ namespace HWdB.Utils
 
             cnt = 0;
 
-            while (cnt <= finalYear)
+            while (cnt <= ServiceYears)
             {
                 switch (cnt)
                 {
                     case 0:
-                        _installedBaseIn[0] = Convert.ToInt64(ltbDataSet.IB0);
-                        _regionalStocksIn[0] = Convert.ToInt64(ltbDataSet.RS0);
-                        _failureRateIn[0] = Convert.ToDouble(ltbDataSet.FR0);
-                        _repairLossIn[0] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL0) / 100);
+                        InstalledBasePerYear[0] = Convert.ToInt32(ltbDataSet.IB0);
+                        RegionalStocksPerYear[0] = Convert.ToInt32(ltbDataSet.RS0);
+                        FailureRatePerYear[0] = Convert.ToDouble(ltbDataSet.FR0);
+                        RepairLossPerYear[0] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL0) / 100);
 
                         break;
                     case 1:
-                        _installedBaseIn[1] = Convert.ToInt64(ltbDataSet.IB1);
-                        _regionalStocksIn[1] = Convert.ToInt64(ltbDataSet.RS1);
-                        _failureRateIn[1] = Convert.ToDouble(ltbDataSet.FR1);
-                        _repairLossIn[1] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL1) / 100);
+                        InstalledBasePerYear[1] = Convert.ToInt32(ltbDataSet.IB1);
+                        RegionalStocksPerYear[1] = Convert.ToInt32(ltbDataSet.RS1);
+                        FailureRatePerYear[1] = Convert.ToDouble(ltbDataSet.FR1);
+                        RepairLossPerYear[1] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL1) / 100);
 
                         break;
                     case 2:
-                        _installedBaseIn[2] = Convert.ToInt64(ltbDataSet.IB2);
-                        _regionalStocksIn[2] = Convert.ToInt64(ltbDataSet.RS2);
-                        _failureRateIn[2] = Convert.ToDouble(ltbDataSet.FR2);
-                        _repairLossIn[2] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL2) / 100);
+                        InstalledBasePerYear[2] = Convert.ToInt32(ltbDataSet.IB2);
+                        RegionalStocksPerYear[2] = Convert.ToInt32(ltbDataSet.RS2);
+                        FailureRatePerYear[2] = Convert.ToDouble(ltbDataSet.FR2);
+                        RepairLossPerYear[2] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL2) / 100);
 
                         break;
                     case 3:
-                        _installedBaseIn[3] = Convert.ToInt64(ltbDataSet.IB3);
-                        _regionalStocksIn[3] = Convert.ToInt64(ltbDataSet.RS3);
-                        _failureRateIn[3] = Convert.ToDouble(ltbDataSet.FR3);
-                        _repairLossIn[3] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL3) / 100);
+                        InstalledBasePerYear[3] = Convert.ToInt32(ltbDataSet.IB3);
+                        RegionalStocksPerYear[3] = Convert.ToInt32(ltbDataSet.RS3);
+                        FailureRatePerYear[3] = Convert.ToDouble(ltbDataSet.FR3);
+                        RepairLossPerYear[3] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL3) / 100);
 
                         break;
                     case 4:
-                        _installedBaseIn[4] = Convert.ToInt64(ltbDataSet.IB4);
-                        _regionalStocksIn[4] = Convert.ToInt64(ltbDataSet.RS4);
-                        _failureRateIn[4] = Convert.ToDouble(ltbDataSet.FR4);
-                        _repairLossIn[4] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL4) / 100);
+                        InstalledBasePerYear[4] = Convert.ToInt32(ltbDataSet.IB4);
+                        RegionalStocksPerYear[4] = Convert.ToInt32(ltbDataSet.RS4);
+                        FailureRatePerYear[4] = Convert.ToDouble(ltbDataSet.FR4);
+                        RepairLossPerYear[4] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL4) / 100);
 
                         break;
                     case 5:
-                        _installedBaseIn[5] = Convert.ToInt64(ltbDataSet.IB5);
-                        _regionalStocksIn[5] = Convert.ToInt64(ltbDataSet.RS5);
-                        _failureRateIn[5] = Convert.ToDouble(ltbDataSet.FR5);
-                        _repairLossIn[5] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL5) / 100);
+                        InstalledBasePerYear[5] = Convert.ToInt32(ltbDataSet.IB5);
+                        RegionalStocksPerYear[5] = Convert.ToInt32(ltbDataSet.RS5);
+                        FailureRatePerYear[5] = Convert.ToDouble(ltbDataSet.FR5);
+                        RepairLossPerYear[5] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL5) / 100);
 
                         break;
                     case 6:
-                        _installedBaseIn[6] = Convert.ToInt64(ltbDataSet.IB6);
-                        _regionalStocksIn[6] = Convert.ToInt64(ltbDataSet.RS6);
-                        _failureRateIn[6] = Convert.ToDouble(ltbDataSet.FR6);
-                        _repairLossIn[6] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL6) / 100);
+                        InstalledBasePerYear[6] = Convert.ToInt32(ltbDataSet.IB6);
+                        RegionalStocksPerYear[6] = Convert.ToInt32(ltbDataSet.RS6);
+                        FailureRatePerYear[6] = Convert.ToDouble(ltbDataSet.FR6);
+                        RepairLossPerYear[6] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL6) / 100);
 
                         break;
                     case 7:
-                        _installedBaseIn[7] = Convert.ToInt64(ltbDataSet.IB7);
-                        _regionalStocksIn[7] = Convert.ToInt64(ltbDataSet.RS7);
-                        _failureRateIn[7] = Convert.ToDouble(ltbDataSet.FR7);
-                        _repairLossIn[7] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL7) / 100);
+                        InstalledBasePerYear[7] = Convert.ToInt32(ltbDataSet.IB7);
+                        RegionalStocksPerYear[7] = Convert.ToInt32(ltbDataSet.RS7);
+                        FailureRatePerYear[7] = Convert.ToDouble(ltbDataSet.FR7);
+                        RepairLossPerYear[7] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL7) / 100);
 
                         break;
                     case 8:
-                        _installedBaseIn[8] = Convert.ToInt64(ltbDataSet.IB8);
-                        _regionalStocksIn[8] = Convert.ToInt64(ltbDataSet.RS8);
-                        _failureRateIn[8] = Convert.ToDouble(ltbDataSet.FR8);
-                        _repairLossIn[8] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL8) / 100);
+                        InstalledBasePerYear[8] = Convert.ToInt32(ltbDataSet.IB8);
+                        RegionalStocksPerYear[8] = Convert.ToInt32(ltbDataSet.RS8);
+                        FailureRatePerYear[8] = Convert.ToDouble(ltbDataSet.FR8);
+                        RepairLossPerYear[8] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL8) / 100);
 
                         break;
                     case 9:
-                        _installedBaseIn[9] = Convert.ToInt64(ltbDataSet.IB9);
-                        _regionalStocksIn[9] = Convert.ToInt64(ltbDataSet.RS9);
-                        _failureRateIn[9] = Convert.ToDouble(ltbDataSet.FR9);
-                        _repairLossIn[9] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL9) / 100);
+                        InstalledBasePerYear[9] = Convert.ToInt32(ltbDataSet.IB9);
+                        RegionalStocksPerYear[9] = Convert.ToInt32(ltbDataSet.RS9);
+                        FailureRatePerYear[9] = Convert.ToDouble(ltbDataSet.FR9);
+                        RepairLossPerYear[9] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL9) / 100);
 
                         break;
                 }
@@ -235,7 +201,7 @@ namespace HWdB.Utils
         static void ClearRemains(LtbDataSet ltbDataSet, int startYear)
         {
             var cnt = startYear;
-            while (cnt <= LTBCommon.MaxYear)
+            while (cnt <= LtbCommon.MaxYear)
             {
                 switch (cnt)
                 {
@@ -307,50 +273,13 @@ namespace HWdB.Utils
             }
         }
 
-        static long _fromGamma;
-        static long _fromAverage;
-        //const long MaxYear = 10;
-        const long MinRepairLeadTime = 2;
-        const long MaxRepairLeadTime = 365;
-        const long MaxServiceDays = LTBCommon.MaxYear * 365 + 2;
-        const long MaxDayArr = MaxServiceDays + 365;
-        const long MaxLTArr = MaxServiceDays / MinRepairLeadTime + 2;
-        static long[] _installedBaseIn = new long[LTBCommon.MaxYear + 1];
-        static double[] _failureRateIn = new double[LTBCommon.MaxYear + 1];
-        static double[] _repairLossIn = new double[LTBCommon.MaxYear + 1];
-        static long[] _regionalStocksIn = new long[LTBCommon.MaxYear + 1];
-        static long[] _regionalStockArray = new long[MaxLTArr + 1];
-        static long[] _regionalStockDayArray = new long[MaxDayArr + 365];
-        static double[] _stockDayArray = new double[MaxDayArr + 365];
-        static double[] _returnedDayArray = new double[MaxDayArr + 365];
-        static double[] _sumDemandDayArray = new double[MaxDayArr + 365];
-        static double[] _installedBaseArray = new double[MaxLTArr + 1];
-        static double[] _failureRateArray = new double[MaxLTArr + 1];
-        static double[] _repairLossLArray = new double[MaxLTArr + 1];
-        static double[] _repairLossDayArray = new double[MaxDayArr + 365];
-        static double[] _stockArray = new double[MaxLTArr + 1];
-        static double[] _returnedArray = new double[MaxLTArr + 2];
-        static double[] _demandArray = new double[MaxLTArr + 1];
-        static double[] _sumDemandArray = new double[MaxLTArr + 1];
-        static double[] _fieldsStockRepairLeadTimeDemandArray = new double[MaxLTArr + 1];
-        static double[] _repairLossArray = new double[MaxLTArr + 1];
-        static double[] _sumRepairLossArray = new double[MaxLTArr + 1];
-        static double[] _repairArray = new double[MaxLTArr + 1];
-        static double[] _sumRepairArray = new double[MaxLTArr + 1];
-        static double[] _safetyMarginArray = new double[MaxLTArr + 1];
-        static double[] _safetyMarginDayArray = new double[MaxDayArr + 365];
-        static double _confidenceLevelDbl;
         public static void CalculateLtb(LtbDataSet ltbDataSet)
         {
 
-            int NbrOfSamples;
-            double ConfidenceLevelFromNormsInv;
+            double getConfidenceLevelFromNormsInv;
             Presenter.ClearResult(ltbDataSet);
-            Presenter.ClearChartData(ltbDataSet);
             NMathConfiguration.LogLocation = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             NMathConfiguration.Init();
-            long stockPresent = 0;
-            long safetyPresent = 0;
 
             if (ltbDataSet.RepairLeadTime < 1 || ltbDataSet.RepairLeadTime > 365)
             {
@@ -365,60 +294,44 @@ namespace HWdB.Utils
                 return;
             }
 
-            if (ltbDataSet.ServiceDays > MaxServiceDays)
+            if (ltbDataSet.ServiceDays > LtbCommon.MaxServiceDays)
             {
                 Presenter.ClearResult(ltbDataSet);
                 ltbDataSet.InfoText = "Error: The Service Period cannot be longer than 10 years. Please change EoS or LTB.";
                 return;
             }
 
-            NbrOfSamples = Mathematics.RoundUpInt(ltbDataSet.ServiceDays / ltbDataSet.RepairLeadTime, 0);
+            var nbrOfSamples = RoundUpInt(ltbDataSet.ServiceDays / (double)ltbDataSet.RepairLeadTime, 0);
 
-            ConvertFromViewModel(ltbDataSet, out ConfidenceLevelFromNormsInv);
+            ConvertFromViewModel(ltbDataSet, out getConfidenceLevelFromNormsInv);
 
-            var ltb = new LTBCommon();
-            ltb.LTBWorker(NbrOfSamples, ltbDataSet.ServiceDays, ltbDataSet.RepairLeadTime, Mathematics.ServiceYears(ltbDataSet), ConfidenceLevelFromNormsInv, ref _installedBaseArray, ref _regionalStockArray, ref _failureRateArray, ref _repairLossLArray,
-            ref _stockArray, ref _returnedArray, ref _demandArray, ref _sumDemandArray, ref _repairLossArray, ref  _sumRepairLossArray, ref _repairArray, ref _sumRepairArray, ref _safetyMarginArray, ref _safetyMarginDayArray, ref _fieldsStockRepairLeadTimeDemandArray,
-            ref _installedBaseIn, ref  _failureRateIn, ref  _repairLossIn, ref  _regionalStocksIn, ref _regionalStockDayArray, ref  _repairLossDayArray, ref  _stockDayArray, ref  _returnedDayArray, ref  _sumDemandDayArray);
-            SetChartData(ltbDataSet);
-            ltbDataSet.LtbChart = Presenter.GetChart(ltbDataSet);
-            stockPresent = Mathematics.RoundLong(_stockArray[1], 0);
-            safetyPresent = ltbDataSet.SafetyYearArray[0];
+            var ltb = new LtbCommon(900);
+            ltb.LtbWorker(nbrOfSamples,
+                ServiceDays,
+                ServiceYears,
+                ltbDataSet.RepairLeadTime,
+                out _stock,
+                out _safety,
+                out _failed,
+                out _repaired,
+                out _lost,
+                out _total,
+                getConfidenceLevelFromNormsInv,
+                _confidenceLevelConverted,
+                InstalledBasePerYear,
+                FailureRatePerYear,
+                RepairLossPerYear,
+                RegionalStocksPerYear,
+                out _ltbChart,
+                NMathConfiguration.LogLocation);
 
-            ltbDataSet.Stock = stockPresent.ToString() + GetConfidenceLLevelFromAverage(_confidenceLevelDbl, _safetyMarginArray[1]).ToString();
-
-            if (safetyPresent > 0)
-            {
-                _fromAverage = GetSafetyFromAverage(_confidenceLevelDbl, _safetyMarginArray[1]);
-                ltbDataSet.Safety = safetyPresent.ToString() + GetConfidenceLevelFromStock(_safetyMarginArray[1], _fromAverage).ToString();
-            }
-            else
-            {
-                ltbDataSet.Safety = string.Empty;
-            }
-
-            ltbDataSet.TotalStock = Convert.ToString(stockPresent + safetyPresent);
-
-            ltbDataSet.Failed = Mathematics.RoundLong(_sumDemandArray[1], 0).ToString();
-
-            ltbDataSet.Repaired = Mathematics.RoundLong(_sumRepairArray[1] - _sumRepairLossArray[1], 0).ToString();
-
-            ltbDataSet.Lost = ltbDataSet.RepairPossible ? Mathematics.RoundUpLong(_sumRepairLossArray[1], 0).ToString() : "Nothing";
-        }
-
-        static void SetChartData(LtbDataSet ltbDataSet)
-        {
-            //For Chart
-            var yearCnt = 0;
-            while (yearCnt <= Mathematics.ServiceYears(ltbDataSet))
-            {
-                ltbDataSet.RSYearArray[yearCnt] = _regionalStockDayArray[yearCnt * 365 + 1];
-                ltbDataSet.StockYearArray[yearCnt] = Mathematics.RoundLong(_stockDayArray[yearCnt * 365 + 1] - _regionalStockDayArray[yearCnt * 365 + 1], 0);
-                _fromAverage = Mathematics.RoundLong(GetSafetyFromAverage(_confidenceLevelDbl, _safetyMarginDayArray[yearCnt * 365 + 1]), 0);
-                _fromGamma = Mathematics.RoundLong(GetSafetyFromGamma(_confidenceLevelDbl, _safetyMarginDayArray[yearCnt * 365 + 1] + _returnedDayArray[yearCnt * 365 + 1] + _fromAverage, _returnedDayArray[yearCnt * 365 + ltbDataSet.RepairLeadTime + 1]), 0);
-                ltbDataSet.SafetyYearArray[yearCnt] = _fromGamma + _fromAverage;
-                yearCnt = yearCnt + 1;
-            }
+            ltbDataSet.LtbChart = ltbDataSet.ConvertToBitmapImage(_ltbChart);
+            ltbDataSet.Stock = _stock;
+            ltbDataSet.Safety = _safety;
+            ltbDataSet.TotalStock = _total;
+            ltbDataSet.Failed = _failed;
+            ltbDataSet.Repaired = _repaired;
+            ltbDataSet.Lost = _lost;
         }
     }
 }
