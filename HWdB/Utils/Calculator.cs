@@ -301,13 +301,10 @@ namespace HWdB.Utils
                 return;
             }
 
-            var nbrOfSamples = RoundUpInt(ltbDataSet.ServiceDays / (double)ltbDataSet.RepairLeadTime, 0);
-
             ConvertFromViewModel(ltbDataSet, out getConfidenceLevelFromNormsInv);
 
-            var ltb = new LtbCommon(900);
-            ltb.LtbWorker(nbrOfSamples,
-                ServiceDays,
+            var ltb = new LtbCommon(900, 15);
+            ltb.LtbWorker(ServiceDays,
                 ServiceYears,
                 ltbDataSet.RepairLeadTime,
                 out _stock,

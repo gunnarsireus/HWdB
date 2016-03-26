@@ -23,7 +23,7 @@ namespace HWdB.Model
 
         public void ClearChart()
         {
-            LtbChart = ConvertToBitmapImage(LtbCommon.GetEmptyChart(900));
+            LtbChart = ConvertToBitmapImage(LtbCommon.GetEmptyChart(900, 15));
         }
         public BitmapImage ConvertToBitmapImage(MemoryStream stream)
         {
