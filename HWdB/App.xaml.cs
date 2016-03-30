@@ -27,8 +27,8 @@ namespace HWdB
 
             base.OnStartup(e);
 
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("de-DE");
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
             var lang = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(lang));
             FrameworkContentElement.LanguageProperty.OverrideMetadata(typeof(System.Windows.Documents.TextElement), new FrameworkPropertyMetadata(lang));
