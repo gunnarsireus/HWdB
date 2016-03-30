@@ -83,7 +83,7 @@
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="{Binding ButtonName}" FontSize="10" FontWeight="Bold"/>
+                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="0,1,1,0" HorizontalAlignment="Center" Content="{Binding Title}" FontSize="10" FontWeight="Bold"/>
             </Grid>
         </Viewbox>
         <Viewbox Stretch="Uniform">

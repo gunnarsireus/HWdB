@@ -2,9 +2,9 @@
 using HWdB.Model;
 using HWdB.MVVMFramework;
 using HWdB.Utils;
-using LTBCore;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -40,6 +40,8 @@ namespace HWdB.ViewModels
                 OnPropertyChanged("RepairIsPossible");
                 OnPropertyChanged("RepairNotPossible");
                 OnPropertyChanged("ShowRepairPossible");
+                OnPropertyChanged("MtbfIsSelected");
+                OnPropertyChanged("MtbfNotSelected");
             }
         }
 
@@ -110,10 +112,34 @@ namespace HWdB.ViewModels
                 RepairIsPossible = !value;
             }
         }
+
+        public bool MtbfIsSelected
+        {
+            get { return CurrentLtbDataSet.MtbfSelected; }
+            set
+            {
+                if (CurrentLtbDataSet.MtbfSelected != value)
+                {
+                    CurrentLtbDataSet.MtbfSelected = value;
+                    Presenter.ClearResult(CurrentLtbDataSet);
+                    CurrentLtbDataSet.ClearChart();
+                    Presenter.GetChart(CurrentLtbDataSet);
+                }
+            }
+        }
+        public bool MtbfNotSelected
+        {
+            get { return !CurrentLtbDataSet.MtbfSelected; }
+            set
+            {
+                MtbfIsSelected = !value;
+            }
+        }
         public string ShowRepairPossible
         {
             get { return CurrentLtbDataSet.RepairPossible ? "Repair Loss OK?" : "Repair not possible"; }
         }
+
         public LtbViewModel()
         {
             Title = "LTB";
@@ -245,7 +271,7 @@ namespace HWdB.ViewModels
                 if (NotStoredInDb(oldLtbDataSet))
                 {
                     UserLogs.Instance.UserErrorLog("Saved new LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
-                    ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                    ltbDataSet.Saved = DateTime.Now.ToString(new CultureInfo("en-US"));
                     if (ltbDataSet.Id == 0)
                     {
                         context.LtbDataSets.Add(ltbDataSet);
@@ -267,7 +293,7 @@ namespace HWdB.ViewModels
                 }
                 UserLogs.Instance.UserErrorLog("Updated LtbDataSet for Customer : " + ltbDataSet.Customer + " " + ltbDataSet.Version);
                 //ltbDataSet.Id = oldLtbDataSet.Id;
-                ltbDataSet.Saved = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                ltbDataSet.Saved = DateTime.Now.ToString(new CultureInfo("en-US"));
                 context.Entry(oldLtbDataSet).CurrentValues.SetValues(ltbDataSet);
                 context.Entry(oldLtbDataSet).State = System.Data.EntityState.Modified;
                 context.SaveChanges();
@@ -291,13 +317,14 @@ namespace HWdB.ViewModels
             CurrentLtbDataSet = new LtbDataSet()
             {
                 CreatedBy = LoggedInUser.Instance.UserLoggedin.UserName,
-                Customer = "Der Kunde GmbH",
+                Customer = "Huawei",
                 Version = "pa1",
                 Saved = "Press 'Calculate'",
-                LTBDate = DateTime.Now.ToString(),
-                EOSDate = DateTime.Now.AddDays(3652).ToString(),
+                LTBDate = DateTime.Now.ToString(new CultureInfo("en-US")),
+                EOSDate = DateTime.Now.AddDays(3652).ToString(new CultureInfo("en-US")),
                 RepairLeadTime = 182,
                 RepairPossible = true,
+                MtbfSelected = true,
                 ConfidenceLevel = "95%",
                 IB0 = "50",
                 IB1 = "50",

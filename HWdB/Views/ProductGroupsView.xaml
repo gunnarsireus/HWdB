@@ -27,7 +27,7 @@
                         <Border BorderBrush='Black'  BorderThickness='0,0,1,1'/>
                     </Border>
                 </Grid>
-                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="10,1,10,0" HorizontalAlignment="Center" Content="{Binding ButtonName}" FontSize="13" FontWeight="Bold"/>
+                <Label Grid.Row="0" Grid.Column="2" Padding="0,0,0,3" Margin="10,1,10,0" HorizontalAlignment="Center" Content="{Binding Title}" FontSize="13" FontWeight="Bold"/>
                 <Image Name="Export"  Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,0,0,0" VerticalAlignment="Stretch"  Grid.Row="1">
                     <Image.Source>
                         <BitmapImage UriSource = "pack://application:,,,/HWdB;component/Images/Frm_ProductGroups.jpg" />

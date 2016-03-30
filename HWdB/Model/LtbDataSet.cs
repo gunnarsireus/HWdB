@@ -151,6 +151,29 @@ namespace HWdB.Model
                 }
             }
         }
+
+        public bool MtbfSelected
+        {
+            get { return GetValue(() => MtbfSelected); }
+            set
+            {
+                ShowMtbfOrFr = value ? "MTBF [0.01 - 100000]:" : "Failure Rate [0.00001 - 100]:";
+                if (MtbfSelected != value)
+                {
+                    SetValue(() => MtbfSelected, value);
+                    OnPropertyChanged("MtbfIsSelected");
+                }
+            }
+        }
+
+        [NotMappedAttribute]
+        public string ShowMtbfOrFr
+        {
+            get { return GetValue(() => ShowMtbfOrFr); }
+            set { SetValue(() => ShowMtbfOrFr, value); }
+
+        }
+
         [RegularExpression(@"^([0]|[1-9][0-9]{0,4}|EoS)$", ErrorMessage = "Installed Base must be within 0 and 99999")]
         public string IB0
         {
@@ -278,61 +301,61 @@ namespace HWdB.Model
             get { return GetValue(() => IB10); }
             set { SetValue(() => IB10, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR0
         {
             get { return GetValue(() => FR0); }
             set { SetValue(() => FR0, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR1
         {
             get { return GetValue(() => FR1); }
             set { SetValue(() => FR1, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR2
         {
             get { return GetValue(() => FR2); }
             set { SetValue(() => FR2, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR3
         {
             get { return GetValue(() => FR3); }
             set { SetValue(() => FR3, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR4
         {
             get { return GetValue(() => FR4); }
             set { SetValue(() => FR4, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR5
         {
             get { return GetValue(() => FR5); }
             set { SetValue(() => FR5, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR6
         {
             get { return GetValue(() => FR6); }
             set { SetValue(() => FR6, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR7
         {
             get { return GetValue(() => FR7); }
             set { SetValue(() => FR7, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR8
         {
             get { return GetValue(() => FR8); }
             set { SetValue(() => FR8, value); }
         }
-        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][,][0-9]{0,4}[1-9]|[1-9][0-9][,][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
+        [RegularExpression(@"^([1-9]|[1-9][0-9]|100|[0-9][.][0-9]{0,4}[1-9]|[1-9][0-9][.][0-9]{0,4}[1-9])$", ErrorMessage = "Failure Rate must be within 0.00001 and 100")]
         public string FR9
         {
             get { return GetValue(() => FR9); }
@@ -657,6 +680,7 @@ namespace HWdB.Model
             RepairLeadTime = that.RepairLeadTime;
             ConfidenceLevel = that.ConfidenceLevel;
             RepairPossible = that.RepairPossible;
+            MtbfSelected = that.MtbfSelected;
 
             IB0 = that.IB0;
             IB1 = that.IB1;
