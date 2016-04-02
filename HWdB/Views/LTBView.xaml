@@ -71,8 +71,10 @@
                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,5">
                     <ListBox  Name="LtbDataSetBox" HorizontalAlignment="Center"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=LtbDataSetsObs}" ItemTemplate="{StaticResource listBoxTemplate}"  SelectedItem="{Binding SelectedListBoxItem}" SelectedIndex="{Binding SelectedIndex}"  Height="200" Width="190" />
                 </StackPanel>
-                <Button  Name="Next" Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
+                <Button  Name="Next" Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Center" FontSize="4" FontWeight="Bold" Margin="0,0,15,0">Next</Button>
                 <Button  Name="Previous" Command="{Binding PreviousCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Previous</Button>
+                <Button  Name="Read" Command="{Binding ReadCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="4" FontWeight="Bold" Margin="15,4,0,0">Read Excel</Button>
+
             </Grid>
 		</Viewbox>
 		<Viewbox Stretch="Uniform">
@@ -685,7 +687,7 @@
                     </Viewbox>
                 </Grid>
                 <Button Name="Calculate" Command="{Binding CalculateCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="13" Grid.Column="8" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Calculate</Button>
-                <Button  Name="Clear" Command="{Binding ClearCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="13" Grid.Column="9" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Clear</Button>
+                <Button  Name="Print" Command="{Binding PtintCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="13" Grid.Column="9" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Print Excel</Button>
                 <Button  Name="NewLtbDataSet" Command="{Binding NewLtbDataSetCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="14" Grid.Column="8" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">New</Button>
                 <Button  Name="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=This}" Width="27" Height="11"  Grid.Row="14" Grid.Column="9" HorizontalAlignment="Right"  FontSize="4" FontWeight="Bold">Delete</Button>
 			</Grid>

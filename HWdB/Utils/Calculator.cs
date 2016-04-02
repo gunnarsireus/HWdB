@@ -331,7 +331,7 @@ namespace HWdB.Utils
                 out _ltbChart,
                 NMathConfiguration.LogLocation);
 
-            ltbDataSet.LtbChart = ltbDataSet.ConvertToBitmapImage(_ltbChart);
+            ltbDataSet.LtbChart = ltbDataSet.ToBitmapImage(_ltbChart);
             ltbDataSet.Stock = _stock;
             ltbDataSet.Safety = _safety;
             ltbDataSet.TotalStock = _total;
