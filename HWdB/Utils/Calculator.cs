@@ -2,6 +2,7 @@
 using HWdB.Model;
 using LTBCore;
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace HWdB.Utils
@@ -133,70 +134,70 @@ namespace HWdB.Utils
                     case 0:
                         InstalledBasePerYear[0] = Convert.ToInt32(ltbDataSet.IB0);
                         RegionalStocksPerYear[0] = Convert.ToInt32(ltbDataSet.RS0);
-                        FailureRatePerYear[0] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR0));
+                        FailureRatePerYear[0] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR0, new CultureInfo("en-US")));
                         RepairLossPerYear[0] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL0) / 100);
 
                         break;
                     case 1:
                         InstalledBasePerYear[1] = Convert.ToInt32(ltbDataSet.IB1);
                         RegionalStocksPerYear[1] = Convert.ToInt32(ltbDataSet.RS1);
-                        FailureRatePerYear[1] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR1));
+                        FailureRatePerYear[1] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR1, new CultureInfo("en-US")));
                         RepairLossPerYear[1] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL1) / 100);
 
                         break;
                     case 2:
                         InstalledBasePerYear[2] = Convert.ToInt32(ltbDataSet.IB2);
                         RegionalStocksPerYear[2] = Convert.ToInt32(ltbDataSet.RS2);
-                        FailureRatePerYear[2] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR2));
+                        FailureRatePerYear[2] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR2, new CultureInfo("en-US")));
                         RepairLossPerYear[2] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL2) / 100);
 
                         break;
                     case 3:
                         InstalledBasePerYear[3] = Convert.ToInt32(ltbDataSet.IB3);
                         RegionalStocksPerYear[3] = Convert.ToInt32(ltbDataSet.RS3);
-                        FailureRatePerYear[3] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR3));
+                        FailureRatePerYear[3] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR3, new CultureInfo("en-US")));
                         RepairLossPerYear[3] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL3) / 100);
 
                         break;
                     case 4:
                         InstalledBasePerYear[4] = Convert.ToInt32(ltbDataSet.IB4);
                         RegionalStocksPerYear[4] = Convert.ToInt32(ltbDataSet.RS4);
-                        FailureRatePerYear[4] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR4));
+                        FailureRatePerYear[4] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR4, new CultureInfo("en-US")));
                         RepairLossPerYear[4] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL4) / 100);
 
                         break;
                     case 5:
                         InstalledBasePerYear[5] = Convert.ToInt32(ltbDataSet.IB5);
                         RegionalStocksPerYear[5] = Convert.ToInt32(ltbDataSet.RS5);
-                        FailureRatePerYear[5] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR5));
+                        FailureRatePerYear[5] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR5, new CultureInfo("en-US")));
                         RepairLossPerYear[5] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL5) / 100);
 
                         break;
                     case 6:
                         InstalledBasePerYear[6] = Convert.ToInt32(ltbDataSet.IB6);
                         RegionalStocksPerYear[6] = Convert.ToInt32(ltbDataSet.RS6);
-                        FailureRatePerYear[6] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR6));
+                        FailureRatePerYear[6] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR6, new CultureInfo("en-US")));
                         RepairLossPerYear[6] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL6) / 100);
 
                         break;
                     case 7:
                         InstalledBasePerYear[7] = Convert.ToInt32(ltbDataSet.IB7);
                         RegionalStocksPerYear[7] = Convert.ToInt32(ltbDataSet.RS7);
-                        FailureRatePerYear[7] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR7));
+                        FailureRatePerYear[7] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR7, new CultureInfo("en-US")));
                         RepairLossPerYear[7] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL7) / 100);
 
                         break;
                     case 8:
                         InstalledBasePerYear[8] = Convert.ToInt32(ltbDataSet.IB8);
                         RegionalStocksPerYear[8] = Convert.ToInt32(ltbDataSet.RS8);
-                        FailureRatePerYear[8] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR8));
+                        FailureRatePerYear[8] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR8, new CultureInfo("en-US")));
                         RepairLossPerYear[8] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL8) / 100);
 
                         break;
                     case 9:
                         InstalledBasePerYear[9] = Convert.ToInt32(ltbDataSet.IB9);
                         RegionalStocksPerYear[9] = Convert.ToInt32(ltbDataSet.RS9);
-                        FailureRatePerYear[9] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR9));
+                        FailureRatePerYear[9] = ConvertMtbfToFr(ltbDataSet, Convert.ToDouble(ltbDataSet.FR9, new CultureInfo("en-US")));
                         RepairLossPerYear[9] = Convert.ToDouble(Convert.ToDouble(ltbDataSet.RL9) / 100);
 
                         break;
